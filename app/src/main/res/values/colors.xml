@@ -6,6 +6,7 @@
 
     <color name="blue_grey">#455A64</color>
     <color name="red">#F44336</color>
+    <color name="red_disconnect">#FF0000</color>
     <color name="pink">#E91E63</color>
     <color name="purple">#9C27B0</color>
     <color name="deep_purple">#673AB7</color>
@@ -23,5 +24,6 @@
     <color name="deep_orange">#FF5722</color>
     <color name="brown">#795548</color>
     <color name="grey">#E0E0E0</color>
+    <color name="black">#313030</color>
 
 </resources>
