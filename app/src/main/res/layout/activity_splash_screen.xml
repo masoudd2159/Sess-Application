@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cyan"
-    tools:context=".activities.SplashScreenActivity">
+    tools:context=".activities.SplashScreenActivity"
+    tools:ignore="MissingPrefix">
 
     <ImageView
         android:layout_width="match_parent"
@@ -16,23 +17,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="-50dp"
+        android:layout_marginTop="-30dp"
         android:orientation="vertical"
         android:padding="10dp">
 
         <ImageView
-            android:layout_width="140dp"
-            android:layout_height="140dp"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
             android:layout_gravity="center"
             android:src="@drawable/sku_logo_white" />
 
         <TextView
-            style="@style/TextAppearance.AppCompat.Large"
-            android:layout_width="match_parent"
+            fontPath="fonts/Lalezar.ttf"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:textSize="30sp"
             android:gravity="center"
-            android:text="Shahrekord University \n Education Support Subsystem Application"
+            android:text="@string/shahrekord_university"
             android:textColor="@android:color/primary_text_dark" />
 
     </LinearLayout>
@@ -51,10 +54,10 @@
         style="@style/TextAppearance.AppCompat.Small"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:visibility="invisible"
         android:layout_gravity="bottom"
         android:background="@color/cyan"
         android:text="@string/try_again"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:visibility="invisible" />
 
 </FrameLayout>

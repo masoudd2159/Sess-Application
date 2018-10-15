@@ -7,11 +7,11 @@ import android.provider.Settings;
 
 public class IntentHelper {
 
-    private static void openWiFiSettingScreen(Context context){
+    static void openWiFiSettingScreen(Context context){
         context.startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
     }
 
-    private static void openDataUsageScreen(Context context){
+    static void openDataUsageScreen(Context context){
         Intent intent = new Intent();
         intent.setComponent(new ComponentName("com.android.settings",
                 "com.android.settings.Settings$DataUsageSummaryActivity"));

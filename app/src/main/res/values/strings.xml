@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">Sess Application</string>
-    <string name="try_again">Try Again</string>
+
+    <string name="try_again">تلاش مجدد</string>
+    <string name="shahrekord_university">دانشگاه شهرکرد</string>
+
+    <string name="disconnect_title">عدم اتصال به اینترنت</string>
+    <string name="disconnect_description">اتصال شما به اینترنت برقرار نیست. برای استفاده از این سرویس به اینترنت متصل شوید.</string>
+    <string name="disconnect_wifi">اینترنت Wi-Fi</string>
+    <string name="disconnect_data">اینترنت موبایل</string>
+
 </resources>

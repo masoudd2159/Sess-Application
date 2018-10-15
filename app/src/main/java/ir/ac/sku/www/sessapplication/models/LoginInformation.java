@@ -1,6 +1,6 @@
 package ir.ac.sku.www.sessapplication.models;
 
-public class loginInformation {
+public class LoginInformation {
     private boolean ok;
     private String cookie;
 
