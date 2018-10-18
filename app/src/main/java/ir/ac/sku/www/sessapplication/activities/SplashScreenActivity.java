@@ -16,6 +16,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import ir.ac.sku.www.sessapplication.API.Config;
 import ir.ac.sku.www.sessapplication.R;
@@ -26,18 +28,20 @@ import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
 public class SplashScreenActivity extends MyActivity {
 
-    private static final int SPLASH_TIME = 3000;  //millisecond
+    private static final int SPLASH_TIME = 1500;  //millisecond
 
     RequestQueue queue;
 
     Button tryAgain;
-
+    Gson gson;
     LoginInformation loginInformation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        loginInformation = new LoginInformation();
+        gson = new Gson();
         tryAgain = findViewById(R.id.buttonTryAgain_SplashScreen);
         changeStatusBarColor();
         requestProcess();
@@ -79,7 +83,8 @@ public class SplashScreenActivity extends MyActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        loginInformation = new LoginInformationJSONParser().parserJSON(response);
+                        loginInformation = gson.fromJson(response, LoginInformation.class);
+                        // loginInformation = new LoginInformationJSONParser().parserJSON(response);
                     }
                 },
                 new Response.ErrorListener() {
@@ -98,13 +103,15 @@ public class SplashScreenActivity extends MyActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            intent = new Intent(SplashScreenActivity.this, MainActivity.class);
+            intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
         }
 
         @Override
         protected Object doInBackground(Object[] objects) {
             try {
                 Thread.sleep(SPLASH_TIME);
+                intent.putExtra("ok", loginInformation.isOk());
+                intent.putExtra("cookie", loginInformation.getCookie());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -114,8 +121,7 @@ public class SplashScreenActivity extends MyActivity {
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
-
-            if (loginInformation != null) {
+            if (loginInformation.isOk()) {
                 startActivity(intent);
                 finish();
             }

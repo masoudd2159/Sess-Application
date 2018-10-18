@@ -17,7 +17,7 @@ public class LoginInformationJSONParser {
     private static final String OK = "ok";
     private static final String COOKIE = "cookie";
 
-    public LoginInformation parserJSON(String jsonString) {
+    /*public LoginInformation parserJSON(String jsonString) {
         LoginInformation loginInformation = new LoginInformation();
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
@@ -30,5 +30,5 @@ public class LoginInformationJSONParser {
             e1.printStackTrace();
         }
         return null;
-    }
+    }*/
 }

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_login"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".activities.LoginActivity">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+
+    <LinearLayout
+        android:id="@+id/login_form_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/logoImage_LoginActivity"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="15dp"
+            android:src="@drawable/sku_logo_white" />
+
+        <android.support.v7.widget.CardView
+            android:layout_width="@dimen/second_card_width"
+            android:layout_height="@dimen/second_card_height"
+            android:layout_marginBottom="12dp"
+            app:cardBackgroundColor="@color/lite_background"
+            app:cardCornerRadius="@dimen/first_card_radius"
+            app:cardElevation="0dp">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="@dimen/first_card_width"
+                android:layout_height="@dimen/first_card_height"
+                android:layout_gravity="center"
+                app:cardBackgroundColor="@color/transparent"
+                app:cardCornerRadius="@dimen/second_card_radius"
+                app:cardElevation="0dp">
+
+                <EditText
+                    android:id="@+id/userLogin"
+                    android:layout_width="@dimen/edit_text_width"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:hint="@string/user"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:maxLines="1"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/white"
+                    android:textSize="17sp" />
+
+            </android.support.v7.widget.CardView>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="@dimen/second_card_width"
+            android:layout_height="@dimen/second_card_height"
+            android:layout_marginBottom="12dp"
+            app:cardBackgroundColor="@color/lite_background"
+            app:cardCornerRadius="@dimen/first_card_radius"
+            app:cardElevation="0dp">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="@dimen/first_card_width"
+                android:layout_height="@dimen/first_card_height"
+                android:layout_gravity="center"
+                app:cardBackgroundColor="@color/transparent"
+                app:cardCornerRadius="@dimen/second_card_radius"
+                app:cardElevation="0dp">
+
+                <EditText
+                    android:id="@+id/passwordLogin"
+                    android:layout_width="@dimen/edit_text_width"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:maxLength="75"
+                    android:maxLines="1"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/white"
+                    android:textSize="17sp" />
+            </android.support.v7.widget.CardView>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="@dimen/second_card_width"
+            android:layout_height="@dimen/second_card_height"
+            android:layout_marginBottom="12dp"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="18dp">
+
+            <ImageView
+                android:id="@+id/imageViewCaptcha_LoginActivity"
+                android:layout_width="@dimen/edit_text_width"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="@dimen/second_card_width"
+            android:layout_height="@dimen/second_card_height"
+            app:cardBackgroundColor="@color/lite_background"
+            app:cardCornerRadius="@dimen/first_card_radius"
+            app:cardElevation="0dp">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="@dimen/first_card_width"
+                android:layout_height="@dimen/first_card_height"
+                android:layout_gravity="center"
+                app:cardBackgroundColor="@color/transparent"
+                app:cardCornerRadius="@dimen/second_card_radius"
+                app:cardElevation="0dp">
+
+                <EditText
+                    android:id="@+id/securityTagLogin"
+                    android:layout_width="@dimen/edit_text_width"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:hint="@string/security_tag"
+                    android:inputType="textVisiblePassword"
+                    android:maxLength="5"
+                    android:maxLines="1"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/white"
+                    android:textSize="17sp" />
+            </android.support.v7.widget.CardView>
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/enter_LoginActivity"
+        style="@style/TextAppearance.AppCompat.Large"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/blue"
+        android:onClick="onEnterClickListener"
+        android:text="@string/enter"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>
