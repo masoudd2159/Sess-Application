@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs xmlns:android="http://schemas.android.com/apk/res/android">
+    <tab
+        activeColor="@color/black"
+        barColorWhenSelected="@android:color/white"
+        icon="@drawable/ic_home3x"
+        id="@+id/tab_Home"
+        inActiveColor="@color/blue_grey"
+        title="خانه" />
+
+    <tab
+        activeColor="@color/black"
+        barColorWhenSelected="@android:color/white"
+        icon="@drawable/ic_food3x"
+        id="@+id/tab_FoodReservation"
+        inActiveColor="@color/blue_grey"
+        title="رزرو غذا" />
+
+    <tab
+        activeColor="@color/black"
+        barColorWhenSelected="@android:color/white"
+        icon="@drawable/ic_process3x"
+        id="@+id/tab_Processes"
+        inActiveColor="@color/blue_grey"
+        title="فرایند ها" />
+
+    <tab
+        activeColor="@color/black"
+        barColorWhenSelected="@android:color/white"
+        icon="@drawable/ic_message3x"
+        id="@+id/tab_Messages"
+        inActiveColor="@color/blue_grey"
+        title="پیام ها" />
+
+</tabs>

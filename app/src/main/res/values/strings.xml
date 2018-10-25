@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Sess Application</string>
+    <string name="app_name">دانشگاه شهرکرد</string>
 
     <string name="try_again">تلاش مجدد</string>
     <string name="shahrekord_university">دانشگاه شهرکرد</string>
@@ -12,5 +12,20 @@
     <string name="password">کلمه عبور</string>
     <string name="security_tag">عبارت امنیتی</string>
     <string name="enter">ورود</string>
+    <string name="increase_credit">افزایش اعتبار</string>
+    <string name="next_week">هفته بعد</string>
+    <string name="back_week">هفته قبل</string>
+    <string name="dinner">شام</string>
+    <string name="lunch">ناهار</string>
+    <string name="breakfast">صبحانه</string>
+    <string name="condition">روز / وعده</string>
+    <string name="reservation">رزرو</string>
+    <string name="saturday">شنبه</string>
+    <string name="sunday">یک شنبه</string>
+    <string name="monday">دوشنبه</string>
+    <string name="tuesday">سه شنبه</string>
+    <string name="wednesday">چهارشنبه</string>
+    <string name="thursday">پنج شنبه</string>
+    <string name="friday">جمعه</string>
 
 </resources>

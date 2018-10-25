@@ -13,5 +13,16 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.TransNav" parent="AppTheme" />
+
+    <style name="Reservation_black">
+        <item name="android:background">@drawable/reservation_background_black</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="Reservation_green">
+        <item name="android:background">@drawable/reservation_background_lite_green</item>
+        <item name="android:textColor">@color/green</item>
+    </style>
 
 </resources>

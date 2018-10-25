@@ -5,6 +5,15 @@ import java.util.List;
 public class SendInformation {
     private boolean ok;
     private Result result;
+    private Description description;
+
+    public Description getDescription() {
+        return description;
+    }
+
+    public void setDescription(Description description) {
+        this.description = description;
+    }
 
     public boolean isOk() {
         return ok;
@@ -24,7 +33,7 @@ public class SendInformation {
 
     public class Result {
         private List<InstantMessage> instantMessages;
-        private UserInfomation userInfomation;
+        private UserInformation userInformation;
 
 
         public List<InstantMessage> getInstantMessages() {
@@ -35,54 +44,55 @@ public class SendInformation {
             this.instantMessages = instantMessages;
         }
 
-        public UserInfomation getUserInfomation() {
-            return userInfomation;
+        public UserInformation getUserInformation() {
+            return userInformation;
         }
 
-        public void setUserInfomation(UserInfomation userInfomation) {
-            this.userInfomation = userInfomation;
+        public void setUserInformation(UserInformation userInformation) {
+            this.userInformation = userInformation;
         }
 
         public class InstantMessage {
-            private String a;
-            private String b;
-            private String c;
-            private String d;
+            private String sender;
+            private String date;
+            private String text;
+            private boolean attachment;
 
-            public String getA() {
-                return a;
+
+            public String getSender() {
+                return sender;
             }
 
-            public void setA(String a) {
-                this.a = a;
+            public void setSender(String sender) {
+                this.sender = sender;
             }
 
-            public String getB() {
-                return b;
+            public String getDate() {
+                return date;
             }
 
-            public void setB(String b) {
-                this.b = b;
+            public void setDate(String date) {
+                this.date = date;
             }
 
-            public String getC() {
-                return c;
+            public String getText() {
+                return text;
             }
 
-            public void setC(String c) {
-                this.c = c;
+            public void setText(String text) {
+                this.text = text;
             }
 
-            public String getD() {
-                return d;
+            public boolean isAttachment() {
+                return attachment;
             }
 
-            public void setD(String d) {
-                this.d = d;
+            public void setAttachment(boolean attachment) {
+                this.attachment = attachment;
             }
         }
 
-        public class UserInfomation{
+        public class UserInformation {
             private String name;
             private String major;
             private String intrant;
@@ -110,6 +120,27 @@ public class SendInformation {
             public void setIntrant(String intrant) {
                 this.intrant = intrant;
             }
+        }
+    }
+
+    public class Description {
+        private String errorText;
+        private String errorCode;
+
+        public String getErrorText() {
+            return errorText;
+        }
+
+        public void setErrorText(String errorText) {
+            this.errorText = errorText;
+        }
+
+        public String getErrorCode() {
+            return errorCode;
+        }
+
+        public void setErrorCode(String errorCode) {
+            this.errorCode = errorCode;
         }
     }
 }

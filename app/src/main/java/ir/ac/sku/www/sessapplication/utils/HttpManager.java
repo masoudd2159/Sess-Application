@@ -7,11 +7,15 @@ import android.net.NetworkInfo;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.Map;
+
 import ir.ac.sku.www.sessapplication.R;
 
 public class HttpManager {
 
-    public static boolean isOnline(Context context) {
+    public static boolean isNOTOnline(Context context) {
         ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
         return networkInfo == null || !networkInfo.isConnected();
@@ -40,5 +44,22 @@ public class HttpManager {
         dialog.show();
     }
 
-
+    public static String enCodeParameters(Map<String, String> params) {
+        StringBuilder stringBuilder = new StringBuilder();
+        try {
+            for (String key : params.keySet()) {
+                String value = params.get(key);
+                if (stringBuilder.length() > 0) {
+                    stringBuilder.append("&");
+                }
+                stringBuilder.append(key);
+                stringBuilder.append("=");
+                stringBuilder.append(URLEncoder.encode(value, "UTF-8"));
+            }
+            return stringBuilder.toString();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 }

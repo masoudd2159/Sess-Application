@@ -1,10 +1,12 @@
 package ir.ac.sku.www.sessapplication.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -17,35 +19,53 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
-import ir.ac.sku.www.sessapplication.API.Config;
+import ir.ac.sku.www.sessapplication.API.MyConfig;
+import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.models.LoginInformation;
-import ir.ac.sku.www.sessapplication.parser.LoginInformationJSONParser;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
 public class SplashScreenActivity extends MyActivity {
 
-    private static final int SPLASH_TIME = 1500;  //millisecond
+    //static method
+    private static final int SPLASH_TIME = 1500;                                                    //millisecond
 
-    RequestQueue queue;
+    //Splash Screen Views
+    private Button tryAgain;
 
-    Button tryAgain;
-    Gson gson;
-    LoginInformation loginInformation;
+    //my Class Model
+    private LoginInformation loginInformation;
 
+    //Required libraries
+    private RequestQueue queue;
+    private Gson gson;
+
+    //onCreate
+    @SuppressLint("LongLogTag")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        //Log Splash Screen
+        Log.i(MyLog.SPLASH_SCREEN, "Create Splash Screen");
+
+        //allocate classes
         loginInformation = new LoginInformation();
+
+        //create queue for API Request
+        queue = Volley.newRequestQueue(SplashScreenActivity.this);
+
+        //use Gson Lib
         gson = new Gson();
+
+        //find View
         tryAgain = findViewById(R.id.buttonTryAgain_SplashScreen);
+
+        //my Functions
         changeStatusBarColor();
-        requestProcess();
-        new BackgroundTask().execute();
+        checkOnLine();
     }
 
     private void changeStatusBarColor() {
@@ -57,73 +77,96 @@ public class SplashScreenActivity extends MyActivity {
         }
     }
 
-    private void requestProcess() {
-        queue = Volley.newRequestQueue(SplashScreenActivity.this);
-        if (HttpManager.isOnline(this)) {
+    @SuppressLint("LongLogTag")
+    private void checkOnLine() {
+        Log.i(MyLog.SPLASH_SCREEN, "Check Online");
+        if (HttpManager.isNOTOnline(this)) {
+            Log.i(MyLog.SPLASH_SCREEN, "OFFLine");
             HttpManager.noInternetAccess(this);
             tryAgain.setVisibility(View.VISIBLE);
             tryAgain.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (HttpManager.isOnline(SplashScreenActivity.this)) {
+                    Log.i(MyLog.SPLASH_SCREEN, "Clicked on Try Again");
+                    if (HttpManager.isNOTOnline(SplashScreenActivity.this)) {
+                        Log.i(MyLog.SPLASH_SCREEN, "OFFLine");
                         HttpManager.noInternetAccess(SplashScreenActivity.this);
                     } else {
-                        requestItems();
-                        tryAgain.setVisibility(View.GONE);
+                        Log.i(MyLog.SPLASH_SCREEN, "OnLine");
+                        tryAgain.setVisibility(View.INVISIBLE);
+                        new BackgroundTask().execute();
+                        getRequestCookie();
                     }
                 }
             });
         } else {
-            requestItems();
+            Log.i(MyLog.SPLASH_SCREEN, "OnLine");
+            new BackgroundTask().execute();
+            getRequestCookie();
         }
     }
 
-    private void requestItems() {
-        StringRequest request = new StringRequest(Config.LOGIN_INFORMATION,
+    @SuppressLint("LongLogTag")
+    private void getRequestCookie() {
+        Log.i(MyLog.SPLASH_SCREEN, "Run Request Cookie Function");
+        StringRequest request = new StringRequest(MyConfig.LOGIN_INFORMATION,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        Log.i(MyLog.SPLASH_SCREEN, "get JSON Cookie From Server \n :: " + response);
                         loginInformation = gson.fromJson(response, LoginInformation.class);
-                        // loginInformation = new LoginInformationJSONParser().parserJSON(response);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.i(MyLog.SPLASH_SCREEN, "ERROR" + error.getMessage());
                         Toast.makeText(SplashScreenActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
         queue.add(request);
+        Log.i(MyLog.SPLASH_SCREEN, "Request Cookie Possess Done");
     }
 
     private class BackgroundTask extends AsyncTask {
 
         Intent intent;
 
+        @SuppressLint("LongLogTag")
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            Log.i(MyLog.SPLASH_SCREEN, "Create new Intent");
             intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
         }
 
+        @SuppressLint("LongLogTag")
         @Override
         protected Object doInBackground(Object[] objects) {
+            Log.i(MyLog.SPLASH_SCREEN, "do In Background");
             try {
                 Thread.sleep(SPLASH_TIME);
                 intent.putExtra("ok", loginInformation.isOk());
+                Log.i(MyLog.SPLASH_SCREEN, "Bundle : " + loginInformation.isOk());
                 intent.putExtra("cookie", loginInformation.getCookie());
+                Log.i(MyLog.SPLASH_SCREEN, "Bundle : " + loginInformation.getCookie());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             return null;
         }
 
+        @SuppressLint("LongLogTag")
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
+            Log.i(MyLog.SPLASH_SCREEN, "on Post Execute");
             if (loginInformation.isOk()) {
+                Log.i(MyLog.SPLASH_SCREEN, "Start Login Activity");
                 startActivity(intent);
                 finish();
+            } else if (!loginInformation.isOk()) {
+                Log.i(MyLog.SPLASH_SCREEN, "Failed To Get Cookie");
             }
         }
     }

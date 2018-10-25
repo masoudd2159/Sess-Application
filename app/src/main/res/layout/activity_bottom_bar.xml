@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_bottom_bar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.BottomBarActivity">
+
+    <FrameLayout
+        android:id="@+id/frame_fragmentHolder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="?attr/actionBarSize" />
+
+    <com.roughike.bottombar.BottomBar
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom"
+        android:background="@android:color/white"
+        app:bb_behavior="shifting|underNavbar"
+        app:bb_tabXmlResource="@xml/bottombar_tabs" />
+
+</FrameLayout>

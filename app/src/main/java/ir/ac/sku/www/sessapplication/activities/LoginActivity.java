@@ -2,6 +2,7 @@ package ir.ac.sku.www.sessapplication.activities;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
@@ -32,37 +33,46 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-import ir.ac.sku.www.sessapplication.API.Config;
+import ir.ac.sku.www.sessapplication.API.MyConfig;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.models.LoginInformation;
 import ir.ac.sku.www.sessapplication.models.SendInformation;
+import ir.ac.sku.www.sessapplication.utils.CustomToast;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
+import pl.droidsonroids.gif.GifImageView;
 
 public class LoginActivity extends MyActivity {
-    EditText user;
-    EditText password;
-    EditText securityTag;
-    ImageView captcha;
-    Button enter;
 
-    RequestQueue queue;
-    Gson gson;
+    private static final String PREFERENCE_NAME = "LoginInformation";
 
-    LoginInformation loginInformation;
-    SendInformation sendInformation;
+    private EditText user;
+    private EditText password;
+    private ImageView captcha;
+    private GifImageView gifImageView;
+    private EditText securityTag;
+    private Button enter;
+
+    private RequestQueue queue;
+    private Gson gson;
+
+    private LoginInformation loginInformation;
+    private SendInformation sendInformation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         loginInformation = new LoginInformation();
         sendInformation = new SendInformation();
+
+        queue = Volley.newRequestQueue(LoginActivity.this);
         gson = new Gson();
+
+        changeStatusBarColor();
         getLoginInformation();
         init();
-        user.setText("951406115");
-        password.setText("masoud76");
-        changeStatusBarColor();
+        getCaptcha();
 
         View.OnFocusChangeListener focusChangeListener = new View.OnFocusChangeListener() {
             @Override
@@ -78,18 +88,15 @@ public class LoginActivity extends MyActivity {
         user.setOnFocusChangeListener(focusChangeListener);
         password.setOnFocusChangeListener(focusChangeListener);
         securityTag.setOnFocusChangeListener(focusChangeListener);
-
-        queue = Volley.newRequestQueue(LoginActivity.this);
-
-        getCaptcha();
     }
 
-    private void init() {
-        user = findViewById(R.id.userLogin);
-        password = findViewById(R.id.passwordLogin);
-        securityTag = findViewById(R.id.securityTagLogin);
-        captcha = findViewById(R.id.imageViewCaptcha_LoginActivity);
-        enter = findViewById(R.id.enter_LoginActivity);
+    private void changeStatusBarColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
     }
 
     private void getLoginInformation() {
@@ -105,13 +112,122 @@ public class LoginActivity extends MyActivity {
         }
     }
 
-    private void changeStatusBarColor() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
+    private void init() {
+        user = findViewById(R.id.userLogin);
+        password = findViewById(R.id.passwordLogin);
+        captcha = findViewById(R.id.imageViewCaptcha_LoginActivity);
+        gifImageView = findViewById(R.id.loadingGif);
+        securityTag = findViewById(R.id.securityTagLogin);
+        enter = findViewById(R.id.enter_LoginActivity);
+    }
+
+    private void getCaptcha() {
+        String captchaCookieURL = MyConfig.CAPTCHA_PICTURE + loginInformation.getCookie();
+
+        ImageRequest imageRequest = new ImageRequest(captchaCookieURL,
+                new Response.Listener<Bitmap>() {
+                    @Override
+                    public void onResponse(final Bitmap response) {
+                        gifImageView.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                gifImageView.setVisibility(View.INVISIBLE);
+                                captcha.setImageBitmap(response);
+                            }
+                        }, 300);
+                    }
+                },
+                (int) (getResources().getDimension(R.dimen.edit_text_width)),
+                (int) (getResources().getDimension(R.dimen.second_card_height)),
+                ImageView.ScaleType.FIT_CENTER,
+                Bitmap.Config.ARGB_8888,
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(LoginActivity.this, "ERROR : " + error, Toast.LENGTH_SHORT).show();
+                    }
+                });
+        queue.add(imageRequest);
+    }
+
+    public void onEnterClickListener(View view) {
+        sendParamsPost();
+    }
+
+    private void sendParamsPost() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                MyConfig.SEND_INFORMATION,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            sendInformation = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"),
+                                    SendInformation.class);
+                            if (sendInformation.isOk()) {
+                                Intent intent = new Intent(LoginActivity.this, BottomBarActivity.class);
+                                intent.putExtra("cookie", loginInformation.getCookie());
+                                startActivity(intent);
+                                CustomToast.success(LoginActivity.this, "خوش آمدید " + sendInformation.getResult().getUserInformation().getName(),
+                                        Toast.LENGTH_LONG).show();
+                                finish();
+                            } else if (!sendInformation.isOk()) {
+                                Toast.makeText(LoginActivity.this, sendInformation.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        new AlertDialog.Builder(LoginActivity.this)
+                                .setTitle("ERROR")
+                                .setMessage(error.getMessage())
+                                .setPositiveButton("Ok", null)
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("cookie", loginInformation.getCookie());
+                params.put("captcha", securityTag.getText().toString().trim());
+                params.put("username", "S" + user.getText().toString().trim());
+                params.put("password", password.getText().toString().trim());
+                return params;
+            }
+        };
+        queue.add(stringRequest);
+    }
+
+    private boolean isValidChecked(String str_user, String str_password, String str_securityTag) {
+        if (str_user == null)
+            str_user = user.getText().toString().trim();
+        if (str_password == null)
+            str_password = password.getText().toString().trim();
+        if (str_securityTag == null)
+            str_securityTag = securityTag.getText().toString().trim();
+
+        if (!str_user.isEmpty() && str_user.length() < 9) {
+            Toast.makeText(this, "نام کاربری را صحیح وارد کنید.", Toast.LENGTH_SHORT).show();
+            user.requestFocus();
+            return false;
         }
+        if (!str_password.isEmpty()) {
+            Toast.makeText(this, "رمز عبور خود را وارد کنید.", Toast.LENGTH_SHORT).show();
+            password.requestFocus();
+            return false;
+        }
+        if (!str_securityTag.isEmpty() && str_securityTag.length() < 5) {
+            Toast.makeText(this, "عبارت امنیتی را تکمیل کنید.", Toast.LENGTH_SHORT).show();
+            securityTag.requestFocus();
+            return false;
+        }
+        return true;
     }
 
     private void animateOnFocus(View v) {
@@ -249,103 +365,5 @@ public class LoginActivity extends MyActivity {
         second_anim.start();
         first_container.startAnimation(a);
 
-    }
-
-    private void getCaptcha() {
-        String captchaCookieURL = Config.CAPTCHA_PICTURE + loginInformation.getCookie();
-
-        ImageRequest imageRequest = new ImageRequest(captchaCookieURL,
-                new Response.Listener<Bitmap>() {
-                    @Override
-                    public void onResponse(Bitmap response) {
-                        captcha.setImageBitmap(response);
-                    }
-                },
-                (int) (getResources().getDimension(R.dimen.edit_text_width)),
-                (int) (getResources().getDimension(R.dimen.second_card_height)),
-                ImageView.ScaleType.FIT_CENTER,
-                Bitmap.Config.ARGB_8888,
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(LoginActivity.this, "ERROR : " + error, Toast.LENGTH_SHORT).show();
-                    }
-                });
-        queue.add(imageRequest);
-    }
-
-    public void onEnterClickListener(View view) {
-
-        String str_User = user.getText().toString().trim();
-        String str_Password = password.getText().toString().trim();
-        String str_SecurityTag = securityTag.getText().toString().trim();
-
-        sendParamsPost();
-    }
-
-    private boolean isValidChecked(String str_user, String str_password, String str_securityTag) {
-        if (str_user == null)
-            str_user = user.getText().toString().trim();
-        if (str_password == null)
-            str_password = password.getText().toString().trim();
-        if (str_securityTag == null)
-            str_securityTag = securityTag.getText().toString().trim();
-
-        if (!str_user.isEmpty() && str_user.length() < 9) {
-            Toast.makeText(this, "نام کاربری را صحیح وارد کنید.", Toast.LENGTH_SHORT).show();
-            user.requestFocus();
-            return false;
-        }
-        if (!str_password.isEmpty()) {
-            Toast.makeText(this, "رمز عبور خود را وارد کنید.", Toast.LENGTH_SHORT).show();
-            password.requestFocus();
-            return false;
-        }
-        if (!str_securityTag.isEmpty() && str_securityTag.length() < 5) {
-            Toast.makeText(this, "عبارت امنیتی را تکمیل کنید.", Toast.LENGTH_SHORT).show();
-            securityTag.requestFocus();
-            return false;
-        }
-        return true;
-    }
-
-    private void sendParamsPost() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                Config.SEND_INFORMATION,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            sendInformation = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"), SendInformation.class);
-                            Toast.makeText(LoginActivity.this, sendInformation.getResult().getUserInfomation().getName(), Toast.LENGTH_SHORT).show();
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        new AlertDialog.Builder(LoginActivity.this)
-                                .setTitle("ERROR")
-                                .setMessage(error.getMessage())
-                                .setPositiveButton("Ok", null)
-                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                .show();
-                    }
-                }
-        ) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("cookie", loginInformation.getCookie());
-                params.put("captcha", securityTag.getText().toString().trim());
-                params.put("username", "S" + user.getText().toString().trim());
-                params.put("password", password.getText().toString().trim());
-                return params;
-            }
-        };
-        queue.add(stringRequest);
     }
 }
