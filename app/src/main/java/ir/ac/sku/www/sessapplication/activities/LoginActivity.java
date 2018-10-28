@@ -2,6 +2,7 @@ package ir.ac.sku.www.sessapplication.activities;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -10,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -34,17 +36,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ir.ac.sku.www.sessapplication.API.MyConfig;
+import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.models.LoginInformation;
 import ir.ac.sku.www.sessapplication.models.SendInformation;
 import ir.ac.sku.www.sessapplication.utils.CustomToast;
+import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 import pl.droidsonroids.gif.GifImageView;
 
 public class LoginActivity extends MyActivity {
 
+    //static Variable
     private static final String PREFERENCE_NAME = "LoginInformation";
 
+    //Login Activity Views
     private EditText user;
     private EditText password;
     private ImageView captcha;
@@ -52,28 +58,37 @@ public class LoginActivity extends MyActivity {
     private EditText securityTag;
     private Button enter;
 
+    //Required libraries
     private RequestQueue queue;
     private Gson gson;
 
+    //my Class Model
     private LoginInformation loginInformation;
     private SendInformation sendInformation;
 
+    @SuppressLint("LongLogTag")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Log.i(MyLog.LOGIN_ACTIVITY, "Create Login Activity");
 
+        //allocate classes
         loginInformation = new LoginInformation();
         sendInformation = new SendInformation();
 
+        //create queue for API Request
         queue = Volley.newRequestQueue(LoginActivity.this);
+
+        //use Gson Lib
         gson = new Gson();
 
+        //my Functions
         changeStatusBarColor();
-        getLoginInformation();
         init();
-        getCaptcha();
+        getLoginInformation();
 
+        //animate Text View
         View.OnFocusChangeListener focusChangeListener = new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -88,9 +103,25 @@ public class LoginActivity extends MyActivity {
         user.setOnFocusChangeListener(focusChangeListener);
         password.setOnFocusChangeListener(focusChangeListener);
         securityTag.setOnFocusChangeListener(focusChangeListener);
+
+        //get ReCaptcha
+        captcha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(MyLog.LOGIN_ACTIVITY, "Get Another Captcha");
+                captcha.setImageBitmap(null);
+                gifImageView.setVisibility(View.VISIBLE);
+                getLoginInformation();
+            }
+        });
+
+        user.setText("951406115");
+        password.setText("masoud76");
     }
 
+    @SuppressLint("LongLogTag")
     private void changeStatusBarColor() {
+        Log.i(MyLog.LOGIN_ACTIVITY, "Change Status Bar");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
@@ -99,20 +130,9 @@ public class LoginActivity extends MyActivity {
         }
     }
 
-    private void getLoginInformation() {
-        Bundle extras = getIntent().getExtras();
-
-        if (extras != null) {
-            if (extras.containsKey("ok")) {
-                loginInformation.setOk(extras.getBoolean("ok"));
-            }
-            if (extras.containsKey("cookie")) {
-                loginInformation.setCookie(extras.getString("cookie"));
-            }
-        }
-    }
-
+    @SuppressLint("LongLogTag")
     private void init() {
+        Log.i(MyLog.LOGIN_ACTIVITY, "Allocate Views");
         user = findViewById(R.id.userLogin);
         password = findViewById(R.id.passwordLogin);
         captcha = findViewById(R.id.imageViewCaptcha_LoginActivity);
@@ -121,16 +141,46 @@ public class LoginActivity extends MyActivity {
         enter = findViewById(R.id.enter_LoginActivity);
     }
 
+    @SuppressLint("LongLogTag")
+    private void getLoginInformation() {
+        Log.i(MyLog.LOGIN_ACTIVITY, "Run Request Cookie Function");
+        StringRequest request = new StringRequest(MyConfig.LOGIN_INFORMATION,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i(MyLog.LOGIN_ACTIVITY, "get JSON Cookie From Server");
+                        loginInformation = gson.fromJson(response, LoginInformation.class);
+                        if (loginInformation.isOk()){
+                            Log.i(MyLog.LOGIN_ACTIVITY, "Cookie : " + loginInformation.getCookie());
+                            getCaptcha();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i(MyLog.LOGIN_ACTIVITY, "ERROR" + error.getMessage());
+                        Toast.makeText(LoginActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+        queue.add(request);
+        Log.i(MyLog.LOGIN_ACTIVITY, "Request Cookie Possess Added To queue");
+    }
+
+    @SuppressLint("LongLogTag")
     private void getCaptcha() {
+        Log.i(MyLog.LOGIN_ACTIVITY, "Run Captcha Function");
         String captchaCookieURL = MyConfig.CAPTCHA_PICTURE + loginInformation.getCookie();
 
         ImageRequest imageRequest = new ImageRequest(captchaCookieURL,
                 new Response.Listener<Bitmap>() {
                     @Override
                     public void onResponse(final Bitmap response) {
+                        Log.i(MyLog.LOGIN_ACTIVITY, "get Captcha From Server");
                         gifImageView.postDelayed(new Runnable() {
                             @Override
                             public void run() {
+                                Log.i(MyLog.LOGIN_ACTIVITY, "InVisible Gif Image View And Get Captcha");
                                 gifImageView.setVisibility(View.INVISIBLE);
                                 captcha.setImageBitmap(response);
                             }
@@ -144,26 +194,40 @@ public class LoginActivity extends MyActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(LoginActivity.this, "ERROR : " + error, Toast.LENGTH_SHORT).show();
+                        Log.i(MyLog.LOGIN_ACTIVITY, "ERROR : " + error.getMessage());
+                        Toast.makeText(LoginActivity.this, "ERROR : " + error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
         queue.add(imageRequest);
+        Log.i(MyLog.LOGIN_ACTIVITY, "Request Possess Added To queue");
     }
 
+    @SuppressLint("LongLogTag")
     public void onEnterClickListener(View view) {
-        sendParamsPost();
+        Log.i(MyLog.LOGIN_ACTIVITY, "Click on Enter Button");
+        if (HttpManager.isNOTOnline(this)) {
+            Log.i(MyLog.LOGIN_ACTIVITY, "OFFLine");
+            HttpManager.noInternetAccess(this);
+        } else {
+            Log.i(MyLog.LOGIN_ACTIVITY, "OnLine");
+            sendParamsPost();
+        }
     }
 
+    @SuppressLint("LongLogTag")
     private void sendParamsPost() {
+        Log.i(MyLog.LOGIN_ACTIVITY, "Run Function send Params Post");
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 MyConfig.SEND_INFORMATION,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        Log.i(MyLog.LOGIN_ACTIVITY, "get Login Info");
                         try {
                             sendInformation = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"),
                                     SendInformation.class);
                             if (sendInformation.isOk()) {
+                                Log.i(MyLog.LOGIN_ACTIVITY, "All Params True");
                                 Intent intent = new Intent(LoginActivity.this, BottomBarActivity.class);
                                 intent.putExtra("cookie", loginInformation.getCookie());
                                 startActivity(intent);
@@ -171,7 +235,16 @@ public class LoginActivity extends MyActivity {
                                         Toast.LENGTH_LONG).show();
                                 finish();
                             } else if (!sendInformation.isOk()) {
+                                Log.i(MyLog.LOGIN_ACTIVITY, "Some Parameter is False");
                                 Toast.makeText(LoginActivity.this, sendInformation.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
+                                if (sendInformation.getDescription().getErrorCode().equals("1")) {
+                                    Log.i(MyLog.LOGIN_ACTIVITY, "Username or password is incorrect");
+                                    user.setText("");
+                                    password.setText("");
+                                } else if (sendInformation.getDescription().getErrorCode().equals("2")) {
+                                    Log.i(MyLog.LOGIN_ACTIVITY, "Captcha is Wrong");
+                                    securityTag.setText("");
+                                }
                             }
                         } catch (UnsupportedEncodingException e) {
                             e.printStackTrace();
@@ -193,6 +266,7 @@ public class LoginActivity extends MyActivity {
         ) {
             @Override
             protected Map<String, String> getParams() {
+                Log.i(MyLog.LOGIN_ACTIVITY, "Send Login Info");
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("cookie", loginInformation.getCookie());
                 params.put("captcha", securityTag.getText().toString().trim());
@@ -202,32 +276,7 @@ public class LoginActivity extends MyActivity {
             }
         };
         queue.add(stringRequest);
-    }
-
-    private boolean isValidChecked(String str_user, String str_password, String str_securityTag) {
-        if (str_user == null)
-            str_user = user.getText().toString().trim();
-        if (str_password == null)
-            str_password = password.getText().toString().trim();
-        if (str_securityTag == null)
-            str_securityTag = securityTag.getText().toString().trim();
-
-        if (!str_user.isEmpty() && str_user.length() < 9) {
-            Toast.makeText(this, "نام کاربری را صحیح وارد کنید.", Toast.LENGTH_SHORT).show();
-            user.requestFocus();
-            return false;
-        }
-        if (!str_password.isEmpty()) {
-            Toast.makeText(this, "رمز عبور خود را وارد کنید.", Toast.LENGTH_SHORT).show();
-            password.requestFocus();
-            return false;
-        }
-        if (!str_securityTag.isEmpty() && str_securityTag.length() < 5) {
-            Toast.makeText(this, "عبارت امنیتی را تکمیل کنید.", Toast.LENGTH_SHORT).show();
-            securityTag.requestFocus();
-            return false;
-        }
-        return true;
+        Log.i(MyLog.LOGIN_ACTIVITY, "Request Possess Added To queue");
     }
 
     private void animateOnFocus(View v) {

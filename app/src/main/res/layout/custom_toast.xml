@@ -5,6 +5,7 @@
     android:layout_marginLeft="40dp"
     android:layout_marginRight="40dp"
     android:background="@drawable/toast_success"
+    android:layoutDirection="ltr"
     android:orientation="horizontal">
 
     <View
@@ -14,7 +15,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerInParent="true"
-        android:background="@color/green" />
+        android:background="@color/green"
+        android:layoutDirection="ltr" />
 
     <TextView
         android:id="@+id/toast_Message"
@@ -28,6 +30,7 @@
         android:layout_toStartOf="@id/toast_View"
         android:layout_toLeftOf="@id/toast_View"
         android:gravity="center_vertical"
+        android:layoutDirection="ltr"
         android:textSize="22sp" />
 
 </RelativeLayout>

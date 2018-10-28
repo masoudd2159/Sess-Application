@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_login"
     android:fitsSystemWindows="true"
+    android:layoutDirection="ltr"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activities.LoginActivity">
@@ -17,7 +18,8 @@
         android:layout_height="0dp"
         android:background="@android:color/transparent"
         android:focusable="true"
-        android:focusableInTouchMode="true" />
+        android:focusableInTouchMode="true"
+        android:layoutDirection="ltr" />
 
     <LinearLayout
         android:id="@+id/login_form_container"
@@ -28,6 +30,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="30dp"
         android:gravity="center_horizontal"
+        android:layoutDirection="ltr"
         android:orientation="vertical">
 
         <ImageView
@@ -36,12 +39,14 @@
             android:layout_height="110dp"
             android:layout_gravity="center"
             android:layout_marginBottom="15dp"
+            android:layoutDirection="ltr"
             android:src="@drawable/sku_logo_white" />
 
         <android.support.v7.widget.CardView
             android:layout_width="@dimen/second_card_width"
             android:layout_height="@dimen/second_card_height"
             android:layout_marginBottom="12dp"
+            android:layoutDirection="ltr"
             app:cardBackgroundColor="@color/lite_background"
             app:cardCornerRadius="@dimen/first_card_radius"
             app:cardElevation="0dp">
@@ -50,6 +55,7 @@
                 android:layout_width="@dimen/first_card_width"
                 android:layout_height="@dimen/first_card_height"
                 android:layout_gravity="center"
+                android:layoutDirection="ltr"
                 app:cardBackgroundColor="@color/transparent"
                 app:cardCornerRadius="@dimen/second_card_radius"
                 app:cardElevation="0dp">
@@ -63,7 +69,8 @@
                     android:gravity="center"
                     android:hint="@string/user"
                     android:inputType="number"
-                    android:maxLength="10"
+                    android:layoutDirection="ltr"
+                    android:maxLength="9"
                     android:maxLines="1"
                     android:textColor="@android:color/white"
                     android:textColorHint="@android:color/white"
@@ -77,6 +84,7 @@
             android:layout_width="@dimen/second_card_width"
             android:layout_height="@dimen/second_card_height"
             android:layout_marginBottom="12dp"
+            android:layoutDirection="ltr"
             app:cardBackgroundColor="@color/lite_background"
             app:cardCornerRadius="@dimen/first_card_radius"
             app:cardElevation="0dp">
@@ -85,6 +93,7 @@
                 android:layout_width="@dimen/first_card_width"
                 android:layout_height="@dimen/first_card_height"
                 android:layout_gravity="center"
+                android:layoutDirection="ltr"
                 app:cardBackgroundColor="@color/transparent"
                 app:cardCornerRadius="@dimen/second_card_radius"
                 app:cardElevation="0dp">
@@ -98,6 +107,7 @@
                     android:gravity="center"
                     android:hint="@string/password"
                     android:inputType="textPassword"
+                    android:layoutDirection="ltr"
                     android:maxLength="75"
                     android:maxLines="1"
                     android:textColor="@android:color/white"
@@ -110,6 +120,7 @@
             android:layout_width="@dimen/second_card_width"
             android:layout_height="@dimen/second_card_height"
             android:layout_marginBottom="12dp"
+            android:layoutDirection="ltr"
             app:cardBackgroundColor="@android:color/white"
             app:cardCornerRadius="18dp">
 
@@ -118,6 +129,7 @@
                 android:layout_width="@dimen/edit_text_width"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:layoutDirection="ltr"
                 android:scaleType="fitCenter" />
 
             <pl.droidsonroids.gif.GifImageView
@@ -125,12 +137,14 @@
                 android:layout_width="@dimen/edit_text_width"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:layoutDirection="ltr"
                 android:src="@drawable/loading" />
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
             android:layout_width="@dimen/second_card_width"
             android:layout_height="@dimen/second_card_height"
+            android:layoutDirection="ltr"
             app:cardBackgroundColor="@color/lite_background"
             app:cardCornerRadius="@dimen/first_card_radius"
             app:cardElevation="0dp">
@@ -139,6 +153,7 @@
                 android:layout_width="@dimen/first_card_width"
                 android:layout_height="@dimen/first_card_height"
                 android:layout_gravity="center"
+                android:layoutDirection="ltr"
                 app:cardBackgroundColor="@color/transparent"
                 app:cardCornerRadius="@dimen/second_card_radius"
                 app:cardElevation="0dp">
@@ -152,6 +167,7 @@
                     android:gravity="center"
                     android:hint="@string/security_tag"
                     android:inputType="textCapCharacters"
+                    android:layoutDirection="ltr"
                     android:maxLength="5"
                     android:maxLines="1"
                     android:textColor="@android:color/white"
@@ -169,6 +185,7 @@
         android:layout_height="45dp"
         android:layout_alignParentBottom="true"
         android:background="@color/blue"
+        android:layoutDirection="ltr"
         android:onClick="onEnterClickListener"
         android:text="@string/enter"
         android:textColor="@android:color/white" />

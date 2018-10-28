@@ -78,7 +78,7 @@ public class FoodReservationFragment extends Fragment {
         return rootView;
     }
 
-    private void getMealList(String cookie, String week) {
+    public void getMealList(String cookie, String week) {
         Map<String, String> params = new HashMap<>();
         params.put("cookie", cookie);
         params.put("week", week);
@@ -92,7 +92,7 @@ public class FoodReservationFragment extends Fragment {
                         try {
                             sfxWeeklyList = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"),
                                     SFXWeeklyList.class);
-                            adapter = new FoodReservationAdapter(rootView, R.layout.fragment_food_reservation, sfxWeeklyList);
+                            adapter = new FoodReservationAdapter(rootView, R.layout.fragment_food_reservation, sfxWeeklyList, getArguments().getString("cookie"));
                         } catch (UnsupportedEncodingException e) {
                             e.printStackTrace();
                         }
@@ -108,8 +108,7 @@ public class FoodReservationFragment extends Fragment {
                                 .setIcon(android.R.drawable.ic_dialog_alert)
                                 .show();
                     }
-                }
-        );
+                });
         queue.add(stringRequest);
     }
 }

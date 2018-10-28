@@ -27,5 +27,10 @@
     <string name="wednesday">چهارشنبه</string>
     <string name="thursday">پنج شنبه</string>
     <string name="friday">جمعه</string>
+    <string name="restaurant">رستوران</string>
+    <string name="food">غذا</string>
+    <string name="select">انتخاب کنید</string>
+    <string name="buy">خرید</string>
+    <string name="close">بستن</string>
 
 </resources>

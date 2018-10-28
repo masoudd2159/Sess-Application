@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="ltr"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/sfxChoose_LayoutOne"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/blue"
+        android:gravity="center_horizontal"
+        android:layoutDirection="ltr"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/sfxChoose_State"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center|right"
+            android:layoutDirection="ltr"
+            android:textColor="@android:color/white"
+            android:textSize="19sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sfxChoose_LayoutOne"
+        android:layoutDirection="ltr"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableEnd="@drawable/chef"
+            android:drawableRight="@drawable/chef"
+            android:drawablePadding="10dp"
+            android:gravity="center|right"
+            android:layoutDirection="ltr"
+            android:paddingBottom="5dp"
+            android:text="@string/restaurant"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/sfxChoose_Restaurant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/sfx_choose_background"
+            android:gravity="center"
+            android:layoutDirection="ltr"
+            android:text="@string/select"
+            android:textColor="@android:color/white"
+            android:textSize="17sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableEnd="@drawable/food"
+            android:drawableRight="@drawable/food"
+            android:drawablePadding="10dp"
+            android:gravity="center|right"
+            android:layoutDirection="ltr"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="@string/food"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/sfxChoose_food"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/sfx_choose_background"
+            android:gravity="center"
+            android:layoutDirection="ltr"
+            android:text="@string/select"
+            android:textColor="@android:color/white"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/three"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/two"
+        android:layout_marginTop="5dp"
+        android:layoutDirection="ltr"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/sfxChoose_Buy"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/green"
+            android:layoutDirection="ltr"
+            android:text="@string/buy"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/sfxChoose_Close"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/blue_grey"
+            android:layoutDirection="ltr"
+            android:text="@string/close"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</RelativeLayout>

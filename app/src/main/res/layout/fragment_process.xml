@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="ltr"
     tools:context=".fragment.ProcessesFragment">
 
     <TextView
@@ -11,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
+        android:layoutDirection="ltr"
         android:text="PROCESSES" />
 
 </RelativeLayout>

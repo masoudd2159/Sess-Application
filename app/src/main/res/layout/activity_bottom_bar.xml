@@ -5,13 +5,15 @@
     android:id="@+id/activity_bottom_bar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="ltr"
     tools:context=".activities.BottomBarActivity">
 
     <FrameLayout
         android:id="@+id/frame_fragmentHolder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="?attr/actionBarSize" />
+        android:layout_marginBottom="?attr/actionBarSize"
+        android:layoutDirection="ltr" />
 
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottomBar"
@@ -19,6 +21,7 @@
         android:layout_height="60dp"
         android:layout_gravity="bottom"
         android:background="@android:color/white"
+        android:layoutDirection="ltr"
         app:bb_behavior="shifting|underNavbar"
         app:bb_tabXmlResource="@xml/bottombar_tabs" />
 

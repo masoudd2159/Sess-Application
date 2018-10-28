@@ -5,19 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cyan"
+    android:layoutDirection="ltr"
     tools:context=".activities.SplashScreenActivity"
     tools:ignore="MissingPrefix">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/splash_screen_background" />
+        android:background="@drawable/splash_screen_background"
+        android:layoutDirection="ltr" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="-30dp"
+        android:layoutDirection="ltr"
         android:orientation="vertical"
         android:padding="10dp">
 
@@ -25,6 +28,7 @@
             android:layout_width="170dp"
             android:layout_height="170dp"
             android:layout_gravity="center"
+            android:layoutDirection="ltr"
             android:src="@drawable/sku_logo_white" />
 
         <TextView
@@ -34,6 +38,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
             android:gravity="center"
+            android:layoutDirection="ltr"
             android:text="@string/shahrekord_university"
             android:textColor="@android:color/primary_text_dark"
             android:textSize="30sp" />
@@ -47,7 +52,8 @@
         android:layout_height="55dp"
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="50dp"
-        android:indeterminateTint="@android:color/white" />
+        android:indeterminateTint="@android:color/white"
+        android:layoutDirection="ltr" />
 
     <Button
         android:id="@+id/buttonTryAgain_SplashScreen"
@@ -56,6 +62,7 @@
         android:layout_height="40dp"
         android:layout_gravity="bottom"
         android:background="@color/cyan"
+        android:layoutDirection="ltr"
         android:text="@string/try_again"
         android:textColor="@android:color/white"
         android:visibility="invisible" />

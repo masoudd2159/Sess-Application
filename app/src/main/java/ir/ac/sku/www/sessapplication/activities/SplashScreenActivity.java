@@ -35,13 +35,6 @@ public class SplashScreenActivity extends MyActivity {
     //Splash Screen Views
     private Button tryAgain;
 
-    //my Class Model
-    private LoginInformation loginInformation;
-
-    //Required libraries
-    private RequestQueue queue;
-    private Gson gson;
-
     //onCreate
     @SuppressLint("LongLogTag")
     @Override
@@ -51,15 +44,6 @@ public class SplashScreenActivity extends MyActivity {
         //Log Splash Screen
         Log.i(MyLog.SPLASH_SCREEN, "Create Splash Screen");
 
-        //allocate classes
-        loginInformation = new LoginInformation();
-
-        //create queue for API Request
-        queue = Volley.newRequestQueue(SplashScreenActivity.this);
-
-        //use Gson Lib
-        gson = new Gson();
-
         //find View
         tryAgain = findViewById(R.id.buttonTryAgain_SplashScreen);
 
@@ -68,7 +52,9 @@ public class SplashScreenActivity extends MyActivity {
         checkOnLine();
     }
 
+    @SuppressLint("LongLogTag")
     private void changeStatusBarColor() {
+        Log.i(MyLog.SPLASH_SCREEN, "Change Status Bar");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
@@ -94,38 +80,14 @@ public class SplashScreenActivity extends MyActivity {
                     } else {
                         Log.i(MyLog.SPLASH_SCREEN, "OnLine");
                         tryAgain.setVisibility(View.INVISIBLE);
-                        new BackgroundTask().execute();
-                        getRequestCookie();
+                        checkOnLine();
                     }
                 }
             });
         } else {
             Log.i(MyLog.SPLASH_SCREEN, "OnLine");
             new BackgroundTask().execute();
-            getRequestCookie();
         }
-    }
-
-    @SuppressLint("LongLogTag")
-    private void getRequestCookie() {
-        Log.i(MyLog.SPLASH_SCREEN, "Run Request Cookie Function");
-        StringRequest request = new StringRequest(MyConfig.LOGIN_INFORMATION,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.i(MyLog.SPLASH_SCREEN, "get JSON Cookie From Server \n :: " + response);
-                        loginInformation = gson.fromJson(response, LoginInformation.class);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i(MyLog.SPLASH_SCREEN, "ERROR" + error.getMessage());
-                        Toast.makeText(SplashScreenActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-        queue.add(request);
-        Log.i(MyLog.SPLASH_SCREEN, "Request Cookie Possess Done");
     }
 
     private class BackgroundTask extends AsyncTask {
@@ -146,10 +108,6 @@ public class SplashScreenActivity extends MyActivity {
             Log.i(MyLog.SPLASH_SCREEN, "do In Background");
             try {
                 Thread.sleep(SPLASH_TIME);
-                intent.putExtra("ok", loginInformation.isOk());
-                Log.i(MyLog.SPLASH_SCREEN, "Bundle : " + loginInformation.isOk());
-                intent.putExtra("cookie", loginInformation.getCookie());
-                Log.i(MyLog.SPLASH_SCREEN, "Bundle : " + loginInformation.getCookie());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -161,14 +119,8 @@ public class SplashScreenActivity extends MyActivity {
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
             Log.i(MyLog.SPLASH_SCREEN, "on Post Execute");
-            if (loginInformation.isOk()) {
-                Log.i(MyLog.SPLASH_SCREEN, "Start Login Activity");
-                startActivity(intent);
-                finish();
-            } else if (!loginInformation.isOk()) {
-                Log.i(MyLog.SPLASH_SCREEN, "Failed To Get Cookie");
-            }
+            startActivity(intent);
+            finish();
         }
     }
-
 }

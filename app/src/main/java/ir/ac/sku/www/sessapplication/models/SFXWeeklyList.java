@@ -34,6 +34,8 @@ public class SFXWeeklyList {
         private List<Day6> day6 = null;
 
         private String credit;
+        private String message;
+
         private List<Restaurant> restaurants = null;
 
         public List<Day0> getDay0() {
@@ -98,6 +100,14 @@ public class SFXWeeklyList {
 
         public void setCredit(String credit) {
             this.credit = credit;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
         }
 
         public List<Restaurant> getRestaurants() {
