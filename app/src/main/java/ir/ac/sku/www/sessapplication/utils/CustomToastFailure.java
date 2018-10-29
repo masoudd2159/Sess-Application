@@ -10,17 +10,17 @@ import android.widget.Toast;
 
 import ir.ac.sku.www.sessapplication.R;
 
-public class CustomToast {
+public class CustomToastFailure {
 
     private Context context;
     private View view;
     private Toast toast;
 
-    public CustomToast(Context context) {
+    public CustomToastFailure(Context context) {
         this.context = context;
         this.toast = new Toast(context);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.view = inflater.inflate(R.layout.custom_toast, null);
+        this.view = inflater.inflate(R.layout.custom_toast_failure, null);
         toast.setView(view);
     }
 
@@ -50,11 +50,11 @@ public class CustomToast {
         return toast;
     }
 
-    public static Toast success(Context context, String text, int duration) {
-        CustomToast customToast = new CustomToast(context);
-        customToast.setText(text);
-        customToast.getToast().setDuration(duration);
-        customToast.getToast().setGravity(Gravity.TOP, 0, 60);
-        return customToast.getToast();
+    public static Toast failure(Context context, String text, int duration) {
+        CustomToastFailure customToastFailure = new CustomToastFailure(context);
+        customToastFailure.setText(text);
+        customToastFailure.getToast().setDuration(duration);
+        customToastFailure.getToast().setGravity(Gravity.TOP, 0, 60);
+        return customToastFailure.getToast();
     }
 }

@@ -21,7 +21,7 @@
             android:layout_gravity="center"
             android:layoutDirection="ltr"
             android:padding="12dp"
-            android:src="@drawable/close" />
+            android:src="@drawable/ic_close" />
 
         <TextView
             android:id="@+id/sfxList_State"

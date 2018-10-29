@@ -16,13 +16,20 @@
     <style name="AppTheme.TransNav" parent="AppTheme" />
 
     <style name="Reservation_black">
-        <item name="android:background">@drawable/reservation_background_black</item>
+        <item name="android:background">@drawable/bg_reservation_black</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="Reservation_green">
-        <item name="android:background">@drawable/reservation_background_lite_green</item>
+        <item name="android:background">@drawable/bg_reservation_lite_green</item>
         <item name="android:textColor">@color/green</item>
+    </style>
+
+    <style name="TitleBarTextAppearance" parent="android:TextAppearance">
+        <item name="android:fontFamily">@fonts/IRANSans_Light.ttf</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
 </resources>

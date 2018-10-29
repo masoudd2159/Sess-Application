@@ -1,28 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_bottom_bar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="ltr"
-    tools:context=".activities.BottomBarActivity">
+    tools:context=".activities.BottomBarActivity"
+    tools:ignore="MissingPrefix">
 
     <FrameLayout
         android:id="@+id/frame_fragmentHolder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="?attr/actionBarSize"
-        android:layoutDirection="ltr" />
+        android:layout_above="@id/bottomBar"
+        android:layoutDirection="ltr">
+    </FrameLayout>
 
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottomBar"
+        fontPath="fonts/IRANSans_Light.ttf"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
         android:background="@android:color/white"
+        android:gravity="top"
         android:layoutDirection="ltr"
+        android:orientation="horizontal"
         app:bb_behavior="shifting|underNavbar"
-        app:bb_tabXmlResource="@xml/bottombar_tabs" />
-
-</FrameLayout>
+        app:bb_longPressHintsEnabled="true"
+        app:bb_tabXmlResource="@xml/bottombar_tabs"
+        app:bb_titleTextAppearance="@style/TextAppearance.AppCompat.Small" />
+</RelativeLayout>

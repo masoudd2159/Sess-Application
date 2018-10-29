@@ -12,7 +12,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/splash_screen_background"
+        android:background="@drawable/ibg_splash_screen"
         android:layoutDirection="ltr" />
 
     <LinearLayout
@@ -29,7 +29,7 @@
             android:layout_height="170dp"
             android:layout_gravity="center"
             android:layoutDirection="ltr"
-            android:src="@drawable/sku_logo_white" />
+            android:src="@drawable/ic_sku_white" />
 
         <TextView
             fontPath="fonts/Lalezar.ttf"

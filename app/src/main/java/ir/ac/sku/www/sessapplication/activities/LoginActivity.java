@@ -40,7 +40,8 @@ import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.models.LoginInformation;
 import ir.ac.sku.www.sessapplication.models.SendInformation;
-import ir.ac.sku.www.sessapplication.utils.CustomToast;
+import ir.ac.sku.www.sessapplication.models.UsernamePassword;
+import ir.ac.sku.www.sessapplication.utils.CustomToastSuccess;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 import pl.droidsonroids.gif.GifImageView;
@@ -65,6 +66,7 @@ public class LoginActivity extends MyActivity {
     //my Class Model
     private LoginInformation loginInformation;
     private SendInformation sendInformation;
+    private UsernamePassword usernamePassword;
 
     @SuppressLint("LongLogTag")
     @Override
@@ -76,6 +78,7 @@ public class LoginActivity extends MyActivity {
         //allocate classes
         loginInformation = new LoginInformation();
         sendInformation = new SendInformation();
+        usernamePassword = new UsernamePassword();
 
         //create queue for API Request
         queue = Volley.newRequestQueue(LoginActivity.this);
@@ -150,7 +153,7 @@ public class LoginActivity extends MyActivity {
                     public void onResponse(String response) {
                         Log.i(MyLog.LOGIN_ACTIVITY, "get JSON Cookie From Server");
                         loginInformation = gson.fromJson(response, LoginInformation.class);
-                        if (loginInformation.isOk()){
+                        if (loginInformation.isOk()) {
                             Log.i(MyLog.LOGIN_ACTIVITY, "Cookie : " + loginInformation.getCookie());
                             getCaptcha();
                         }
@@ -211,6 +214,10 @@ public class LoginActivity extends MyActivity {
         } else {
             Log.i(MyLog.LOGIN_ACTIVITY, "OnLine");
             sendParamsPost();
+            UsernamePassword.setUsername(user.getText().toString().trim());
+            Log.i(MyLog.LOGIN_ACTIVITY, "Username : " + UsernamePassword.getUsername());
+            UsernamePassword.setPassword(password.getText().toString().trim());
+            Log.i(MyLog.LOGIN_ACTIVITY, "Password : " + UsernamePassword.getPassword());
         }
     }
 
@@ -231,8 +238,8 @@ public class LoginActivity extends MyActivity {
                                 Intent intent = new Intent(LoginActivity.this, BottomBarActivity.class);
                                 intent.putExtra("cookie", loginInformation.getCookie());
                                 startActivity(intent);
-                                CustomToast.success(LoginActivity.this, "خوش آمدید " + sendInformation.getResult().getUserInformation().getName(),
-                                        Toast.LENGTH_LONG).show();
+                                CustomToastSuccess.success(LoginActivity.this, "خوش آمدید " + sendInformation.getResult().getUserInformation().getName(),
+                                        Toast.LENGTH_SHORT).show();
                                 finish();
                             } else if (!sendInformation.isOk()) {
                                 Log.i(MyLog.LOGIN_ACTIVITY, "Some Parameter is False");
@@ -244,6 +251,10 @@ public class LoginActivity extends MyActivity {
                                 } else if (sendInformation.getDescription().getErrorCode().equals("2")) {
                                     Log.i(MyLog.LOGIN_ACTIVITY, "Captcha is Wrong");
                                     securityTag.setText("");
+                                } else if (Integer.parseInt(sendInformation.getDescription().getErrorCode()) < 0) {
+                                    Log.i(MyLog.LOGIN_ACTIVITY, "Lost Cookie");
+                                    finish();
+                                    System.exit(0);
                                 }
                             }
                         } catch (UnsupportedEncodingException e) {
@@ -255,6 +266,7 @@ public class LoginActivity extends MyActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.i(MyLog.LOGIN_ACTIVITY, error.getMessage());
                         new AlertDialog.Builder(LoginActivity.this)
                                 .setTitle("ERROR")
                                 .setMessage(error.getMessage())

@@ -6,6 +6,7 @@
         icon="@drawable/ic_home3x"
         id="@+id/tab_Home"
         inActiveColor="@color/blue_grey"
+        textSize="8sp"
         title="خانه" />
 
     <tab
@@ -14,6 +15,7 @@
         icon="@drawable/ic_food3x"
         id="@+id/tab_FoodReservation"
         inActiveColor="@color/blue_grey"
+        textSize="1sp"
         title="رزرو غذا" />
 
     <tab
@@ -22,6 +24,7 @@
         icon="@drawable/ic_process3x"
         id="@+id/tab_Processes"
         inActiveColor="@color/blue_grey"
+        textSize="8sp"
         title="فرایند ها" />
 
     <tab
@@ -30,6 +33,7 @@
         icon="@drawable/ic_message3x"
         id="@+id/tab_Messages"
         inActiveColor="@color/blue_grey"
+        textSize="8sp"
         title="پیام ها" />
 
 </tabs>

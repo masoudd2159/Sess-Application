@@ -32,5 +32,6 @@
     <string name="select">انتخاب کنید</string>
     <string name="buy">خرید</string>
     <string name="close">بستن</string>
+    <string name="delete">حذف</string>
 
 </resources>

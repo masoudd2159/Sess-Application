@@ -6,6 +6,15 @@ public class SFXWeeklyList {
 
     private Boolean ok;
     private Result result;
+    private Description description;
+
+    public Description getDescription() {
+        return description;
+    }
+
+    public void setDescription(Description description) {
+        this.description = description;
+    }
 
     public Boolean isOk() {
         return ok;
@@ -664,6 +673,27 @@ public class SFXWeeklyList {
             public void setCode(String code) {
                 this.code = code;
             }
+        }
+    }
+
+    public class Description {
+        private String errorText;
+        private String errorCode;
+
+        public String getErrorText() {
+            return errorText;
+        }
+
+        public void setErrorText(String errorText) {
+            this.errorText = errorText;
+        }
+
+        public String getErrorCode() {
+            return errorCode;
+        }
+
+        public void setErrorCode(String errorCode) {
+            this.errorCode = errorCode;
         }
     }
 }

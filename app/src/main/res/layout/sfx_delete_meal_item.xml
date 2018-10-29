@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="ltr"
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/sfxShowMeal_LayoutOne"
+        android:id="@+id/sfxDeleteMeal_LayoutOne"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -17,7 +18,7 @@
         android:padding="8dp">
 
         <TextView
-            android:id="@+id/sfxShowMeal_State"
+            android:id="@+id/sfxDeleteMeal_State"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -28,16 +29,16 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/sfxShowMeal_LayoutTwo"
+        android:id="@+id/sfxDeleteMeal_LayoutTwo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/sfxShowMeal_LayoutOne"
+        android:layout_below="@id/sfxDeleteMeal_LayoutOne"
         android:layoutDirection="ltr"
         android:orientation="vertical"
         android:padding="10dp">
 
         <TextView
-            android:id="@+id/sfxShowMeal_name"
+            android:id="@+id/sfxDeleteMeal_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -51,7 +52,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/sfxShowMeal_restaurant"
+            android:id="@+id/sfxDeleteMeal_restaurant"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -65,7 +66,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/sfxShowMeal_price"
+            android:id="@+id/sfxDeleteMeal_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -81,18 +82,30 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/sfxShowMeal_LayoutThree"
+        android:id="@+id/sfxDeleteMeal_LayoutThree"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/sfxShowMeal_LayoutTwo"
+        android:layout_below="@id/sfxDeleteMeal_LayoutTwo"
         android:layout_marginTop="5dp"
         android:layoutDirection="ltr"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/sfxShowMeal_Close"
-            android:layout_width="match_parent"
+            android:id="@+id/sfxDeleteMeal_Delete"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/red_2"
+            android:layoutDirection="ltr"
+            android:text="@string/delete"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/sfxDeleteMeal_Close"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@color/blue_grey"
             android:layoutDirection="ltr"
             android:text="@string/close"

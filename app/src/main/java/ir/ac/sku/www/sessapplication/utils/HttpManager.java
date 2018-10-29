@@ -27,7 +27,7 @@ public class HttpManager {
     public static void noInternetAccess(final Context context) {
         Log.i(MyLog.SESS, "Open Dialog NO Internet Access");
         final Dialog dialog = new Dialog(context);
-        dialog.setContentView(R.layout.disconnect);
+        dialog.setContentView(R.layout.custom_disconnect);
 
         Button wifi = dialog.findViewById(R.id.disconnect_WiFi);
         Button data = dialog.findViewById(R.id.disconnect_MobileData);

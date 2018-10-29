@@ -2,7 +2,6 @@ package ir.ac.sku.www.sessapplication.adapters;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -33,23 +32,26 @@ import java.util.Map;
 import ir.ac.sku.www.sessapplication.API.MyConfig;
 import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.activities.BottomBarActivity;
-import ir.ac.sku.www.sessapplication.activities.LoginActivity;
-import ir.ac.sku.www.sessapplication.fragment.FoodReservationFragment;
+import ir.ac.sku.www.sessapplication.activities.SplashScreenActivity;
 import ir.ac.sku.www.sessapplication.models.SFXMealDetail;
 import ir.ac.sku.www.sessapplication.models.SFXWeeklyList;
-import ir.ac.sku.www.sessapplication.models.SendInformation;
-import ir.ac.sku.www.sessapplication.utils.CustomToast;
+import ir.ac.sku.www.sessapplication.models.UsernamePassword;
+import ir.ac.sku.www.sessapplication.utils.CustomToastFailure;
+import ir.ac.sku.www.sessapplication.utils.CustomToastSuccess;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 
 @SuppressLint("Registered")
 public class FoodReservationAdapter {
 
+    public static final String RESERVATION = "رزرو";
+
+    //contractor
     private View rootView;
     private SFXWeeklyList sfxWeeklyList;
     private int resource;
     private String cookie;
 
+    //My Views at Fragment
     private Button increaseCredit;
     private TextView credit;
 
@@ -84,31 +86,46 @@ public class FoodReservationAdapter {
 
 
     private Button nextWeek;
-    private TextView state;
+    private TextView period;
     private Button previousWeek;
 
-    private Button restaurant;
-    private Button food;
-    private Button buy;
+    //My View at Layout
+    private Button btn_Restaurant;
+    private Button btn_Food;
+    private Button btn_Buy;
+    private Button btn_Delete;
 
-    private String restaurantCode = "";
-    private String foodCode = "";
+    //Codes
+    private String restaurantCode = null;
+    private String foodCode = null;
 
+    //My Library
     private RequestQueue queue;
     private Gson gson;
-    private SFXMealDetail sfxMealDetail;
 
+    //My Java Model Class
+    private SFXMealDetail sfxMealDetail;
+    private SFXWeeklyList weeklyList;
+
+    @SuppressLint("LongLogTag")
     public FoodReservationAdapter(@NonNull View rootView, int resource, @NonNull SFXWeeklyList sfxWeeklyList, String cookie) {
+        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Food Reservation Adapter Run");
         this.rootView = rootView;
         this.resource = resource;
         this.sfxWeeklyList = sfxWeeklyList;
         this.cookie = cookie;
+
+        //allocate Classes
         sfxMealDetail = new SFXMealDetail();
+
+        //use Lib
         gson = new Gson();
         queue = Volley.newRequestQueue(rootView.getContext());
+
+        //my Functions
         init();
         fileItems();
-        sfmMeals();
+        sfxMeal();
     }
 
     private void init() {
@@ -146,13 +163,12 @@ public class FoodReservationAdapter {
 
 
         nextWeek = rootView.findViewById(R.id.next_Week);
-        state = rootView.findViewById(R.id.tv_State);
+        period = rootView.findViewById(R.id.tv_Period);
         previousWeek = rootView.findViewById(R.id.previous_Week);
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "LongLogTag"})
     private void fileItems() {
-
         if (sfxWeeklyList.isOk()) {
             credit.setText(" اعتبار : " + sfxWeeklyList.getResult().getCredit() + " ریال ");
 
@@ -170,7 +186,7 @@ public class FoodReservationAdapter {
                 } else if (sfxWeeklyList.getResult().getDay0().get(i).getStatus().equals("valid")) {
                     if (sfxWeeklyList.getResult().getDay0().get(i).getName().equals("empty")) {
                         validLiteGreen(buttons_Saturday[i]);
-                        buttons_Saturday[i].setText("رزرو");
+                        buttons_Saturday[i].setText(RESERVATION);
                     } else {
                         validGreen(buttons_Saturday[i]);
                         buttons_Saturday[i].setText(sfxWeeklyList.getResult().getDay0().get(i).getName());
@@ -191,7 +207,7 @@ public class FoodReservationAdapter {
                 } else if (sfxWeeklyList.getResult().getDay1().get(i).getStatus().equals("valid")) {
                     if (sfxWeeklyList.getResult().getDay1().get(i).getName().equals("empty")) {
                         validLiteGreen(buttons_Sunday[i]);
-                        buttons_Sunday[i].setText("رزرو");
+                        buttons_Sunday[i].setText(RESERVATION);
                     } else {
                         validGreen(buttons_Sunday[i]);
                         buttons_Sunday[i].setText(sfxWeeklyList.getResult().getDay1().get(i).getName());
@@ -212,7 +228,7 @@ public class FoodReservationAdapter {
                 } else if (sfxWeeklyList.getResult().getDay2().get(i).getStatus().equals("valid")) {
                     if (sfxWeeklyList.getResult().getDay2().get(i).getName().equals("empty")) {
                         validLiteGreen(buttons_Monday[i]);
-                        buttons_Monday[i].setText("رزرو");
+                        buttons_Monday[i].setText(RESERVATION);
                     } else {
                         validGreen(buttons_Monday[i]);
                         buttons_Monday[i].setText(sfxWeeklyList.getResult().getDay2().get(i).getName());
@@ -233,7 +249,7 @@ public class FoodReservationAdapter {
                 } else if (sfxWeeklyList.getResult().getDay3().get(i).getStatus().equals("valid")) {
                     if (sfxWeeklyList.getResult().getDay3().get(i).getName().equals("empty")) {
                         validLiteGreen(buttons_Tuesday[i]);
-                        buttons_Tuesday[i].setText("رزرو");
+                        buttons_Tuesday[i].setText(RESERVATION);
                     } else {
                         validGreen(buttons_Tuesday[i]);
                         buttons_Tuesday[i].setText(sfxWeeklyList.getResult().getDay3().get(i).getName());
@@ -254,7 +270,7 @@ public class FoodReservationAdapter {
                 } else if (sfxWeeklyList.getResult().getDay4().get(i).getStatus().equals("valid")) {
                     if (sfxWeeklyList.getResult().getDay4().get(i).getName().equals("empty")) {
                         validLiteGreen(buttons_Wednesday[i]);
-                        buttons_Wednesday[i].setText("رزرو");
+                        buttons_Wednesday[i].setText(RESERVATION);
                     } else {
                         validGreen(buttons_Wednesday[i]);
                         buttons_Wednesday[i].setText(sfxWeeklyList.getResult().getDay4().get(i).getName());
@@ -275,7 +291,7 @@ public class FoodReservationAdapter {
                 } else if (sfxWeeklyList.getResult().getDay5().get(i).getStatus().equals("valid")) {
                     if (sfxWeeklyList.getResult().getDay5().get(i).getName().equals("empty")) {
                         validLiteGreen(buttons_Thursday[i]);
-                        buttons_Thursday[i].setText("رزرو");
+                        buttons_Thursday[i].setText(RESERVATION);
                     } else {
                         validGreen(buttons_Thursday[i]);
                         buttons_Thursday[i].setText(sfxWeeklyList.getResult().getDay5().get(i).getName());
@@ -296,7 +312,7 @@ public class FoodReservationAdapter {
                 } else if (sfxWeeklyList.getResult().getDay6().get(i).getStatus().equals("valid")) {
                     if (sfxWeeklyList.getResult().getDay6().get(i).getName().equals("empty")) {
                         validLiteGreen(buttons_Friday[i]);
-                        buttons_Friday[i].setText("رزرو");
+                        buttons_Friday[i].setText(RESERVATION);
                     } else {
                         validGreen(buttons_Friday[i]);
                         buttons_Friday[i].setText(sfxWeeklyList.getResult().getDay6().get(i).getName());
@@ -304,76 +320,276 @@ public class FoodReservationAdapter {
                 }
             }
 //__________________________________________________________________________________________________
-            state.setText(sfxWeeklyList.getResult().getDay0().get(3).getDateText() + " - " + sfxWeeklyList.getResult().getDay6().get(3).getDateText());
+            period.setText(sfxWeeklyList.getResult().getDay0().get(3).getDateText() + " - " + sfxWeeklyList.getResult().getDay6().get(3).getDateText());
         }
     }
 
     private void invalid(Button button) {
-        button.setBackgroundResource(R.drawable.reservation_background_black);
+        button.setBackgroundResource(R.drawable.bg_reservation_black);
         button.setTextColor(Color.parseColor("#ffffff"));
     }
 
     private void validLiteGreen(Button button) {
-        button.setBackgroundResource(R.drawable.reservation_background_lite_green);
+        button.setBackgroundResource(R.drawable.bg_reservation_lite_green);
         button.setTextColor(Color.parseColor("#4CAF50"));
     }
 
     private void validGreen(Button button) {
-        button.setBackgroundResource(R.drawable.reservation_background_green);
+        button.setBackgroundResource(R.drawable.bg_reservation_green);
         button.setTextColor(Color.parseColor("#ffffff"));
     }
 
-    private void sfmMeals() {
-        saturdayBreakfast.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String state = "شنبه > صبحانه";
-                if (sfxWeeklyList.getResult().getDay0().get(0).getStatus().equals("invalid")) {
-                    if (sfxWeeklyList.getResult().getDay0().get(0).getName().equals("empty")) {
-                        Toast.makeText(rootView.getContext(), "شما برای این وعده غذایی انتخاب نکرده اید!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        showMealItem(sfxWeeklyList.getResult().getDay0().get(0).getName(),
-                                sfxWeeklyList.getResult().getDay0().get(0).getRestaurant(),
-                                sfxWeeklyList.getResult().getDay0().get(0).getPrice(),
-                                state);
-                    }
-                } else if (sfxWeeklyList.getResult().getDay0().get(0).getStatus().equals("valid")) {
-                    if (sfxWeeklyList.getResult().getDay0().get(0).getName().equals("empty")) {
-                        //chooseMealItem(sfxWeeklyList.getResult().getRestaurants());
-                    } else {
-                        // deleteMealItem();
-                    }
-                }
-            }
-        });
-
-        monday_Lunch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String state = "دوشنبه > ناهار";
-                if (sfxWeeklyList.getResult().getDay2().get(1).getStatus().equals("invalid")) {
-                    if (sfxWeeklyList.getResult().getDay2().get(1).getName().equals("empty")) {
-                        Toast.makeText(rootView.getContext(), "این وعده غذایی انتخاب نشده!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        showMealItem(sfxWeeklyList.getResult().getDay2().get(1).getName(),
-                                sfxWeeklyList.getResult().getDay2().get(1).getRestaurant(),
-                                sfxWeeklyList.getResult().getDay2().get(1).getPrice(),
-                                state);
-                    }
-                } else if (sfxWeeklyList.getResult().getDay2().get(1).getStatus().equals("valid")) {
-                    if (sfxWeeklyList.getResult().getDay2().get(1).getName().equals("empty")) {
-                        chooseMealItem(sfxWeeklyList.getResult().getDay2().get(1).getMealCode(), sfxWeeklyList.getResult().getDay2().get(3).getDateCode(), state);
-                    } else {
+    @SuppressLint("LongLogTag")
+    private void sfxMeal() {
+        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "OnLine");
+        final String[] meals = {"صبحانه", "ناهار", "شام"};
+//__________________________________________________________________________________________________
+        //Saturday
+        Button buttons_Saturday[] = {saturdayBreakfast, saturdayLunch, saturdayDinner};
+        for (int i = 0; i < 3; i++) {
+            final int finalI = i;
+            buttons_Saturday[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String state = "شنبه" + " < " + meals[finalI];
+                    if (sfxWeeklyList.getResult().getDay0().get(finalI).getStatus().equals("invalid")) {
+                        if (sfxWeeklyList.getResult().getDay0().get(finalI).getName().equals("empty")) {
+                            Toast.makeText(rootView.getContext(), "برنامه ریزی نشده", Toast.LENGTH_SHORT).show();
+                        } else {
+                            showMealItem(sfxWeeklyList.getResult().getDay0().get(finalI).getName(),
+                                    sfxWeeklyList.getResult().getDay0().get(finalI).getRestaurant(),
+                                    sfxWeeklyList.getResult().getDay0().get(finalI).getPrice(),
+                                    state);
+                        }
+                    } else if (sfxWeeklyList.getResult().getDay0().get(finalI).getStatus().equals("valid")) {
+                        if (sfxWeeklyList.getResult().getDay0().get(finalI).getName().equals("empty")) {
+                            chooseMealItem(sfxWeeklyList.getResult().getDay0().get(finalI).getMealCode(),
+                                    sfxWeeklyList.getResult().getDay0().get(3).getDateCode(),
+                                    state);
+                        } else {
+                            deleteMealItem(sfxWeeklyList.getResult().getDay0().get(finalI).getData(),
+                                    sfxWeeklyList.getResult().getDay0().get(finalI).getName(),
+                                    sfxWeeklyList.getResult().getDay0().get(finalI).getRestaurant(),
+                                    sfxWeeklyList.getResult().getDay0().get(finalI).getPrice(),
+                                    state);
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
+//__________________________________________________________________________________________________
+        //Sunday
+        Button buttons_Sunday[] = {sundayBreakfast, sundayLunch, sundayDinner};
+        for (int i = 0; i < 3; i++) {
+            final int finalI = i;
+            buttons_Sunday[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String state = "یک شنبه" + " < " + meals[finalI];
+                    if (sfxWeeklyList.getResult().getDay1().get(finalI).getStatus().equals("invalid")) {
+                        if (sfxWeeklyList.getResult().getDay1().get(finalI).getName().equals("empty")) {
+                            Toast.makeText(rootView.getContext(), "برنامه ریزی نشده", Toast.LENGTH_SHORT).show();
+                        } else {
+                            showMealItem(sfxWeeklyList.getResult().getDay1().get(finalI).getName(),
+                                    sfxWeeklyList.getResult().getDay1().get(finalI).getRestaurant(),
+                                    sfxWeeklyList.getResult().getDay1().get(finalI).getPrice(),
+                                    state);
+                        }
+                    } else if (sfxWeeklyList.getResult().getDay1().get(finalI).getStatus().equals("valid")) {
+                        if (sfxWeeklyList.getResult().getDay1().get(finalI).getName().equals("empty")) {
+                            chooseMealItem(sfxWeeklyList.getResult().getDay1().get(finalI).getMealCode(),
+                                    sfxWeeklyList.getResult().getDay1().get(3).getDateCode(),
+                                    state);
+                        } else {
+                            deleteMealItem(sfxWeeklyList.getResult().getDay1().get(finalI).getData(),
+                                    sfxWeeklyList.getResult().getDay1().get(finalI).getName(),
+                                    sfxWeeklyList.getResult().getDay1().get(finalI).getRestaurant(),
+                                    sfxWeeklyList.getResult().getDay1().get(finalI).getPrice(),
+                                    state);
+                        }
+                    }
+                }
+            });
+        }
+//__________________________________________________________________________________________________
+        //Monday
+        Button buttons_Monday[] = {monday_Breakfast, monday_Lunch, monday_Dinner};
+        for (int i = 0; i < 3; i++) {
+            final int finalI = i;
+            buttons_Monday[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String state = "دوشنبه" + " < " + meals[finalI];
+                    if (sfxWeeklyList.getResult().getDay2().get(finalI).getStatus().equals("invalid")) {
+                        if (sfxWeeklyList.getResult().getDay2().get(finalI).getName().equals("empty")) {
+                            Toast.makeText(rootView.getContext(), "برنامه ریزی نشده", Toast.LENGTH_SHORT).show();
+                        } else {
+                            showMealItem(sfxWeeklyList.getResult().getDay2().get(finalI).getName(),
+                                    sfxWeeklyList.getResult().getDay2().get(finalI).getRestaurant(),
+                                    sfxWeeklyList.getResult().getDay2().get(finalI).getPrice(),
+                                    state);
+                        }
+                    } else if (sfxWeeklyList.getResult().getDay2().get(finalI).getStatus().equals("valid")) {
+                        if (sfxWeeklyList.getResult().getDay2().get(finalI).getName().equals("empty")) {
+                            chooseMealItem(sfxWeeklyList.getResult().getDay2().get(finalI).getMealCode(),
+                                    sfxWeeklyList.getResult().getDay2().get(3).getDateCode(),
+                                    state);
+                        } else {
+                            deleteMealItem(sfxWeeklyList.getResult().getDay2().get(finalI).getData(),
+                                    sfxWeeklyList.getResult().getDay2().get(finalI).getName(),
+                                    sfxWeeklyList.getResult().getDay2().get(finalI).getRestaurant(),
+                                    sfxWeeklyList.getResult().getDay2().get(finalI).getPrice(),
+                                    state);
+                        }
+                    }
+                }
+            });
+        }
+//__________________________________________________________________________________________________
+        //Tuesday
+        Button buttons_Tuesday[] = {tuesdayBreakfast, tuesdayLunch, tuesdayDinner};
+        for (int i = 0; i < 3; i++) {
+            final int finalI = i;
+            buttons_Tuesday[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String state = "سه شنبه" + " < " + meals[finalI];
+                    if (sfxWeeklyList.getResult().getDay3().get(finalI).getStatus().equals("invalid")) {
+                        if (sfxWeeklyList.getResult().getDay3().get(finalI).getName().equals("empty")) {
+                            Toast.makeText(rootView.getContext(), "برنامه ریزی نشده", Toast.LENGTH_SHORT).show();
+                        } else {
+                            showMealItem(sfxWeeklyList.getResult().getDay3().get(finalI).getName(),
+                                    sfxWeeklyList.getResult().getDay3().get(finalI).getRestaurant(),
+                                    sfxWeeklyList.getResult().getDay3().get(finalI).getPrice(),
+                                    state);
+                        }
+                    } else if (sfxWeeklyList.getResult().getDay3().get(finalI).getStatus().equals("valid")) {
+                        if (sfxWeeklyList.getResult().getDay3().get(finalI).getName().equals("empty")) {
+                            chooseMealItem(sfxWeeklyList.getResult().getDay3().get(finalI).getMealCode(),
+                                    sfxWeeklyList.getResult().getDay3().get(3).getDateCode(),
+                                    state);
+                        } else {
+                            deleteMealItem(sfxWeeklyList.getResult().getDay3().get(finalI).getData(),
+                                    sfxWeeklyList.getResult().getDay3().get(finalI).getName(),
+                                    sfxWeeklyList.getResult().getDay3().get(finalI).getRestaurant(),
+                                    sfxWeeklyList.getResult().getDay3().get(finalI).getPrice(),
+                                    state);
+                        }
+                    }
+                }
+            });
+        }
+//__________________________________________________________________________________________________
+        //Wednesday
+        Button buttons_Wednesday[] = {wednesdayBreakfast, wednesdayLunch, wednesdayDinner};
+        for (int i = 0; i < 3; i++) {
+            final int finalI = i;
+            buttons_Wednesday[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String state = "چهارشنبه" + " > " + meals[finalI];
+                    if (sfxWeeklyList.getResult().getDay4().get(finalI).getStatus().equals("invalid")) {
+                        if (sfxWeeklyList.getResult().getDay4().get(finalI).getName().equals("empty")) {
+                            Toast.makeText(rootView.getContext(), "برنامه ریزی نشده", Toast.LENGTH_SHORT).show();
+                        } else {
+                            showMealItem(sfxWeeklyList.getResult().getDay4().get(finalI).getName(),
+                                    sfxWeeklyList.getResult().getDay4().get(finalI).getRestaurant(),
+                                    sfxWeeklyList.getResult().getDay4().get(finalI).getPrice(),
+                                    state);
+                        }
+                    } else if (sfxWeeklyList.getResult().getDay4().get(finalI).getStatus().equals("valid")) {
+                        if (sfxWeeklyList.getResult().getDay4().get(finalI).getName().equals("empty")) {
+                            chooseMealItem(sfxWeeklyList.getResult().getDay4().get(finalI).getMealCode(),
+                                    sfxWeeklyList.getResult().getDay4().get(3).getDateCode(),
+                                    state);
+                        } else {
+                            deleteMealItem(sfxWeeklyList.getResult().getDay4().get(finalI).getData(),
+                                    sfxWeeklyList.getResult().getDay4().get(finalI).getName(),
+                                    sfxWeeklyList.getResult().getDay4().get(finalI).getRestaurant(),
+                                    sfxWeeklyList.getResult().getDay4().get(finalI).getPrice(),
+                                    state);
+                        }
+                    }
+                }
+            });
+        }
+//__________________________________________________________________________________________________
+        //Thursday
+        Button buttons_Thursday[] = {thursdayBreakfast, thursdayLunch, thursdayDinner};
+        for (int i = 0; i < 3; i++) {
+            final int finalI = i;
+            buttons_Thursday[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String state = "پنج شنبه" + " > " + meals[finalI];
+                    if (sfxWeeklyList.getResult().getDay5().get(finalI).getStatus().equals("invalid")) {
+                        if (sfxWeeklyList.getResult().getDay5().get(finalI).getName().equals("empty")) {
+                            Toast.makeText(rootView.getContext(), "برنامه ریزی نشده", Toast.LENGTH_SHORT).show();
+                        } else {
+                            showMealItem(sfxWeeklyList.getResult().getDay5().get(finalI).getName(),
+                                    sfxWeeklyList.getResult().getDay5().get(finalI).getRestaurant(),
+                                    sfxWeeklyList.getResult().getDay5().get(finalI).getPrice(),
+                                    state);
+                        }
+                    } else if (sfxWeeklyList.getResult().getDay5().get(finalI).getStatus().equals("valid")) {
+                        if (sfxWeeklyList.getResult().getDay5().get(finalI).getName().equals("empty")) {
+                            chooseMealItem(sfxWeeklyList.getResult().getDay5().get(finalI).getMealCode(),
+                                    sfxWeeklyList.getResult().getDay5().get(3).getDateCode(),
+                                    state);
+                        } else {
+                            deleteMealItem(sfxWeeklyList.getResult().getDay5().get(finalI).getData(),
+                                    sfxWeeklyList.getResult().getDay5().get(finalI).getName(),
+                                    sfxWeeklyList.getResult().getDay5().get(finalI).getRestaurant(),
+                                    sfxWeeklyList.getResult().getDay5().get(finalI).getPrice(),
+                                    state);
+                        }
+                    }
+                }
+            });
+        }
+//__________________________________________________________________________________________________
+        //Friday
+        Button buttons_Friday[] = {fridayBreakfast, fridayLunch, fridayDinner};
+        for (int i = 0; i < 3; i++) {
+            final int finalI = i;
+            buttons_Friday[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String state = "جمعه" + " > " + meals[finalI];
+                    if (sfxWeeklyList.getResult().getDay6().get(finalI).getStatus().equals("invalid")) {
+                        if (sfxWeeklyList.getResult().getDay6().get(finalI).getName().equals("empty")) {
+                            Toast.makeText(rootView.getContext(), "برنامه ریزی نشده", Toast.LENGTH_SHORT).show();
+                        } else {
+                            showMealItem(sfxWeeklyList.getResult().getDay6().get(finalI).getName(),
+                                    sfxWeeklyList.getResult().getDay6().get(finalI).getRestaurant(),
+                                    sfxWeeklyList.getResult().getDay6().get(finalI).getPrice(),
+                                    state);
+                        }
+                    } else if (sfxWeeklyList.getResult().getDay6().get(finalI).getStatus().equals("valid")) {
+                        if (sfxWeeklyList.getResult().getDay6().get(finalI).getName().equals("empty")) {
+                            chooseMealItem(sfxWeeklyList.getResult().getDay6().get(finalI).getMealCode(),
+                                    sfxWeeklyList.getResult().getDay6().get(3).getDateCode(),
+                                    state);
+                        } else {
+                            deleteMealItem(sfxWeeklyList.getResult().getDay6().get(finalI).getData(),
+                                    sfxWeeklyList.getResult().getDay6().get(finalI).getName(),
+                                    sfxWeeklyList.getResult().getDay6().get(finalI).getRestaurant(),
+                                    sfxWeeklyList.getResult().getDay6().get(finalI).getPrice(),
+                                    state);
+                        }
+                    }
+                }
+            });
+        }
     }
 
-    @SuppressLint("SetTextI18n")
-    private void showMealItem(String name, String restaurant, String price, String state) {
+
+    @SuppressLint({"SetTextI18n", "LongLogTag"})
+    private void showMealItem(String name, String restaurant, String price, String status) {
+        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Show Meal Item : " + status);
         final Dialog dialog = new Dialog(rootView.getContext());
         dialog.setContentView(R.layout.sfx_show_meal_item);
+        dialog.setCancelable(false);
 
         TextView textViewName = dialog.findViewById(R.id.sfxShowMeal_name);
         TextView textViewRestaurant = dialog.findViewById(R.id.sfxShowMeal_restaurant);
@@ -383,15 +599,14 @@ public class FoodReservationAdapter {
         textViewName.setText(name);
         textViewRestaurant.setText(restaurant);
         textViewPrice.setText(price + " ریال ");
-        textViewState.setText(state);
+        textViewState.setText(status);
 
-        Button cancel = dialog.findViewById(R.id.sfxShowMeal_close);
-
-        dialog.setCancelable(false);
+        Button cancel = dialog.findViewById(R.id.sfxShowMeal_Close);
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "on Close Clicked");
                 dialog.dismiss();
             }
         });
@@ -399,54 +614,98 @@ public class FoodReservationAdapter {
         dialog.show();
     }
 
+    @SuppressLint("LongLogTag")
     private void chooseMealItem(final String mealCode, final String dateCode, String status) {
-        final Dialog dialog = new Dialog(rootView.getContext());
-        dialog.setContentView(R.layout.sfx_choose_meal_item);
-        dialog.setCancelable(false);
+        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Choose Meal Item : " + status);
+        restaurantCode = null;
+        foodCode = null;
+        if (HttpManager.isNOTOnline(rootView.getContext())) {
+            Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "OFFLine");
+            HttpManager.noInternetAccess(rootView.getContext());
+        } else {
+            Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "OnLine");
 
-        restaurant = dialog.findViewById(R.id.sfxChoose_Restaurant);
-        food = dialog.findViewById(R.id.sfxChoose_food);
-        buy = dialog.findViewById(R.id.sfxChoose_Buy);
-        Button close = dialog.findViewById(R.id.sfxChoose_Close);
-        TextView state = dialog.findViewById(R.id.sfxChoose_State);
+            final Dialog dialog = new Dialog(rootView.getContext());
+            dialog.setContentView(R.layout.sfx_choose_meal_item);
+            dialog.setCancelable(false);
 
-        restaurant.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getRestaurantCode();
-            }
-        });
+            btn_Restaurant = dialog.findViewById(R.id.sfxChoose_Restaurant);
+            btn_Food = dialog.findViewById(R.id.sfxChoose_food);
+            btn_Buy = dialog.findViewById(R.id.sfxChoose_Buy);
+            Button close = dialog.findViewById(R.id.sfxChoose_Close);
+            TextView state = dialog.findViewById(R.id.sfxChoose_State);
 
-        food.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getFood(cookie, mealCode, dateCode, restaurantCode);
-            }
-        });
+            state.setText(status);
+            btn_Restaurant.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "on Restaurant Click Listener");
+                    foodCode = null;
+                    restaurantCode = null;
+                    btn_Food.setText("انتخاب کنید");
+                    btn_Food.setBackgroundResource(R.drawable.bg_sfx_choose);
 
-        buy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buyFood(cookie, mealCode, dateCode, restaurantCode, foodCode);
-                dialog.dismiss();
-            }
-        });
+                    getRestaurantCode();
+                    Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Restaurant Text : " + btn_Restaurant.getText());
+                    Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Restaurant Code : " + restaurantCode);
+                }
+            });
 
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+            btn_Food.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "on Food Click Listener");
+                    if (HttpManager.isNOTOnline(rootView.getContext())) {
+                        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "OFFLine");
+                        HttpManager.noInternetAccess(rootView.getContext());
+                        dialog.dismiss();
+                    } else {
+                        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "OnLine");
+                        if (restaurantCode != null) {
+                            getFood(cookie, mealCode, dateCode, restaurantCode);
+                            Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Food Text : " + btn_Food.getText());
+                            Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Food Code : " + foodCode);
+                        }
+                    }
+                }
+            });
 
-        state.setText(status);
+            btn_Buy.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "on Buy Click Listener");
+                    if (HttpManager.isNOTOnline(rootView.getContext())) {
+                        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "OFFLine");
+                        HttpManager.noInternetAccess(rootView.getContext());
+                        dialog.dismiss();
+                    } else {
+                        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "OnLine");
+                        if (restaurantCode != null && foodCode != null) {
+                            buyFood(cookie, mealCode, dateCode, restaurantCode, foodCode);
+                            dialog.dismiss();
+                        }
+                    }
+                }
+            });
 
-        dialog.show();
+            close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "on Close Clicked");
+                    dialog.dismiss();
+                }
+            });
+
+            dialog.show();
+        }
     }
 
+    @SuppressLint("LongLogTag")
     private void getRestaurantCode() {
+        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "get Restaurant Code Start");
         final Dialog dialog = new Dialog(rootView.getContext());
         dialog.setContentView(R.layout.sfx_list);
+        dialog.setCancelable(false);
 
         ListView listView = dialog.findViewById(R.id.sfxList_ListView);
 
@@ -460,10 +719,10 @@ public class FoodReservationAdapter {
 
 
         ImageView close = dialog.findViewById(R.id.sfxList_close);
-        dialog.setCancelable(false);
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "on Image Close Clicked");
                 dialog.dismiss();
             }
         });
@@ -477,9 +736,11 @@ public class FoodReservationAdapter {
                 for (int i = 0; i < sfxWeeklyList.getResult().getRestaurants().size(); i++) {
                     if (adapter.getItem(position).equals(sfxWeeklyList.getResult().getRestaurants().get(i).getName())) {
                         restaurantCode = sfxWeeklyList.getResult().getRestaurants().get(i).getCode();
+                        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Restaurant Text : " + sfxWeeklyList.getResult().getRestaurants().get(i).getName());
+                        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Restaurant Code : " + restaurantCode);
                         dialog.dismiss();
-                        restaurant.setText(adapter.getItem(position));
-                        restaurant.setBackgroundResource(R.drawable.sfx_select_background);
+                        btn_Restaurant.setText(adapter.getItem(position));
+                        btn_Restaurant.setBackgroundResource(R.drawable.bg_sfx_select);
                     }
                 }
             }
@@ -487,18 +748,21 @@ public class FoodReservationAdapter {
         dialog.show();
     }
 
-    private void getFood(String cookie, String mealCode, String dateCode, String restaurantCode) {
-        Log.i(MyLog.SESS, cookie);
-        Log.i(MyLog.SESS, mealCode);
-        Log.i(MyLog.SESS, dateCode);
-        Log.i(MyLog.SESS, restaurantCode);
+    @SuppressLint("LongLogTag")
+    private void getFood(String cookie, String meal_code, String date_code, String restaurant_code) {
+        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Get Food Start");
 
         Map<String, String> params = new HashMap<>();
         params.put("cookie", cookie);
-        params.put("meal", mealCode);
-        params.put("date", dateCode);
-        params.put("restaurant", restaurantCode);
+        params.put("meal", meal_code);
+        params.put("date", date_code);
+        params.put("restaurant", restaurant_code);
         String URI = MyConfig.SFX_MEAL_DETAIL + "?" + HttpManager.enCodeParameters(params);
+
+        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "cookie         : " + params.get("cookie"));
+        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "mealCode       : " + params.get("meal"));
+        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "dateCode       : " + params.get("date"));
+        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "restaurantCode : " + params.get("restaurant"));
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 URI,
@@ -507,9 +771,28 @@ public class FoodReservationAdapter {
                     public void onResponse(String response) {
                         try {
                             sfxMealDetail = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"), SFXMealDetail.class);
-                            showFood();
-                            Log.i(MyLog.SESS, sfxMealDetail.getOk().toString());
-                            Log.i(MyLog.SESS, sfxMealDetail.getResult().get(0).getName());
+                            if (sfxMealDetail.getOk()) {
+                                if (sfxMealDetail.getResult().size() <= 0) {
+                                    Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "No food found");
+                                    Toast.makeText(rootView.getContext(), "هیچ غذایی یافت نشد", Toast.LENGTH_SHORT).show();
+                                    btn_Restaurant.setText("انتخاب کنید");
+                                    btn_Food.setText("انتخاب کنید");
+                                    btn_Restaurant.setBackgroundResource(R.drawable.bg_sfx_choose);
+                                    btn_Food.setBackgroundResource(R.drawable.bg_sfx_choose);
+                                    restaurantCode = null;
+                                    foodCode = null;
+                                } else if (sfxMealDetail.getResult().size() > 0) {
+                                    Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Food : " + sfxMealDetail.getResult().get(0).getName());
+                                    showFood();
+                                }
+                            } else if (!sfxMealDetail.getOk()) {
+                                Toast.makeText(rootView.getContext(), sfxMealDetail.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
+                                restaurantCode = null;
+                                foodCode = null;
+                                if (Integer.parseInt(sfxMealDetail.getDescription().getErrorCode()) < 0) {
+                                    System.exit(0);
+                                }
+                            }
                         } catch (UnsupportedEncodingException e) {
                             e.printStackTrace();
                         }
@@ -518,13 +801,21 @@ public class FoodReservationAdapter {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, error.getMessage());
+                        new AlertDialog.Builder(rootView.getContext())
+                                .setTitle("ERROR")
+                                .setMessage(error.getMessage())
+                                .setPositiveButton("Ok", null)
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
                     }
                 });
         queue.add(stringRequest);
     }
 
+    @SuppressLint("LongLogTag")
     private void showFood() {
+        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Show Food Started");
         final Dialog dialog = new Dialog(rootView.getContext());
         dialog.setContentView(R.layout.sfx_list);
 
@@ -544,6 +835,7 @@ public class FoodReservationAdapter {
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "on Close Clicked");
                 dialog.dismiss();
             }
         });
@@ -557,9 +849,11 @@ public class FoodReservationAdapter {
                 for (int i = 0; i < sfxMealDetail.getResult().size(); i++) {
                     if (adapter.getItem(position).equals(sfxMealDetail.getResult().get(i).getName())) {
                         foodCode = sfxMealDetail.getResult().get(i).getCode();
+                        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Food Text : " + sfxMealDetail.getResult().get(i).getName());
+                        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Food Code : " + foodCode);
+                        btn_Food.setText(adapter.getItem(position));
+                        btn_Food.setBackgroundResource(R.drawable.bg_sfx_select);
                         dialog.dismiss();
-                        food.setText(adapter.getItem(position));
-                        food.setBackgroundResource(R.drawable.sfx_select_background);
                     }
                 }
             }
@@ -567,27 +861,48 @@ public class FoodReservationAdapter {
         dialog.show();
     }
 
-    private void buyFood(final String cookie, final String mealCode, final String dateCode, final String restaurantCode, final String foodCode) {
-
+    @SuppressLint("LongLogTag")
+    private void buyFood(final String cookie, final String meal_code, final String date_code, final String restaurant_code, final String food_code) {
+        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Buy Food Run");
+        weeklyList = new SFXWeeklyList();
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 MyConfig.SFX_BUY_MEAL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        SFXWeeklyList newSFXWeeklyList = new SFXWeeklyList();
                         try {
-                            sfxWeeklyList = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"),
-                                    SFXWeeklyList.class);
-                            new FoodReservationAdapter(rootView, R.layout.fragment_food_reservation, sfxWeeklyList, cookie);
+                            weeklyList = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"), SFXWeeklyList.class);
+                            if (weeklyList.isOk()) {
+                                sfxWeeklyList = weeklyList;
+                                Log.i(MyLog.FOOD_RESERVATION_ADAPTER, sfxWeeklyList.getResult().getMessage());
+                                new FoodReservationAdapter(rootView, R.layout.fragment_food_reservation, sfxWeeklyList, cookie);
+                                CustomToastSuccess.success(rootView.getContext(), "وعده غذایی خریداری شد", Toast.LENGTH_SHORT).show();
+                            } else if (!weeklyList.isOk()) {
+                                Log.i(MyLog.FOOD_RESERVATION_ADAPTER, weeklyList.getDescription().getErrorText());
+                                restaurantCode = null;
+                                foodCode = null;
+                                if (Integer.parseInt(weeklyList.getDescription().getErrorCode()) > 0) {
+                                    CustomToastFailure.failure(rootView.getContext(), weeklyList.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
+                                } else if (Integer.parseInt(weeklyList.getDescription().getErrorCode()) < 0) {
+                                    Toast.makeText(rootView.getContext(), weeklyList.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
+                                    System.exit(0);
+                                }
+                            }
                         } catch (UnsupportedEncodingException e) {
                             e.printStackTrace();
                         }
-                        CustomToast.success(rootView.getContext(), "وعده غذایی خریداری شد", Toast.LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, error.getMessage());
+                        new AlertDialog.Builder(rootView.getContext())
+                                .setTitle("ERROR")
+                                .setMessage(error.getMessage())
+                                .setPositiveButton("Ok", null)
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
                     }
                 }
         ) {
@@ -595,13 +910,112 @@ public class FoodReservationAdapter {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("cookie", cookie);
-                params.put("meal", mealCode);
-                params.put("date", dateCode);
-                params.put("restaurant", restaurantCode);
-                params.put("food", foodCode);
+                params.put("meal", meal_code);
+                params.put("date", date_code);
+                params.put("restaurant", restaurant_code);
+                params.put("food", food_code);
                 return params;
             }
         };
+        queue.add(stringRequest);
+    }
+
+    @SuppressLint({"SetTextI18n", "LongLogTag"})
+    private void deleteMealItem(final String data, String name, String restaurant, String price, String status) {
+        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Delete Meal Item : " + status);
+        final Dialog dialog = new Dialog(rootView.getContext());
+        dialog.setContentView(R.layout.sfx_delete_meal_item);
+        dialog.setCancelable(false);
+
+        btn_Delete = dialog.findViewById(R.id.sfxDeleteMeal_Delete);
+        Button close = dialog.findViewById(R.id.sfxDeleteMeal_Close);
+        TextView textViewName = dialog.findViewById(R.id.sfxDeleteMeal_name);
+        TextView textViewRestaurant = dialog.findViewById(R.id.sfxDeleteMeal_restaurant);
+        TextView textViewPrice = dialog.findViewById(R.id.sfxDeleteMeal_price);
+        TextView textViewState = dialog.findViewById(R.id.sfxDeleteMeal_State);
+
+        textViewName.setText(name);
+        textViewRestaurant.setText(restaurant);
+        textViewPrice.setText(price + " ریال ");
+        textViewState.setText(status);
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "on Close Clicked");
+                dialog.dismiss();
+            }
+        });
+
+        btn_Delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "on Delete Click Listener");
+                if (HttpManager.isNOTOnline(rootView.getContext())) {
+                    Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "OFFLine");
+                    HttpManager.noInternetAccess(rootView.getContext());
+                    dialog.dismiss();
+                } else {
+                    Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "OnLine");
+                    deleteFood(cookie, UsernamePassword.getUsername(), data);
+                    dialog.dismiss();
+                }
+            }
+        });
+        dialog.show();
+    }
+
+
+    @SuppressLint("LongLogTag")
+    private void deleteFood(final String cookie, final String username, final String data) {
+        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Delete Food Run");
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("cookie", cookie);
+        params.put("username", username);
+        params.put("data", data);
+        String URI = MyConfig.SFX_DELETE_MEAL + "?" + HttpManager.enCodeParameters(params);
+        weeklyList = new SFXWeeklyList();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.DELETE,
+                URI,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            weeklyList = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"), SFXWeeklyList.class);
+                            if (weeklyList.isOk()) {
+                                sfxWeeklyList = weeklyList;
+                                Log.i(MyLog.FOOD_RESERVATION_ADAPTER, sfxWeeklyList.getResult().getMessage());
+                                new FoodReservationAdapter(rootView, R.layout.fragment_food_reservation, sfxWeeklyList, cookie);
+                                CustomToastSuccess.success(rootView.getContext(), "وعده غذایی حذف شد", Toast.LENGTH_SHORT).show();
+                            } else if (!weeklyList.isOk()) {
+                                Log.i(MyLog.FOOD_RESERVATION_ADAPTER, weeklyList.getDescription().getErrorText());
+                                if (Integer.parseInt(weeklyList.getDescription().getErrorCode()) > 0) {
+                                    CustomToastFailure.failure(rootView.getContext(), weeklyList.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
+                                } else if (Integer.parseInt(weeklyList.getDescription().getErrorCode()) < 0) {
+                                    Toast.makeText(rootView.getContext(), weeklyList.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
+                                    System.exit(0);
+                                }
+                            }
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, error.getMessage());
+                        new AlertDialog.Builder(rootView.getContext())
+                                .setTitle("ERROR")
+                                .setMessage(error.getMessage())
+                                .setPositiveButton("Ok", null)
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+                    }
+                }
+        );
         queue.add(stringRequest);
     }
 }

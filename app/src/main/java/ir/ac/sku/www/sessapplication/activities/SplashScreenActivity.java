@@ -11,19 +11,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-
-import ir.ac.sku.www.sessapplication.API.MyConfig;
 import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.models.LoginInformation;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
@@ -42,7 +32,7 @@ public class SplashScreenActivity extends MyActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         //Log Splash Screen
-        Log.i(MyLog.SPLASH_SCREEN, "Create Splash Screen");
+        Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "Create Splash Screen");
 
         //find View
         tryAgain = findViewById(R.id.buttonTryAgain_SplashScreen);
@@ -54,7 +44,7 @@ public class SplashScreenActivity extends MyActivity {
 
     @SuppressLint("LongLogTag")
     private void changeStatusBarColor() {
-        Log.i(MyLog.SPLASH_SCREEN, "Change Status Bar");
+        Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "Change Status Bar");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
@@ -65,27 +55,27 @@ public class SplashScreenActivity extends MyActivity {
 
     @SuppressLint("LongLogTag")
     private void checkOnLine() {
-        Log.i(MyLog.SPLASH_SCREEN, "Check Online");
+        Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "Check Online");
         if (HttpManager.isNOTOnline(this)) {
-            Log.i(MyLog.SPLASH_SCREEN, "OFFLine");
+            Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "OFFLine");
             HttpManager.noInternetAccess(this);
             tryAgain.setVisibility(View.VISIBLE);
             tryAgain.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.i(MyLog.SPLASH_SCREEN, "Clicked on Try Again");
+                    Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "Clicked on Try Again");
                     if (HttpManager.isNOTOnline(SplashScreenActivity.this)) {
-                        Log.i(MyLog.SPLASH_SCREEN, "OFFLine");
+                        Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "OFFLine");
                         HttpManager.noInternetAccess(SplashScreenActivity.this);
                     } else {
-                        Log.i(MyLog.SPLASH_SCREEN, "OnLine");
+                        Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "OnLine");
                         tryAgain.setVisibility(View.INVISIBLE);
                         checkOnLine();
                     }
                 }
             });
         } else {
-            Log.i(MyLog.SPLASH_SCREEN, "OnLine");
+            Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "OnLine");
             new BackgroundTask().execute();
         }
     }
@@ -98,14 +88,14 @@ public class SplashScreenActivity extends MyActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Log.i(MyLog.SPLASH_SCREEN, "Create new Intent");
+            Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "Create new Intent");
             intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
         }
 
         @SuppressLint("LongLogTag")
         @Override
         protected Object doInBackground(Object[] objects) {
-            Log.i(MyLog.SPLASH_SCREEN, "do In Background");
+            Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "do In Background");
             try {
                 Thread.sleep(SPLASH_TIME);
             } catch (InterruptedException e) {
@@ -118,7 +108,7 @@ public class SplashScreenActivity extends MyActivity {
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
-            Log.i(MyLog.SPLASH_SCREEN, "on Post Execute");
+            Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "on Post Execute");
             startActivity(intent);
             finish();
         }
