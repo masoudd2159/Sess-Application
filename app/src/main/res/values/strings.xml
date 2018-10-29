@@ -33,5 +33,9 @@
     <string name="buy">خرید</string>
     <string name="close">بستن</string>
     <string name="delete">حذف</string>
+    <string name="my_credit_text">لطفا نوع و مبلغ اعتبار را انتخاب نمایید</string>
+    <string name="type_credit">نوع اعتبار</string>
+    <string name="amount_credit">مبلغ اعتبار</string>
+    <string name="payment">اتصال به درگاه پرداخت</string>
 
 </resources>

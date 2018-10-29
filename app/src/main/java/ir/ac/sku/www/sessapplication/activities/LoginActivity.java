@@ -118,8 +118,8 @@ public class LoginActivity extends MyActivity {
             }
         });
 
-        user.setText("951406115");
-        password.setText("masoud76");
+     /*   user.setText("951406115");
+        password.setText("masoud76");*/
     }
 
     @SuppressLint("LongLogTag")

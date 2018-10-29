@@ -21,7 +21,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 28
         versionCode 1
-        versionName "masoud.0"
+        versionName "sess.0.0.beta"
     }
     buildTypes {
         release {

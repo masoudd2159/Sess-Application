@@ -8,4 +8,6 @@ public class MyConfig {
     public static final String SFX_MEAL_DETAIL = "http://app.sku.ac.ir/api/v1/user/sfx/zheton/mealFoods";
     public static final String SFX_BUY_MEAL = "http://app.sku.ac.ir/api/v1/user/sfx/zheton";
     public static final String SFX_DELETE_MEAL = "http://app.sku.ac.ir/api/v1/user/sfx/zheton";
+    public static final String SFX_INCREASE_CREDIT = "http://app.sku.ac.ir/api/v1/user/sfx/increaseCredit/detail";
+    public static final String SFX_INCREASE_CREDIT_AMOUNT = "http://app.sku.ac.ir/api/v1/user/sfx/increaseCredit";
 }

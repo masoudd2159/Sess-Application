@@ -2,16 +2,23 @@ package ir.ac.sku.www.sessapplication.adapters;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +39,8 @@ import java.util.Map;
 import ir.ac.sku.www.sessapplication.API.MyConfig;
 import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.activities.SplashScreenActivity;
+import ir.ac.sku.www.sessapplication.activities.BottomBarActivity;
+import ir.ac.sku.www.sessapplication.models.SFXIncreaseCreditDetail;
 import ir.ac.sku.www.sessapplication.models.SFXMealDetail;
 import ir.ac.sku.www.sessapplication.models.SFXWeeklyList;
 import ir.ac.sku.www.sessapplication.models.UsernamePassword;
@@ -52,8 +60,7 @@ public class FoodReservationAdapter {
     private String cookie;
 
     //My Views at Fragment
-    private Button increaseCredit;
-    private TextView credit;
+    private TextView tv_Credit;
 
 
     private Button saturdayBreakfast;
@@ -85,15 +92,14 @@ public class FoodReservationAdapter {
     private Button fridayDinner;
 
 
-    private Button nextWeek;
     private TextView period;
-    private Button previousWeek;
 
     //My View at Layout
     private Button btn_Restaurant;
     private Button btn_Food;
     private Button btn_Buy;
     private Button btn_Delete;
+
 
     //Codes
     private String restaurantCode = null;
@@ -104,8 +110,8 @@ public class FoodReservationAdapter {
     private Gson gson;
 
     //My Java Model Class
-    private SFXMealDetail sfxMealDetail;
     private SFXWeeklyList weeklyList;
+    private SFXMealDetail sfxMealDetail;
 
     @SuppressLint("LongLogTag")
     public FoodReservationAdapter(@NonNull View rootView, int resource, @NonNull SFXWeeklyList sfxWeeklyList, String cookie) {
@@ -124,13 +130,12 @@ public class FoodReservationAdapter {
 
         //my Functions
         init();
-        fileItems();
+        fillItems();
         sfxMeal();
     }
 
     private void init() {
-        increaseCredit = rootView.findViewById(R.id.btn_increaseCredit);
-        credit = rootView.findViewById(R.id.tv_Credit);
+        tv_Credit = rootView.findViewById(R.id.tv_Credit);
 
 
         saturdayBreakfast = rootView.findViewById(R.id.saturday_Breakfast);
@@ -161,16 +166,13 @@ public class FoodReservationAdapter {
         fridayLunch = rootView.findViewById(R.id.friday_Lunch);
         fridayDinner = rootView.findViewById(R.id.friday_Dinner);
 
-
-        nextWeek = rootView.findViewById(R.id.next_Week);
         period = rootView.findViewById(R.id.tv_Period);
-        previousWeek = rootView.findViewById(R.id.previous_Week);
     }
 
     @SuppressLint({"SetTextI18n", "LongLogTag"})
-    private void fileItems() {
+    private void fillItems() {
         if (sfxWeeklyList.isOk()) {
-            credit.setText(" اعتبار : " + sfxWeeklyList.getResult().getCredit() + " ریال ");
+            tv_Credit.setText(" اعتبار : " + sfxWeeklyList.getResult().getCredit() + " ریال ");
 
 //__________________________________________________________________________________________________
             //Saturday

@@ -25,6 +25,7 @@ import ir.ac.sku.www.sessapplication.fragment.HomeFragment;
 import ir.ac.sku.www.sessapplication.fragment.MessagesFragment;
 import ir.ac.sku.www.sessapplication.fragment.ProcessesFragment;
 import ir.ac.sku.www.sessapplication.models.LoginInformation;
+import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 import ir.ac.sku.www.sessapplication.utils.TypefaceSpan;
 import pl.droidsonroids.gif.GifImageView;
@@ -93,47 +94,51 @@ public class BottomBarActivity extends MyActivity {
             @SuppressLint({"CommitTransaction", "LongLogTag"})
             @Override
             public void onTabSelected(int tabId) {
-                switch (tabId) {
-                    //Home
-                    case R.id.tab_Home:
-                        Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "On Tab Select Item : Tab Home");
-                        getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.frame_fragmentHolder, homeFragment)
-                                .commit();
-                        break;
-                    //Food Reservation
-                    case R.id.tab_FoodReservation:
-                        Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "On Tab Select Item : Tab Food Reservation");
-                        getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.frame_fragmentHolder, foodReservationFragment)
-                                .commit();
-                        break;
-                    //Processes
-                    case R.id.tab_Processes:
-                        Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "On Tab Select Item : Tab Processes");
-                        getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.frame_fragmentHolder, processesFragment)
-                                .commit();
-                        break;
-                    //Messages
-                    case R.id.tab_Messages:
-                        Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "On Tab Select Item : Tab Messages");
-                        getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.frame_fragmentHolder, messagesFragment)
-                                .commit();
-                        break;
-                    //Default
-                    default:
-                        Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "On Tab Select Item : Tab Home");
-                        getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.frame_fragmentHolder, homeFragment)
-                                .commit();
-                        break;
+                if (HttpManager.isNOTOnline(BottomBarActivity.this)) {
+                    HttpManager.noInternetAccess(BottomBarActivity.this);
+                } else {
+                    switch (tabId) {
+                        //Home
+                        case R.id.tab_Home:
+                            Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "On Tab Select Item : Tab Home");
+                            getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.frame_fragmentHolder, homeFragment)
+                                    .commit();
+                            break;
+                        //Food Reservation
+                        case R.id.tab_FoodReservation:
+                            Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "On Tab Select Item : Tab Food Reservation");
+                            getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.frame_fragmentHolder, foodReservationFragment)
+                                    .commit();
+                            break;
+                        //Processes
+                        case R.id.tab_Processes:
+                            Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "On Tab Select Item : Tab Processes");
+                            getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.frame_fragmentHolder, processesFragment)
+                                    .commit();
+                            break;
+                        //Messages
+                        case R.id.tab_Messages:
+                            Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "On Tab Select Item : Tab Messages");
+                            getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.frame_fragmentHolder, messagesFragment)
+                                    .commit();
+                            break;
+                        //Default
+                        default:
+                            Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "On Tab Select Item : Tab Home");
+                            getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.frame_fragmentHolder, homeFragment)
+                                    .commit();
+                            break;
+                    }
                 }
             }
         });
@@ -160,5 +165,4 @@ public class BottomBarActivity extends MyActivity {
         }
         return true;
     }
-
 }
