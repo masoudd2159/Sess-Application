@@ -2,6 +2,10 @@ apply plugin: 'com.android.application'
 
 android {
 
+    defaultConfig {
+        vectorDrawables.useSupportLibrary = true
+    }
+
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/LICENSE'

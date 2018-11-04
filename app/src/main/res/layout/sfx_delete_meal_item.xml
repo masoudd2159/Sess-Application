@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sfxDeleteMeal_MainContent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/transparent"
     android:layoutDirection="ltr"
     android:orientation="vertical">
 
@@ -11,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@color/blue"
+        android:background="@drawable/bg_blue_solid_tl8tr"
         android:gravity="center_horizontal"
         android:layoutDirection="ltr"
         android:orientation="vertical"
@@ -33,6 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/sfxDeleteMeal_LayoutOne"
+        android:background="@android:color/white"
         android:layoutDirection="ltr"
         android:orientation="vertical"
         android:padding="10dp">
@@ -86,7 +89,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/sfxDeleteMeal_LayoutTwo"
-        android:layout_marginTop="5dp"
         android:layoutDirection="ltr"
         android:orientation="horizontal">
 
@@ -95,7 +97,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/red_2"
+            android:background="@drawable/bg_red_solid_bl"
             android:layoutDirection="ltr"
             android:text="@string/delete"
             android:textColor="@android:color/white"
@@ -106,7 +108,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/blue_grey"
+            android:background="@drawable/bg_bluegrey_solid_br"
             android:layoutDirection="ltr"
             android:text="@string/close"
             android:textColor="@android:color/white"

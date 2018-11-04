@@ -2,11 +2,16 @@ package ir.ac.sku.www.sessapplication.utils;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -45,6 +50,31 @@ public class HttpManager {
                 IntentHelper.openDataUsageScreen(context);
             }
         });
+        dialog.show();
+    }
+
+    public static void unsuccessfulOperation(Context context, String unsuccessfulMessage) {
+        Log.i(MyLog.SESS, "Open Dialog NO Internet Access");
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        WindowManager.LayoutParams layoutParams = dialog.getWindow().getAttributes();
+        layoutParams.dimAmount = 0.7f;
+        dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        dialog.setContentView(R.layout.custom_failed);
+
+        Button close = dialog.findViewById(R.id.failedClose);
+        TextView message = dialog.findViewById(R.id.failedTextView);
+
+        message.setText(unsuccessfulMessage);
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
         dialog.show();
     }
 

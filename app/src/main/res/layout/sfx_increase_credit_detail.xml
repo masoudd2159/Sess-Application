@@ -1,34 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/increaseCredit_MainContent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
     android:layoutDirection="ltr">
 
     <TextView
-        android:id="@+id/textView_CreditText"
+        android:id="@+id/increaseCredit_CreditTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/white"
         android:drawableEnd="@drawable/ic_credit"
         android:drawableRight="@drawable/ic_credit"
         android:drawablePadding="10dp"
         android:layoutDirection="ltr"
+        android:maxLines="1"
         android:padding="10dp"
         android:text="@string/my_credit_text"
         android:textColor="@android:color/black"
         android:textSize="17sp" />
 
     <View
+        android:id="@+id/increaseCredit_ViewLine"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@id/textView_CreditText"
+        android:layout_below="@id/increaseCredit_CreditTextView"
         android:background="@color/sky"
         android:layoutDirection="ltr" />
 
     <LinearLayout
-        android:id="@+id/linearLayout_creditLayout"
+        android:id="@+id/increaseCredit_CreditLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textView_CreditText"
+        android:layout_below="@id/increaseCredit_ViewLine"
+        android:background="@android:color/white"
         android:layoutDirection="ltr"
         android:orientation="vertical">
 
@@ -75,14 +81,14 @@
             android:orientation="horizontal">
 
             <NumberPicker
-                android:id="@+id/pickerCredit_Type"
+                android:id="@+id/increaseCredit_PickerSubject"
                 android:layout_width="0dp"
                 android:layout_height="120dp"
                 android:layout_weight="3"
                 android:layoutDirection="ltr" />
 
             <NumberPicker
-                android:id="@+id/pickerCredit_Amount"
+                android:id="@+id/increaseCredit_PickerCredit"
                 android:layout_width="0dp"
                 android:layout_height="120dp"
                 android:layout_weight="2"
@@ -96,22 +102,23 @@
             android:layoutDirection="ltr">
 
             <TextView
-                android:id="@+id/pickerCredit_State"
+                android:id="@+id/increaseCredit_PickerSummary"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:layoutDirection="ltr"
+                android:maxLines="1"
                 android:textColor="@color/green"
                 android:textSize="18sp" />
         </LinearLayout>
     </LinearLayout>
 
     <Button
-        android:id="@+id/pickerCredit_Submit"
+        android:id="@+id/increaseCredit_Submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/linearLayout_creditLayout"
+        android:layout_below="@id/increaseCredit_CreditLayout"
         android:background="@color/sky"
         android:layoutDirection="ltr"
         android:text="@string/payment"

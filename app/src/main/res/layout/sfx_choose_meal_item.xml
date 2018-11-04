@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
     android:layoutDirection="ltr"
     android:orientation="vertical">
 
@@ -11,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@color/blue"
+        android:background="@drawable/bg_blue_solid_tl8tr"
         android:gravity="center_horizontal"
         android:layoutDirection="ltr"
         android:orientation="vertical"
@@ -25,7 +26,7 @@
             android:gravity="center|right"
             android:layoutDirection="ltr"
             android:textColor="@android:color/white"
-            android:textSize="19sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -33,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/sfxChoose_LayoutOne"
+        android:background="@android:color/white"
         android:layoutDirection="ltr"
         android:orientation="vertical"
         android:padding="10dp">
@@ -58,7 +60,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/bg_sfx_choose"
+            android:background="@drawable/bg_grey_solid"
             android:gravity="center"
             android:layoutDirection="ltr"
             android:text="@string/select"
@@ -87,7 +89,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/bg_sfx_choose"
+            android:background="@drawable/bg_grey_solid"
             android:gravity="center"
             android:layoutDirection="ltr"
             android:text="@string/select"
@@ -100,7 +102,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/two"
-        android:layout_marginTop="5dp"
         android:layoutDirection="ltr"
         android:orientation="horizontal">
 
@@ -109,7 +110,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/green"
+            android:background="@drawable/bg_green_solid_bl"
             android:layoutDirection="ltr"
             android:text="@string/buy"
             android:textColor="@android:color/white"
@@ -120,7 +121,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/blue_grey"
+            android:background="@drawable/bg_bluegrey_solid_br"
             android:layoutDirection="ltr"
             android:text="@string/close"
             android:textColor="@android:color/white"

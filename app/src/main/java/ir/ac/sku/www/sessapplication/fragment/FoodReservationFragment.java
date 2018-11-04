@@ -2,10 +2,17 @@ package ir.ac.sku.www.sessapplication.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.view.GestureDetector;
+import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,10 +21,10 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
@@ -39,10 +46,12 @@ import java.util.Map;
 import ir.ac.sku.www.sessapplication.API.MyConfig;
 import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.R;
+import ir.ac.sku.www.sessapplication.activities.LoginActivity;
 import ir.ac.sku.www.sessapplication.adapters.FoodReservationAdapter;
 import ir.ac.sku.www.sessapplication.models.SFXIncreaseCreditDetail;
 import ir.ac.sku.www.sessapplication.models.SFXWeeklyList;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
+import pl.droidsonroids.gif.GifImageView;
 
 public class FoodReservationFragment extends Fragment {
 
@@ -57,9 +66,12 @@ public class FoodReservationFragment extends Fragment {
     private Button nextWeek;
     private Button previousWeek;
     private ProgressBar progressBar;
-    private NumberPicker type;
-    private NumberPicker amount;
-    private TextView summery;
+    private GifImageView gifImageViewPeriod;
+    private TextView textViewPeriod;
+
+    private NumberPicker subject;
+    private NumberPicker credit;
+    private TextView summary;
     private Button submit;
 
     //My Java Model Class
@@ -95,27 +107,75 @@ public class FoodReservationFragment extends Fragment {
         //use Lib
         queue = Volley.newRequestQueue(rootView.getContext());
         gson = new Gson();
-        dialog = new Dialog(rootView.getContext());
+
+        //create Dialog
+        dialog = new Dialog(rootView.getContext(), R.style.Theme_Dialog);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            window.setGravity(Gravity.BOTTOM);
+        }
 
         //get Weekly List
         weeklyList();
         increaseCredit();
         swipeRefresh();
+
+        rootView.setOnTouchListener(new OnSwipeTouchListener(rootView.getContext()) {
+            @Override
+            public void onSwipeRight() {
+                textViewPeriod.setText("");
+                gifImageViewPeriod.setVisibility(View.VISIBLE);
+                textViewPeriod.setVisibility(View.INVISIBLE);
+                Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "Previous Week List");
+                if (HttpManager.isNOTOnline(rootView.getContext())) {
+                    Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "OFFLine");
+                    HttpManager.noInternetAccess(rootView.getContext());
+                } else {
+                    Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "OnLine");
+                    getMealList(getArguments().getString("cookie"), "prev");
+                }
+            }
+
+            @Override
+            public void onSwipeLeft() {
+                textViewPeriod.setText("");
+                gifImageViewPeriod.setVisibility(View.VISIBLE);
+                textViewPeriod.setVisibility(View.INVISIBLE);
+
+                Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "Next Week List");
+                if (HttpManager.isNOTOnline(rootView.getContext())) {
+                    Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "OFFLine");
+                    HttpManager.noInternetAccess(rootView.getContext());
+                } else {
+                    Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "OnLine");
+                    getMealList(getArguments().getString("cookie"), "next");
+                }
+            }
+        });
         return rootView;
     }
 
     private void init() {
-        swipeRefreshLayout = rootView.findViewById(R.id.mySwipe);
-        btn_IncreaseCredit = rootView.findViewById(R.id.btn_increaseCredit);
-        nextWeek = rootView.findViewById(R.id.next_Week);
-        previousWeek = rootView.findViewById(R.id.previous_Week);
-        progressBar = rootView.findViewById(R.id.food_ProgressBar);
+        swipeRefreshLayout = rootView.findViewById(R.id.foodReservation_SwipeRefresh);
+        btn_IncreaseCredit = rootView.findViewById(R.id.foodReservation_IncreaseCreditButton);
+        nextWeek = rootView.findViewById(R.id.foodReservation_NextWeek);
+        previousWeek = rootView.findViewById(R.id.foodReservation_PreviousWeek);
+        progressBar = rootView.findViewById(R.id.foodReservation_ProgressBarWaiting);
+        gifImageViewPeriod = rootView.findViewById(R.id.foodReservation_GifImageViewPeriod);
+        textViewPeriod = rootView.findViewById(R.id.foodReservation_PeriodTextView);
     }
 
     @SuppressLint("LongLogTag")
     private void weeklyList() {
         //get Meal List
         if (getArguments() != null) {
+            textViewPeriod.setText("");
+            gifImageViewPeriod.setVisibility(View.VISIBLE);
+            textViewPeriod.setVisibility(View.INVISIBLE);
+
             Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "First List");
             getMealList(getArguments().getString("cookie"), "");
         }
@@ -124,6 +184,10 @@ public class FoodReservationFragment extends Fragment {
         nextWeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                textViewPeriod.setText("");
+                gifImageViewPeriod.setVisibility(View.VISIBLE);
+                textViewPeriod.setVisibility(View.INVISIBLE);
+
                 Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "Next Week List");
                 if (HttpManager.isNOTOnline(rootView.getContext())) {
                     Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "OFFLine");
@@ -137,6 +201,10 @@ public class FoodReservationFragment extends Fragment {
         previousWeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                textViewPeriod.setText("");
+                gifImageViewPeriod.setVisibility(View.VISIBLE);
+                textViewPeriod.setVisibility(View.INVISIBLE);
+
                 Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "Previous Week List");
                 if (HttpManager.isNOTOnline(rootView.getContext())) {
                     Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "OFFLine");
@@ -175,6 +243,8 @@ public class FoodReservationFragment extends Fragment {
                                             Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "InVisible Gif Image View And Get Captcha");
                                             progressBar.setVisibility(View.INVISIBLE);
                                             adapter = new FoodReservationAdapter(rootView, R.layout.fragment_food_reservation, sfxWeeklyList, getArguments().getString("cookie"));
+                                            gifImageViewPeriod.setVisibility(View.INVISIBLE);
+                                            textViewPeriod.setVisibility(View.VISIBLE);
                                         }
                                     }, 600);
                                     Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "sfxWeeklyList Send To Adapter");
@@ -186,7 +256,7 @@ public class FoodReservationFragment extends Fragment {
                                 Toast.makeText(rootView.getContext(), sfxWeeklyList.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
                                 if (Integer.parseInt(sfxWeeklyList.getDescription().getErrorCode()) < 0) {
                                     Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "Lost Cookie");
-                                    System.exit(0);
+                                    rootView.getContext().startActivity(new Intent(rootView.getContext(), LoginActivity.class));
                                 }
                             }
                         } catch (UnsupportedEncodingException e) {
@@ -216,16 +286,17 @@ public class FoodReservationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Increase Credit Click Listener Run");
+                ((ViewGroup) dialog.getWindow().getDecorView()).getChildAt(0).startAnimation(AnimationUtils.loadAnimation(rootView.getContext(), R.anim.slide_up));
+                dialog.getWindow().getAttributes().windowAnimations = R.style.PauseDialogAnimation;
+                WindowManager.LayoutParams layoutParams=dialog.getWindow().getAttributes();
+                layoutParams.dimAmount=0.7f;
+                dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
                 dialog.setContentView(R.layout.sfx_increase_credit_detail);
-                Window window = dialog.getWindow();
-                if (window != null) {
-                    window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-                    window.setGravity(Gravity.BOTTOM);
-                }
-                type = dialog.findViewById(R.id.pickerCredit_Type);
-                amount = dialog.findViewById(R.id.pickerCredit_Amount);
-                summery = dialog.findViewById(R.id.pickerCredit_State);
-                submit = dialog.findViewById(R.id.pickerCredit_Submit);
+                dialog.setCanceledOnTouchOutside(true);
+                subject = dialog.findViewById(R.id.increaseCredit_PickerSubject);
+                credit = dialog.findViewById(R.id.increaseCredit_PickerCredit);
+                summary = dialog.findViewById(R.id.increaseCredit_PickerSummary);
+                submit = dialog.findViewById(R.id.increaseCredit_Submit);
                 setPicker();
                 dialog.show();
             }
@@ -285,9 +356,9 @@ public class FoodReservationFragment extends Fragment {
             labelCredits[i] = creditDetail.getResult().getPlans().getCredits().get(i).getLabel();
         }
 
-        amount.setMinValue(0);
-        amount.setMaxValue(creditDetail.getResult().getPlans().getCredits().size() - 1);
-        amount.setDisplayedValues(labelCredits);
+        credit.setMinValue(0);
+        credit.setMaxValue(creditDetail.getResult().getPlans().getCredits().size() - 1);
+        credit.setDisplayedValues(labelCredits);
 
 
         String[] labelSubjects = new String[creditDetail.getResult().getSubjects().size()];
@@ -295,9 +366,9 @@ public class FoodReservationFragment extends Fragment {
             labelSubjects[i] = creditDetail.getResult().getSubjects().get(i).getLabel();
         }
 
-        type.setMinValue(0);
-        type.setMaxValue(creditDetail.getResult().getSubjects().size() - 1);
-        type.setDisplayedValues(labelSubjects);
+        subject.setMinValue(0);
+        subject.setMaxValue(creditDetail.getResult().getSubjects().size() - 1);
+        subject.setDisplayedValues(labelSubjects);
 
         final String str1 = " مبلغ ";
         final String[] str2 = {creditDetail.getResult().getPlans().getCredits().get(0).getLabel()};
@@ -306,21 +377,21 @@ public class FoodReservationFragment extends Fragment {
         final String str5 = " بابت ";
         final String[] str6 = {creditDetail.getResult().getSubjects().get(0).getLabel()};
 
-        summery.setText(str1 + str2[0] + str3 + str4 + str5 + str6[0]);
+        summary.setText(str1 + str2[0] + str3 + str4 + str5 + str6[0]);
 
-        amount.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+        credit.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 str2[0] = creditDetail.getResult().getPlans().getCredits().get(newVal).getLabel();
-                summery.setText(str1 + str2[0] + str3 + str4 + str5 + str6[0]);
+                summary.setText(str1 + str2[0] + str3 + str4 + str5 + str6[0]);
             }
         });
 
-        type.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+        subject.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 str6[0] = creditDetail.getResult().getSubjects().get(newVal).getLabel();
-                summery.setText(str1 + str2[0] + str3 + str4 + str5 + str6[0]);
+                summary.setText(str1 + str2[0] + str3 + str4 + str5 + str6[0]);
             }
         });
 
@@ -328,7 +399,7 @@ public class FoodReservationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (getArguments() != null) {
-                    increaseAmount(getArguments().getString("cookie"), creditDetail.getResult().getSubjects().get(type.getValue()).getValue(), creditDetail.getResult().getPlans().getCredits().get(amount.getValue()).getValue());
+                    increaseAmount(getArguments().getString("cookie"), creditDetail.getResult().getSubjects().get(subject.getValue()).getValue(), creditDetail.getResult().getPlans().getCredits().get(credit.getValue()).getValue());
                     dialog.dismiss();
                 }
             }
@@ -363,4 +434,58 @@ public class FoodReservationFragment extends Fragment {
             }
         });
     }
+
+    public class OnSwipeTouchListener implements OnTouchListener {
+
+        private final GestureDetector gestureDetector;
+
+        public OnSwipeTouchListener (Context ctx){
+            gestureDetector = new GestureDetector(ctx, new GestureListener());
+        }
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            return gestureDetector.onTouchEvent(event);
+        }
+
+        private final class GestureListener extends SimpleOnGestureListener {
+
+            private static final int SWIPE_THRESHOLD = 100;
+            private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+
+            @Override
+            public boolean onDown(MotionEvent e) {
+                return true;
+            }
+
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                boolean result = false;
+                try {
+                    float diffY = e2.getY() - e1.getY();
+                    float diffX = e2.getX() - e1.getX();
+                    if (Math.abs(diffX) > Math.abs(diffY)) {
+                        if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                            if (diffX > 0) {
+                                onSwipeRight();
+                            } else {
+                                onSwipeLeft();
+                            }
+                            result = true;
+                        }
+                    }
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+                return result;
+            }
+        }
+
+        public void onSwipeRight() {
+        }
+
+        public void onSwipeLeft() {
+        }
+    }
+
 }

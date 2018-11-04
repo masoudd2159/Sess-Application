@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sfxShowMeal_MainContent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="ltr"
@@ -10,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@color/blue"
+        android:background="@drawable/bg_blue_solid_tl8tr"
         android:gravity="center_horizontal"
         android:layoutDirection="ltr"
         android:orientation="vertical"
@@ -32,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/sfxShowMeal_LayoutOne"
+        android:background="@android:color/white"
         android:layoutDirection="ltr"
         android:orientation="vertical"
         android:padding="10dp">
@@ -85,7 +87,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/sfxShowMeal_LayoutTwo"
-        android:layout_marginTop="5dp"
         android:layoutDirection="ltr"
         android:orientation="horizontal">
 
@@ -93,7 +94,7 @@
             android:id="@+id/sfxShowMeal_Close"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/blue_grey"
+            android:background="@drawable/bg_bluegrey_solid_bl8br"
             android:layoutDirection="ltr"
             android:text="@string/close"
             android:textColor="@android:color/white"

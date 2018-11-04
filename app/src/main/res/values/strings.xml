@@ -37,5 +37,6 @@
     <string name="type_credit">نوع اعتبار</string>
     <string name="amount_credit">مبلغ اعتبار</string>
     <string name="payment">اتصال به درگاه پرداخت</string>
+    <string name="unsuccessfulOperation">عملیات ناموفق</string>
 
 </resources>

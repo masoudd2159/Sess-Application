@@ -12,14 +12,18 @@ import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -55,9 +59,12 @@ public class LoginActivity extends MyActivity {
     private EditText user;
     private EditText password;
     private ImageView captcha;
-    private GifImageView gifImageView;
+    private GifImageView gifImageViewCaptcha;
+    private GifImageView gifImageViewEnter;
     private EditText securityTag;
     private Button enter;
+    private ScrollView scrollView;
+    private View loginView;
 
     //Required libraries
     private RequestQueue queue;
@@ -112,14 +119,47 @@ public class LoginActivity extends MyActivity {
             @Override
             public void onClick(View v) {
                 Log.i(MyLog.LOGIN_ACTIVITY, "Get Another Captcha");
+
                 captcha.setImageBitmap(null);
-                gifImageView.setVisibility(View.VISIBLE);
+                gifImageViewCaptcha.setVisibility(View.VISIBLE);
                 getLoginInformation();
             }
         });
 
-     /*   user.setText("951406115");
+        securityTag.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+
+                    loginView.requestFocus();
+                    user.setEnabled(false);
+                    password.setEnabled(false);
+                    securityTag.setEnabled(false);
+                    enter.setVisibility(View.INVISIBLE);
+                    gifImageViewEnter.setVisibility(View.VISIBLE);
+
+                    Log.i(MyLog.LOGIN_ACTIVITY, "Click on Enter Button");
+                    if (HttpManager.isNOTOnline(LoginActivity.this)) {
+                        Log.i(MyLog.LOGIN_ACTIVITY, "OFFLine");
+                        HttpManager.noInternetAccess(LoginActivity.this);
+                    } else {
+                        Log.i(MyLog.LOGIN_ACTIVITY, "OnLine");
+                        sendParamsPost();
+                        UsernamePassword.setUsername(user.getText().toString().trim());
+                        Log.i(MyLog.LOGIN_ACTIVITY, "Username : " + UsernamePassword.getUsername());
+                        UsernamePassword.setPassword(password.getText().toString().trim());
+                        Log.i(MyLog.LOGIN_ACTIVITY, "Password : " + UsernamePassword.getPassword());
+                    }
+                }
+                return false;
+            }
+        });
+
+        /*user.setText("951406115");
         password.setText("masoud76");*/
+
+        /*user.setText("951406121");
+        password.setText("qwe123qwe");*/
     }
 
     @SuppressLint("LongLogTag")
@@ -136,12 +176,15 @@ public class LoginActivity extends MyActivity {
     @SuppressLint("LongLogTag")
     private void init() {
         Log.i(MyLog.LOGIN_ACTIVITY, "Allocate Views");
-        user = findViewById(R.id.userLogin);
-        password = findViewById(R.id.passwordLogin);
-        captcha = findViewById(R.id.imageViewCaptcha_LoginActivity);
-        gifImageView = findViewById(R.id.loadingGif);
-        securityTag = findViewById(R.id.securityTagLogin);
-        enter = findViewById(R.id.enter_LoginActivity);
+        user = findViewById(R.id.loginActivity_Username);
+        password = findViewById(R.id.loginActivity_Password);
+        captcha = findViewById(R.id.loginActivity_ImageViewCaptcha);
+        gifImageViewCaptcha = findViewById(R.id.loginActivity_GifImageViewCaptcha);
+        gifImageViewEnter = findViewById(R.id.foodReservation_GifImageViewPeriod);
+        securityTag = findViewById(R.id.loginActivity_EditTextCaptcha);
+        enter = findViewById(R.id.loginActivity_Enter);
+        scrollView = findViewById(R.id.loginActivity_ScrollView);
+        loginView = findViewById(R.id.loginActivity_View);
     }
 
     @SuppressLint("LongLogTag")
@@ -180,11 +223,11 @@ public class LoginActivity extends MyActivity {
                     @Override
                     public void onResponse(final Bitmap response) {
                         Log.i(MyLog.LOGIN_ACTIVITY, "get Captcha From Server");
-                        gifImageView.postDelayed(new Runnable() {
+                        gifImageViewCaptcha.postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 Log.i(MyLog.LOGIN_ACTIVITY, "InVisible Gif Image View And Get Captcha");
-                                gifImageView.setVisibility(View.INVISIBLE);
+                                gifImageViewCaptcha.setVisibility(View.INVISIBLE);
                                 captcha.setImageBitmap(response);
                             }
                         }, 300);
@@ -207,10 +250,17 @@ public class LoginActivity extends MyActivity {
 
     @SuppressLint("LongLogTag")
     public void onEnterClickListener(View view) {
+        loginView.requestFocus();
+        user.setEnabled(false);
+        password.setEnabled(false);
+        securityTag.setEnabled(false);
+        enter.setVisibility(View.INVISIBLE);
+        gifImageViewEnter.setVisibility(View.VISIBLE);
+
         Log.i(MyLog.LOGIN_ACTIVITY, "Click on Enter Button");
-        if (HttpManager.isNOTOnline(this)) {
+        if (HttpManager.isNOTOnline(LoginActivity.this)) {
             Log.i(MyLog.LOGIN_ACTIVITY, "OFFLine");
-            HttpManager.noInternetAccess(this);
+            HttpManager.noInternetAccess(LoginActivity.this);
         } else {
             Log.i(MyLog.LOGIN_ACTIVITY, "OnLine");
             sendParamsPost();
@@ -242,6 +292,11 @@ public class LoginActivity extends MyActivity {
                                         Toast.LENGTH_SHORT).show();
                                 finish();
                             } else if (!sendInformation.isOk()) {
+                                user.setEnabled(true);
+                                password.setEnabled(true);
+                                securityTag.setEnabled(true);
+                                enter.setVisibility(View.VISIBLE);
+                                gifImageViewEnter.setVisibility(View.INVISIBLE);
                                 Log.i(MyLog.LOGIN_ACTIVITY, "Some Parameter is False");
                                 Toast.makeText(LoginActivity.this, sendInformation.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
                                 if (sendInformation.getDescription().getErrorCode().equals("1")) {

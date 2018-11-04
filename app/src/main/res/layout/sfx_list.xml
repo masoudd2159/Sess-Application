@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sfxList_MainContent"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
     android:layoutDirection="ltr"
     android:orientation="vertical">
 
@@ -9,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@color/blue"
+        android:background="@drawable/bg_blue_solid_tl8tr"
         android:gravity="center_horizontal"
         android:layoutDirection="ltr"
         android:orientation="horizontal">
@@ -41,6 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:background="@drawable/bg_white_solid_bl8br"
         android:layoutDirection="ltr"
         android:padding="5dp" />
 
