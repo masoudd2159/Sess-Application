@@ -4,6 +4,7 @@ import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
@@ -41,10 +42,11 @@ import java.util.Map;
 
 import ir.ac.sku.www.sessapplication.API.MyConfig;
 import ir.ac.sku.www.sessapplication.API.MyLog;
+import ir.ac.sku.www.sessapplication.API.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.models.LoginInformation;
 import ir.ac.sku.www.sessapplication.models.SendInformation;
-import ir.ac.sku.www.sessapplication.models.UsernamePassword;
+import ir.ac.sku.www.sessapplication.utils.CheckSignUpPreferenceManager;
 import ir.ac.sku.www.sessapplication.utils.CustomToastSuccess;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
@@ -52,16 +54,13 @@ import pl.droidsonroids.gif.GifImageView;
 
 public class LoginActivity extends MyActivity {
 
-    //static Variable
-    private static final String PREFERENCE_NAME = "LoginInformation";
-
     //Login Activity Views
     private EditText user;
     private EditText password;
     private ImageView captcha;
     private GifImageView gifImageViewCaptcha;
-    private GifImageView gifImageViewEnter;
     private EditText securityTag;
+    private GifImageView gifImageViewEnter;
     private Button enter;
     private ScrollView scrollView;
     private View loginView;
@@ -69,11 +68,13 @@ public class LoginActivity extends MyActivity {
     //Required libraries
     private RequestQueue queue;
     private Gson gson;
+    private SharedPreferences preferencesUsernameAndPassword;
+    private SharedPreferences preferencesCookie;
+    private CheckSignUpPreferenceManager manager;
 
     //my Class Model
     private LoginInformation loginInformation;
     private SendInformation sendInformation;
-    private UsernamePassword usernamePassword;
 
     @SuppressLint("LongLogTag")
     @Override
@@ -85,13 +86,15 @@ public class LoginActivity extends MyActivity {
         //allocate classes
         loginInformation = new LoginInformation();
         sendInformation = new SendInformation();
-        usernamePassword = new UsernamePassword();
 
         //create queue for API Request
         queue = Volley.newRequestQueue(LoginActivity.this);
 
         //use Gson Lib
         gson = new Gson();
+        preferencesUsernameAndPassword = getSharedPreferences(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_NAME, MODE_PRIVATE);
+        preferencesCookie = getSharedPreferences(PreferenceName.COOKIE_PREFERENCE_NAME, MODE_PRIVATE);
+        manager = new CheckSignUpPreferenceManager(LoginActivity.this);
 
         //my Functions
         changeStatusBarColor();
@@ -126,15 +129,16 @@ public class LoginActivity extends MyActivity {
             }
         });
 
+
         securityTag.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
 
-                    loginView.requestFocus();
                     user.setEnabled(false);
                     password.setEnabled(false);
                     securityTag.setEnabled(false);
+                    securityTag.setFocusable(false);
                     enter.setVisibility(View.INVISIBLE);
                     gifImageViewEnter.setVisibility(View.VISIBLE);
 
@@ -145,21 +149,11 @@ public class LoginActivity extends MyActivity {
                     } else {
                         Log.i(MyLog.LOGIN_ACTIVITY, "OnLine");
                         sendParamsPost();
-                        UsernamePassword.setUsername(user.getText().toString().trim());
-                        Log.i(MyLog.LOGIN_ACTIVITY, "Username : " + UsernamePassword.getUsername());
-                        UsernamePassword.setPassword(password.getText().toString().trim());
-                        Log.i(MyLog.LOGIN_ACTIVITY, "Password : " + UsernamePassword.getPassword());
                     }
                 }
                 return false;
             }
         });
-
-        /*user.setText("951406115");
-        password.setText("masoud76");*/
-
-        /*user.setText("951406121");
-        password.setText("qwe123qwe");*/
     }
 
     @SuppressLint("LongLogTag")
@@ -175,13 +169,12 @@ public class LoginActivity extends MyActivity {
 
     @SuppressLint("LongLogTag")
     private void init() {
-        Log.i(MyLog.LOGIN_ACTIVITY, "Allocate Views");
         user = findViewById(R.id.loginActivity_Username);
         password = findViewById(R.id.loginActivity_Password);
         captcha = findViewById(R.id.loginActivity_ImageViewCaptcha);
         gifImageViewCaptcha = findViewById(R.id.loginActivity_GifImageViewCaptcha);
-        gifImageViewEnter = findViewById(R.id.foodReservation_GifImageViewPeriod);
         securityTag = findViewById(R.id.loginActivity_EditTextCaptcha);
+        gifImageViewEnter = findViewById(R.id.loginActivity_GifImageViewEnter);
         enter = findViewById(R.id.loginActivity_Enter);
         scrollView = findViewById(R.id.loginActivity_ScrollView);
         loginView = findViewById(R.id.loginActivity_View);
@@ -206,7 +199,12 @@ public class LoginActivity extends MyActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.i(MyLog.LOGIN_ACTIVITY, "ERROR" + error.getMessage());
-                        Toast.makeText(LoginActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                        new AlertDialog.Builder(LoginActivity.this)
+                                .setTitle("ERROR")
+                                .setMessage(error.getMessage())
+                                .setPositiveButton("Ok", null)
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
                     }
                 });
         queue.add(request);
@@ -241,7 +239,12 @@ public class LoginActivity extends MyActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.i(MyLog.LOGIN_ACTIVITY, "ERROR : " + error.getMessage());
-                        Toast.makeText(LoginActivity.this, "ERROR : " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        new AlertDialog.Builder(LoginActivity.this)
+                                .setTitle("ERROR")
+                                .setMessage(error.getMessage())
+                                .setPositiveButton("Ok", null)
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
                     }
                 });
         queue.add(imageRequest);
@@ -250,10 +253,10 @@ public class LoginActivity extends MyActivity {
 
     @SuppressLint("LongLogTag")
     public void onEnterClickListener(View view) {
-        loginView.requestFocus();
         user.setEnabled(false);
         password.setEnabled(false);
         securityTag.setEnabled(false);
+        securityTag.setFocusable(false);
         enter.setVisibility(View.INVISIBLE);
         gifImageViewEnter.setVisibility(View.VISIBLE);
 
@@ -264,10 +267,6 @@ public class LoginActivity extends MyActivity {
         } else {
             Log.i(MyLog.LOGIN_ACTIVITY, "OnLine");
             sendParamsPost();
-            UsernamePassword.setUsername(user.getText().toString().trim());
-            Log.i(MyLog.LOGIN_ACTIVITY, "Username : " + UsernamePassword.getUsername());
-            UsernamePassword.setPassword(password.getText().toString().trim());
-            Log.i(MyLog.LOGIN_ACTIVITY, "Password : " + UsernamePassword.getPassword());
         }
     }
 
@@ -281,35 +280,55 @@ public class LoginActivity extends MyActivity {
                     public void onResponse(String response) {
                         Log.i(MyLog.LOGIN_ACTIVITY, "get Login Info");
                         try {
-                            sendInformation = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"),
-                                    SendInformation.class);
+                            sendInformation = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"), SendInformation.class);
                             if (sendInformation.isOk()) {
                                 Log.i(MyLog.LOGIN_ACTIVITY, "All Params True");
                                 Intent intent = new Intent(LoginActivity.this, BottomBarActivity.class);
-                                intent.putExtra("cookie", loginInformation.getCookie());
+
+                                @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorUserPass = preferencesUsernameAndPassword.edit();
+                                editorUserPass.putString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_USERNAME, user.getText().toString().trim());
+                                editorUserPass.putString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_PASSWORD, password.getText().toString().trim());
+                                editorUserPass.apply();
+
+                                @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorCookie = preferencesCookie.edit();
+                                editorCookie.putString(PreferenceName.COOKIE_PREFERENCE_COOKIE, loginInformation.getCookie());
+                                editorCookie.apply();
+
+                                manager.setStartSignUpPreference(false);
+
                                 startActivity(intent);
-                                CustomToastSuccess.success(LoginActivity.this, "خوش آمدید " + sendInformation.getResult().getUserInformation().getName(),
-                                        Toast.LENGTH_SHORT).show();
+                                CustomToastSuccess.success(LoginActivity.this, "خوش آمدید " + sendInformation.getResult().getUserInformation().getName(), Toast.LENGTH_SHORT).show();
                                 finish();
                             } else if (!sendInformation.isOk()) {
-                                user.setEnabled(true);
-                                password.setEnabled(true);
-                                securityTag.setEnabled(true);
-                                enter.setVisibility(View.VISIBLE);
-                                gifImageViewEnter.setVisibility(View.INVISIBLE);
-                                Log.i(MyLog.LOGIN_ACTIVITY, "Some Parameter is False");
                                 Toast.makeText(LoginActivity.this, sendInformation.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
-                                if (sendInformation.getDescription().getErrorCode().equals("1")) {
-                                    Log.i(MyLog.LOGIN_ACTIVITY, "Username or password is incorrect");
-                                    user.setText("");
-                                    password.setText("");
-                                } else if (sendInformation.getDescription().getErrorCode().equals("2")) {
-                                    Log.i(MyLog.LOGIN_ACTIVITY, "Captcha is Wrong");
-                                    securityTag.setText("");
+                                if (Integer.parseInt(sendInformation.getDescription().getErrorCode()) > 0) {
+                                    user.setEnabled(true);
+                                    password.setEnabled(true);
+                                    securityTag.setEnabled(true);
+                                    enter.setVisibility(View.VISIBLE);
+                                    gifImageViewEnter.setVisibility(View.INVISIBLE);
+                                    Log.i(MyLog.LOGIN_ACTIVITY, "Some Parameter is False");
+                                    if (sendInformation.getDescription().getErrorCode().equals("1")) {
+                                        Log.i(MyLog.LOGIN_ACTIVITY, "Username or password is incorrect");
+                                        user.setText("");
+                                        password.setText("");
+                                    } else if (sendInformation.getDescription().getErrorCode().equals("2")) {
+                                        Log.i(MyLog.LOGIN_ACTIVITY, "Captcha is Wrong");
+                                        securityTag.setText("");
+                                    }
                                 } else if (Integer.parseInt(sendInformation.getDescription().getErrorCode()) < 0) {
                                     Log.i(MyLog.LOGIN_ACTIVITY, "Lost Cookie");
-                                    finish();
-                                    System.exit(0);
+                                    user.setText("");
+                                    password.setText("");
+                                    securityTag.setText("");
+                                    captcha.setImageBitmap(null);
+                                    user.setEnabled(true);
+                                    password.setEnabled(true);
+                                    securityTag.setEnabled(true);
+                                    enter.setVisibility(View.VISIBLE);
+                                    gifImageViewEnter.setVisibility(View.INVISIBLE);
+                                    gifImageViewCaptcha.setVisibility(View.VISIBLE);
+                                    getLoginInformation();
                                 }
                             }
                         } catch (UnsupportedEncodingException e) {

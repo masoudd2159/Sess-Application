@@ -2,7 +2,9 @@ package ir.ac.sku.www.sessapplication.adapters;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
@@ -35,14 +37,15 @@ import java.util.Map;
 
 import ir.ac.sku.www.sessapplication.API.MyConfig;
 import ir.ac.sku.www.sessapplication.API.MyLog;
+import ir.ac.sku.www.sessapplication.API.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.activities.LoginActivity;
 import ir.ac.sku.www.sessapplication.models.SFXMealDetail;
 import ir.ac.sku.www.sessapplication.models.SFXWeeklyList;
-import ir.ac.sku.www.sessapplication.models.UsernamePassword;
 import ir.ac.sku.www.sessapplication.utils.CustomToastFailure;
 import ir.ac.sku.www.sessapplication.utils.CustomToastSuccess;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
+import ir.ac.sku.www.sessapplication.utils.SignIn;
 
 @SuppressLint("Registered")
 public class FoodReservationAdapter {
@@ -53,7 +56,6 @@ public class FoodReservationAdapter {
     private View rootView;
     private SFXWeeklyList sfxWeeklyList;
     private int resource;
-    private String cookie;
 
     //My Views at Fragment
     private TextView tv_Credit;
@@ -105,17 +107,20 @@ public class FoodReservationAdapter {
     private RequestQueue queue;
     private Gson gson;
 
+    //Preferences
+    private SharedPreferences preferencesUsernameAndPassword;
+    private SharedPreferences preferencesCookie;
+
     //My Java Model Class
     private SFXWeeklyList weeklyList;
     private SFXMealDetail sfxMealDetail;
 
     @SuppressLint("LongLogTag")
-    public FoodReservationAdapter(@NonNull View rootView, int resource, @NonNull SFXWeeklyList sfxWeeklyList, String cookie) {
+    public FoodReservationAdapter(@NonNull View rootView, int resource, @NonNull SFXWeeklyList sfxWeeklyList) {
         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Food Reservation Adapter Run");
         this.rootView = rootView;
         this.resource = resource;
         this.sfxWeeklyList = sfxWeeklyList;
-        this.cookie = cookie;
 
         //allocate Classes
         sfxMealDetail = new SFXMealDetail();
@@ -123,6 +128,8 @@ public class FoodReservationAdapter {
         //use Lib
         gson = new Gson();
         queue = Volley.newRequestQueue(rootView.getContext());
+        preferencesUsernameAndPassword = rootView.getContext().getSharedPreferences(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        preferencesCookie = rootView.getContext().getSharedPreferences(PreferenceName.COOKIE_PREFERENCE_NAME, Context.MODE_PRIVATE);
 
         //my Functions
         init();
@@ -588,8 +595,8 @@ public class FoodReservationAdapter {
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        WindowManager.LayoutParams layoutParams=dialog.getWindow().getAttributes();
-        layoutParams.dimAmount=0.7f;
+        WindowManager.LayoutParams layoutParams = dialog.getWindow().getAttributes();
+        layoutParams.dimAmount = 0.7f;
         dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         dialog.setContentView(R.layout.sfx_show_meal_item);
         dialog.setCancelable(false);
@@ -632,8 +639,8 @@ public class FoodReservationAdapter {
             dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            WindowManager.LayoutParams layoutParams=dialog.getWindow().getAttributes();
-            layoutParams.dimAmount=0.7f;
+            WindowManager.LayoutParams layoutParams = dialog.getWindow().getAttributes();
+            layoutParams.dimAmount = 0.7f;
             dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
             dialog.setContentView(R.layout.sfx_choose_meal_item);
             dialog.setCancelable(false);
@@ -671,7 +678,7 @@ public class FoodReservationAdapter {
                     } else {
                         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "OnLine");
                         if (restaurantCode != null) {
-                            getFood(cookie, mealCode, dateCode, restaurantCode);
+                            getFood(mealCode, dateCode, restaurantCode);
                             Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Food Text : " + btn_Food.getText());
                             Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Food Code : " + foodCode);
                         }
@@ -690,7 +697,7 @@ public class FoodReservationAdapter {
                     } else {
                         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "OnLine");
                         if (restaurantCode != null && foodCode != null) {
-                            buyFood(cookie, mealCode, dateCode, restaurantCode, foodCode);
+                            buyFood(mealCode, dateCode, restaurantCode, foodCode);
                             dialog.dismiss();
                         }
                     }
@@ -760,11 +767,11 @@ public class FoodReservationAdapter {
     }
 
     @SuppressLint("LongLogTag")
-    private void getFood(String cookie, String meal_code, String date_code, String restaurant_code) {
+    private void getFood(String meal_code, String date_code, String restaurant_code) {
         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Get Food Start");
 
         Map<String, String> params = new HashMap<>();
-        params.put("cookie", cookie);
+        params.put("cookie", preferencesCookie.getString(PreferenceName.COOKIE_PREFERENCE_COOKIE, null));
         params.put("meal", meal_code);
         params.put("date", date_code);
         params.put("restaurant", restaurant_code);
@@ -797,11 +804,13 @@ public class FoodReservationAdapter {
                                     showFood();
                                 }
                             } else if (!sfxMealDetail.getOk()) {
-                                Toast.makeText(rootView.getContext(), sfxMealDetail.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
                                 restaurantCode = null;
                                 foodCode = null;
-                                if (Integer.parseInt(sfxMealDetail.getDescription().getErrorCode()) < 0) {
-                                    rootView.getContext().startActivity(new Intent(rootView.getContext(), LoginActivity.class));
+                                if (Integer.parseInt(sfxMealDetail.getDescription().getErrorCode()) > 0) {
+                                    Toast.makeText(rootView.getContext(), sfxMealDetail.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
+                                } else if (Integer.parseInt(sfxMealDetail.getDescription().getErrorCode()) < 0) {
+                                    SignIn signIn = new SignIn(rootView.getContext());
+                                    signIn.SignInDialog();
                                 }
                             }
                         } catch (UnsupportedEncodingException e) {
@@ -876,7 +885,7 @@ public class FoodReservationAdapter {
     }
 
     @SuppressLint("LongLogTag")
-    private void buyFood(final String cookie, final String meal_code, final String date_code, final String restaurant_code, final String food_code) {
+    private void buyFood(final String meal_code, final String date_code, final String restaurant_code, final String food_code) {
         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Buy Food Run");
         weeklyList = new SFXWeeklyList();
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
@@ -889,7 +898,7 @@ public class FoodReservationAdapter {
                             if (weeklyList.isOk()) {
                                 sfxWeeklyList = weeklyList;
                                 Log.i(MyLog.FOOD_RESERVATION_ADAPTER, sfxWeeklyList.getResult().getMessage());
-                                new FoodReservationAdapter(rootView, R.layout.fragment_food_reservation, sfxWeeklyList, cookie);
+                                new FoodReservationAdapter(rootView, R.layout.fragment_food_reservation, sfxWeeklyList);
                                 CustomToastSuccess.success(rootView.getContext(), "وعده غذایی خریداری شد", Toast.LENGTH_SHORT).show();
                             } else if (!weeklyList.isOk()) {
                                 Log.i(MyLog.FOOD_RESERVATION_ADAPTER, weeklyList.getDescription().getErrorText());
@@ -898,8 +907,8 @@ public class FoodReservationAdapter {
                                 if (Integer.parseInt(weeklyList.getDescription().getErrorCode()) > 0) {
                                     HttpManager.unsuccessfulOperation(rootView.getContext(), weeklyList.getDescription().getErrorText());
                                 } else if (Integer.parseInt(weeklyList.getDescription().getErrorCode()) < 0) {
-                                    Toast.makeText(rootView.getContext(), weeklyList.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
-                                    System.exit(0);
+                                    SignIn signIn = new SignIn(rootView.getContext());
+                                    signIn.SignInDialog();
                                 }
                             }
                         } catch (UnsupportedEncodingException e) {
@@ -923,7 +932,7 @@ public class FoodReservationAdapter {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("cookie", cookie);
+                params.put("cookie", preferencesCookie.getString(PreferenceName.COOKIE_PREFERENCE_COOKIE, null));
                 params.put("meal", meal_code);
                 params.put("date", date_code);
                 params.put("restaurant", restaurant_code);
@@ -941,8 +950,8 @@ public class FoodReservationAdapter {
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        WindowManager.LayoutParams layoutParams=dialog.getWindow().getAttributes();
-        layoutParams.dimAmount=0.7f;
+        WindowManager.LayoutParams layoutParams = dialog.getWindow().getAttributes();
+        layoutParams.dimAmount = 0.7f;
         dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         dialog.setContentView(R.layout.sfx_delete_meal_item);
         dialog.setCancelable(false);
@@ -977,7 +986,7 @@ public class FoodReservationAdapter {
                     dialog.dismiss();
                 } else {
                     Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "OnLine");
-                    deleteFood(cookie, UsernamePassword.getUsername(), data);
+                    deleteFood(data);
                     dialog.dismiss();
                 }
             }
@@ -987,12 +996,12 @@ public class FoodReservationAdapter {
 
 
     @SuppressLint("LongLogTag")
-    private void deleteFood(final String cookie, final String username, final String data) {
+    private void deleteFood(final String data) {
         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Delete Food Run");
 
         Map<String, String> params = new HashMap<String, String>();
-        params.put("cookie", cookie);
-        params.put("username", username);
+        params.put("cookie", preferencesCookie.getString(PreferenceName.COOKIE_PREFERENCE_COOKIE, null));
+        params.put("username", preferencesUsernameAndPassword.getString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_USERNAME, null));
         params.put("data", data);
         String URI = MyConfig.SFX_DELETE_MEAL + "?" + HttpManager.enCodeParameters(params);
         weeklyList = new SFXWeeklyList();
@@ -1007,16 +1016,15 @@ public class FoodReservationAdapter {
                             if (weeklyList.isOk()) {
                                 sfxWeeklyList = weeklyList;
                                 Log.i(MyLog.FOOD_RESERVATION_ADAPTER, sfxWeeklyList.getResult().getMessage());
-                                new FoodReservationAdapter(rootView, R.layout.fragment_food_reservation, sfxWeeklyList, cookie);
+                                new FoodReservationAdapter(rootView, R.layout.fragment_food_reservation, sfxWeeklyList);
                                 CustomToastSuccess.success(rootView.getContext(), "وعده غذایی حذف شد", Toast.LENGTH_SHORT).show();
                             } else if (!weeklyList.isOk()) {
                                 Log.i(MyLog.FOOD_RESERVATION_ADAPTER, weeklyList.getDescription().getErrorText());
                                 if (Integer.parseInt(weeklyList.getDescription().getErrorCode()) > 0) {
                                     CustomToastFailure.failure(rootView.getContext(), weeklyList.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
                                 } else if (Integer.parseInt(weeklyList.getDescription().getErrorCode()) < 0) {
-                                    Toast.makeText(rootView.getContext(), weeklyList.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
-                                    rootView.getContext().startActivity(new Intent(rootView.getContext(), LoginActivity.class));
-
+                                    SignIn signIn = new SignIn(rootView.getContext());
+                                    signIn.SignInDialog();
                                 }
                             }
                         } catch (UnsupportedEncodingException e) {

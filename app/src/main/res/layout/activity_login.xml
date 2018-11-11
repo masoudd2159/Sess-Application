@@ -190,7 +190,7 @@
     </ScrollView>
 
     <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/foodReservation_GifImageViewPeriod"
+        android:id="@+id/loginActivity_GifImageViewEnter"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_alignParentBottom="true"

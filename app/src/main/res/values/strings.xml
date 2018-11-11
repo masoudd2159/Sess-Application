@@ -38,5 +38,10 @@
     <string name="amount_credit">مبلغ اعتبار</string>
     <string name="payment">اتصال به درگاه پرداخت</string>
     <string name="unsuccessfulOperation">عملیات ناموفق</string>
+    <string name="home">خانه</string>
+    <string name="foodReservation">رزرو غذا</string>
+    <string name="processes">فرایند ها</string>
+    <string name="messages">پیام ها</string>
+    <string name="enterSecurityCode">لطفا کد امنیتی را وارد کنید</string>
 
 </resources>

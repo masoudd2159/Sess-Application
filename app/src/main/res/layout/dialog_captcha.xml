@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="260dp"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layoutDirection="ltr"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_white_solid_tl8tr8bl8br"
+        android:layoutDirection="ltr"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layoutDirection="ltr">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layoutDirection="ltr">
+
+                <ImageView
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layoutDirection="ltr"
+                    android:src="@drawable/ic_captcha" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/dialogCaptcha_ReCaptcha"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:layoutDirection="ltr"
+                android:src="@drawable/ic_reload_2" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layoutDirection="ltr"
+            android:text="@string/enterSecurityCode"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:layoutDirection="ltr">
+
+            <ImageView
+                android:id="@+id/dialogCaptcha_ImageViewCaptcha"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layoutDirection="ltr"
+                android:scaleType="fitCenter"
+                android:visibility="invisible" />
+
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/dialogCaptcha_GifImageViewCaptcha"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layoutDirection="ltr"
+                android:src="@drawable/gif_loading_1"
+                android:visibility="visible" />
+
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/dialogCaptcha_EditTextCaptcha"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:hint="@string/security_tag"
+            android:inputType="textCapCharacters"
+            android:layoutDirection="ltr"
+            android:maxLength="5"
+            android:maxLines="1"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/bg_bluegrey3_solid"
+        android:layoutDirection="ltr">
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/dialogCaptcha_GifImageViewEnter"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layoutDirection="ltr"
+            android:src="@drawable/gif_loading_2"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/dialogCaptcha_Enter"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@android:color/transparent"
+            android:layoutDirection="ltr"
+            android:onClick="onEnterClickListener"
+            android:text="@string/enter"
+            android:textColor="@android:color/white"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+</LinearLayout>

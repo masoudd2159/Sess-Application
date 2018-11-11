@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#42a5f5</color>
+    <color name="colorPrimary">#0086CA</color>
     <color name="colorPrimaryDark">#0077c2</color>
     <color name="colorAccent">#D81B60</color>
 
     <color name="blue_grey">#455A64</color>
     <color name="blue_grey2">#af3c5059</color>
+    <color name="blue_grey3">#5b729b</color>
     <color name="grey">#95989d</color>
     <color name="red_1">#F44336</color>
     <color name="red_2">#FF0000</color>
@@ -32,6 +33,7 @@
     <color name="lite_grey">#E0E0E0</color>
     <color name="black">#313030</color>
     <color name="white">#ffffff</color>
+    <color name="white_2">#4bffffff</color>
 
     <color name="card_background">#b9e4edef</color>
     <color name="lite_background">#5cffffff</color>

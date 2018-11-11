@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingPrefix">
+
+    <item
+        android:id="@+id/tab_Home"
+        fontPath="fonts/IRANSans.ttf"
+        android:icon="@drawable/ic_home3x"
+        android:title="@string/home" />
+
+    <item
+        android:id="@+id/tab_FoodReservation"
+        fontPath="fonts/IRANSans.ttf"
+        android:icon="@drawable/ic_food3x"
+        android:title="@string/foodReservation" />
+
+    <item
+        android:id="@+id/tab_Processes"
+        fontPath="fonts/IRANSans.ttf"
+        android:icon="@drawable/ic_process3x"
+        android:title="@string/processes" />
+
+    <item
+        android:id="@+id/tab_Messages"
+        fontPath="fonts/IRANSans.ttf"
+        android:icon="@drawable/ic_message3x"
+        android:title="@string/messages" />
+
+</menu>

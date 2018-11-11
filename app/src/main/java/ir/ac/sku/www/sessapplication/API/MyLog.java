@@ -7,4 +7,6 @@ public class MyLog {
     public static final String BOTTOM_BAR_ACTIVITY = SESS + ": " + "Bottom Bar Activity";
     public static final String FOOD_RESERVATION_FRAGMENT = SESS + ": " + "Food Reservation Fragment";
     public static final String FOOD_RESERVATION_ADAPTER = SESS + ": " + "Food Reservation Adapter";
+    public static final String DIALOG_CAPTCHA = SESS + ": " + "Dialog Captcha";
+
 }

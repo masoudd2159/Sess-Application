@@ -14,6 +14,7 @@ import android.widget.Button;
 
 import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.R;
+import ir.ac.sku.www.sessapplication.utils.CheckSignUpPreferenceManager;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
@@ -24,6 +25,10 @@ public class SplashScreenActivity extends MyActivity {
 
     //Splash Screen Views
     private Button tryAgain;
+
+
+    //Utils
+    private CheckSignUpPreferenceManager checkSignUpPreferenceManager;
 
     //onCreate
     @SuppressLint("LongLogTag")
@@ -36,6 +41,9 @@ public class SplashScreenActivity extends MyActivity {
 
         //find View
         tryAgain = findViewById(R.id.buttonTryAgain_SplashScreen);
+
+        //Allocate MyUtils
+        checkSignUpPreferenceManager = new CheckSignUpPreferenceManager(SplashScreenActivity.this);
 
         //my Functions
         changeStatusBarColor();
@@ -82,14 +90,16 @@ public class SplashScreenActivity extends MyActivity {
 
     private class BackgroundTask extends AsyncTask {
 
-        Intent intent;
+        Intent intentLoginActivity;
+        Intent intentBottomBarActivity;
 
         @SuppressLint("LongLogTag")
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "Create new Intent");
-            intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
+            intentLoginActivity = new Intent(SplashScreenActivity.this, LoginActivity.class);
+            intentBottomBarActivity = new Intent(SplashScreenActivity.this, BottomBarActivity.class);
         }
 
         @SuppressLint("LongLogTag")
@@ -109,7 +119,15 @@ public class SplashScreenActivity extends MyActivity {
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
             Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "on Post Execute");
-            startActivity(intent);
+            if (checkSignUpPreferenceManager.startSignUpPreference()) {
+                Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "Check SignUp Preference Manager : " + checkSignUpPreferenceManager.startSignUpPreference());
+                Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "Start Activity : Login Activity");
+                startActivity(intentLoginActivity);
+            } else if (!checkSignUpPreferenceManager.startSignUpPreference()) {
+                Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "Check SignUp Preference Manager : " + checkSignUpPreferenceManager.startSignUpPreference());
+                Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "Start Activity : Bottom Bar Activity");
+                startActivity(intentBottomBarActivity);
+            }
             finish();
         }
     }
