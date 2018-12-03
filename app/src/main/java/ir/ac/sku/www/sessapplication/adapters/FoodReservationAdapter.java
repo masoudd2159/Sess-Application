@@ -40,12 +40,15 @@ import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.API.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.activities.LoginActivity;
+import ir.ac.sku.www.sessapplication.models.SFXIncreaseCreditDetail;
 import ir.ac.sku.www.sessapplication.models.SFXMealDetail;
 import ir.ac.sku.www.sessapplication.models.SFXWeeklyList;
 import ir.ac.sku.www.sessapplication.utils.CustomToastFailure;
 import ir.ac.sku.www.sessapplication.utils.CustomToastSuccess;
+import ir.ac.sku.www.sessapplication.utils.Handler;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.SignIn;
+import ir.ac.sku.www.sessapplication.utils.WebService;
 
 @SuppressLint("Registered")
 public class FoodReservationAdapter {
@@ -650,11 +653,16 @@ public class FoodReservationAdapter {
             btn_Buy = dialog.findViewById(R.id.sfxChoose_Buy);
             Button close = dialog.findViewById(R.id.sfxChoose_Close);
             TextView state = dialog.findViewById(R.id.sfxChoose_State);
+            btn_Food.setEnabled(false);
+            btn_Food.setClickable(false);
 
             state.setText(status);
+
             btn_Restaurant.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    btn_Food.setEnabled(true);
+                    btn_Food.setClickable(true);
                     Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "on Restaurant Click Listener");
                     foodCode = null;
                     restaurantCode = null;
@@ -670,6 +678,8 @@ public class FoodReservationAdapter {
             btn_Food.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    btn_Food.setEnabled(false);
+                    btn_Food.setClickable(false);
                     Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "on Food Click Listener");
                     if (HttpManager.isNOTOnline(rootView.getContext())) {
                         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "OFFLine");
@@ -771,66 +781,46 @@ public class FoodReservationAdapter {
         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Get Food Start");
 
         Map<String, String> params = new HashMap<>();
-        params.put("cookie", preferencesCookie.getString(PreferenceName.COOKIE_PREFERENCE_COOKIE, null));
         params.put("meal", meal_code);
         params.put("date", date_code);
         params.put("restaurant", restaurant_code);
         String URI = MyConfig.SFX_MEAL_DETAIL + "?" + HttpManager.enCodeParameters(params);
 
-        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "cookie         : " + params.get("cookie"));
         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "mealCode       : " + params.get("meal"));
         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "dateCode       : " + params.get("date"));
         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "restaurantCode : " + params.get("restaurant"));
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                URI,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            sfxMealDetail = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"), SFXMealDetail.class);
-                            if (sfxMealDetail.getOk()) {
-                                if (sfxMealDetail.getResult().size() <= 0) {
-                                    Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "No food found");
-                                    Toast.makeText(rootView.getContext(), "هیچ غذایی یافت نشد", Toast.LENGTH_SHORT).show();
-                                    btn_Restaurant.setText("انتخاب کنید");
-                                    btn_Food.setText("انتخاب کنید");
-                                    btn_Restaurant.setBackgroundResource(R.drawable.bg_grey_solid);
-                                    btn_Food.setBackgroundResource(R.drawable.bg_grey_solid);
-                                    restaurantCode = null;
-                                    foodCode = null;
-                                } else if (sfxMealDetail.getResult().size() > 0) {
-                                    Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Food : " + sfxMealDetail.getResult().get(0).getName());
-                                    showFood();
-                                }
-                            } else if (!sfxMealDetail.getOk()) {
+        WebService webService = new WebService(rootView.getContext());
+        webService.request(URI, Request.Method.GET, new Handler() {
+            @Override
+            public void onResponse(boolean ok, Object obj) {
+                if (ok) {
+                    try {
+                        sfxMealDetail = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), SFXMealDetail.class);
+                        if (sfxMealDetail.getOk()) {
+                            if (sfxMealDetail.getResult().size() <= 0) {
+                                Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "No food found");
+                                Toast.makeText(rootView.getContext(), "هیچ غذایی یافت نشد", Toast.LENGTH_SHORT).show();
+                                btn_Restaurant.setText("انتخاب کنید");
+                                btn_Food.setText("انتخاب کنید");
+                                btn_Restaurant.setBackgroundResource(R.drawable.bg_grey_solid);
+                                btn_Food.setBackgroundResource(R.drawable.bg_grey_solid);
                                 restaurantCode = null;
                                 foodCode = null;
-                                if (Integer.parseInt(sfxMealDetail.getDescription().getErrorCode()) > 0) {
-                                    Toast.makeText(rootView.getContext(), sfxMealDetail.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
-                                } else if (Integer.parseInt(sfxMealDetail.getDescription().getErrorCode()) < 0) {
-                                    SignIn signIn = new SignIn(rootView.getContext());
-                                    signIn.SignInDialog();
-                                }
+                            } else if (sfxMealDetail.getResult().size() > 0) {
+                                Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Food : " + sfxMealDetail.getResult().get(0).getName());
+                                showFood();
                             }
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
+                        } else if (!sfxMealDetail.getOk()) {
+                            restaurantCode = null;
+                            foodCode = null;
                         }
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, error.getMessage());
-                        new AlertDialog.Builder(rootView.getContext())
-                                .setTitle("ERROR")
-                                .setMessage(error.getMessage())
-                                .setPositiveButton("Ok", null)
-                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                .show();
-                    }
-                });
-        queue.add(stringRequest);
+                }
+            }
+        });
     }
 
     @SuppressLint("LongLogTag")
@@ -860,6 +850,8 @@ public class FoodReservationAdapter {
             public void onClick(View v) {
                 Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "on Close Clicked");
                 dialog.dismiss();
+                btn_Food.setEnabled(true);
+                btn_Food.setClickable(true);
             }
         });
 
@@ -888,6 +880,7 @@ public class FoodReservationAdapter {
     private void buyFood(final String meal_code, final String date_code, final String restaurant_code, final String food_code) {
         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Buy Food Run");
         weeklyList = new SFXWeeklyList();
+
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 MyConfig.SFX_BUY_MEAL,
                 new Response.Listener<String>() {
@@ -908,7 +901,7 @@ public class FoodReservationAdapter {
                                     HttpManager.unsuccessfulOperation(rootView.getContext(), weeklyList.getDescription().getErrorText());
                                 } else if (Integer.parseInt(weeklyList.getDescription().getErrorCode()) < 0) {
                                     SignIn signIn = new SignIn(rootView.getContext());
-                                    signIn.SignInDialog();
+                                   // signIn.SignInDialog();
                                 }
                             }
                         } catch (UnsupportedEncodingException e) {
@@ -994,57 +987,36 @@ public class FoodReservationAdapter {
         dialog.show();
     }
 
-
     @SuppressLint("LongLogTag")
     private void deleteFood(final String data) {
         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Delete Food Run");
 
         Map<String, String> params = new HashMap<String, String>();
-        params.put("cookie", preferencesCookie.getString(PreferenceName.COOKIE_PREFERENCE_COOKIE, null));
         params.put("username", preferencesUsernameAndPassword.getString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_USERNAME, null));
         params.put("data", data);
         String URI = MyConfig.SFX_DELETE_MEAL + "?" + HttpManager.enCodeParameters(params);
         weeklyList = new SFXWeeklyList();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.DELETE,
-                URI,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            weeklyList = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"), SFXWeeklyList.class);
-                            if (weeklyList.isOk()) {
-                                sfxWeeklyList = weeklyList;
-                                Log.i(MyLog.FOOD_RESERVATION_ADAPTER, sfxWeeklyList.getResult().getMessage());
-                                new FoodReservationAdapter(rootView, R.layout.fragment_food_reservation, sfxWeeklyList);
-                                CustomToastSuccess.success(rootView.getContext(), "وعده غذایی حذف شد", Toast.LENGTH_SHORT).show();
-                            } else if (!weeklyList.isOk()) {
-                                Log.i(MyLog.FOOD_RESERVATION_ADAPTER, weeklyList.getDescription().getErrorText());
-                                if (Integer.parseInt(weeklyList.getDescription().getErrorCode()) > 0) {
-                                    CustomToastFailure.failure(rootView.getContext(), weeklyList.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
-                                } else if (Integer.parseInt(weeklyList.getDescription().getErrorCode()) < 0) {
-                                    SignIn signIn = new SignIn(rootView.getContext());
-                                    signIn.SignInDialog();
-                                }
-                            }
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
+
+
+        WebService webService = new WebService(rootView.getContext());
+        webService.request(URI, Request.Method.DELETE, new Handler() {
+            @Override
+            public void onResponse(boolean ok, Object obj) {
+                if (ok) {
+                    try {
+                        weeklyList = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), SFXWeeklyList.class);
+                        if (weeklyList.isOk()) {
+                            sfxWeeklyList = weeklyList;
+                            Log.i(MyLog.FOOD_RESERVATION_ADAPTER, sfxWeeklyList.getResult().getMessage());
+                            new FoodReservationAdapter(rootView, R.layout.fragment_food_reservation, sfxWeeklyList);
+                            CustomToastSuccess.success(rootView.getContext(), "وعده غذایی حذف شد", Toast.LENGTH_SHORT).show();
                         }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, error.getMessage());
-                        new AlertDialog.Builder(rootView.getContext())
-                                .setTitle("ERROR")
-                                .setMessage(error.getMessage())
-                                .setPositiveButton("Ok", null)
-                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                .show();
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
                     }
                 }
-        );
-        queue.add(stringRequest);
+            }
+        });
     }
 }

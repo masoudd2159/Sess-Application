@@ -32,16 +32,15 @@ public class SendInformation {
     }
 
     public class Result {
-        private List<InstantMessage> instantMessages;
+        private List<InstantMessage> instantMessage;
         private UserInformation userInformation;
 
-
-        public List<InstantMessage> getInstantMessages() {
-            return instantMessages;
+        public List<InstantMessage> getInstantMessage() {
+            return instantMessage;
         }
 
-        public void setInstantMessages(List<InstantMessage> instantMessages) {
-            this.instantMessages = instantMessages;
+        public void setInstantMessage(List<InstantMessage> instantMessage) {
+            this.instantMessage = instantMessage;
         }
 
         public UserInformation getUserInformation() {
@@ -53,11 +52,24 @@ public class SendInformation {
         }
 
         public class InstantMessage {
+
+            private String subject;
             private String sender;
             private String date;
+            private String time;
             private String text;
-            private boolean attachment;
+            private String target;
+            private String type;
+            private String priority;
+            private Boolean attachment;
 
+            public String getSubject() {
+                return subject;
+            }
+
+            public void setSubject(String subject) {
+                this.subject = subject;
+            }
 
             public String getSender() {
                 return sender;
@@ -75,6 +87,14 @@ public class SendInformation {
                 this.date = date;
             }
 
+            public String getTime() {
+                return time;
+            }
+
+            public void setTime(String time) {
+                this.time = time;
+            }
+
             public String getText() {
                 return text;
             }
@@ -83,11 +103,35 @@ public class SendInformation {
                 this.text = text;
             }
 
-            public boolean isAttachment() {
+            public String getTarget() {
+                return target;
+            }
+
+            public void setTarget(String target) {
+                this.target = target;
+            }
+
+            public String getType() {
+                return type;
+            }
+
+            public void setType(String type) {
+                this.type = type;
+            }
+
+            public String getPriority() {
+                return priority;
+            }
+
+            public void setPriority(String priority) {
+                this.priority = priority;
+            }
+
+            public Boolean getAttachment() {
                 return attachment;
             }
 
-            public void setAttachment(boolean attachment) {
+            public void setAttachment(Boolean attachment) {
                 this.attachment = attachment;
             }
         }

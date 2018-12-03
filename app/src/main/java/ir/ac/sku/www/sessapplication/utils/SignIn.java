@@ -3,26 +3,20 @@ package ir.ac.sku.www.sessapplication.utils;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,8 +37,8 @@ import ir.ac.sku.www.sessapplication.API.MyConfig;
 import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.API.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.activities.BottomBarActivity;
-import ir.ac.sku.www.sessapplication.activities.LoginActivity;
+import ir.ac.sku.www.sessapplication.adapters.FoodReservationAdapter;
+import ir.ac.sku.www.sessapplication.fragment.FoodReservationFragment;
 import ir.ac.sku.www.sessapplication.models.LoginInformation;
 import ir.ac.sku.www.sessapplication.models.SendInformation;
 import pl.droidsonroids.gif.GifImageView;
@@ -54,6 +48,7 @@ public class SignIn {
     //Views
     private ImageView captcha;
     private ImageView reCaptcha;
+    private ImageView close;
     private GifImageView gifImageViewCaptcha;
     private GifImageView gifImageViewEnter;
     private EditText securityTag;
@@ -74,6 +69,8 @@ public class SignIn {
 
     private Dialog dialog;
 
+    private final Object lock = new Object();
+
     @SuppressLint("LongLogTag")
     public SignIn(Context context) {
         this.context = context;
@@ -89,21 +86,22 @@ public class SignIn {
         preferencesCookie = context.getSharedPreferences(PreferenceName.COOKIE_PREFERENCE_NAME, Context.MODE_PRIVATE);
     }
 
-    public void SignInDialog() {
+    public void SignInDialog(final Handler handler) {
         dialog = new Dialog(context);
-        //((ViewGroup) dialog.getWindow().getDecorView()).getChildAt(0).startAnimation(AnimationUtils.loadAnimation(context, R.anim.slideup));
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         WindowManager.LayoutParams layoutParams = dialog.getWindow().getAttributes();
         layoutParams.dimAmount = 0.7f;
         dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        dialog.setCancelable(false);
         dialog.setContentView(R.layout.dialog_captcha);
 
         gifImageViewCaptcha = dialog.findViewById(R.id.dialogCaptcha_GifImageViewCaptcha);
         gifImageViewEnter = dialog.findViewById(R.id.dialogCaptcha_GifImageViewEnter);
         captcha = dialog.findViewById(R.id.dialogCaptcha_ImageViewCaptcha);
         reCaptcha = dialog.findViewById(R.id.dialogCaptcha_ReCaptcha);
+        close = dialog.findViewById(R.id.dialogCaptcha_Close);
         securityTag = dialog.findViewById(R.id.dialogCaptcha_EditTextCaptcha);
         enter = dialog.findViewById(R.id.dialogCaptcha_Enter);
 
@@ -114,7 +112,6 @@ public class SignIn {
             @Override
             public void onClick(View v) {
                 securityTag.setEnabled(false);
-                securityTag.setFocusable(false);
                 enter.setVisibility(View.INVISIBLE);
                 gifImageViewEnter.setVisibility(View.VISIBLE);
 
@@ -124,7 +121,7 @@ public class SignIn {
                     HttpManager.noInternetAccess(context);
                 } else {
                     Log.i(MyLog.DIALOG_CAPTCHA, "OnLine");
-                    sendParamsPost();
+                    sendParamsPost(handler);
                 }
             }
         });
@@ -147,7 +144,6 @@ public class SignIn {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     securityTag.setEnabled(false);
-                    securityTag.setFocusable(false);
                     enter.setVisibility(View.INVISIBLE);
                     gifImageViewEnter.setVisibility(View.VISIBLE);
                     Log.i(MyLog.DIALOG_CAPTCHA, "Click on Enter Button");
@@ -156,10 +152,28 @@ public class SignIn {
                         HttpManager.noInternetAccess(context);
                     } else {
                         Log.i(MyLog.DIALOG_CAPTCHA, "OnLine");
-                        sendParamsPost();
+                        sendParamsPost(handler);
                     }
                 }
                 return false;
+            }
+        });
+
+        reCaptcha.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("LongLogTag")
+            @Override
+            public void onClick(View v) {
+                Log.i(MyLog.DIALOG_CAPTCHA, "Get Another Captcha");
+                captcha.setImageBitmap(null);
+                gifImageViewCaptcha.setVisibility(View.VISIBLE);
+                getLoginInformation();
+            }
+        });
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
             }
         });
 
@@ -239,7 +253,7 @@ public class SignIn {
     }
 
     @SuppressLint("LongLogTag")
-    private void sendParamsPost() {
+    private void sendParamsPost(final Handler handler) {
         Log.i(MyLog.DIALOG_CAPTCHA, "Run Function send Params Post");
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
                 MyConfig.SEND_INFORMATION,
@@ -254,7 +268,12 @@ public class SignIn {
                                 @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorCookie = preferencesCookie.edit();
                                 editorCookie.putString(PreferenceName.COOKIE_PREFERENCE_COOKIE, loginInformation.getCookie());
                                 editorCookie.apply();
+                                handler.onResponse(true, null);
                                 dialog.dismiss();
+
+                                InstantMessage instantMessage = new InstantMessage(context, sendInformation);
+                                instantMessage.showInstantMessageDialog();
+
                             } else if (!sendInformation.isOk()) {
                                 Toast.makeText(context, sendInformation.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
                                 if (Integer.parseInt(sendInformation.getDescription().getErrorCode()) > 0) {

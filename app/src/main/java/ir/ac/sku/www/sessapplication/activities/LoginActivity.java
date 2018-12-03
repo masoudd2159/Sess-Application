@@ -3,15 +3,18 @@ package ir.ac.sku.www.sessapplication.activities;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -36,6 +39,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
+import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,7 +53,9 @@ import ir.ac.sku.www.sessapplication.models.SendInformation;
 import ir.ac.sku.www.sessapplication.utils.CheckSignUpPreferenceManager;
 import ir.ac.sku.www.sessapplication.utils.CustomToastSuccess;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
+import ir.ac.sku.www.sessapplication.utils.InstantMessage;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
+import ir.ac.sku.www.sessapplication.utils.MyApplication;
 import pl.droidsonroids.gif.GifImageView;
 
 public class LoginActivity extends MyActivity {
@@ -68,9 +74,11 @@ public class LoginActivity extends MyActivity {
     //Required libraries
     private RequestQueue queue;
     private Gson gson;
+    private CheckSignUpPreferenceManager manager;
     private SharedPreferences preferencesUsernameAndPassword;
     private SharedPreferences preferencesCookie;
-    private CheckSignUpPreferenceManager manager;
+    private SharedPreferences preferencesName;
+    private SharedPreferences preferencesUserImage;
 
     //my Class Model
     private LoginInformation loginInformation;
@@ -92,9 +100,11 @@ public class LoginActivity extends MyActivity {
 
         //use Gson Lib
         gson = new Gson();
+        manager = new CheckSignUpPreferenceManager(LoginActivity.this);
         preferencesUsernameAndPassword = getSharedPreferences(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_NAME, MODE_PRIVATE);
         preferencesCookie = getSharedPreferences(PreferenceName.COOKIE_PREFERENCE_NAME, MODE_PRIVATE);
-        manager = new CheckSignUpPreferenceManager(LoginActivity.this);
+        preferencesName = getSharedPreferences(PreferenceName.NAME_PREFERENCE_NAME, MODE_PRIVATE);
+        preferencesUserImage = getSharedPreferences(PreferenceName.USER_IMAGE_PREFERENCE_NAME, MODE_PRIVATE);
 
         //my Functions
         changeStatusBarColor();
@@ -154,6 +164,9 @@ public class LoginActivity extends MyActivity {
                 return false;
             }
         });
+
+        user.setText("951406115");
+        password.setText("masoud76");
     }
 
     @SuppressLint("LongLogTag")
@@ -256,7 +269,6 @@ public class LoginActivity extends MyActivity {
         user.setEnabled(false);
         password.setEnabled(false);
         securityTag.setEnabled(false);
-        securityTag.setFocusable(false);
         enter.setVisibility(View.INVISIBLE);
         gifImageViewEnter.setVisibility(View.VISIBLE);
 
@@ -294,11 +306,20 @@ public class LoginActivity extends MyActivity {
                                 editorCookie.putString(PreferenceName.COOKIE_PREFERENCE_COOKIE, loginInformation.getCookie());
                                 editorCookie.apply();
 
+                                @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorName = preferencesName.edit();
+                                editorName.putString(PreferenceName.NAME_PREFERENCE_USERNAME, sendInformation.getResult().getUserInformation().getName());
+                                editorName.apply();
+
+                                getUserImage();
+
                                 manager.setStartSignUpPreference(false);
 
                                 startActivity(intent);
+
                                 CustomToastSuccess.success(LoginActivity.this, "خوش آمدید " + sendInformation.getResult().getUserInformation().getName(), Toast.LENGTH_SHORT).show();
+
                                 finish();
+
                             } else if (!sendInformation.isOk()) {
                                 Toast.makeText(LoginActivity.this, sendInformation.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
                                 if (Integer.parseInt(sendInformation.getDescription().getErrorCode()) > 0) {
@@ -362,6 +383,45 @@ public class LoginActivity extends MyActivity {
             }
         };
         queue.add(stringRequest);
+        Log.i(MyLog.LOGIN_ACTIVITY, "Request Possess Added To queue");
+    }
+
+    @SuppressLint("LongLogTag")
+    private void getUserImage() {
+        Map<String, String> params = new HashMap<>();
+        params.put("cookie", loginInformation.getCookie());
+        String URI = MyConfig.USER_IMAGE + "?" + HttpManager.enCodeParameters(params);
+
+        ImageRequest imageRequest = new ImageRequest(URI,
+                new Response.Listener<Bitmap>() {
+                    @Override
+                    public void onResponse(Bitmap response) {
+                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                        response.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+                        byte[] b = byteArrayOutputStream.toByteArray();
+                        String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+                        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorUserImage = preferencesUserImage.edit();
+                        editorUserImage.putString(PreferenceName.USER_IMAGE_PREFERENCE_IMAGE, encodedImage);
+                        editorUserImage.apply();
+                    }
+                },
+                110,
+                110,
+                ImageView.ScaleType.FIT_CENTER,
+                Bitmap.Config.ARGB_8888,
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i(MyLog.LOGIN_ACTIVITY, "ERROR : " + error.getMessage());
+                        new AlertDialog.Builder(LoginActivity.this)
+                                .setTitle("ERROR")
+                                .setMessage(error.getMessage())
+                                .setPositiveButton("Ok", null)
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+                    }
+                });
+        queue.add(imageRequest);
         Log.i(MyLog.LOGIN_ACTIVITY, "Request Possess Added To queue");
     }
 
@@ -500,5 +560,13 @@ public class LoginActivity extends MyActivity {
         second_anim.start();
         first_container.startAnimation(a);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

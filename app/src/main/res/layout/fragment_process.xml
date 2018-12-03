@@ -6,13 +6,36 @@
     android:layoutDirection="ltr"
     tools:context=".fragment.ProcessesFragment">
 
+    <ImageView
+        android:id="@+id/image_home"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_worker" />
+
     <TextView
         style="@style/Base.TextAppearance.AppCompat.Display1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
+        android:layout_below="@id/image_home"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
         android:layoutDirection="ltr"
-        android:text="PROCESSES" />
+        android:text="برنامه نویسان مشغول کار اند"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <TextView
+        style="@style/Base.TextAppearance.AppCompat.Display1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image_home"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layoutDirection="ltr"
+        android:text="فرایند ها"
+        android:textColor="@color/black"
+        android:textSize="30sp" />
 
 </RelativeLayout>

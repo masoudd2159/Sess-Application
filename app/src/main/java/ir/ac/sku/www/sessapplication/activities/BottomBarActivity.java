@@ -1,7 +1,9 @@
 package ir.ac.sku.www.sessapplication.activities;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,14 +16,17 @@ import android.widget.ImageView;
 
 
 import ir.ac.sku.www.sessapplication.API.MyLog;
+import ir.ac.sku.www.sessapplication.API.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.fragment.FoodReservationFragment;
 import ir.ac.sku.www.sessapplication.fragment.HomeFragment;
 import ir.ac.sku.www.sessapplication.fragment.MessagesFragment;
 import ir.ac.sku.www.sessapplication.fragment.ProcessesFragment;
 import ir.ac.sku.www.sessapplication.models.LoginInformation;
+import ir.ac.sku.www.sessapplication.models.SendInformation;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
+import ir.ac.sku.www.sessapplication.utils.MyApplication;
 
 public class BottomBarActivity extends MyActivity {
 
@@ -31,13 +36,15 @@ public class BottomBarActivity extends MyActivity {
     private ProcessesFragment processesFragment;
     private MessagesFragment messagesFragment;
 
-    //My Java Model Class
-    private LoginInformation loginInformation;
-
     //My View
     private BottomNavigationView bottomBar;
     private ImageView logo;
     private ImageView more;
+
+    private SharedPreferences preferencesCookie;
+
+    private LoginInformation loginInformation;
+    private SendInformation sendInformation;
 
     @SuppressLint("LongLogTag")
     @Override
@@ -45,12 +52,18 @@ public class BottomBarActivity extends MyActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_bar);
+
+        MyApplication.setContext(BottomBarActivity.this);
+
         Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "Start Bottom Bar Activity");
+
+        preferencesCookie = BottomBarActivity.this.getSharedPreferences(PreferenceName.COOKIE_PREFERENCE_NAME, Context.MODE_PRIVATE);
+
+        loginInformation = new LoginInformation();
+        sendInformation = new SendInformation();
+
         //Initial Views
         init();
-
-        //allocate Classes
-        loginInformation = new LoginInformation();
 
         //allocate Fragments
         homeFragment = new HomeFragment();
@@ -131,11 +144,15 @@ public class BottomBarActivity extends MyActivity {
             @SuppressLint("LongLogTag")
             @Override
             public void onClick(View v) {
-                Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "On Logo Item Selected");
+                SharedPreferences.Editor editorCookie = preferencesCookie.edit();
+                editorCookie.putString(PreferenceName.COOKIE_PREFERENCE_COOKIE, null);
+                editorCookie.apply();
+
+                /*Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "On Logo Item Selected");
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("https://www.sku.ac.ir/"));
                 startActivity(intent);
-                Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "Open : " + intent.getData());
+                Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "Open : " + intent.getData());*/
             }
         });
 

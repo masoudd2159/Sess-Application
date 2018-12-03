@@ -9,6 +9,7 @@
     android:fitsSystemWindows="true"
     android:layoutDirection="ltr"
     android:orientation="vertical"
+    tools:ignore="MissingPrefix"
     tools:context=".activities.LoginActivity">
 
     <View

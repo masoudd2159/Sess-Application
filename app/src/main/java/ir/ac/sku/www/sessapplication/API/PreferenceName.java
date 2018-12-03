@@ -10,4 +10,10 @@ public class PreferenceName {
 
     public static final String COOKIE_PREFERENCE_NAME = "CookiePreferences_Name";
     public static final String COOKIE_PREFERENCE_COOKIE = "CookiePreferences_Cookie";
+
+    public static final String NAME_PREFERENCE_NAME = "NamePreferences_Name";
+    public static final String NAME_PREFERENCE_USERNAME = "NamePreferences_Username";
+
+    public static final String USER_IMAGE_PREFERENCE_NAME = "UserImagePreferences_Username";
+    public static final String USER_IMAGE_PREFERENCE_IMAGE = "UserImagePreferences_Username";
 }

@@ -2,22 +2,161 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/aboutActivity_MainContent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.AboutActivity">
+    android:layoutDirection="ltr"
+    android:orientation="vertical"
+    tools:context=".activities.AboutActivity"
+    tools:ignore="MissingPrefix">
 
-    <ImageView
+    <RelativeLayout
+        android:id="@+id/aboutActivity_LayoutBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:scaleType="fitStart" />
+        android:layoutDirection="ltr">
 
-    <ImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"/>
+        <ImageView
+            android:id="@+id/aboutActivity_SKUBackGround"
+            android:layout_width="match_parent"
+            android:layout_height="175dp"
+            android:layout_alignParentTop="true"
+            android:layoutDirection="ltr"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ibg_sku" />
 
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/aboutActivity_LayoutProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="110dp"
+        android:gravity="center"
+        android:layoutDirection="ltr"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/aboutActivity_ImageProfile"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layoutDirection="ltr"
+            app:civ_border_color="@android:color/white"
+            app:civ_border_width="1dp" />
+
+        <TextView
+            android:id="@+id/aboutActivity_Username"
+            fontPath="fonts/IRANSans_Black.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:layoutDirection="ltr"
+            android:maxLines="1"
+            android:textColor="#5b5b5b"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:layoutDirection="ltr"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/aboutActivity_Email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="60dp"
+            android:background="@drawable/bg_grey_about"
+            android:drawableEnd="@drawable/ic_email"
+            android:drawablePadding="10dp"
+            android:inputType="text"
+            android:layoutDirection="ltr"
+            android:padding="10dp"
+            android:text="info@app.sku.ac.ir"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/aboutActivity_BugReport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="60dp"
+            android:background="@drawable/bg_grey_about"
+            android:drawableRight="@drawable/ic_bug"
+            android:inputType="text"
+            android:layoutDirection="ltr"
+            android:padding="10dp"
+            android:text="گزارش مشکلات برنامه"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/aboutActivity_Logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="60dp"
+            android:background="@drawable/bg_red_about"
+            android:drawableRight="@drawable/ic_logout"
+            android:layoutDirection="ltr"
+            android:padding="10dp"
+            android:text="خروج از حساب کاربری"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:layoutDirection="ltr"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layoutDirection="ltr"
+                android:text="توسعه دهندگان"
+                android:textColor="@color/sky" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layoutDirection="ltr"
+                android:text="شرایط استفاده"
+                android:textColor="@color/sky" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layoutDirection="ltr"
+                android:text="حریم خصوصی"
+                android:textColor="@color/sky" />
+
+        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
@@ -27,6 +28,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -48,22 +50,25 @@ import ir.ac.sku.www.sessapplication.API.MyConfig;
 import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.API.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
+import ir.ac.sku.www.sessapplication.activities.BottomBarActivity;
 import ir.ac.sku.www.sessapplication.activities.LoginActivity;
+import ir.ac.sku.www.sessapplication.activities.SplashScreenActivity;
 import ir.ac.sku.www.sessapplication.adapters.FoodReservationAdapter;
 import ir.ac.sku.www.sessapplication.models.SFXIncreaseCreditDetail;
 import ir.ac.sku.www.sessapplication.models.SFXWeeklyList;
+import ir.ac.sku.www.sessapplication.utils.Handler;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.SignIn;
+import ir.ac.sku.www.sessapplication.utils.WebService;
 import pl.droidsonroids.gif.GifImageView;
 
 public class FoodReservationFragment extends Fragment {
 
     //My Library
     private SwipeRefreshLayout swipeRefreshLayout;
-    private RequestQueue queue;
     private Gson gson;
-    private View rootView;
     private SharedPreferences preferencesCookie;
+    private View rootView;
 
     //My Views
     private Button btn_IncreaseCredit;
@@ -72,6 +77,7 @@ public class FoodReservationFragment extends Fragment {
     private ProgressBar progressBar;
     private GifImageView gifImageViewPeriod;
     private TextView textViewPeriod;
+    private LinearLayout statusBar;
 
     private NumberPicker subject;
     private NumberPicker credit;
@@ -94,12 +100,13 @@ public class FoodReservationFragment extends Fragment {
         //Initial Views
         init();
 
+        btn_IncreaseCredit.setEnabled(false);
+
         //allocate Classes
         sfxWeeklyList = new SFXWeeklyList();
         creditDetail = new SFXIncreaseCreditDetail();
 
         //use Lib
-        queue = Volley.newRequestQueue(rootView.getContext());
         gson = new Gson();
         preferencesCookie = this.getActivity().getSharedPreferences(PreferenceName.COOKIE_PREFERENCE_NAME, Context.MODE_PRIVATE);
 
@@ -119,6 +126,7 @@ public class FoodReservationFragment extends Fragment {
         swipeRefresh();
 
         rootView.setOnTouchListener(new OnSwipeTouchListener(rootView.getContext()) {
+
             @Override
             public void onSwipeRight() {
                 textViewPeriod.setText("");
@@ -161,6 +169,7 @@ public class FoodReservationFragment extends Fragment {
         progressBar = rootView.findViewById(R.id.foodReservation_ProgressBarWaiting);
         gifImageViewPeriod = rootView.findViewById(R.id.foodReservation_GifImageViewPeriod);
         textViewPeriod = rootView.findViewById(R.id.foodReservation_PeriodTextView);
+        statusBar = rootView.findViewById(R.id.foodReservation_StatusBar_Top);
     }
 
     @SuppressLint("LongLogTag")
@@ -191,6 +200,7 @@ public class FoodReservationFragment extends Fragment {
                 }
             }
         });
+
         previousWeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -213,63 +223,39 @@ public class FoodReservationFragment extends Fragment {
     @SuppressLint("LongLogTag")
     public void getMealList(String week) {
         Map<String, String> params = new HashMap<>();
-        params.put("cookie", preferencesCookie.getString(PreferenceName.COOKIE_PREFERENCE_COOKIE, "NULL"));
         params.put("week", week);
         String URI = MyConfig.SFX_WEEKLY_LIST + "?" + HttpManager.enCodeParameters(params);
 
-        Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "Meal List -> Cookie : " + params.get("cookie"));
-        Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "Meal List -> Week : " + params.get("week"));
+        WebService webService = new WebService(rootView.getContext());
+        webService.request(URI, Request.Method.GET, new Handler() {
+            @Override
+            public void onResponse(boolean ok, Object obj) {
+                if (ok) {
+                    try {
+                        sfxWeeklyList = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), SFXWeeklyList.class);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                URI,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            sfxWeeklyList = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"), SFXWeeklyList.class);
-                            if (sfxWeeklyList.isOk()) {
-                                Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "All Params True");
-                                progressBar.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "InVisible Gif Image View And Get Captcha");
-                                        progressBar.setVisibility(View.INVISIBLE);
-                                        adapter = new FoodReservationAdapter(rootView, R.layout.fragment_food_reservation, sfxWeeklyList);
-                                        gifImageViewPeriod.setVisibility(View.INVISIBLE);
-                                        textViewPeriod.setVisibility(View.VISIBLE);
-                                    }
-                                }, 600);
-                                Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "sfxWeeklyList Send To Adapter");
-                            } else if (!sfxWeeklyList.isOk()) {
-                                Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "Some Parameter is False : " + "ERROR CODE : " + sfxWeeklyList.getDescription().getErrorCode() + sfxWeeklyList.getDescription().getErrorText());
-                                Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "ERROR CODE : " + sfxWeeklyList.getDescription().getErrorCode());
-                                Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "ERROR TEXT : " + sfxWeeklyList.getDescription().getErrorText());
-                                if (Integer.parseInt(sfxWeeklyList.getDescription().getErrorCode()) > 0) {
-                                    Toast.makeText(rootView.getContext(), sfxWeeklyList.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
-                                } else if (Integer.parseInt(sfxWeeklyList.getDescription().getErrorCode()) < 0) {
-                                    Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "Lost Cookie");
-                                    SignIn signIn = new SignIn(rootView.getContext());
-                                    signIn.SignInDialog();
+                        if (sfxWeeklyList.isOk()) {
+                            Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "All Params True");
+                            progressBar.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "InVisible Gif Image View And Get Captcha");
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                    adapter = new FoodReservationAdapter(rootView, R.layout.fragment_food_reservation, sfxWeeklyList);
+                                    gifImageViewPeriod.setVisibility(View.INVISIBLE);
+                                    textViewPeriod.setVisibility(View.VISIBLE);
+                                    btn_IncreaseCredit.setEnabled(true);
                                 }
-                            }
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
+                            }, 600);
+                            Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "sfxWeeklyList Send To Adapter");
                         }
+
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, error.getMessage());
-                        new AlertDialog.Builder(rootView.getContext())
-                                .setTitle("ERROR")
-                                .setMessage(error.getMessage())
-                                .setPositiveButton("Ok", null)
-                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                .show();
-                    }
-                });
-        queue.add(stringRequest);
+                }
+            }
+        });
     }
 
     @SuppressLint("LongLogTag")
@@ -299,47 +285,26 @@ public class FoodReservationFragment extends Fragment {
     @SuppressLint("LongLogTag")
     private void setPicker() {
         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "setPicker Start");
-
         Map<String, String> params = new HashMap<>();
-        params.put("cookie", preferencesCookie.getString(PreferenceName.COOKIE_PREFERENCE_COOKIE, null));
         String URI = MyConfig.SFX_INCREASE_CREDIT + "?" + HttpManager.enCodeParameters(params);
         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "cookie Picker : " + params.get("cookie"));
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                URI,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            creditDetail = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"), SFXIncreaseCreditDetail.class);
-                            if (creditDetail.getOk()) {
-                                showPicker();
-                            } else if (!creditDetail.getOk()) {
-                                if (Integer.parseInt(creditDetail.getDescription().getErrorCode()) > 0) {
-                                    Toast.makeText(rootView.getContext(), creditDetail.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
-                                } else if (Integer.parseInt(creditDetail.getDescription().getErrorCode()) < 0) {
-                                    SignIn signIn = new SignIn(rootView.getContext());
-                                    signIn.SignInDialog();
-                                }
-                            }
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
+        WebService webService = new WebService(rootView.getContext());
+        webService.request(URI, Request.Method.GET, new Handler() {
+            @Override
+            public void onResponse(boolean ok, Object obj) {
+                if (ok) {
+                    try {
+                        creditDetail = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), SFXIncreaseCreditDetail.class);
+                        if (creditDetail.getOk()) {
+                            showPicker();
                         }
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i(MyLog.FOOD_RESERVATION_ADAPTER, error.getMessage());
-                        new AlertDialog.Builder(rootView.getContext())
-                                .setTitle("ERROR")
-                                .setMessage(error.getMessage())
-                                .setPositiveButton("Ok", null)
-                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                .show();
-                    }
-                });
-        queue.add(stringRequest);
+                }
+            }
+        });
     }
 
     @SuppressLint({"LongLogTag", "SetTextI18n"})
@@ -480,5 +445,4 @@ public class FoodReservationFragment extends Fragment {
         public void onSwipeLeft() {
         }
     }
-
 }
