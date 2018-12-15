@@ -17,7 +17,7 @@ import ir.ac.sku.www.sessapplication.models.SendInformation;
 public class InstantMessage {
 
     private Context context;
-    private SendInformation sendInformation;
+    private SendInformation.Result instantMessage;
     private Dialog dialog;
 
     private TextView tv_Sender;
@@ -27,13 +27,13 @@ public class InstantMessage {
     private Button btn_NextAndClose;
 
 
-    public InstantMessage(Context context, SendInformation sendInformation) {
+    public InstantMessage(Context context, SendInformation.Result instantMessage) {
         this.context = context;
-        this.sendInformation = sendInformation;
+        this.instantMessage = instantMessage;
     }
 
     public void showInstantMessageDialog() {
-        if (!(sendInformation.getResult().getInstantMessage().size() <= 0)) {
+        if (!(instantMessage.getInstantMessage().size() <= 0)) {
             dialog = new Dialog(context);
             dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -52,7 +52,7 @@ public class InstantMessage {
 
             tv_Message.setMovementMethod(new ScrollingMovementMethod());
 
-            setInstantMessageInformation((sendInformation.getResult().getInstantMessage().size() - 1));
+            setInstantMessageInformation((instantMessage.getInstantMessage().size() - 1));
 
             dialog.show();
         } else {
@@ -85,16 +85,16 @@ public class InstantMessage {
 
 
     private void adaptInstantMessageInformation(int index) {
-        tv_Sender.setText(sendInformation.getResult().getInstantMessage().get(index).getSender());
-        tv_Date.setText(sendInformation.getResult().getInstantMessage().get(index).getDate());
-        tv_Subject.setText(sendInformation.getResult().getInstantMessage().get(index).getSubject());
+        tv_Sender.setText(instantMessage.getInstantMessage().get(index).getSender());
+        tv_Date.setText(instantMessage.getInstantMessage().get(index).getDate());
+        tv_Subject.setText(instantMessage.getInstantMessage().get(index).getSubject());
 
         tv_Message.scrollTo(0, 0);
-        tv_Message.setText(sendInformation.getResult().getInstantMessage().get(index).getText());
+        tv_Message.setText(instantMessage.getInstantMessage().get(index).getText());
 
-        if (sendInformation.getResult().getInstantMessage().get(index).getAttachment()) {
+        if (instantMessage.getInstantMessage().get(index).getAttachment()) {
             tv_Subject.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_attachment, 0, R.drawable.ic_subject, 0);
-        } else if (!sendInformation.getResult().getInstantMessage().get(index).getAttachment()) {
+        } else if (!instantMessage.getInstantMessage().get(index).getAttachment()) {
             tv_Subject.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_subject, 0);
         }
     }

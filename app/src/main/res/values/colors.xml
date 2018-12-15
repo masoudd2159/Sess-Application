@@ -4,6 +4,10 @@
     <color name="colorPrimaryDark">#0077c2</color>
     <color name="colorAccent">#D81B60</color>
 
+    <color name="accent_500">#E91E63</color>
+    <!--Pink 700-->
+    <color name="accent_700">#C2185B</color>
+
     <color name="blue_grey">#455A64</color>
     <color name="blue_grey2">#af3c5059</color>
     <color name="blue_grey3">#5b729b</color>
@@ -34,6 +38,8 @@
     <color name="black">#313030</color>
     <color name="white">#ffffff</color>
     <color name="white_2">#4bffffff</color>
+
+    <color name="testColor">#002fff</color>
 
     <color name="card_background">#b9e4edef</color>
     <color name="lite_background">#5cffffff</color>

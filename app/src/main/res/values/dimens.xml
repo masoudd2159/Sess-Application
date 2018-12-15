@@ -1,5 +1,5 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
+
     <dimen name="first_card_width">216dp</dimen>
     <dimen name="first_card_height">36dp</dimen>
     <dimen name="first_card_radius">18dp</dimen>
@@ -9,5 +9,11 @@
     <dimen name="second_card_height">40dp</dimen>
     <dimen name="second_card_radius">20dp</dimen>
     <dimen name="second_card_radius_on_focus">8dp</dimen>
+
+
+    <dimen name="fab_elevation">8dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="fab_elevation_press">12dp</dimen>
+    <dimen name="fab_size">56dp</dimen>
 
 </resources>

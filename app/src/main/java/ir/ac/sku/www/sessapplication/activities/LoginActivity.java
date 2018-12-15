@@ -3,11 +3,10 @@ package ir.ac.sku.www.sessapplication.activities;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
-import android.content.Context;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
@@ -51,25 +50,21 @@ import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.models.LoginInformation;
 import ir.ac.sku.www.sessapplication.models.SendInformation;
 import ir.ac.sku.www.sessapplication.utils.CheckSignUpPreferenceManager;
+import ir.ac.sku.www.sessapplication.utils.CustomToastExit;
 import ir.ac.sku.www.sessapplication.utils.CustomToastSuccess;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
-import ir.ac.sku.www.sessapplication.utils.InstantMessage;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
-import ir.ac.sku.www.sessapplication.utils.MyApplication;
 import pl.droidsonroids.gif.GifImageView;
 
 public class LoginActivity extends MyActivity {
 
-    //Login Activity Views
     private EditText user;
     private EditText password;
-    private ImageView captcha;
-    private GifImageView gifImageViewCaptcha;
-    private EditText securityTag;
     private GifImageView gifImageViewEnter;
     private Button enter;
     private ScrollView scrollView;
     private View loginView;
+    private ProgressDialog progressDialog;
 
     //Required libraries
     private RequestQueue queue;
@@ -83,6 +78,7 @@ public class LoginActivity extends MyActivity {
     //my Class Model
     private LoginInformation loginInformation;
     private SendInformation sendInformation;
+    private boolean doubleBackToExitPressedOnce = false;
 
     @SuppressLint("LongLogTag")
     @Override
@@ -106,10 +102,11 @@ public class LoginActivity extends MyActivity {
         preferencesName = getSharedPreferences(PreferenceName.NAME_PREFERENCE_NAME, MODE_PRIVATE);
         preferencesUserImage = getSharedPreferences(PreferenceName.USER_IMAGE_PREFERENCE_NAME, MODE_PRIVATE);
 
+        progressDialog = new ProgressDialog(LoginActivity.this);
+
         //my Functions
         changeStatusBarColor();
         init();
-        getLoginInformation();
 
         //animate Text View
         View.OnFocusChangeListener focusChangeListener = new View.OnFocusChangeListener() {
@@ -125,33 +122,12 @@ public class LoginActivity extends MyActivity {
 
         user.setOnFocusChangeListener(focusChangeListener);
         password.setOnFocusChangeListener(focusChangeListener);
-        securityTag.setOnFocusChangeListener(focusChangeListener);
-
-        //get ReCaptcha
-        captcha.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(MyLog.LOGIN_ACTIVITY, "Get Another Captcha");
-
-                captcha.setImageBitmap(null);
-                gifImageViewCaptcha.setVisibility(View.VISIBLE);
-                getLoginInformation();
-            }
-        });
 
 
-        securityTag.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-
-                    user.setEnabled(false);
-                    password.setEnabled(false);
-                    securityTag.setEnabled(false);
-                    securityTag.setFocusable(false);
-                    enter.setVisibility(View.INVISIBLE);
-                    gifImageViewEnter.setVisibility(View.VISIBLE);
-
                     Log.i(MyLog.LOGIN_ACTIVITY, "Click on Enter Button");
                     if (HttpManager.isNOTOnline(LoginActivity.this)) {
                         Log.i(MyLog.LOGIN_ACTIVITY, "OFFLine");
@@ -165,8 +141,8 @@ public class LoginActivity extends MyActivity {
             }
         });
 
-        user.setText("951406115");
-        password.setText("masoud76");
+        /*user.setText("951406115");
+        password.setText("masoud76");*/
     }
 
     @SuppressLint("LongLogTag")
@@ -184,94 +160,43 @@ public class LoginActivity extends MyActivity {
     private void init() {
         user = findViewById(R.id.loginActivity_Username);
         password = findViewById(R.id.loginActivity_Password);
-        captcha = findViewById(R.id.loginActivity_ImageViewCaptcha);
-        gifImageViewCaptcha = findViewById(R.id.loginActivity_GifImageViewCaptcha);
-        securityTag = findViewById(R.id.loginActivity_EditTextCaptcha);
         gifImageViewEnter = findViewById(R.id.loginActivity_GifImageViewEnter);
         enter = findViewById(R.id.loginActivity_Enter);
         scrollView = findViewById(R.id.loginActivity_ScrollView);
         loginView = findViewById(R.id.loginActivity_View);
+        //captcha = findViewById(R.id.loginActivity_ImageViewCaptcha);
+        //gifImageViewCaptcha = findViewById(R.id.loginActivity_GifImageViewCaptcha);
+        //securityTag = findViewById(R.id.loginActivity_EditTextCaptcha);
     }
 
     @SuppressLint("LongLogTag")
-    private void getLoginInformation() {
-        Log.i(MyLog.LOGIN_ACTIVITY, "Run Request Cookie Function");
-        StringRequest request = new StringRequest(MyConfig.LOGIN_INFORMATION,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.i(MyLog.LOGIN_ACTIVITY, "get JSON Cookie From Server");
-                        loginInformation = gson.fromJson(response, LoginInformation.class);
-                        if (loginInformation.isOk()) {
-                            Log.i(MyLog.LOGIN_ACTIVITY, "Cookie : " + loginInformation.getCookie());
-                            getCaptcha();
+    private void getLoginInformation(final boolean where) {
+
+        progressDialog.setMessage("لطفا منتظر بمانید!");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        Map<String, String> params = new HashMap<>();
+        params.put("test", "test");
+
+        LoginInformation.fetchFromWeb(LoginActivity.this, (HashMap<String, String>) params, new ir.ac.sku.www.sessapplication.utils.Handler() {
+            @Override
+            public void onResponse(boolean ok, Object obj) {
+                progressDialog.dismiss();
+                if (ok) {
+                    loginInformation = (LoginInformation) obj;
+                    if (loginInformation.isOk()) {
+                        if (where) {
+                            sendParamsPost();
                         }
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i(MyLog.LOGIN_ACTIVITY, "ERROR" + error.getMessage());
-                        new AlertDialog.Builder(LoginActivity.this)
-                                .setTitle("ERROR")
-                                .setMessage(error.getMessage())
-                                .setPositiveButton("Ok", null)
-                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                .show();
-                    }
-                });
-        queue.add(request);
-        Log.i(MyLog.LOGIN_ACTIVITY, "Request Cookie Possess Added To queue");
-    }
-
-    @SuppressLint("LongLogTag")
-    private void getCaptcha() {
-        Log.i(MyLog.LOGIN_ACTIVITY, "Run Captcha Function");
-        String captchaCookieURL = MyConfig.CAPTCHA_PICTURE + loginInformation.getCookie();
-
-        ImageRequest imageRequest = new ImageRequest(captchaCookieURL,
-                new Response.Listener<Bitmap>() {
-                    @Override
-                    public void onResponse(final Bitmap response) {
-                        Log.i(MyLog.LOGIN_ACTIVITY, "get Captcha From Server");
-                        gifImageViewCaptcha.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Log.i(MyLog.LOGIN_ACTIVITY, "InVisible Gif Image View And Get Captcha");
-                                gifImageViewCaptcha.setVisibility(View.INVISIBLE);
-                                captcha.setImageBitmap(response);
-                            }
-                        }, 300);
-                    }
-                },
-                (int) (getResources().getDimension(R.dimen.edit_text_width)),
-                (int) (getResources().getDimension(R.dimen.second_card_height)),
-                ImageView.ScaleType.FIT_CENTER,
-                Bitmap.Config.ARGB_8888,
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i(MyLog.LOGIN_ACTIVITY, "ERROR : " + error.getMessage());
-                        new AlertDialog.Builder(LoginActivity.this)
-                                .setTitle("ERROR")
-                                .setMessage(error.getMessage())
-                                .setPositiveButton("Ok", null)
-                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                .show();
-                    }
-                });
-        queue.add(imageRequest);
-        Log.i(MyLog.LOGIN_ACTIVITY, "Request Possess Added To queue");
+                }
+            }
+        });
     }
 
     @SuppressLint("LongLogTag")
     public void onEnterClickListener(View view) {
-        user.setEnabled(false);
-        password.setEnabled(false);
-        securityTag.setEnabled(false);
-        enter.setVisibility(View.INVISIBLE);
-        gifImageViewEnter.setVisibility(View.VISIBLE);
-
         Log.i(MyLog.LOGIN_ACTIVITY, "Click on Enter Button");
         if (HttpManager.isNOTOnline(LoginActivity.this)) {
             Log.i(MyLog.LOGIN_ACTIVITY, "OFFLine");
@@ -284,106 +209,105 @@ public class LoginActivity extends MyActivity {
 
     @SuppressLint("LongLogTag")
     private void sendParamsPost() {
-        Log.i(MyLog.LOGIN_ACTIVITY, "Run Function send Params Post");
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                MyConfig.SEND_INFORMATION,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.i(MyLog.LOGIN_ACTIVITY, "get Login Info");
-                        try {
-                            sendInformation = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"), SendInformation.class);
-                            if (sendInformation.isOk()) {
-                                Log.i(MyLog.LOGIN_ACTIVITY, "All Params True");
-                                Intent intent = new Intent(LoginActivity.this, BottomBarActivity.class);
+        if (loginInformation.getCookie() == null) {
+            if (HttpManager.isNOTOnline(LoginActivity.this)) {
+                HttpManager.noInternetAccess(LoginActivity.this);
+            } else {
+                getLoginInformation(true);
+            }
+        } else if (loginInformation.getCookie() != null) {
 
-                                @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorUserPass = preferencesUsernameAndPassword.edit();
-                                editorUserPass.putString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_USERNAME, user.getText().toString().trim());
-                                editorUserPass.putString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_PASSWORD, password.getText().toString().trim());
-                                editorUserPass.apply();
+            user.setEnabled(false);
+            password.setEnabled(false);
+            enter.setVisibility(View.INVISIBLE);
+            gifImageViewEnter.setVisibility(View.VISIBLE);
 
-                                @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorCookie = preferencesCookie.edit();
-                                editorCookie.putString(PreferenceName.COOKIE_PREFERENCE_COOKIE, loginInformation.getCookie());
-                                editorCookie.apply();
+            Log.i(MyLog.LOGIN_ACTIVITY, "Run Function send Params Post");
+            StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                    MyConfig.SEND_INFORMATION,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Log.i(MyLog.LOGIN_ACTIVITY, "get Login Info");
+                            try {
+                                sendInformation = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"), SendInformation.class);
 
-                                @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorName = preferencesName.edit();
-                                editorName.putString(PreferenceName.NAME_PREFERENCE_USERNAME, sendInformation.getResult().getUserInformation().getName());
-                                editorName.apply();
+                                if (sendInformation.isOk()) {
+                                    Log.i(MyLog.LOGIN_ACTIVITY, "All Params True");
 
-                                getUserImage();
+                                    Intent intent = new Intent(LoginActivity.this, BottomBarActivity.class).putExtra("InstantMessage", sendInformation.getResult());
 
-                                manager.setStartSignUpPreference(false);
+                                    @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorUserPass = preferencesUsernameAndPassword.edit();
+                                    editorUserPass.putString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_USERNAME, user.getText().toString().trim());
+                                    editorUserPass.putString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_PASSWORD, password.getText().toString().trim());
+                                    editorUserPass.apply();
 
-                                startActivity(intent);
+                                    @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorCookie = preferencesCookie.edit();
+                                    editorCookie.putString(PreferenceName.COOKIE_PREFERENCE_COOKIE, loginInformation.getCookie());
+                                    editorCookie.apply();
 
-                                CustomToastSuccess.success(LoginActivity.this, "خوش آمدید " + sendInformation.getResult().getUserInformation().getName(), Toast.LENGTH_SHORT).show();
+                                    @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorName = preferencesName.edit();
+                                    editorName.putString(PreferenceName.NAME_PREFERENCE_USERNAME, sendInformation.getResult().getUserInformation().getName());
+                                    editorName.apply();
 
-                                finish();
+                                    getUserImage();
 
-                            } else if (!sendInformation.isOk()) {
-                                Toast.makeText(LoginActivity.this, sendInformation.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
-                                if (Integer.parseInt(sendInformation.getDescription().getErrorCode()) > 0) {
+                                    manager.setStartSignUpPreference(false);
+
+                                    startActivity(intent);
+
+                                    CustomToastSuccess.success(LoginActivity.this, "خوش آمدید " + sendInformation.getResult().getUserInformation().getName(), Toast.LENGTH_SHORT).show();
+
+                                    finish();
+
+                                } else if (!sendInformation.isOk()) {
+                                    getLoginInformation(false);
+                                    Toast.makeText(LoginActivity.this, sendInformation.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
+
                                     user.setEnabled(true);
                                     password.setEnabled(true);
-                                    securityTag.setEnabled(true);
-                                    enter.setVisibility(View.VISIBLE);
-                                    gifImageViewEnter.setVisibility(View.INVISIBLE);
-                                    Log.i(MyLog.LOGIN_ACTIVITY, "Some Parameter is False");
-                                    if (sendInformation.getDescription().getErrorCode().equals("1")) {
-                                        Log.i(MyLog.LOGIN_ACTIVITY, "Username or password is incorrect");
-                                        user.setText("");
-                                        password.setText("");
-                                    } else if (sendInformation.getDescription().getErrorCode().equals("2")) {
-                                        Log.i(MyLog.LOGIN_ACTIVITY, "Captcha is Wrong");
-                                        securityTag.setText("");
-                                    }
-                                } else if (Integer.parseInt(sendInformation.getDescription().getErrorCode()) < 0) {
-                                    Log.i(MyLog.LOGIN_ACTIVITY, "Lost Cookie");
+
                                     user.setText("");
                                     password.setText("");
-                                    securityTag.setText("");
-                                    captcha.setImageBitmap(null);
-                                    user.setEnabled(true);
-                                    password.setEnabled(true);
-                                    securityTag.setEnabled(true);
+
+                                    user.requestFocus();
+
                                     enter.setVisibility(View.VISIBLE);
                                     gifImageViewEnter.setVisibility(View.INVISIBLE);
-                                    gifImageViewCaptcha.setVisibility(View.VISIBLE);
-                                    getLoginInformation();
                                 }
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
                             }
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        }
 
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.i(MyLog.LOGIN_ACTIVITY, error.getMessage());
+                            new AlertDialog.Builder(LoginActivity.this)
+                                    .setTitle("ERROR")
+                                    .setMessage(error.getMessage())
+                                    .setPositiveButton("Ok", null)
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
+                        }
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i(MyLog.LOGIN_ACTIVITY, error.getMessage());
-                        new AlertDialog.Builder(LoginActivity.this)
-                                .setTitle("ERROR")
-                                .setMessage(error.getMessage())
-                                .setPositiveButton("Ok", null)
-                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                .show();
-                    }
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Log.i(MyLog.LOGIN_ACTIVITY, "Send Login Info");
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("cookie", loginInformation.getCookie());
+                    params.put("username", "S" + user.getText().toString().trim());
+                    params.put("password", password.getText().toString().trim());
+                    //params.put("captcha", securityTag.getText().toString().trim());
+                    return params;
                 }
-        ) {
-            @Override
-            protected Map<String, String> getParams() {
-                Log.i(MyLog.LOGIN_ACTIVITY, "Send Login Info");
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("cookie", loginInformation.getCookie());
-                params.put("captcha", securityTag.getText().toString().trim());
-                params.put("username", "S" + user.getText().toString().trim());
-                params.put("password", password.getText().toString().trim());
-                return params;
-            }
-        };
-        queue.add(stringRequest);
-        Log.i(MyLog.LOGIN_ACTIVITY, "Request Possess Added To queue");
+            };
+            queue.add(stringRequest);
+            Log.i(MyLog.LOGIN_ACTIVITY, "Request Possess Added To queue");
+        }
     }
 
     @SuppressLint("LongLogTag")
@@ -405,8 +329,8 @@ public class LoginActivity extends MyActivity {
                         editorUserImage.apply();
                     }
                 },
-                110,
-                110,
+                125,
+                125,
                 ImageView.ScaleType.FIT_CENTER,
                 Bitmap.Config.ARGB_8888,
                 new Response.ErrorListener() {
@@ -564,9 +488,36 @@ public class LoginActivity extends MyActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+
+        CustomToastExit.exit(LoginActivity.this, "برای خروج برنامه دو بار کلیک بازگشت را فشار دهید", Toast.LENGTH_SHORT).show();
+
+        new android.os.Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
+    }
+
+    @SuppressLint("LongLogTag")
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i(MyLog.LOGIN_ACTIVITY, "Click on Enter Button");
+        if (HttpManager.isNOTOnline(LoginActivity.this)) {
+            Log.i(MyLog.LOGIN_ACTIVITY, "OFFLine");
+            HttpManager.noInternetAccess(LoginActivity.this);
+        } else {
+            Log.i(MyLog.LOGIN_ACTIVITY, "OnLine");
+            getLoginInformation(false);
+        }
+
     }
 }

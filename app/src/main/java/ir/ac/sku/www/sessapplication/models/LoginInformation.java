@@ -1,5 +1,18 @@
 package ir.ac.sku.www.sessapplication.models;
 
+import android.content.Context;
+
+import com.android.volley.Request;
+import com.google.gson.Gson;
+
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+
+import ir.ac.sku.www.sessapplication.API.MyConfig;
+import ir.ac.sku.www.sessapplication.utils.Handler;
+import ir.ac.sku.www.sessapplication.utils.HttpManager;
+import ir.ac.sku.www.sessapplication.utils.WebService;
+
 public class LoginInformation {
     private boolean ok;
     private String cookie;
@@ -18,5 +31,30 @@ public class LoginInformation {
 
     public void setCookie(String cookie) {
         this.cookie = cookie;
+    }
+
+    public static void fetchFromWeb(Context context, HashMap<String, String> params, final Handler handler) {
+        final Gson gson = new Gson();
+
+        WebService webService = new WebService(context);
+        String myURL = MyConfig.LOGIN_INFORMATION + "?" + HttpManager.enCodeParameters(params);
+        webService.request(myURL, Request.Method.GET, new Handler() {
+            @Override
+            public void onResponse(boolean ok, Object obj) {
+                if (ok) {
+                    try {
+                        LoginInformation loginInformation = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), LoginInformation.class);
+                        if (loginInformation.isOk()) {
+                            handler.onResponse(true, loginInformation);
+                        }
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                        handler.onResponse(false, null);
+                    }
+                } else {
+                    handler.onResponse(false, null);
+                }
+            }
+        });
     }
 }

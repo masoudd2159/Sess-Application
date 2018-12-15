@@ -67,7 +67,7 @@ public class SignIn {
     private LoginInformation loginInformation;
     private SendInformation sendInformation;
 
-    private Dialog dialog;
+   // private Dialog dialog;
 
     private final Object lock = new Object();
 
@@ -86,8 +86,12 @@ public class SignIn {
         preferencesCookie = context.getSharedPreferences(PreferenceName.COOKIE_PREFERENCE_NAME, Context.MODE_PRIVATE);
     }
 
+    @SuppressLint("LongLogTag")
     public void SignInDialog(final Handler handler) {
-        dialog = new Dialog(context);
+
+        getLoginInformation(handler);
+
+        /*dialog = new Dialog(context);
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -177,11 +181,11 @@ public class SignIn {
             }
         });
 
-        dialog.show();
+        dialog.show();*/
     }
 
     @SuppressLint("LongLogTag")
-    private void getLoginInformation() {
+    private void getLoginInformation(final Handler handler) {
         Log.i(MyLog.DIALOG_CAPTCHA, "Run Request Cookie Function");
         StringRequest request = new StringRequest(MyConfig.LOGIN_INFORMATION,
                 new Response.Listener<String>() {
@@ -191,7 +195,14 @@ public class SignIn {
                         loginInformation = gson.fromJson(response, LoginInformation.class);
                         if (loginInformation.isOk()) {
                             Log.i(MyLog.DIALOG_CAPTCHA, "Cookie : " + loginInformation.getCookie());
-                            getCaptcha();
+                            if (HttpManager.isNOTOnline(context)) {
+                                Log.i(MyLog.DIALOG_CAPTCHA, "OFFLine");
+                                HttpManager.noInternetAccess(context);
+                            } else {
+                                Log.i(MyLog.DIALOG_CAPTCHA, "OnLine");
+                                sendParamsPost(handler);
+                            }
+                            //getCaptcha();
                         }
                     }
                 },
@@ -269,9 +280,9 @@ public class SignIn {
                                 editorCookie.putString(PreferenceName.COOKIE_PREFERENCE_COOKIE, loginInformation.getCookie());
                                 editorCookie.apply();
                                 handler.onResponse(true, null);
-                                dialog.dismiss();
+                                //dialog.dismiss();
 
-                                InstantMessage instantMessage = new InstantMessage(context, sendInformation);
+                                InstantMessage instantMessage = new InstantMessage(context, sendInformation.getResult());
                                 instantMessage.showInstantMessageDialog();
 
                             } else if (!sendInformation.isOk()) {
@@ -286,6 +297,10 @@ public class SignIn {
                                     } else if (sendInformation.getDescription().getErrorCode().equals("2")) {
                                         Log.i(MyLog.DIALOG_CAPTCHA, "Captcha is Wrong");
                                         securityTag.setText("");
+                                    } else if (sendInformation.getDescription().getErrorCode().equals("3")) {
+                                        Log.i(MyLog.DIALOG_CAPTCHA, "System Time Out");
+                                        Toast.makeText(context, sendInformation.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
+                                        //dialog.dismiss();
                                     }
                                 } else if (Integer.parseInt(sendInformation.getDescription().getErrorCode()) < 0) {
                                     Log.i(MyLog.DIALOG_CAPTCHA, "Lost Cookie");
@@ -295,7 +310,7 @@ public class SignIn {
                                     enter.setVisibility(View.VISIBLE);
                                     gifImageViewEnter.setVisibility(View.INVISIBLE);
                                     gifImageViewCaptcha.setVisibility(View.VISIBLE);
-                                    getLoginInformation();
+                                    getLoginInformation(handler);
                                 }
                             }
                         } catch (UnsupportedEncodingException e) {
@@ -304,7 +319,9 @@ public class SignIn {
 
                     }
                 },
-                new Response.ErrorListener() {
+                new Response.ErrorListener()
+
+                {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.i(MyLog.DIALOG_CAPTCHA, error.getMessage());
@@ -316,13 +333,15 @@ public class SignIn {
                                 .show();
                     }
                 }
-        ) {
+        )
+
+        {
             @Override
             protected Map<String, String> getParams() {
                 Log.i(MyLog.DIALOG_CAPTCHA, "Send Login Info");
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("cookie", loginInformation.getCookie());
-                params.put("captcha", securityTag.getText().toString().trim());
+                //params.put("captcha", securityTag.getText().toString().trim());
                 params.put("username", "S" + preferencesUsernameAndPassword.getString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_USERNAME, null));
                 params.put("password", preferencesUsernameAndPassword.getString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_PASSWORD, null));
                 return params;

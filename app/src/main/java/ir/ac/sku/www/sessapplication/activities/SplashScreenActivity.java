@@ -12,6 +12,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import com.robohorse.gpversionchecker.GPVersionChecker;
+
 import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.utils.CheckSignUpPreferenceManager;
@@ -36,6 +38,7 @@ public class SplashScreenActivity extends MyActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
         //Log Splash Screen
         Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "Create Splash Screen");
 

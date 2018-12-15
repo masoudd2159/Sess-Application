@@ -6,13 +6,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 import ir.ac.sku.www.sessapplication.API.MyLog;
@@ -24,7 +27,9 @@ import ir.ac.sku.www.sessapplication.fragment.MessagesFragment;
 import ir.ac.sku.www.sessapplication.fragment.ProcessesFragment;
 import ir.ac.sku.www.sessapplication.models.LoginInformation;
 import ir.ac.sku.www.sessapplication.models.SendInformation;
+import ir.ac.sku.www.sessapplication.utils.CustomToastExit;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
+import ir.ac.sku.www.sessapplication.utils.InstantMessage;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 import ir.ac.sku.www.sessapplication.utils.MyApplication;
 
@@ -44,7 +49,8 @@ public class BottomBarActivity extends MyActivity {
     private SharedPreferences preferencesCookie;
 
     private LoginInformation loginInformation;
-    private SendInformation sendInformation;
+    private SendInformation.Result instantMessage;
+    private boolean doubleBackToExitPressedOnce = false;
 
     @SuppressLint("LongLogTag")
     @Override
@@ -60,7 +66,16 @@ public class BottomBarActivity extends MyActivity {
         preferencesCookie = BottomBarActivity.this.getSharedPreferences(PreferenceName.COOKIE_PREFERENCE_NAME, Context.MODE_PRIVATE);
 
         loginInformation = new LoginInformation();
-        sendInformation = new SendInformation();
+        instantMessage = new SendInformation.Result();
+
+        instantMessage = (SendInformation.Result) getIntent().getParcelableExtra("InstantMessage");
+
+        if (instantMessage != null) {
+            if (instantMessage.getInstantMessage().size() > 0) {
+                InstantMessage message = new InstantMessage(BottomBarActivity.this, instantMessage);
+                message.showInstantMessageDialog();
+            }
+        }
 
         //Initial Views
         init();
@@ -144,15 +159,28 @@ public class BottomBarActivity extends MyActivity {
             @SuppressLint("LongLogTag")
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editorCookie = preferencesCookie.edit();
+                /*SharedPreferences.Editor editorCookie = preferencesCookie.edit();
                 editorCookie.putString(PreferenceName.COOKIE_PREFERENCE_COOKIE, null);
-                editorCookie.apply();
+                editorCookie.apply();*/
 
-                /*Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "On Logo Item Selected");
+                Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "On Logo Item Selected");
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("https://www.sku.ac.ir/"));
                 startActivity(intent);
-                Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "Open : " + intent.getData());*/
+                Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "Open : " + intent.getData());
+            }
+        });
+
+        logo.setOnLongClickListener(new View.OnLongClickListener() {
+            @SuppressLint("LongLogTag")
+            @Override
+            public boolean onLongClick(View v) {
+                Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "On Logo Item Selected");
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("http://app.sku.ac.ir/admin/login"));
+                startActivity(intent);
+                Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "Open : " + intent.getData());
+                return false;
             }
         });
 
@@ -162,5 +190,25 @@ public class BottomBarActivity extends MyActivity {
                 startActivity(new Intent(BottomBarActivity.this, AboutActivity.class));
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+
+        CustomToastExit.exit(BottomBarActivity.this, "برای خروج برنامه دو بار کلیک بازگشت را فشار دهید", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 }

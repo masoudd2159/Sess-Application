@@ -11,4 +11,5 @@ public class MyConfig {
     public static final String SFX_INCREASE_CREDIT = "http://app.sku.ac.ir/api/v1/user/sfx/increaseCredit/detail";
     public static final String SFX_INCREASE_CREDIT_AMOUNT = "http://app.sku.ac.ir/api/v1/user/sfx/increaseCredit";
     public static final String USER_IMAGE = "http://app.sku.ac.ir/api/v1/user/image";
+    public static final String MSG_MESSAGES = "http://app.sku.ac.ir/api/v1/user/messages";
 }

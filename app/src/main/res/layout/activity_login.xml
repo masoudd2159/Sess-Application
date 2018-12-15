@@ -9,8 +9,8 @@
     android:fitsSystemWindows="true"
     android:layoutDirection="ltr"
     android:orientation="vertical"
-    tools:ignore="MissingPrefix"
-    tools:context=".activities.LoginActivity">
+    tools:context=".activities.LoginActivity"
+    tools:ignore="MissingPrefix">
 
     <View
         android:id="@+id/loginActivity_View"
@@ -126,6 +126,7 @@
                 android:layout_height="@dimen/second_card_height"
                 android:layout_marginBottom="12dp"
                 android:layoutDirection="ltr"
+                android:visibility="gone"
                 app:cardBackgroundColor="@android:color/white"
                 app:cardCornerRadius="18dp">
 
@@ -151,6 +152,7 @@
                 android:layout_width="@dimen/second_card_width"
                 android:layout_height="@dimen/second_card_height"
                 android:layoutDirection="ltr"
+                android:visibility="gone"
                 app:cardBackgroundColor="@color/lite_background"
                 app:cardCornerRadius="@dimen/first_card_radius"
                 app:cardElevation="0dp">
@@ -196,9 +198,9 @@
         android:layout_height="45dp"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
+        android:background="@color/blue"
         android:layoutDirection="ltr"
         android:src="@drawable/gif_loading_2"
-        android:background="@color/blue"
         android:visibility="invisible" />
 
     <Button
@@ -212,7 +214,7 @@
         android:layoutDirection="ltr"
         android:onClick="onEnterClickListener"
         android:text="@string/enter"
-        android:visibility="visible"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:visibility="visible" />
 
 </RelativeLayout>

@@ -2,9 +2,16 @@ package ir.ac.sku.www.sessapplication.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -13,6 +20,7 @@ import com.google.gson.Gson;
 import java.io.UnsupportedEncodingException;
 
 import ir.ac.sku.www.sessapplication.API.PreferenceName;
+import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.models.IsOk;
 
 public class WebService {
@@ -64,11 +72,26 @@ public class WebService {
                             }
                         } catch (UnsupportedEncodingException e) {
                             e.printStackTrace();
+                            handler.onResponse(false, null);
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+
+                handler.onResponse(false, null);
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    HttpManager.unsuccessfulOperation(context, "اینترنت شما ضعیف است!");
+                } else if (error instanceof AuthFailureError) {
+                    HttpManager.unsuccessfulOperation(context, "AuthFailureError");
+                } else if (error instanceof ServerError) {
+                    HttpManager.unsuccessfulOperation(context, "سرور در حال حاظر از دسترس خارج است!");
+                } else if (error instanceof NetworkError) {
+                    HttpManager.unsuccessfulOperation(context, "NetworkError");
+                } else if (error instanceof ParseError) {
+                    HttpManager.unsuccessfulOperation(context, "ParseError");
+                }
 
             }
         });
