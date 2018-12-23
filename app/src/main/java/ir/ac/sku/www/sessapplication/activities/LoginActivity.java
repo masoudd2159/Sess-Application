@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -52,12 +53,15 @@ import ir.ac.sku.www.sessapplication.models.SendInformation;
 import ir.ac.sku.www.sessapplication.utils.CheckSignUpPreferenceManager;
 import ir.ac.sku.www.sessapplication.utils.CustomToastExit;
 import ir.ac.sku.www.sessapplication.utils.CustomToastSuccess;
+import ir.ac.sku.www.sessapplication.utils.Handler;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
+import ir.ac.sku.www.sessapplication.utils.WebService;
 import pl.droidsonroids.gif.GifImageView;
 
 public class LoginActivity extends MyActivity {
 
+    private SwipeRefreshLayout swipeRefreshLayout;
     private EditText user;
     private EditText password;
     private GifImageView gifImageViewEnter;
@@ -85,7 +89,7 @@ public class LoginActivity extends MyActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Log.i(MyLog.LOGIN_ACTIVITY, "Create Login Activity");
+        Log.i(MyLog.LOGIN_ACTIVITY, "___Login Activity___");
 
         //allocate classes
         loginInformation = new LoginInformation();
@@ -128,7 +132,8 @@ public class LoginActivity extends MyActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    Log.i(MyLog.LOGIN_ACTIVITY, "Click on Enter Button");
+                    Log.i(MyLog.LOGIN_ACTIVITY, "Click on Editor Action Listener");
+
                     if (HttpManager.isNOTOnline(LoginActivity.this)) {
                         Log.i(MyLog.LOGIN_ACTIVITY, "OFFLine");
                         HttpManager.noInternetAccess(LoginActivity.this);
@@ -141,8 +146,21 @@ public class LoginActivity extends MyActivity {
             }
         });
 
-        /*user.setText("951406115");
-        password.setText("masoud76");*/
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.i(MyLog.LOGIN_ACTIVITY, "Swipe Refresh Layout");
+
+                if (HttpManager.isNOTOnline(LoginActivity.this)) {
+                    Log.i(MyLog.LOGIN_ACTIVITY, "OFFLine");
+                    HttpManager.noInternetAccess(LoginActivity.this);
+                } else {
+                    Log.i(MyLog.LOGIN_ACTIVITY, "OnLine");
+                    getLoginInformation(false);
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+            }
+        });
     }
 
     @SuppressLint("LongLogTag")
@@ -158,46 +176,72 @@ public class LoginActivity extends MyActivity {
 
     @SuppressLint("LongLogTag")
     private void init() {
+        swipeRefreshLayout = findViewById(R.id.loginActivity_SwipeRefreshLayout);
         user = findViewById(R.id.loginActivity_Username);
         password = findViewById(R.id.loginActivity_Password);
         gifImageViewEnter = findViewById(R.id.loginActivity_GifImageViewEnter);
         enter = findViewById(R.id.loginActivity_Enter);
         scrollView = findViewById(R.id.loginActivity_ScrollView);
         loginView = findViewById(R.id.loginActivity_View);
-        //captcha = findViewById(R.id.loginActivity_ImageViewCaptcha);
-        //gifImageViewCaptcha = findViewById(R.id.loginActivity_GifImageViewCaptcha);
-        //securityTag = findViewById(R.id.loginActivity_EditTextCaptcha);
     }
 
     @SuppressLint("LongLogTag")
     private void getLoginInformation(final boolean where) {
+        Log.i(MyLog.LOGIN_ACTIVITY, "Run Request getLoginInformation Function");
 
         progressDialog.setMessage("لطفا منتظر بمانید!");
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        Map<String, String> params = new HashMap<>();
-        params.put("test", "test");
 
-        LoginInformation.fetchFromWeb(LoginActivity.this, (HashMap<String, String>) params, new ir.ac.sku.www.sessapplication.utils.Handler() {
-            @Override
-            public void onResponse(boolean ok, Object obj) {
-                progressDialog.dismiss();
-                if (ok) {
-                    loginInformation = (LoginInformation) obj;
-                    if (loginInformation.isOk()) {
-                        if (where) {
-                            sendParamsPost();
+        StringRequest request = new StringRequest(MyConfig.LOGIN_INFORMATION,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+
+                        try {
+                            Log.i(MyLog.LOGIN_ACTIVITY, "get JSON Cookie From Server");
+                            loginInformation = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"), LoginInformation.class);
+
+                            if (loginInformation.isOk()) {
+                                Log.i(MyLog.LOGIN_ACTIVITY, "Cookie : " + loginInformation.getCookie());
+
+                                if (HttpManager.isNOTOnline(LoginActivity.this)) {
+                                    Log.i(MyLog.LOGIN_ACTIVITY, "OFFLine");
+                                    HttpManager.noInternetAccess(LoginActivity.this);
+                                } else {
+                                    Log.i(MyLog.LOGIN_ACTIVITY, "OnLine");
+                                    if (where) {
+                                        sendParamsPost();
+                                    }
+                                }
+                            }
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
                         }
                     }
-                }
-            }
-        });
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i(MyLog.LOGIN_ACTIVITY, "Login Information Volley Error : " + error.getMessage());
+                        new AlertDialog.Builder(LoginActivity.this)
+                                .setTitle("ERROR")
+                                .setMessage(error.getMessage())
+                                .setPositiveButton("Ok", null)
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+                    }
+                });
+        queue.add(request);
+        Log.i(MyLog.LOGIN_ACTIVITY, "Request Cookie Possess Added To queue");
     }
 
     @SuppressLint("LongLogTag")
     public void onEnterClickListener(View view) {
         Log.i(MyLog.LOGIN_ACTIVITY, "Click on Enter Button");
+
         if (HttpManager.isNOTOnline(LoginActivity.this)) {
             Log.i(MyLog.LOGIN_ACTIVITY, "OFFLine");
             HttpManager.noInternetAccess(LoginActivity.this);
@@ -211,8 +255,10 @@ public class LoginActivity extends MyActivity {
     private void sendParamsPost() {
         if (loginInformation.getCookie() == null) {
             if (HttpManager.isNOTOnline(LoginActivity.this)) {
+                Log.i(MyLog.LOGIN_ACTIVITY, "OFFLine");
                 HttpManager.noInternetAccess(LoginActivity.this);
             } else {
+                Log.i(MyLog.LOGIN_ACTIVITY, "OnLine");
                 getLoginInformation(true);
             }
         } else if (loginInformation.getCookie() != null) {
@@ -222,96 +268,84 @@ public class LoginActivity extends MyActivity {
             enter.setVisibility(View.INVISIBLE);
             gifImageViewEnter.setVisibility(View.VISIBLE);
 
-            Log.i(MyLog.LOGIN_ACTIVITY, "Run Function send Params Post");
-            StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                    MyConfig.SEND_INFORMATION,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            Log.i(MyLog.LOGIN_ACTIVITY, "get Login Info");
-                            try {
-                                sendInformation = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"), SendInformation.class);
+            Log.i(MyLog.LOGIN_ACTIVITY, "Run Function Send Params Post");
 
-                                if (sendInformation.isOk()) {
-                                    Log.i(MyLog.LOGIN_ACTIVITY, "All Params True");
+            Map<String, String> params = new HashMap<String, String>();
+            params.put("cookie", loginInformation.getCookie());
+            params.put("username", "S" + user.getText().toString().trim());
+            params.put("password", password.getText().toString().trim());
 
-                                    Intent intent = new Intent(LoginActivity.this, BottomBarActivity.class).putExtra("InstantMessage", sendInformation.getResult());
-
-                                    @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorUserPass = preferencesUsernameAndPassword.edit();
-                                    editorUserPass.putString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_USERNAME, user.getText().toString().trim());
-                                    editorUserPass.putString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_PASSWORD, password.getText().toString().trim());
-                                    editorUserPass.apply();
-
-                                    @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorCookie = preferencesCookie.edit();
-                                    editorCookie.putString(PreferenceName.COOKIE_PREFERENCE_COOKIE, loginInformation.getCookie());
-                                    editorCookie.apply();
-
-                                    @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorName = preferencesName.edit();
-                                    editorName.putString(PreferenceName.NAME_PREFERENCE_USERNAME, sendInformation.getResult().getUserInformation().getName());
-                                    editorName.apply();
-
-                                    getUserImage();
-
-                                    manager.setStartSignUpPreference(false);
-
-                                    startActivity(intent);
-
-                                    CustomToastSuccess.success(LoginActivity.this, "خوش آمدید " + sendInformation.getResult().getUserInformation().getName(), Toast.LENGTH_SHORT).show();
-
-                                    finish();
-
-                                } else if (!sendInformation.isOk()) {
-                                    getLoginInformation(false);
-                                    Toast.makeText(LoginActivity.this, sendInformation.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
-
-                                    user.setEnabled(true);
-                                    password.setEnabled(true);
-
-                                    user.setText("");
-                                    password.setText("");
-
-                                    user.requestFocus();
-
-                                    enter.setVisibility(View.VISIBLE);
-                                    gifImageViewEnter.setVisibility(View.INVISIBLE);
-                                }
-                            } catch (UnsupportedEncodingException e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.i(MyLog.LOGIN_ACTIVITY, error.getMessage());
-                            new AlertDialog.Builder(LoginActivity.this)
-                                    .setTitle("ERROR")
-                                    .setMessage(error.getMessage())
-                                    .setPositiveButton("Ok", null)
-                                    .setIcon(android.R.drawable.ic_dialog_alert)
-                                    .show();
-                        }
-                    }
-            ) {
+            WebService webService = new WebService(LoginActivity.this);
+            webService.requestPost(MyConfig.SEND_INFORMATION, Request.Method.POST, (HashMap<String, String>) params, new Handler() {
                 @Override
-                protected Map<String, String> getParams() {
-                    Log.i(MyLog.LOGIN_ACTIVITY, "Send Login Info");
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("cookie", loginInformation.getCookie());
-                    params.put("username", "S" + user.getText().toString().trim());
-                    params.put("password", password.getText().toString().trim());
-                    //params.put("captcha", securityTag.getText().toString().trim());
-                    return params;
+                public void onResponse(boolean ok, Object obj) {
+                    Log.i(MyLog.LOGIN_ACTIVITY, "get Login Info");
+                    try {
+                        sendInformation = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), SendInformation.class);
+
+                        if (sendInformation.isOk()) {
+                            Log.i(MyLog.LOGIN_ACTIVITY, "All Params True");
+
+                            Intent intent = new Intent(LoginActivity.this, BottomBarActivity.class).putExtra("InstantMessage", sendInformation.getResult());
+
+                            @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorUserPass = preferencesUsernameAndPassword.edit();
+                            editorUserPass.putString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_USERNAME, user.getText().toString().trim());
+                            editorUserPass.putString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_PASSWORD, password.getText().toString().trim());
+                            editorUserPass.apply();
+
+                            Log.i(MyLog.LOGIN_ACTIVITY, "Username : " + user.getText().toString().trim());
+                            Log.i(MyLog.LOGIN_ACTIVITY, "Password : " + password.getText().toString().trim());
+
+                            @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorCookie = preferencesCookie.edit();
+                            editorCookie.putString(PreferenceName.COOKIE_PREFERENCE_COOKIE, loginInformation.getCookie());
+                            editorCookie.apply();
+
+                            @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorName = preferencesName.edit();
+                            editorName.putString(PreferenceName.NAME_PREFERENCE_USERNAME, sendInformation.getResult().getUserInformation().getName());
+                            editorName.apply();
+
+                            getUserImage();
+
+                            manager.setStartSignUpPreference(false);
+
+                            startActivity(intent);
+
+                            CustomToastSuccess.success(LoginActivity.this, "خوش آمدید " + sendInformation.getResult().getUserInformation().getName(), Toast.LENGTH_SHORT).show();
+
+                            finish();
+
+                        } else if (!sendInformation.isOk()) {
+                            Log.i(MyLog.LOGIN_ACTIVITY, "Some Parameters False");
+
+                            Log.i(MyLog.LOGIN_ACTIVITY, "Error Code : " + sendInformation.getDescription().getErrorCode());
+                            Log.i(MyLog.LOGIN_ACTIVITY, "Error Text : " + sendInformation.getDescription().getErrorText());
+
+                            HttpManager.unsuccessfulOperation(LoginActivity.this, sendInformation.getDescription().getErrorText());
+                            getLoginInformation(false);
+
+                            user.setEnabled(true);
+                            password.setEnabled(true);
+
+                            user.setText("");
+                            password.setText("");
+
+                            user.requestFocus();
+
+                            enter.setVisibility(View.VISIBLE);
+                            gifImageViewEnter.setVisibility(View.INVISIBLE);
+                        }
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                 }
-            };
-            queue.add(stringRequest);
-            Log.i(MyLog.LOGIN_ACTIVITY, "Request Possess Added To queue");
+            });
         }
     }
 
     @SuppressLint("LongLogTag")
     private void getUserImage() {
+        Log.i(MyLog.LOGIN_ACTIVITY, "Run Function get User Image");
+
         Map<String, String> params = new HashMap<>();
         params.put("cookie", loginInformation.getCookie());
         String URI = MyConfig.USER_IMAGE + "?" + HttpManager.enCodeParameters(params);
@@ -320,6 +354,7 @@ public class LoginActivity extends MyActivity {
                 new Response.Listener<Bitmap>() {
                     @Override
                     public void onResponse(Bitmap response) {
+                        Log.i(MyLog.LOGIN_ACTIVITY, "Bitmap Image : " + response);
                         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                         response.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
                         byte[] b = byteArrayOutputStream.toByteArray();
@@ -486,9 +521,12 @@ public class LoginActivity extends MyActivity {
 
     }
 
+    @SuppressLint("LongLogTag")
     @Override
     public void onBackPressed() {
+        Log.i(MyLog.LOGIN_ACTIVITY, "onBackPressed");
         if (doubleBackToExitPressedOnce) {
+            Log.i(MyLog.LOGIN_ACTIVITY, "Exit form App");
             super.onBackPressed();
             return;
         }
@@ -510,7 +548,8 @@ public class LoginActivity extends MyActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i(MyLog.LOGIN_ACTIVITY, "Click on Enter Button");
+        Log.i(MyLog.LOGIN_ACTIVITY, "onResume");
+
         if (HttpManager.isNOTOnline(LoginActivity.this)) {
             Log.i(MyLog.LOGIN_ACTIVITY, "OFFLine");
             HttpManager.noInternetAccess(LoginActivity.this);
@@ -518,6 +557,5 @@ public class LoginActivity extends MyActivity {
             Log.i(MyLog.LOGIN_ACTIVITY, "OnLine");
             getLoginInformation(false);
         }
-
     }
 }

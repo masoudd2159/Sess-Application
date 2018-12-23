@@ -1,5 +1,6 @@
 package ir.ac.sku.www.sessapplication.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -29,6 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.activities.SendMessageActivity;
 import ir.ac.sku.www.sessapplication.models.MSGMessagesParcelable;
@@ -49,9 +51,11 @@ public class MessagesFragment extends Fragment {
 
     String[] typeMessage;
 
+    @SuppressLint("LongLogTag")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.i(MyLog.MESSAGE, "Fragment Message Created");
         final View rootView = inflater.inflate(R.layout.fragment_messages, container, false);
         this.rootView = rootView;
 
@@ -65,34 +69,22 @@ public class MessagesFragment extends Fragment {
         init();
         setUpViewPager();
 
-        prepareData(typeMessage[0], "", 0);
-
-
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
 
-        for (int i = 0; i < tabLayout.getTabCount(); i++) {
-            TextView textView = (TextView) LayoutInflater.from(rootView.getContext()).inflate(R.layout.custom_tab, null);
-            //textView.setTypeface(Typeface);
-            tabLayout.getTabAt(i).setCustomView(textView);
-        }
+        prepareData(typeMessage[0], 0);
 
         Animation animation = AnimationUtils.loadAnimation(rootView.getContext(), R.anim.simple_grow);
         fab = rootView.findViewById(R.id.addButton_Main);
         fabBtn = rootView.findViewById(R.id.addButton_ImageButtonAdd);
         fabShadow = rootView.findViewById(R.id.addButton_Shadow);
 
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            fabShadow.setVisibility(View.GONE);
-            fabBtn.setBackground(getDrawable(R.drawable.ripple_accent));
-        }*/
-
         fab.startAnimation(animation);
 
         fabBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("CLICK", "FAB CLICK");
+                Log.i(MyLog.MESSAGE, "on fab Button Clicked");
                 rootView.getContext().startActivity(new Intent(rootView.getContext(), SendMessageActivity.class));
             }
         });
@@ -106,45 +98,53 @@ public class MessagesFragment extends Fragment {
         tabLayout = rootView.findViewById(R.id.fragmentMessage_TabLayout);
     }
 
+    @SuppressLint("LongLogTag")
     private void setUpViewPager() {
-        slidePagerAdapter = new SlidePagerAdapter(fragmentActivity.getSupportFragmentManager());
+        Log.i(MyLog.MESSAGE, "setUpViewPager");
+        slidePagerAdapter = new SlidePagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(slidePagerAdapter);
     }
 
 
-    private void prepareData(String type, String ident, final int position) {
+    @SuppressLint("LongLogTag")
+    private void prepareData(String type, final int position) {
         Map<String, String> params = new HashMap<>();
         params.put("type", type);
-        params.put("ident", ident);
+
+        Log.i(MyLog.MESSAGE, type);
 
         MSGMessagesParcelable.fetchFromWeb(rootView.getContext(), (HashMap<String, String>) params, new Handler() {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 if (ok) {
                     MSGMessagesParcelable messages = (MSGMessagesParcelable) obj;
+                    Log.i(MyLog.MESSAGE, "1- prepareData : " + String.valueOf(messages.getResult().getMessages().size()));
+
                     prepareSlides(messages, position);
-
-                    if (position < 3) {
-                        prepareData(typeMessage[position + 1], "", position + 1);
-                    } else if (position == 3) {
-                        progressDialog.dismiss();
-                    }
-
                 }
             }
         });
     }
 
+    @SuppressLint("LongLogTag")
     private void prepareSlides(MSGMessagesParcelable message, int position) {
+        Log.i(MyLog.MESSAGE, "prepareSlides Run");
         String[] title = getResources().getStringArray(R.array.messagePagerTitle);
 
         if (message != null) {
+            Log.i(MyLog.MESSAGE, "2- prepareSlides : " + String.valueOf(message.getResult().getMessages().size()));
             slidePagerAdapter.addFragment(SlideFragmentMessage.newInstance(message), title[position]);
         }
 
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             TextView textView = (TextView) LayoutInflater.from(rootView.getContext()).inflate(R.layout.custom_tab, null);
             tabLayout.getTabAt(i).setCustomView(textView);
+        }
+
+        if (position < 3) {
+            prepareData(typeMessage[position + 1], position + 1);
+        } else if (position == 3) {
+            progressDialog.dismiss();
         }
     }
 

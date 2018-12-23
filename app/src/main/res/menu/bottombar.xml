@@ -6,6 +6,7 @@
     <item
         android:id="@+id/tab_Home"
         fontPath="fonts/IRANSans.ttf"
+        android:enabled="true"
         android:icon="@drawable/ic_home3x"
         android:title="@string/home" />
 

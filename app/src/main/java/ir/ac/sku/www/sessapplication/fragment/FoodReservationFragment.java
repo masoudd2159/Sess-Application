@@ -89,6 +89,7 @@ public class FoodReservationFragment extends Fragment {
     private FoodReservationAdapter adapter;
     private SFXIncreaseCreditDetail creditDetail;
     private Dialog dialog;
+    private WebService webService;
 
     @SuppressLint("LongLogTag")
     @Nullable
@@ -96,6 +97,8 @@ public class FoodReservationFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_food_reservation, container, false);
         Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "Food Reservation Fragment Created");
+
+        webService = new WebService(rootView.getContext());
 
         //Initial Views
         init();
@@ -226,7 +229,6 @@ public class FoodReservationFragment extends Fragment {
         params.put("week", week);
         String URI = MyConfig.SFX_WEEKLY_LIST + "?" + HttpManager.enCodeParameters(params);
 
-        WebService webService = new WebService(rootView.getContext());
         webService.request(URI, Request.Method.GET, new Handler() {
             @Override
             public void onResponse(boolean ok, Object obj) {
@@ -289,7 +291,7 @@ public class FoodReservationFragment extends Fragment {
         String URI = MyConfig.SFX_INCREASE_CREDIT + "?" + HttpManager.enCodeParameters(params);
         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "cookie Picker : " + params.get("cookie"));
 
-        WebService webService = new WebService(rootView.getContext());
+
         webService.request(URI, Request.Method.GET, new Handler() {
             @Override
             public void onResponse(boolean ok, Object obj) {

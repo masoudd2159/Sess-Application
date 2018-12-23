@@ -9,14 +9,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+
+import com.roughike.bottombar.BottomBar;
 
 import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.API.PreferenceName;
@@ -45,6 +47,7 @@ public class BottomBarActivity extends MyActivity {
     private BottomNavigationView bottomBar;
     private ImageView logo;
     private ImageView more;
+    private int mMenuId;
 
     private SharedPreferences preferencesCookie;
 
@@ -55,13 +58,11 @@ public class BottomBarActivity extends MyActivity {
     @SuppressLint("LongLogTag")
     @Override
 
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_bar);
 
-        MyApplication.setContext(BottomBarActivity.this);
-
-        Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "Start Bottom Bar Activity");
+        Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "___Bottom Bar Activity___");
 
         preferencesCookie = BottomBarActivity.this.getSharedPreferences(PreferenceName.COOKIE_PREFERENCE_NAME, Context.MODE_PRIVATE);
 
@@ -72,6 +73,7 @@ public class BottomBarActivity extends MyActivity {
 
         if (instantMessage != null) {
             if (instantMessage.getInstantMessage().size() > 0) {
+                Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "Instant Message Size: " + instantMessage.getInstantMessage().size());
                 InstantMessage message = new InstantMessage(BottomBarActivity.this, instantMessage);
                 message.showInstantMessageDialog();
             }
@@ -86,11 +88,16 @@ public class BottomBarActivity extends MyActivity {
         processesFragment = new ProcessesFragment();
         messagesFragment = new MessagesFragment();
 
+
         //My Action
         BottomBarAction();
 
         Toolbar toolbar = findViewById(R.id.bottomBarActivity_ToolBar);
         setSupportActionBar(toolbar);
+
+        if (savedInstanceState == null) {
+            bottomBar.setSelectedItemId(R.id.tab_Home);
+        }
     }
 
     private void init() {
@@ -106,8 +113,10 @@ public class BottomBarActivity extends MyActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 if (HttpManager.isNOTOnline(BottomBarActivity.this)) {
+                    Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "OFF_LINE");
                     HttpManager.noInternetAccess(BottomBarActivity.this);
                 } else {
+                    Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "ON_LINE");
                     switch (menuItem.getItemId()) {
                         //Home
                         case R.id.tab_Home:
@@ -159,15 +168,18 @@ public class BottomBarActivity extends MyActivity {
             @SuppressLint("LongLogTag")
             @Override
             public void onClick(View v) {
-                /*SharedPreferences.Editor editorCookie = preferencesCookie.edit();
-                editorCookie.putString(PreferenceName.COOKIE_PREFERENCE_COOKIE, null);
-                editorCookie.apply();*/
+                Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "On Logo Item ClickListener");
 
-                Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "On Logo Item Selected");
-                Intent intent = new Intent(Intent.ACTION_VIEW);
+                Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "Clear Cookie");
+                SharedPreferences.Editor editorCookie = preferencesCookie.edit();
+                editorCookie.putString(PreferenceName.COOKIE_PREFERENCE_COOKIE, null);
+                editorCookie.apply();
+
+                /*
+               Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("https://www.sku.ac.ir/"));
                 startActivity(intent);
-                Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "Open : " + intent.getData());
+                Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "Open : " + intent.getData());*/
             }
         });
 
@@ -175,7 +187,7 @@ public class BottomBarActivity extends MyActivity {
             @SuppressLint("LongLogTag")
             @Override
             public boolean onLongClick(View v) {
-                Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "On Logo Item Selected");
+                Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "On Logo Item LongClickListener");
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("http://app.sku.ac.ir/admin/login"));
                 startActivity(intent);
@@ -185,16 +197,21 @@ public class BottomBarActivity extends MyActivity {
         });
 
         more.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("LongLogTag")
             @Override
             public void onClick(View v) {
+                Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "Open AboutActivity");
                 startActivity(new Intent(BottomBarActivity.this, AboutActivity.class));
             }
         });
     }
 
+    @SuppressLint("LongLogTag")
     @Override
     public void onBackPressed() {
+        Log.i(MyLog.LOGIN_ACTIVITY, "onBackPressed");
         if (doubleBackToExitPressedOnce) {
+            Log.i(MyLog.LOGIN_ACTIVITY, "Exit form App");
             super.onBackPressed();
             return;
         }

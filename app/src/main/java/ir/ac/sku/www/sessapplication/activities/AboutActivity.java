@@ -39,6 +39,7 @@ import ir.ac.sku.www.sessapplication.utils.MyActivity;
 public class AboutActivity extends MyActivity {
 
     private Button logout;
+    private Button bugReport;
     private CircleImageView profile;
     private TextView username;
 
@@ -57,6 +58,7 @@ public class AboutActivity extends MyActivity {
         changeStatusBarColor();
 
         logout = findViewById(R.id.aboutActivity_Logout);
+        bugReport = findViewById(R.id.aboutActivity_BugReport);
         profile = findViewById(R.id.aboutActivity_ImageProfile);
         username = findViewById(R.id.aboutActivity_Username);
 
@@ -87,6 +89,13 @@ public class AboutActivity extends MyActivity {
 
                 startActivity(new Intent(AboutActivity.this, SplashScreenActivity.class));
                 finish();
+            }
+        });
+
+        bugReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AboutActivity.this,SendMessageActivity.class));
             }
         });
 

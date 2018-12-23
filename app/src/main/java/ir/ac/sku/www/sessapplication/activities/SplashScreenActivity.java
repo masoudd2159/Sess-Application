@@ -40,7 +40,7 @@ public class SplashScreenActivity extends MyActivity {
         setContentView(R.layout.activity_splash_screen);
 
         //Log Splash Screen
-        Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "Create Splash Screen");
+        Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "___Splash Screen___");
 
         //find View
         tryAgain = findViewById(R.id.buttonTryAgain_SplashScreen);

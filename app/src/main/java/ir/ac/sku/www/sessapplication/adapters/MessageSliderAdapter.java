@@ -1,9 +1,11 @@
 package ir.ac.sku.www.sessapplication.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.activities.ShowMessageActivity;
 import ir.ac.sku.www.sessapplication.models.MSGMessagesParcelable;
@@ -21,8 +24,10 @@ public class MessageSliderAdapter extends RecyclerView.Adapter<MessageSliderAdap
 
     private List<MSGMessagesParcelable.Result.Message> messages;
 
+    @SuppressLint("LongLogTag")
     public MessageSliderAdapter(List<MSGMessagesParcelable.Result.Message> myMessage) {
         this.messages = (myMessage == null) ? new ArrayList<MSGMessagesParcelable.Result.Message>() : myMessage;
+        Log.i(MyLog.MESSAGE,"3- MessageSliderAdapter : " +  String.valueOf(myMessage.size()));
     }
 
     @NonNull

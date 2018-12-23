@@ -1,5 +1,6 @@
 package ir.ac.sku.www.sessapplication.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -22,15 +23,17 @@ import ir.ac.sku.www.sessapplication.R;
 
 public class HttpManager {
 
+    @SuppressLint("LongLogTag")
     public static boolean isNOTOnline(Context context) {
-        Log.i(MyLog.SESS, "Check device is Online");
+        Log.i(MyLog.HTTP_MANAGER, "Check device is Online");
         ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
         return networkInfo == null || !networkInfo.isConnected();
     }
 
+    @SuppressLint("LongLogTag")
     public static void noInternetAccess(final Context context) {
-        Log.i(MyLog.SESS, "Open Dialog NO Internet Access");
+        Log.i(MyLog.HTTP_MANAGER, "Open Dialog NO Internet Access");
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.custom_disconnect);
 
@@ -40,6 +43,7 @@ public class HttpManager {
         wifi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i(MyLog.HTTP_MANAGER, "on Wi-Fi Click");
                 IntentHelper.openWiFiSettingScreen(context);
             }
         });
@@ -47,14 +51,16 @@ public class HttpManager {
         data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i(MyLog.HTTP_MANAGER, "on Mobile Data Click");
                 IntentHelper.openDataUsageScreen(context);
             }
         });
         dialog.show();
     }
 
+    @SuppressLint("LongLogTag")
     public static void unsuccessfulOperation(Context context, String unsuccessfulMessage) {
-        Log.i(MyLog.SESS, "Open Dialog NO Internet Access");
+        Log.i(MyLog.HTTP_MANAGER, "Open Dialog Unsuccessful Operation");
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -67,6 +73,32 @@ public class HttpManager {
         TextView message = dialog.findViewById(R.id.failedTextView);
 
         message.setText(unsuccessfulMessage);
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    @SuppressLint("LongLogTag")
+    public static void successfulOperation(Context context, String successfulMessage) {
+        Log.i(MyLog.HTTP_MANAGER, "Open Dialog Successful Operation");
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        WindowManager.LayoutParams layoutParams = dialog.getWindow().getAttributes();
+        layoutParams.dimAmount = 0.7f;
+        dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        dialog.setContentView(R.layout.custom_successful);
+
+        Button close = dialog.findViewById(R.id.customSuccessful_ButtonClose);
+        TextView message = dialog.findViewById(R.id.customSuccessful_TextViewText);
+
+        message.setText(successfulMessage);
 
         close.setOnClickListener(new View.OnClickListener() {
             @Override
