@@ -24,6 +24,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -73,38 +74,35 @@ public class WebService {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        try {
-                            isOk = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"), IsOk.class);
-                            Log.i(MyLog.WEB_SERVICE, "OK : " + isOk.isOk());
+                        isOk = gson.fromJson(new String(response.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), IsOk.class);
+                        Log.i(MyLog.WEB_SERVICE, "OK : " + isOk.isOk());
 
-                            if (isOk.isOk()) {
-                                handler.onResponse(true, response);
-                            } else if (!isOk.isOk()) {
+                        if (isOk.isOk()) {
+                            handler.onResponse(true, response);
+                        } else if (!isOk.isOk()) {
 
-                                Log.i(MyLog.WEB_SERVICE, "Error Code : " + isOk.getDescription().getErrorCode());
-                                Log.i(MyLog.WEB_SERVICE, "Error Text : " + isOk.getDescription().getErrorText());
+                            Log.i(MyLog.WEB_SERVICE, "Error Code : " + isOk.getDescription().getErrorCode());
+                            Log.i(MyLog.WEB_SERVICE, "Error Text : " + isOk.getDescription().getErrorText());
 
-                                if (Integer.parseInt(isOk.getDescription().getErrorCode()) > 0) {
-                                    HttpManager.unsuccessfulOperation(context, isOk.getDescription().getErrorText());
-                                } else if (Integer.parseInt(isOk.getDescription().getErrorCode()) < 0) {
-                                    SignIn signIn = new SignIn(context);
-                                    signIn.SignInDialog(new Handler() {
-                                        @Override
-                                        public void onResponse(boolean ok, Object obj) {
-                                            if (ok) {
-                                                request(url, method, new Handler() {
-                                                    @Override
-                                                    public void onResponse(boolean ok, Object obj) {
-                                                        handler.onResponse(ok, obj);
-                                                    }
-                                                });
-                                            }
+                            if (Integer.parseInt(isOk.getDescription().getErrorCode()) > 0) {
+                                HttpManager.unsuccessfulOperation(context, isOk.getDescription().getErrorText());
+                                handler.onResponse(false, "");
+                            } else if (Integer.parseInt(isOk.getDescription().getErrorCode()) < 0) {
+                                SignIn signIn = new SignIn(context);
+                                signIn.SignInDialog(new Handler() {
+                                    @Override
+                                    public void onResponse(boolean ok, Object obj) {
+                                        if (ok) {
+                                            request(url, method, new Handler() {
+                                                @Override
+                                                public void onResponse(boolean ok, Object obj) {
+                                                    handler.onResponse(ok, obj);
+                                                }
+                                            });
                                         }
-                                    });
-                                }
+                                    }
+                                });
                             }
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
                         }
                     }
                 },
@@ -144,39 +142,34 @@ public class WebService {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        try {
-                            isOk = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"), IsOk.class);
-                            Log.i(MyLog.WEB_SERVICE, "OK : " + isOk.isOk());
+                        isOk = gson.fromJson(new String(response.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), IsOk.class);
+                        Log.i(MyLog.WEB_SERVICE, "OK : " + isOk.isOk());
 
-                            if (isOk.isOk()) {
+                        if (isOk.isOk()) {
+                            handler.onResponse(true, response);
+                        } else if (!isOk.isOk()) {
+
+                            Log.i(MyLog.WEB_SERVICE, "Error Code : " + isOk.getDescription().getErrorCode());
+                            Log.i(MyLog.WEB_SERVICE, "Error Text : " + isOk.getDescription().getErrorText());
+
+                            if (Integer.parseInt(isOk.getDescription().getErrorCode()) > 0) {
                                 handler.onResponse(true, response);
-                            } else if (!isOk.isOk()) {
-
-                                Log.i(MyLog.WEB_SERVICE, "Error Code : " + isOk.getDescription().getErrorCode());
-                                Log.i(MyLog.WEB_SERVICE, "Error Text : " + isOk.getDescription().getErrorText());
-
-                                if (Integer.parseInt(isOk.getDescription().getErrorCode()) > 0) {
-                                    handler.onResponse(true, response);
-                                } else if (Integer.parseInt(isOk.getDescription().getErrorCode()) < 0) {
-                                    SignIn signIn = new SignIn(context);
-                                    signIn.SignInDialog(new Handler() {
-                                        @Override
-                                        public void onResponse(boolean ok, Object obj) {
-                                            if (ok) {
-                                                requestPost(url, method, params, new Handler() {
-                                                    @Override
-                                                    public void onResponse(boolean ok, Object obj) {
-                                                        handler.onResponse(ok, obj);
-                                                    }
-                                                });
-                                            }
+                            } else if (Integer.parseInt(isOk.getDescription().getErrorCode()) < 0) {
+                                SignIn signIn = new SignIn(context);
+                                signIn.SignInDialog(new Handler() {
+                                    @Override
+                                    public void onResponse(boolean ok, Object obj) {
+                                        if (ok) {
+                                            requestPost(url, method, params, new Handler() {
+                                                @Override
+                                                public void onResponse(boolean ok, Object obj) {
+                                                    handler.onResponse(ok, obj);
+                                                }
+                                            });
                                         }
-                                    });
-                                }
+                                    }
+                                });
                             }
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                            handler.onResponse(false, null);
                         }
                     }
                 },

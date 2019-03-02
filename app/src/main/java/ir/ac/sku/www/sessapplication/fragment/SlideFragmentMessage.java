@@ -64,7 +64,7 @@ public class SlideFragmentMessage extends Fragment {
     }
 
     private void showData(MSGMessagesParcelable messages) {
-        adapter = new MessageSliderAdapter(messages.getResult().getMessages());
+        adapter = new MessageSliderAdapter(messages.getResult());
         int resId = R.anim.layout_animation_from_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(rootView.getContext(), resId);
         recyclerView.setLayoutAnimation(animation);

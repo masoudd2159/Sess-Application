@@ -41,9 +41,11 @@ public class MSGMessageShow {
         private String time;
         private String text;
         private String target;
+        private String receiver;
         private String type;
         private String priority;
         private Boolean attachment;
+        private Boolean read;
 
         public String getSubject() {
             return subject;
@@ -115,6 +117,22 @@ public class MSGMessageShow {
 
         public void setAttachment(Boolean attachment) {
             this.attachment = attachment;
+        }
+
+        public Boolean getRead() {
+            return read;
+        }
+
+        public void setRead(Boolean read) {
+            this.read = read;
+        }
+
+        public String getReceiver() {
+            return receiver;
+        }
+
+        public void setReceiver(String receiver) {
+            this.receiver = receiver;
         }
     }
 

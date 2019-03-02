@@ -1,41 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E6E6E6"
     android:layoutDirection="ltr"
-    tools:context=".fragment.HomeFragment">
+    android:orientation="vertical"
+    tools:context=".fragment.HomeFragment"
+    tools:ignore="MissingPrefix">
 
-    <ImageView
-        android:id="@+id/image_home"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_centerInParent="true"
-        android:src="@drawable/ic_worker" />
-
-    <TextView
-        style="@style/Base.TextAppearance.AppCompat.Display1"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView
+        android:id="@+id/homeFragment_Journals"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/image_home"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="20dp"
-        android:layoutDirection="ltr"
-        android:text="برنامه نویسان مشغول کار اند"
-        android:textColor="@color/black"
-        android:textSize="20sp" />
+        android:layout_margin="10dp"
+        app:cardCornerRadius="12dp">
 
-    <TextView
-        style="@style/Base.TextAppearance.AppCompat.Display1"
-        android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:padding="15dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_magazines" />
+
+            <TextView
+                fontPath="fonts/IRANSans(FaNum)_Black.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:text="مجلات و نشریات"
+                android:textColor="@color/gpvch_black"
+                android:textSize="25sp" />
+
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/homeFragment_News"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/image_home"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:layoutDirection="ltr"
-        android:text="خانه"
-        android:textColor="@color/black"
-        android:textSize="30sp" />
+        android:layout_margin="10dp"
+        app:cardCornerRadius="12dp">
 
-</RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:padding="15dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_news" />
+
+            <TextView
+                fontPath="fonts/IRANSans(FaNum)_Black.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:text="خبر های داغ"
+                android:textColor="@color/gpvch_black"
+                android:textSize="25sp" />
+
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/homeFragment_Competitions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:padding="15dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_competitions" />
+
+            <TextView
+                fontPath="fonts/IRANSans(FaNum)_Black.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:padding="15dp"
+                android:text="مسابقات"
+                android:textColor="@color/gpvch_black"
+                android:textSize="25sp" />
+
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

@@ -59,6 +59,7 @@ public class MSGMessages {
 
         public static class Message {
             private String sender;
+            private String receiver;
             private String subject;
             private String ident;
             private Boolean attachment;
@@ -121,6 +122,14 @@ public class MSGMessages {
 
             public void setPriority(String priority) {
                 this.priority = priority;
+            }
+
+            public String getReceiver() {
+                return receiver;
+            }
+
+            public void setReceiver(String receiver) {
+                this.receiver = receiver;
             }
         }
     }

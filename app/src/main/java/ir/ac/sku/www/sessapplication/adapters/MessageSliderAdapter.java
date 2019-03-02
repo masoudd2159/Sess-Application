@@ -10,10 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.R;
@@ -22,12 +18,12 @@ import ir.ac.sku.www.sessapplication.models.MSGMessagesParcelable;
 
 public class MessageSliderAdapter extends RecyclerView.Adapter<MessageSliderAdapter.MyViewHolder> {
 
-    private List<MSGMessagesParcelable.Result.Message> messages;
+    private MSGMessagesParcelable.Result results;
 
     @SuppressLint("LongLogTag")
-    public MessageSliderAdapter(List<MSGMessagesParcelable.Result.Message> myMessage) {
-        this.messages = (myMessage == null) ? new ArrayList<MSGMessagesParcelable.Result.Message>() : myMessage;
-        Log.i(MyLog.MESSAGE,"3- MessageSliderAdapter : " +  String.valueOf(myMessage.size()));
+    public MessageSliderAdapter(MSGMessagesParcelable.Result myResult) {
+        this.results = (myResult == null) ? new MSGMessagesParcelable.Result() : myResult;
+        Log.i(MyLog.MESSAGE, "3- MessageSliderAdapter : " + String.valueOf(results.getMessages().size()));
     }
 
     @NonNull
@@ -39,12 +35,12 @@ public class MessageSliderAdapter extends RecyclerView.Adapter<MessageSliderAdap
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
-        myViewHolder.bind(messages.get(position));
+        myViewHolder.bind(results.getMessages().get(position));
     }
 
     @Override
     public int getItemCount() {
-        return messages.size();
+        return results.getMessages().size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -55,7 +51,7 @@ public class MessageSliderAdapter extends RecyclerView.Adapter<MessageSliderAdap
         private TextView priority;
         private final Context context;
 
-        public MyViewHolder(@NonNull View itemView) {
+        MyViewHolder(@NonNull View itemView) {
             super(itemView);
             context = itemView.getContext();
 
@@ -67,9 +63,13 @@ public class MessageSliderAdapter extends RecyclerView.Adapter<MessageSliderAdap
             itemView.setOnClickListener(this);
         }
 
-        public void bind(MSGMessagesParcelable.Result.Message message) {
+        void bind(MSGMessagesParcelable.Result.Message message) {
+            if (message.getSender() != null) {
+                sender.setText(message.getSender());
+            } else {
+                sender.setText(message.getReceiver());
+            }
 
-            sender.setText(message.getSender());
             date.setText(message.getDate());
             subject.setText(message.getSubject());
             priority.setText(message.getPriority());
@@ -96,10 +96,9 @@ public class MessageSliderAdapter extends RecyclerView.Adapter<MessageSliderAdap
 
         @Override
         public void onClick(View view) {
-            Toast.makeText(view.getContext(), "ident = " + messages.get(getLayoutPosition()).getIdent(), Toast.LENGTH_SHORT).show();
-
             final Intent intent = new Intent(context, ShowMessageActivity.class);
-            intent.putExtra("ident", messages.get(getLayoutPosition()).getIdent());
+            intent.putExtra("ident", results.getMessages().get(getLayoutPosition()).getIdent());
+            intent.putExtra("type", results.getType());
             context.startActivity(intent);
         }
     }

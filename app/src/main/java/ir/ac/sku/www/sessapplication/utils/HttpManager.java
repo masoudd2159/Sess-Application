@@ -111,20 +111,22 @@ public class HttpManager {
     }
 
     public static String enCodeParameters(Map<String, String> params) {
-        StringBuilder stringBuilder = new StringBuilder();
-        try {
-            for (String key : params.keySet()) {
-                String value = params.get(key);
-                if (stringBuilder.length() > 0) {
-                    stringBuilder.append("&");
+        if (params != null) {
+            StringBuilder stringBuilder = new StringBuilder();
+            try {
+                for (String key : params.keySet()) {
+                    String value = params.get(key);
+                    if (stringBuilder.length() > 0) {
+                        stringBuilder.append("&");
+                    }
+                    stringBuilder.append(key);
+                    stringBuilder.append("=");
+                    stringBuilder.append(URLEncoder.encode(value, "UTF-8"));
                 }
-                stringBuilder.append(key);
-                stringBuilder.append("=");
-                stringBuilder.append(URLEncoder.encode(value, "UTF-8"));
+                return stringBuilder.toString();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
             }
-            return stringBuilder.toString();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
         }
         return "";
     }

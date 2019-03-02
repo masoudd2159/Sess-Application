@@ -23,7 +23,7 @@
         android:cropToPadding="true"
         android:padding="20dp"
         android:src="@drawable/ic_action_add"
-        android:stateListAnimator="@anim/fab_elevation_selector"
+        android:stateListAnimator="@animator/fab_elevation_selector"
         tools:targetApi="lollipop" />
 
 </FrameLayout>

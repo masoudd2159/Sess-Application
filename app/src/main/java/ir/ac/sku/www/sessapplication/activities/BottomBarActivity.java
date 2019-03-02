@@ -170,16 +170,15 @@ public class BottomBarActivity extends MyActivity {
             public void onClick(View v) {
                 Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "On Logo Item ClickListener");
 
-                Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "Clear Cookie");
+                /*Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "Clear Cookie");
                 SharedPreferences.Editor editorCookie = preferencesCookie.edit();
                 editorCookie.putString(PreferenceName.COOKIE_PREFERENCE_COOKIE, null);
-                editorCookie.apply();
+                editorCookie.apply();*/
 
-                /*
-               Intent intent = new Intent(Intent.ACTION_VIEW);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("https://www.sku.ac.ir/"));
                 startActivity(intent);
-                Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "Open : " + intent.getData());*/
+                Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "Open : " + intent.getData());
             }
         });
 
@@ -218,7 +217,7 @@ public class BottomBarActivity extends MyActivity {
 
         this.doubleBackToExitPressedOnce = true;
 
-        CustomToastExit.exit(BottomBarActivity.this, "برای خروج برنامه دو بار کلیک بازگشت را فشار دهید", Toast.LENGTH_SHORT).show();
+        CustomToastExit.exit(BottomBarActivity.this, "برای خروج برنامه دو بار کلید بازگشت را فشار دهید", Toast.LENGTH_SHORT).show();
 
         new Handler().postDelayed(new Runnable() {
 

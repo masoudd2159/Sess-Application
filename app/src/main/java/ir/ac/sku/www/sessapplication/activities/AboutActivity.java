@@ -95,7 +95,7 @@ public class AboutActivity extends MyActivity {
         bugReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AboutActivity.this,SendMessageActivity.class));
+                startActivity(new Intent(AboutActivity.this, SendMessageActivity.class));
             }
         });
 

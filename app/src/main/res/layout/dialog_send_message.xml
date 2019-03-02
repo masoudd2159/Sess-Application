@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="260dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="270dp"
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="true"
     android:layoutDirection="ltr"
@@ -21,7 +22,7 @@
             android:layoutDirection="ltr">
 
             <ImageView
-                android:id="@+id/dialogCaptcha_Close"
+                android:id="@+id/dialogSendMessage_Close"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentStart="true"
@@ -41,13 +42,6 @@
                     android:src="@drawable/ic_captcha" />
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/dialogCaptcha_ReCaptcha"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignParentEnd="true"
-                android:layoutDirection="ltr"
-                android:src="@drawable/ic_reload_2" />
         </RelativeLayout>
 
         <TextView
@@ -56,48 +50,36 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:layoutDirection="ltr"
-            android:text="@string/enterSecurityCode"
+            android:text="لطفا شناسه یا شماره دانشجویی را وارد کنید"
             android:textSize="16sp" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:layoutDirection="ltr">
-
-            <ImageView
-                android:id="@+id/dialogCaptcha_ImageViewCaptcha"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:layoutDirection="ltr"
-                android:scaleType="fitCenter"
-                android:visibility="invisible" />
-
-            <pl.droidsonroids.gif.GifImageView
-                android:id="@+id/dialogCaptcha_GifImageViewCaptcha"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:layoutDirection="ltr"
-                android:src="@drawable/gif_loading_1"
-                android:visibility="visible" />
-
-        </RelativeLayout>
-
         <EditText
-            android:id="@+id/dialogCaptcha_EditTextCaptcha"
-            android:layout_width="150dp"
+            android:id="@+id/dialogSendMessage_EditTextID"
+            android:layout_width="170dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:background="@android:color/transparent"
             android:gravity="center"
-            android:hint="@string/security_tag"
-            android:inputType="textCapCharacters"
+            android:hint="شناسه"
+            android:inputType="text"
             android:layoutDirection="ltr"
-            android:maxLength="5"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray"
+            android:textSize="17sp" />
+
+        <EditText
+            android:id="@+id/dialogSendMessage_EditTextStudentNumber"
+            android:layout_width="170dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:hint="شماره دانشجویی"
+            android:inputType="numberDecimal"
+            android:layoutDirection="ltr"
+            android:maxLength="10"
             android:maxLines="1"
             android:textColor="@android:color/black"
             android:textColorHint="@android:color/darker_gray"
@@ -112,7 +94,7 @@
         android:layoutDirection="ltr">
 
         <pl.droidsonroids.gif.GifImageView
-            android:id="@+id/dialogCaptcha_GifImageViewEnter"
+            android:id="@+id/dialogSendMessage_GifImageViewEnter"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_gravity="center"
@@ -121,7 +103,7 @@
             android:visibility="invisible" />
 
         <Button
-            android:id="@+id/dialogCaptcha_Enter"
+            android:id="@+id/dialogSendMessage_Enter"
             style="@style/TextAppearance.AppCompat.Large"
             android:layout_width="match_parent"
             android:layout_height="45dp"

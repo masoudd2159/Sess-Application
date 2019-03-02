@@ -59,6 +59,7 @@ public class MSGMessagesParcelable implements Parcelable {
 
         public static class Message implements Parcelable {
             private String sender;
+            private String receiver;
             private String subject;
             private String ident;
             private Boolean attachment;
@@ -123,6 +124,20 @@ public class MSGMessagesParcelable implements Parcelable {
                 this.read = read;
             }
 
+            public String getReceiver() {
+                return receiver;
+            }
+
+            public void setReceiver(String receiver) {
+                this.receiver = receiver;
+            }
+
+            public static Creator<Message> getCREATOR() {
+                return CREATOR;
+            }
+
+            public Message() {
+            }
 
             @Override
             public int describeContents() {
@@ -132,6 +147,7 @@ public class MSGMessagesParcelable implements Parcelable {
             @Override
             public void writeToParcel(Parcel dest, int flags) {
                 dest.writeString(this.sender);
+                dest.writeString(this.receiver);
                 dest.writeString(this.subject);
                 dest.writeString(this.ident);
                 dest.writeValue(this.attachment);
@@ -140,11 +156,9 @@ public class MSGMessagesParcelable implements Parcelable {
                 dest.writeValue(this.read);
             }
 
-            public Message() {
-            }
-
             protected Message(Parcel in) {
                 this.sender = in.readString();
+                this.receiver = in.readString();
                 this.subject = in.readString();
                 this.ident = in.readString();
                 this.attachment = (Boolean) in.readValue(Boolean.class.getClassLoader());
@@ -218,6 +232,8 @@ public class MSGMessagesParcelable implements Parcelable {
                         e.printStackTrace();
                         handler.onResponse(false, null);
                     }
+                } else {
+                    handler.onResponse(false, obj);
                 }
             }
         });

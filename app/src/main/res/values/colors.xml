@@ -46,5 +46,7 @@
     <color name="transparent">#00ffffff</color>
     <color name="backgroundEditText">#5cffffff</color>
 
+    <color name="dotInActive">#cccccc</color>
+    <color name="dotActive">#ffffff</color>
 
 </resources>

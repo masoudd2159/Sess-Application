@@ -2,11 +2,13 @@ package ir.ac.sku.www.sessapplication.activities;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -25,6 +27,8 @@ public class ShowMessageActivity extends MyActivity {
     private TextView date;
     private TextView target;
     private TextView text;
+    private TextView read;
+    private LinearLayout layoutRead;
     private ImageView attachment;
     private MSGMessageShow messageShow;
     private ProgressDialog progressDialog;
@@ -42,7 +46,7 @@ public class ShowMessageActivity extends MyActivity {
 
         init();
 
-        prepareData(getIntent().getStringExtra("ident"));
+        prepareData(getIntent().getStringExtra("ident"), getIntent().getStringExtra("type"));
     }
 
     private void init() {
@@ -53,20 +57,23 @@ public class ShowMessageActivity extends MyActivity {
         date = findViewById(R.id.activityShowMessage_TextViewDate);
         target = findViewById(R.id.activityShowMessage_TextViewTarget);
         text = findViewById(R.id.activityShowMessage_TextViewText);
+        read = findViewById(R.id.activityShowMessage_TextViewRead);
+        layoutRead = findViewById(R.id.activityShowMessage_LayoutRead);
 
         target.setMovementMethod(new ScrollingMovementMethod());
         text.setMovementMethod(new ScrollingMovementMethod());
     }
 
-    private void prepareData(String ident) {
+    private void prepareData(String ident, String type) {
         progressDialog.setMessage("لطفا منتظر بمانید!");
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        Map<String, String> params = new HashMap<>();
+        HashMap<String, String> params = new HashMap<>();
         params.put("ident", ident);
+        params.put("type", type);
 
-        MSGMessageShow.fetchFromWeb(ShowMessageActivity.this, (HashMap<String, String>) params, new Handler() {
+        MSGMessageShow.fetchFromWeb(ShowMessageActivity.this, params, new Handler() {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 progressDialog.dismiss();
@@ -84,8 +91,21 @@ public class ShowMessageActivity extends MyActivity {
         subject.setText(messageShow.getResult().getSubject());
         sender.setText(messageShow.getResult().getSender());
         date.setText(messageShow.getResult().getDate() + " - " + messageShow.getResult().getTime());
-        target.setText(messageShow.getResult().getTarget());
         text.setText(messageShow.getResult().getText());
+
+        if (getIntent().getStringExtra("type").equals("send")) {
+            target.setText(messageShow.getResult().getReceiver());
+            layoutRead.setVisibility(View.VISIBLE);
+            if (messageShow.getResult().getRead()) {
+                read.setText("خوانده شده");
+            } else {
+                read.setText("خوانده نشده");
+                read.setTextColor(Color.RED);
+            }
+
+        } else {
+            target.setText(messageShow.getResult().getTarget());
+        }
 
         if (messageShow.getResult().getAttachment()) {
             attachment.setVisibility(View.VISIBLE);

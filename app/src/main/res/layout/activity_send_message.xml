@@ -1,75 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SendMessageActivity">
+    tools:context=".activities.SendMessageActivity"
+    tools:ignore="MissingPrefix">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="15dp">
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="20dp">
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/sendMessageActivity_TextViewDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:gravity="center">
+            android:baselineAligned="false"
+            android:textSize="13sp" />
 
-            <TextView
-                android:id="@+id/sendMessageActivity_TextViewID"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:text="شناسه : "
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/sendMessageActivity_EditTextID"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:layout_toStartOf="@id/sendMessageActivity_TextViewID"
-                android:background="@android:color/transparent"
-                android:textSize="16sp" />
-
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/sendMessageActivity_TextViewName"
+            fontPath="fonts/IRANSans(FaNum)_Medium.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
             android:background="#d1d1d1" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+
+        <TextView
+            android:id="@+id/sendMessageActivity_TextViewPosition"
+            fontPath="fonts/IRANSans(FaNum)_Medium.ttf"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/sendMessageActivity_TextViewStudentID"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:text="شماره دانشجویی : "
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/sendMessageActivity_EditTextStudentID"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:layout_toStartOf="@id/sendMessageActivity_TextViewStudentID"
-                android:background="@android:color/transparent"
-                android:inputType="number"
-                android:textSize="16sp" />
-
-        </RelativeLayout>
+            android:layout_gravity="end"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
 
         <View
             android:layout_width="match_parent"
@@ -84,23 +63,24 @@
 
             <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
+                android:layout_height="110dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/sendMessageActivity_TextViewMessageType"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
+                    android:gravity="center"
                     android:text="نوع پیام : "
                     android:textSize="16sp" />
 
                 <NumberPicker
                     android:id="@+id/sendMessageActivity_PickerMessageType"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="match_parent"
                     android:layout_toStartOf="@id/sendMessageActivity_TextViewMessageType"
                     android:descendantFocusability="blocksDescendants"
                     android:layoutDirection="ltr" />
@@ -109,23 +89,24 @@
 
             <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="110dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:gravity="center_vertical">
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/sendMessageActivity_TextViewSendType"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
+                    android:gravity="center"
                     android:text="نحوه ارسال : "
                     android:textSize="16sp" />
 
                 <NumberPicker
                     android:id="@+id/sendMessageActivity_PickerSendType"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="match_parent"
                     android:layout_toStartOf="@id/sendMessageActivity_TextViewSendType"
                     android:descendantFocusability="blocksDescendants"
                     android:layoutDirection="ltr" />
@@ -179,13 +160,13 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:layout_marginTop="15dp"
-            android:padding="5dp"
             android:layout_marginEnd="5dp"
             android:background="@android:color/transparent"
             android:gravity="start"
             android:inputType="textMultiLine"
+            android:padding="5dp"
             android:textSize="16sp" />
 
     </LinearLayout>
 
-</FrameLayout>
+</ScrollView>
