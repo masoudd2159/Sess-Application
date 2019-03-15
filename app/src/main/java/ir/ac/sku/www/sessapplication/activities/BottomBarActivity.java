@@ -4,22 +4,31 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.bumptech.glide.Glide;
 import com.roughike.bottombar.BottomBar;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+import ir.ac.sku.www.sessapplication.API.MyConfig;
 import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.API.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
@@ -45,42 +54,69 @@ public class BottomBarActivity extends MyActivity {
 
     //My View
     private BottomNavigationView bottomBar;
-    private ImageView logo;
+    //private ImageView logo;
     private ImageView more;
+    private CircleImageView profile;
     private int mMenuId;
+    private TextView fullName;
+    private TextView slash;
 
     private SharedPreferences preferencesCookie;
+    private SharedPreferences preferencesName;
+    private SharedPreferences preferencesUserImage;
 
-    private LoginInformation loginInformation;
     private SendInformation.Result instantMessage;
     private boolean doubleBackToExitPressedOnce = false;
 
-    @SuppressLint("LongLogTag")
+    @SuppressLint({"LongLogTag", "SetTextI18n"})
     @Override
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_bar);
+        //Initial Views
+        init();
 
         Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "___Bottom Bar Activity___");
 
         preferencesCookie = BottomBarActivity.this.getSharedPreferences(PreferenceName.COOKIE_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        preferencesName = getSharedPreferences(PreferenceName.NAME_PREFERENCE_NAME, MODE_PRIVATE);
+        preferencesUserImage = getSharedPreferences(PreferenceName.USER_IMAGE_PREFERENCE_NAME, MODE_PRIVATE);
 
-        loginInformation = new LoginInformation();
+
         instantMessage = new SendInformation.Result();
 
         instantMessage = (SendInformation.Result) getIntent().getParcelableExtra("InstantMessage");
 
         if (instantMessage != null) {
+
+            Glide
+                    .with(BottomBarActivity.this)
+                    .load("http://app.sku.ac.ir/api/v1/user/image?cookie=" + preferencesCookie.getString(PreferenceName.COOKIE_PREFERENCE_COOKIE, null))
+                    .into(profile);
+
             if (instantMessage.getInstantMessage().size() > 0) {
                 Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "Instant Message Size: " + instantMessage.getInstantMessage().size());
                 InstantMessage message = new InstantMessage(BottomBarActivity.this, instantMessage);
                 message.showInstantMessageDialog();
             }
+        } else {
+            String userImage = preferencesUserImage.getString(PreferenceName.USER_IMAGE_PREFERENCE_IMAGE, null);
+
+            if (userImage != null) {
+                byte[] b = Base64.decode(userImage, Base64.DEFAULT);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
+                profile.setImageBitmap(bitmap);
+            }
         }
 
-        //Initial Views
-        init();
+        if (preferencesName.getString(PreferenceName.NAME_PREFERENCE_FIRST_NAME, null) == null && preferencesName.getString(PreferenceName.NAME_PREFERENCE_LAST_NAME, null) == null) {
+            slash.setVisibility(View.GONE);
+            profile.setVisibility(View.GONE);
+            fullName.setText(" ");
+        } else {
+            fullName.setText(preferencesName.getString(PreferenceName.NAME_PREFERENCE_FIRST_NAME, " ") + " " + preferencesName.getString(PreferenceName.NAME_PREFERENCE_LAST_NAME, " "));
+        }
 
         //allocate Fragments
         homeFragment = new HomeFragment();
@@ -102,8 +138,11 @@ public class BottomBarActivity extends MyActivity {
 
     private void init() {
         bottomBar = findViewById(R.id.bottomBarActivity_BottomBar);
-        logo = findViewById(R.id.bottomBarActivity_Logo);
+        //logo = findViewById(R.id.bottomBarActivity_Logo);
         more = findViewById(R.id.bottomBarActivity_More);
+        profile = findViewById(R.id.bottomBarActivity_ImageProfile);
+        fullName = findViewById(R.id.bottomBarActivity_FullName);
+        slash = findViewById(R.id.bottomBarActivity_Slash);
     }
 
     private void BottomBarAction() {
@@ -164,16 +203,16 @@ public class BottomBarActivity extends MyActivity {
             }
         });
 
-        logo.setOnClickListener(new View.OnClickListener() {
+        /*logo.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("LongLogTag")
             @Override
             public void onClick(View v) {
                 Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "On Logo Item ClickListener");
 
-                /*Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "Clear Cookie");
+                *//*Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "Clear Cookie");
                 SharedPreferences.Editor editorCookie = preferencesCookie.edit();
                 editorCookie.putString(PreferenceName.COOKIE_PREFERENCE_COOKIE, null);
-                editorCookie.apply();*/
+                editorCookie.apply();*//*
 
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("https://www.sku.ac.ir/"));
@@ -193,7 +232,7 @@ public class BottomBarActivity extends MyActivity {
                 Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "Open : " + intent.getData());
                 return false;
             }
-        });
+        });*/
 
         more.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("LongLogTag")
@@ -205,13 +244,18 @@ public class BottomBarActivity extends MyActivity {
         });
     }
 
-    @SuppressLint("LongLogTag")
+
+    @SuppressLint({"LongLogTag", "NewApi"})
     @Override
     public void onBackPressed() {
         Log.i(MyLog.LOGIN_ACTIVITY, "onBackPressed");
         if (doubleBackToExitPressedOnce) {
             Log.i(MyLog.LOGIN_ACTIVITY, "Exit form App");
             super.onBackPressed();
+            finish();
+            finishAffinity();
+            finishAndRemoveTask();
+            System.exit(0);
             return;
         }
 

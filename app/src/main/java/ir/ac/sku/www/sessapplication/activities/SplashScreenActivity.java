@@ -2,6 +2,7 @@ package ir.ac.sku.www.sessapplication.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -11,10 +12,12 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.robohorse.gpversionchecker.GPVersionChecker;
 
 import ir.ac.sku.www.sessapplication.API.MyLog;
+import ir.ac.sku.www.sessapplication.API.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.utils.CheckSignUpPreferenceManager;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
@@ -23,10 +26,12 @@ import ir.ac.sku.www.sessapplication.utils.MyActivity;
 public class SplashScreenActivity extends MyActivity {
 
     //static method
-    private static final int SPLASH_TIME = 1500;                                                    //millisecond
+    private static final int SPLASH_TIME = 2000;                                                    //millisecond
 
     //Splash Screen Views
     private Button tryAgain;
+    private TextView fullName;
+    private SharedPreferences preferencesName;
 
 
     //Utils
@@ -42,8 +47,13 @@ public class SplashScreenActivity extends MyActivity {
         //Log Splash Screen
         Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "___Splash Screen___");
 
+        preferencesName = getSharedPreferences(PreferenceName.NAME_PREFERENCE_NAME, MODE_PRIVATE);
+
         //find View
         tryAgain = findViewById(R.id.buttonTryAgain_SplashScreen);
+        fullName = findViewById(R.id.splashScreen_FullName);
+
+        fullName.setText(preferencesName.getString(PreferenceName.NAME_PREFERENCE_FIRST_NAME, "") + " " + preferencesName.getString(PreferenceName.NAME_PREFERENCE_LAST_NAME, ""));
 
         //Allocate MyUtils
         checkSignUpPreferenceManager = new CheckSignUpPreferenceManager(SplashScreenActivity.this);

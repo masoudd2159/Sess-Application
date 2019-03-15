@@ -44,6 +44,13 @@
     <string name="messages">پیام ها</string>
     <string name="enterSecurityCode">لطفا کد امنیتی را وارد کنید</string>
 
+    <string name="pdf_show_local_progress_title">pdf_show_local_progress_title</string>
+    <string name="pdf_show_local_progress_content">pdf_show_local_progress_content</string>
+    <string name="pdf_show_online_dialog_title">pdf_show_online_dialog_title</string>
+    <string name="pdf_show_online_dialog_question">pdf_show_online_dialog_question</string>
+    <string name="pdf_show_online_dialog_button_no">pdf_show_online_dialog_button_no</string>
+    <string name="pdf_show_online_dialog_button_yes">pdf_show_online_dialog_button_yes</string>
+
     <string name="messagePagerTitle_1">فوری</string>
     <string name="messagePagerTitle_2">ناخوانده</string>
     <string name="messagePagerTitle_3">خوانده</string>

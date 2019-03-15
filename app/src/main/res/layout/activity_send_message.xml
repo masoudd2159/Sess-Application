@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="ltr"
     tools:context=".activities.SendMessageActivity"
     tools:ignore="MissingPrefix">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layoutDirection="ltr"
         android:orientation="vertical"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
@@ -20,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
+            android:layoutDirection="ltr"
             android:textSize="13sp" />
 
         <TextView
@@ -29,6 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:gravity="center"
+            android:layoutDirection="ltr"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
 
@@ -37,7 +41,8 @@
             android:layout_height="1dp"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="8dp"
-            android:background="#d1d1d1" />
+            android:background="#d1d1d1"
+            android:layoutDirection="ltr" />
 
 
         <TextView
@@ -47,6 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:gravity="center"
+            android:layoutDirection="ltr"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
 
@@ -54,11 +60,13 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="15dp"
-            android:background="#d1d1d1" />
+            android:background="#d1d1d1"
+            android:layoutDirection="ltr" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layoutDirection="ltr"
             android:orientation="horizontal">
 
             <RelativeLayout
@@ -66,7 +74,8 @@
                 android:layout_height="110dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:layoutDirection="ltr">
 
                 <TextView
                     android:id="@+id/sendMessageActivity_TextViewMessageType"
@@ -74,6 +83,7 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
                     android:gravity="center"
+                    android:layoutDirection="ltr"
                     android:text="نوع پیام : "
                     android:textSize="16sp" />
 
@@ -92,7 +102,8 @@
                 android:layout_height="110dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:gravity="center">
+                android:gravity="center"
+                android:layoutDirection="ltr">
 
                 <TextView
                     android:id="@+id/sendMessageActivity_TextViewSendType"
@@ -100,6 +111,7 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
                     android:gravity="center"
+                    android:layoutDirection="ltr"
                     android:text="نحوه ارسال : "
                     android:textSize="16sp" />
 
@@ -119,20 +131,23 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="15dp"
-            android:background="#d1d1d1" />
+            android:background="#d1d1d1"
+            android:layoutDirection="ltr" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:layoutDirection="ltr">
 
             <TextView
                 android:id="@+id/sendMessageActivity_TextViewTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:layoutDirection="ltr"
                 android:text="عنوان : "
                 android:textSize="16sp" />
 
@@ -144,6 +159,7 @@
                 android:layout_toStartOf="@id/sendMessageActivity_TextViewTitle"
                 android:background="@android:color/transparent"
                 android:inputType="textPersonName"
+                android:layoutDirection="ltr"
                 android:textSize="16sp" />
 
         </RelativeLayout>
@@ -152,7 +168,8 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="15dp"
-            android:background="#d1d1d1" />
+            android:background="#d1d1d1"
+            android:layoutDirection="ltr" />
 
         <EditText
             android:id="@+id/sendMessageActivity_EditText_Text"
@@ -164,6 +181,7 @@
             android:background="@android:color/transparent"
             android:gravity="start"
             android:inputType="textMultiLine"
+            android:layoutDirection="ltr"
             android:padding="5dp"
             android:textSize="16sp" />
 

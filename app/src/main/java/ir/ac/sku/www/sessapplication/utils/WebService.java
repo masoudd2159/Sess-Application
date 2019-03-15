@@ -72,6 +72,7 @@ public class WebService {
         StringRequest stringRequest = new StringRequest(method,
                 myURL,
                 new Response.Listener<String>() {
+                    @SuppressLint("NewApi")
                     @Override
                     public void onResponse(String response) {
                         isOk = gson.fromJson(new String(response.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), IsOk.class);

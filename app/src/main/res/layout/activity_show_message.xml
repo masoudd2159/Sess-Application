@@ -5,12 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#e1e1e1"
+    android:layoutDirection="ltr"
     tools:context=".activities.ShowMessageActivity"
     tools:ignore="MissingPrefix">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layoutDirection="ltr"
         android:orientation="vertical"
         android:paddingLeft="10dp"
         android:paddingTop="10dp"
@@ -18,7 +20,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layoutDirection="ltr">
 
             <TextView
                 android:id="@+id/activityShowMessage_TextViewType"
@@ -29,6 +32,7 @@
                 android:layout_marginBottom="5dp"
                 android:drawablePadding="3dp"
                 android:gravity="end"
+                android:layoutDirection="ltr"
                 android:maxLines="1"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
@@ -40,6 +44,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignParentStart="true"
+                android:layoutDirection="ltr"
                 android:src="@drawable/ic_attachment_2"
                 android:visibility="invisible" />
 
@@ -49,7 +54,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:background="#3175a9">
+            android:background="#3175a9"
+            android:layoutDirection="ltr">
 
             <TextView
                 android:id="@+id/activityShowMessage_TextViewSubject"
@@ -60,6 +66,7 @@
                 android:background="#4891c9"
                 android:drawablePadding="3dp"
                 android:gravity="right"
+                android:layoutDirection="ltr"
                 android:maxLines="4"
                 android:padding="10dp"
                 android:textColor="@android:color/white"
@@ -72,6 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:background="@android:color/white"
+            android:layoutDirection="ltr"
             android:orientation="vertical">
 
             <LinearLayout
@@ -79,6 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:layoutDirection="ltr"
                 android:orientation="vertical"
                 android:padding="5dp">
 
@@ -87,6 +96,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:gravity="end|center"
+                    android:layoutDirection="ltr"
                     android:orientation="horizontal">
 
                     <TextView
@@ -95,6 +105,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
+                        android:layoutDirection="ltr"
                         android:maxLines="1"
                         android:textColor="#2b2b2b"
                         android:textSize="16sp" />
@@ -103,6 +114,7 @@
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_margin="5dp"
+                        android:layoutDirection="ltr"
                         android:src="@drawable/ic_sender" />
 
 
@@ -113,6 +125,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:gravity="end|center"
+                    android:layoutDirection="ltr"
                     android:orientation="horizontal">
 
                     <TextView
@@ -121,6 +134,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
+                        android:layoutDirection="ltr"
                         android:maxLines="1"
                         android:textColor="#414141"
                         android:textSize="15sp" />
@@ -129,6 +143,7 @@
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_margin="5dp"
+                        android:layoutDirection="ltr"
                         android:src="@drawable/ic_calendar" />
 
 
@@ -139,6 +154,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:gravity="end|top"
+                    android:layoutDirection="ltr"
                     android:orientation="horizontal">
 
                     <TextView
@@ -149,6 +165,7 @@
                         android:layout_marginStart="20dp"
                         android:gravity="center_vertical"
                         android:inputType="textMultiLine"
+                        android:layoutDirection="ltr"
                         android:maxLines="5"
                         android:scrollbars="vertical"
                         android:textColor="#414141"
@@ -158,6 +175,7 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_margin="5dp"
+                        android:layoutDirection="ltr"
                         android:src="@drawable/ic_group" />
 
 
@@ -169,6 +187,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:gravity="end|top"
+                    android:layoutDirection="ltr"
                     android:orientation="horizontal"
                     android:visibility="gone">
 
@@ -180,6 +199,7 @@
                         android:layout_marginStart="20dp"
                         android:gravity="center_vertical"
                         android:inputType="textMultiLine"
+                        android:layoutDirection="ltr"
                         android:maxLines="5"
                         android:scrollbars="vertical"
                         android:textColor="#414141"
@@ -189,6 +209,7 @@
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_margin="5dp"
+                        android:layoutDirection="ltr"
                         android:src="@drawable/ic_view" />
 
 
@@ -202,12 +223,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:layoutDirection="ltr">
 
             <TextView
                 android:id="@+id/activityShowMessage_TextViewText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layoutDirection="ltr"
                 android:padding="8dp"
                 android:scrollbars="vertical"
                 android:textColor="@android:color/black"

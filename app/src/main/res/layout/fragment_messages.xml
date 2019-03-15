@@ -10,12 +10,14 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layoutDirection="ltr">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/fragmentMessage_AppBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layoutDirection="ltr"
             android:theme="@style/AppTheme.AppBarOverlay">
 
             <android.support.design.widget.TabLayout
@@ -23,6 +25,7 @@
                 fontPath="fonts/IRANSans_Bold.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layoutDirection="ltr"
                 app:tabGravity="fill"
                 app:tabMode="fixed" />
 
@@ -33,12 +36,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/fragmentMessage_AppBarLayout"
-            android:background="#cccccc"
+            android:background="@drawable/ibg_messages"
+            android:layoutDirection="ltr"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </RelativeLayout>
 
 
-    <include layout="@layout/add_button" />
+    <include
+        layout="@layout/add_button"
+        android:layoutDirection="ltr" />
 
 </FrameLayout>

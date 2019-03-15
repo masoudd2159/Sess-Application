@@ -43,6 +43,18 @@
             android:textColor="@android:color/primary_text_dark"
             android:textSize="30sp" />
 
+        <TextView
+            android:id="@+id/splashScreen_FullName"
+            fontPath="fonts/IRANSans(FaNum)_Bold.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:layoutDirection="ltr"
+            android:textColor="@android:color/primary_text_dark"
+            android:textSize="22sp" />
+
     </LinearLayout>
 
     <ProgressBar

@@ -2,8 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/showStudentRequest_LinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="ltr"
     android:orientation="vertical"
     tools:context=".activities.ShowStudentRequestActivity"
     tools:ignore="MissingPrefix">
@@ -16,13 +18,16 @@
         android:layout_gravity="center"
         android:background="#6B7FE0FA"
         android:gravity="center"
+        android:layoutDirection="ltr"
         android:padding="10dp"
         android:textSize="18sp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/showStudentRequest_RecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/ibg_processes"
+        android:layoutDirection="ltr">
 
     </android.support.v7.widget.RecyclerView>
 

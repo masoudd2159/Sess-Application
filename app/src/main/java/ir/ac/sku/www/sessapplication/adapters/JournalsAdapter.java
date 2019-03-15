@@ -1,19 +1,12 @@
 package ir.ac.sku.www.sessapplication.adapters;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,34 +16,29 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
-import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
-import java.io.ByteArrayOutputStream;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
-import ir.ac.sku.www.sessapplication.API.MyConfig;
-import ir.ac.sku.www.sessapplication.API.MyLog;
-import ir.ac.sku.www.sessapplication.API.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.activities.LoginActivity;
-import ir.ac.sku.www.sessapplication.models.JournalsModel;
-import ir.ac.sku.www.sessapplication.utils.HttpManager;
+import ir.ac.sku.www.sessapplication.activities.ShowPDFActivity;
+import ir.ac.sku.www.sessapplication.models.JournalModel;
+import ir.ac.sku.www.sessapplication.models.TotalJournalsModel;
 import pl.droidsonroids.gif.GifImageView;
 
+import android.content.Intent;
+
 public class JournalsAdapter extends RecyclerView.Adapter<JournalsAdapter.MyViewHolder> {
-    private JournalsModel journals;
+
+    private JournalModel journals;
     private Activity activity;
-    public JournalsAdapter(@NonNull Activity activity, JournalsModel journalsModel) {
-        this.journals = (journalsModel == null) ? new JournalsModel() : journalsModel;
+    private String titleName;
+
+    public JournalsAdapter(@NonNull Activity activity, JournalModel journalsModel, String title) {
+        this.journals = (journalsModel == null) ? new JournalModel() : journalsModel;
         this.activity = activity;
+        this.titleName = title;
     }
 
     @NonNull
@@ -90,8 +78,8 @@ public class JournalsAdapter extends RecyclerView.Adapter<JournalsAdapter.MyView
             itemView.setOnLongClickListener(this);
         }
 
-        void bind(JournalsModel.Result journalsModel) {
-            title.setText(journalsModel.getTitle());
+        void bind(JournalModel.Result journalsModel) {
+            title.setText(journalsModel.getDescription());
             version.setText("شمارگان : " + journalsModel.getVersion());
 
             Glide.with(activity).load(journalsModel.getPicture()).diskCacheStrategy(DiskCacheStrategy.ALL).into(journalImage);
@@ -102,15 +90,16 @@ public class JournalsAdapter extends RecyclerView.Adapter<JournalsAdapter.MyView
 
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(journals.getResult().get(getLayoutPosition()).getFile()));
+            final Intent intent = new Intent(activity, ShowPDFActivity.class);
+            intent.putExtra("pdf", journals.getResult().get(getLayoutPosition()).getFile());
+            intent.putExtra("PDFName", titleName);
             activity.startActivity(intent);
         }
 
         @Override
         public boolean onLongClick(View v) {
             dialog = new Dialog(activity);
-            Objects.requireNonNull(dialog.getWindow()).getAttributes().windowAnimations = R.style.DialogAnimation;
+            dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             WindowManager.LayoutParams layoutParams = dialog.getWindow().getAttributes();
@@ -133,5 +122,6 @@ public class JournalsAdapter extends RecyclerView.Adapter<JournalsAdapter.MyView
             dialog.show();
             return false;
         }
+
     }
 }

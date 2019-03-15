@@ -188,8 +188,12 @@ public class SendInformation {
 
         public static class UserInformation implements Parcelable {
             private String name;
+            private String family;
             private String major;
-            private String intrant;
+            private String sex;
+            private String type;
+            private String mobile;
+            private String image;
 
             public String getName() {
                 return name;
@@ -197,6 +201,14 @@ public class SendInformation {
 
             public void setName(String name) {
                 this.name = name;
+            }
+
+            public String getFamily() {
+                return family;
+            }
+
+            public void setFamily(String family) {
+                this.family = family;
             }
 
             public String getMajor() {
@@ -207,12 +219,36 @@ public class SendInformation {
                 this.major = major;
             }
 
-            public String getIntrant() {
-                return intrant;
+            public String getSex() {
+                return sex;
             }
 
-            public void setIntrant(String intrant) {
-                this.intrant = intrant;
+            public void setSex(String sex) {
+                this.sex = sex;
+            }
+
+            public String getType() {
+                return type;
+            }
+
+            public void setType(String type) {
+                this.type = type;
+            }
+
+            public String getMobile() {
+                return mobile;
+            }
+
+            public void setMobile(String mobile) {
+                this.mobile = mobile;
+            }
+
+            public String getImage() {
+                return image;
+            }
+
+            public void setImage(String image) {
+                this.image = image;
             }
 
 
@@ -224,8 +260,12 @@ public class SendInformation {
             @Override
             public void writeToParcel(Parcel dest, int flags) {
                 dest.writeString(this.name);
+                dest.writeString(this.family);
                 dest.writeString(this.major);
-                dest.writeString(this.intrant);
+                dest.writeString(this.sex);
+                dest.writeString(this.type);
+                dest.writeString(this.mobile);
+                dest.writeString(this.image);
             }
 
             public UserInformation() {
@@ -233,11 +273,15 @@ public class SendInformation {
 
             protected UserInformation(Parcel in) {
                 this.name = in.readString();
+                this.family = in.readString();
                 this.major = in.readString();
-                this.intrant = in.readString();
+                this.sex = in.readString();
+                this.type = in.readString();
+                this.mobile = in.readString();
+                this.image = in.readString();
             }
 
-            public static final Parcelable.Creator<UserInformation> CREATOR = new Parcelable.Creator<UserInformation>() {
+            public static final Creator<UserInformation> CREATOR = new Creator<UserInformation>() {
                 @Override
                 public UserInformation createFromParcel(Parcel source) {
                     return new UserInformation(source);

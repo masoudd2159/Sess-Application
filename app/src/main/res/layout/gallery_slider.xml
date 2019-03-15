@@ -7,23 +7,24 @@
     android:layoutDirection="ltr"
     tools:ignore="MissingPrefix">
 
-        <ImageView
-            android:id="@+id/slideImage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:layoutDirection="ltr"
-            android:scaleType="fitXY" />
+    <ImageView
+        android:id="@+id/slideImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layoutDirection="ltr"
+        android:scaleType="fitXY" />
 
-        <TextView
-            android:id="@+id/title"
-            fontPath="fonts/IRANSans(FaNum)_Medium.ttf"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
-            android:padding="10dp"
-            android:layout_alignParentBottom="true"
-            android:layoutDirection="ltr"
-            android:textColor="@android:color/black"
-            android:textSize="20sp" />
+    <TextView
+        android:id="@+id/title"
+        fontPath="fonts/IRANSans(FaNum)_Medium.ttf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="25dp"
+        android:background="#A1FFFFFF"
+        android:layoutDirection="ltr"
+        android:padding="10dp"
+        android:textColor="@android:color/black"
+        android:textSize="17sp" />
 </RelativeLayout>

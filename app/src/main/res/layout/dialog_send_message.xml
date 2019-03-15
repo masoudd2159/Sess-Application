@@ -36,10 +36,10 @@
                 android:layoutDirection="ltr">
 
                 <ImageView
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
                     android:layoutDirection="ltr"
-                    android:src="@drawable/ic_captcha" />
+                    android:src="@drawable/ic_send_message" />
             </LinearLayout>
 
         </RelativeLayout>
@@ -50,7 +50,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:layoutDirection="ltr"
-            android:text="لطفا شناسه یا شماره دانشجویی را وارد کنید"
+            android:text="شناسه یا شماره دانشجویی را وارد کنید."
             android:textSize="16sp" />
 
         <EditText
@@ -110,7 +110,7 @@
             android:background="@android:color/transparent"
             android:layoutDirection="ltr"
             android:onClick="onEnterClickListener"
-            android:text="@string/enter"
+            android:text="ساخت پیام"
             android:textColor="@android:color/white"
             android:visibility="visible" />
     </RelativeLayout>

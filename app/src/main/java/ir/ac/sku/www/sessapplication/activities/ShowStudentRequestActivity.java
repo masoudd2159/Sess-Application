@@ -1,12 +1,15 @@
 package ir.ac.sku.www.sessapplication.activities;
 
 import android.app.ProgressDialog;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -26,6 +29,7 @@ public class ShowStudentRequestActivity extends MyActivity {
     private RecyclerView recyclerView;
     private StudentRequestAdapter adapter;
     private ProgressDialog progressDialog;
+    private LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +43,16 @@ public class ShowStudentRequestActivity extends MyActivity {
         progressDialog.show();
 
         getDetailsFromServer(getIntent().getStringExtra("ident"));
+
+
+        Drawable background = recyclerView.getBackground();
+        background.setAlpha(63);
     }
 
     private void init() {
         recyclerView = findViewById(R.id.showStudentRequest_RecyclerView);
         title = findViewById(R.id.showStudentRequest_TextViewTitle);
+        linearLayout = findViewById(R.id.showStudentRequest_LinearLayout);
     }
 
     private void getDetailsFromServer(String ident) {

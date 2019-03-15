@@ -11,6 +11,4 @@ public class MyLog {
     public static final String MESSAGE                   = SESS + ": " + "Message -------------------";
     public static final String WEB_SERVICE               = SESS + ": " + "Web Service ---------------";
     public static final String SIGN_IN                   = SESS + ": " + "Sign In -------------------";
-
-
 }

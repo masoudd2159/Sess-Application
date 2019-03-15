@@ -9,7 +9,9 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -29,9 +31,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.gson.Gson;
 
+import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,14 +60,25 @@ public class SignIn {
     private Gson gson;
     private RequestQueue queue;
     private Context context;
+    private Dialog dialog;
 
     //Preferences
+    private CheckSignUpPreferenceManager manager;
     private SharedPreferences preferencesUsernameAndPassword;
     private SharedPreferences preferencesCookie;
+    private SharedPreferences preferencesName;
+    private SharedPreferences preferencesUserImage;
 
     //my Class Model
     private LoginInformation loginInformation;
     private SendInformation sendInformation;
+
+    //dialog View
+    private GifImageView gifImageViewEnter;
+    private EditText btn_Username;
+    private EditText btn_Password;
+    private ImageView close;
+    private Button enter;
 
     @SuppressLint("LongLogTag")
     public SignIn(Context context) {
@@ -75,14 +93,21 @@ public class SignIn {
         gson = new Gson();
         queue = Volley.newRequestQueue(context);
 
+        manager = new CheckSignUpPreferenceManager(context);
         preferencesUsernameAndPassword = context.getSharedPreferences(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_NAME, Context.MODE_PRIVATE);
         preferencesCookie = context.getSharedPreferences(PreferenceName.COOKIE_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        preferencesName = context.getSharedPreferences(PreferenceName.NAME_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        preferencesUserImage = context.getSharedPreferences(PreferenceName.USER_IMAGE_PREFERENCE_NAME, Context.MODE_PRIVATE);
     }
 
     @SuppressLint("LongLogTag")
     public void SignInDialog(final Handler handler) {
         Log.i(MyLog.SIGN_IN, "Sign In : SignInDialog");
-        getLoginInformation(handler);
+        if (preferencesUsernameAndPassword.getString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_USERNAME, null) == null && preferencesUsernameAndPassword.getString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_PASSWORD, null) == null) {
+            showUsernamePasswordDialog(handler);
+        } else {
+            getLoginInformation(handler);
+        }
     }
 
     @SuppressLint("LongLogTag")
@@ -137,36 +162,180 @@ public class SignIn {
         } else if (loginInformation.getCookie() != null) {
             Log.i(MyLog.SIGN_IN, "Run Function send Params Post");
 
-            Map<String, String> params = new HashMap<String, String>();
+            HashMap<String, String> params = new HashMap<String, String>();
             params.put("cookie", loginInformation.getCookie());
-            params.put("username", "S" + preferencesUsernameAndPassword.getString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_USERNAME, null));
+            params.put("username", preferencesUsernameAndPassword.getString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_USERNAME, null));
             params.put("password", preferencesUsernameAndPassword.getString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_PASSWORD, null));
 
             WebService webService = new WebService(context);
-            webService.requestPost(MyConfig.SEND_INFORMATION, Request.Method.POST, (HashMap<String, String>) params, new Handler() {
+            webService.requestPost(MyConfig.SEND_INFORMATION, Request.Method.POST, params, new Handler() {
+                @SuppressLint("NewApi")
                 @Override
                 public void onResponse(boolean ok, Object obj) {
                     Log.i(MyLog.SIGN_IN, "get Login Info");
-                    try {
-                        sendInformation = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), SendInformation.class);
-                        if (sendInformation.isOk()) {
-                            Log.i(MyLog.SIGN_IN, "All Params True");
-                            @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorCookie = preferencesCookie.edit();
-                            editorCookie.putString(PreferenceName.COOKIE_PREFERENCE_COOKIE, loginInformation.getCookie());
-                            editorCookie.apply();
-                            handler.onResponse(true, null);
+                    sendInformation = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), SendInformation.class);
+                    if (sendInformation.isOk()) {
+                        Log.i(MyLog.SIGN_IN, "All Params True");
+                        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorCookie = preferencesCookie.edit();
+                        editorCookie.putString(PreferenceName.COOKIE_PREFERENCE_COOKIE, loginInformation.getCookie());
+                        editorCookie.apply();
+                        handler.onResponse(true, null);
 
-                            InstantMessage instantMessage = new InstantMessage(context, sendInformation.getResult());
-                            instantMessage.showInstantMessageDialog();
+                        InstantMessage instantMessage = new InstantMessage(context, sendInformation.getResult());
+                        instantMessage.showInstantMessageDialog();
 
-                        } else if (!sendInformation.isOk()) {
-                            Toast.makeText(context, sendInformation.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
+                        getUserImage();
+
+                    } else if (!sendInformation.isOk()) {
+                        Toast.makeText(context, sendInformation.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         }
+    }
+
+    private void showUsernamePasswordDialog(final Handler handler) {
+        dialog = new Dialog(context);
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        WindowManager.LayoutParams layoutParams = dialog.getWindow().getAttributes();
+        layoutParams.dimAmount = 0.7f;
+        dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.dialog_username_password);
+
+        gifImageViewEnter = dialog.findViewById(R.id.dialogUsernamePassword_GifImageViewEnter);
+        btn_Username = dialog.findViewById(R.id.dialogUsernamePassword_EditTextUsername);
+        btn_Password = dialog.findViewById(R.id.dialogUsernamePassword_EditTextPassword);
+        close = dialog.findViewById(R.id.dialogUsernamePassword_Close);
+        enter = dialog.findViewById(R.id.dialogUsernamePassword_Enter);
+
+        enter.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("LongLogTag")
+            @Override
+            public void onClick(View v) {
+                enter.setClickable(false);
+                if (HttpManager.isNOTOnline(context)) {
+                    HttpManager.noInternetAccess(context);
+                } else {
+                    enter.setVisibility(View.INVISIBLE);
+                    gifImageViewEnter.setVisibility(View.VISIBLE);
+                    getLoginInformationUsernamePassword(handler, btn_Username.getText().toString().trim(), btn_Password.getText().toString().trim());
+                }
+            }
+        });
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                enter.setClickable(true);
+            }
+        });
+
+        dialog.show();
+    }
+
+
+    private void getLoginInformationUsernamePassword(final Handler handler, final String username, final String password) {
+        StringRequest request = new StringRequest(MyConfig.LOGIN_INFORMATION,
+                new Response.Listener<String>() {
+                    @SuppressLint("NewApi")
+                    @Override
+                    public void onResponse(String response) {
+                        loginInformation = gson.fromJson(new String(response.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), LoginInformation.class);
+
+                        if (loginInformation.isOk()) {
+                            sendParamsPostUsernamePassword(handler, username, password);
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        new AlertDialog.Builder(context)
+                                .setTitle("ERROR")
+                                .setMessage(error.getMessage())
+                                .setPositiveButton("Ok", null)
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+                    }
+                });
+        queue.add(request);
+    }
+
+    private void sendParamsPostUsernamePassword(final Handler handler, final String username, final String password) {
+        if (loginInformation.getCookie() == null) {
+            getLoginInformationUsernamePassword(handler, username, password);
+        } else if (loginInformation.getCookie() != null) {
+
+            HashMap<String, String> params = new HashMap<String, String>();
+            params.put("cookie", loginInformation.getCookie());
+            params.put("username", username);
+            params.put("password", password);
+
+            WebService webService = new WebService(context);
+            webService.requestPost(MyConfig.SEND_INFORMATION, Request.Method.POST, params, new Handler() {
+                @SuppressLint("NewApi")
+                @Override
+                public void onResponse(boolean ok, Object obj) {
+                    sendInformation = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), SendInformation.class);
+                    dialog.dismiss();
+
+                    if (sendInformation.isOk()) {
+
+                        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorUserPass = preferencesUsernameAndPassword.edit();
+                        editorUserPass.putString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_USERNAME, username);
+                        editorUserPass.putString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_PASSWORD, password);
+                        editorUserPass.apply();
+
+                        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorCookie = preferencesCookie.edit();
+                        editorCookie.putString(PreferenceName.COOKIE_PREFERENCE_COOKIE, loginInformation.getCookie());
+                        editorCookie.apply();
+
+                        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorName = preferencesName.edit();
+                        editorName.putString(PreferenceName.NAME_PREFERENCE_FIRST_NAME, sendInformation.getResult().getUserInformation().getName());
+                        editorName.putString(PreferenceName.NAME_PREFERENCE_LAST_NAME, sendInformation.getResult().getUserInformation().getFamily());
+                        editorName.apply();
+
+                        InstantMessage instantMessage = new InstantMessage(context, sendInformation.getResult());
+                        instantMessage.showInstantMessageDialog();
+
+                        getUserImage();
+
+                        manager.setStartSignUpPreference(false);
+
+                        getLoginInformation(handler);
+
+                        CustomToastSuccess.success(context, " خوش آمدید " + sendInformation.getResult().getUserInformation().getName() + " " + sendInformation.getResult().getUserInformation().getFamily(), Toast.LENGTH_SHORT).show();
+
+
+                    } else if (!sendInformation.isOk()) {
+                        Toast.makeText(context, sendInformation.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
+                        showUsernamePasswordDialog(handler);
+                    }
+                }
+            });
+        }
+    }
+
+    @SuppressLint("LongLogTag")
+    private void getUserImage() {
+        Glide.with(context)
+                .asBitmap()
+                .load(sendInformation.getResult().getUserInformation().getImage() + "?cookie=" + loginInformation.getCookie())
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                        resource.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+                        byte[] b = byteArrayOutputStream.toByteArray();
+                        String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+                        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorUserImage = preferencesUserImage.edit();
+                        editorUserImage.putString(PreferenceName.USER_IMAGE_PREFERENCE_IMAGE, encodedImage);
+                        editorUserImage.apply();
+                    }
+                });
     }
 }

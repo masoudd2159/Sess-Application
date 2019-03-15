@@ -4,14 +4,16 @@
     android:id="@+id/addButton_Main"
     android:layout_width="100dp"
     android:layout_height="100dp"
-    android:layout_gravity="bottom|end">
+    android:layout_gravity="bottom|end"
+    android:layoutDirection="ltr">
 
     <View
-    android:id="@+id/addButton_Shadow"
-    android:layout_width="80dp"
-    android:layout_height="80dp"
-    android:layout_gravity="center"
-    android:background="@drawable/fab_shadow" />
+        android:id="@+id/addButton_Shadow"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:background="@drawable/fab_shadow"
+        android:layoutDirection="ltr" />
 
     <ImageButton
         android:id="@+id/addButton_ImageButtonAdd"
@@ -21,6 +23,7 @@
         android:background="@drawable/fab_selector"
         android:contentDescription="TODO"
         android:cropToPadding="true"
+        android:layoutDirection="ltr"
         android:padding="20dp"
         android:src="@drawable/ic_action_add"
         android:stateListAnimator="@animator/fab_elevation_selector"

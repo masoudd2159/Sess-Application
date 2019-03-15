@@ -2,7 +2,6 @@ package ir.ac.sku.www.sessapplication.activities;
 
 import android.app.ProgressDialog;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,9 +13,7 @@ import android.widget.TextView;
 
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.adapters.CompetitionsAdapter;
-import ir.ac.sku.www.sessapplication.adapters.JournalsAdapter;
 import ir.ac.sku.www.sessapplication.models.CompetitionsModel;
-import ir.ac.sku.www.sessapplication.models.JournalsModel;
 import ir.ac.sku.www.sessapplication.utils.Handler;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 

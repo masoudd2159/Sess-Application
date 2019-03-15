@@ -2,7 +2,6 @@ package ir.ac.sku.www.sessapplication.activities;
 
 import android.app.ProgressDialog;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,11 +11,12 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.TextView;
 
+import java.util.HashMap;
+
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.adapters.JournalsAdapter;
-import ir.ac.sku.www.sessapplication.adapters.StudentRequestAdapter;
-import ir.ac.sku.www.sessapplication.models.JournalsModel;
-import ir.ac.sku.www.sessapplication.models.StudentRequestDetails;
+import ir.ac.sku.www.sessapplication.models.JournalModel;
+import ir.ac.sku.www.sessapplication.models.TotalJournalsModel;
 import ir.ac.sku.www.sessapplication.utils.Handler;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
@@ -38,6 +38,7 @@ public class JournalsActivity extends MyActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setTitle("");
         toolbar.setSubtitle("");
+        title.setText(getIntent().getStringExtra("title"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         title.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Lalezar.ttf"));
 
@@ -52,21 +53,24 @@ public class JournalsActivity extends MyActivity {
     }
 
     private void getDataFromServer() {
-        JournalsModel.fetchFromWeb(JournalsActivity.this, null, new Handler() {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("id", String.valueOf(getIntent().getExtras().getInt("id")));
+        params.put("year", getIntent().getStringExtra("year"));
+        JournalModel.fetchFromWeb(JournalsActivity.this, params, new Handler() {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 progressDialog.dismiss();
 
                 if (ok) {
-                    JournalsModel journalsModel = (JournalsModel) obj;
+                    JournalModel journalsModel = (JournalModel) obj;
                     showData(journalsModel);
                 }
             }
         });
     }
 
-    private void showData(JournalsModel journalsModel) {
-        adapter = new JournalsAdapter(JournalsActivity.this, journalsModel);
+    private void showData(JournalModel journalsModel) {
+        adapter = new JournalsAdapter(JournalsActivity.this, journalsModel, getIntent().getStringExtra("title"));
         int resId = R.anim.layout_animation_from_right;
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(JournalsActivity.this, resId);
         recyclerView.setLayoutAnimation(animation);

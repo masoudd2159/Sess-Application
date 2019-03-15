@@ -1,6 +1,8 @@
 package ir.ac.sku.www.sessapplication.models;
 
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 
 import com.android.volley.Request;
 import com.google.gson.Gson;
@@ -14,7 +16,7 @@ import ir.ac.sku.www.sessapplication.utils.Handler;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.WebService;
 
-public class JournalsModel {
+public class JournalModel {
 
     private Boolean ok;
     private List<Result> result = null;
@@ -37,14 +39,23 @@ public class JournalsModel {
 
     public class Result {
 
+        private Integer journalId;
         private Integer id;
-        private String title;
-        private Integer version;
+        private String version;
+        private String year;
         private String file;
         private String picture;
-        private String createdAt;
-        private String updatedAt;
+        private String description;
+        private Object createdAt;
+        private Object updatedAt;
 
+        public Integer getJournalId() {
+            return journalId;
+        }
+
+        public void setJournalId(Integer journalId) {
+            this.journalId = journalId;
+        }
 
         public Integer getId() {
             return id;
@@ -54,20 +65,20 @@ public class JournalsModel {
             this.id = id;
         }
 
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public Integer getVersion() {
+        public String getVersion() {
             return version;
         }
 
-        public void setVersion(Integer version) {
+        public void setVersion(String version) {
             this.version = version;
+        }
+
+        public String getYear() {
+            return year;
+        }
+
+        public void setYear(String year) {
+            this.year = year;
         }
 
         public String getFile() {
@@ -86,23 +97,30 @@ public class JournalsModel {
             this.picture = picture;
         }
 
-        public String getCreatedAt() {
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public Object getCreatedAt() {
             return createdAt;
         }
 
-        public void setCreatedAt(String createdAt) {
+        public void setCreatedAt(Object createdAt) {
             this.createdAt = createdAt;
         }
 
-        public String getUpdatedAt() {
+        public Object getUpdatedAt() {
             return updatedAt;
         }
 
-        public void setUpdatedAt(String updatedAt) {
+        public void setUpdatedAt(Object updatedAt) {
             this.updatedAt = updatedAt;
         }
     }
-
 
     public static void fetchFromWeb(Context context, HashMap<String, String> params, final Handler handler) {
         final Gson gson = new Gson();
@@ -110,10 +128,12 @@ public class JournalsModel {
         WebService webService = new WebService(context);
         String myURL = MyConfig.STUDENT_JOURNALS + "?" + HttpManager.enCodeParameters(params);
         webService.request(myURL, Request.Method.GET, new Handler() {
+
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(boolean ok, Object obj) {
                 if (ok) {
-                    JournalsModel journalsModel = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), JournalsModel.class);
+                    JournalModel journalsModel = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), JournalModel.class);
                     if (journalsModel.getOk()) {
                         handler.onResponse(true, journalsModel);
                     }
@@ -121,4 +141,6 @@ public class JournalsModel {
             }
         });
     }
+
+
 }

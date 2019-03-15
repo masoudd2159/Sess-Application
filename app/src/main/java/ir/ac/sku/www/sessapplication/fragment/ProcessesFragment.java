@@ -1,6 +1,8 @@
 package ir.ac.sku.www.sessapplication.fragment;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.RelativeLayout;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +29,7 @@ public class ProcessesFragment extends Fragment {
     private RecyclerView recyclerView;
     private View rootView;
     private ProgressDialog progressDialog;
+    private RelativeLayout relativeLayout;
 
     @Nullable
     @Override
@@ -33,10 +37,17 @@ public class ProcessesFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_process, container, false);
         this.rootView = rootView;
         recyclerView = rootView.findViewById(R.id.fragmentProcesses_RecyclerView);
+        relativeLayout=rootView.findViewById(R.id.fragmentProcesses_RelativeLayout);
 
         progressDialog = new ProgressDialog(rootView.getContext());
         progressDialog.setMessage("لطفا منتظر بمانید!");
         progressDialog.setCancelable(false);
+        progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "انصراف", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
         progressDialog.show();
 
         prepareData();
@@ -57,6 +68,10 @@ public class ProcessesFragment extends Fragment {
                 }
             }
         });
+
+
+        Drawable background = relativeLayout.getBackground();
+        background.setAlpha(75);
     }
 
     private void showData(StudentRequests studentRequests) {

@@ -11,15 +11,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.activities.CompetitionsActivity;
-import ir.ac.sku.www.sessapplication.activities.JournalsActivity;
+import ir.ac.sku.www.sessapplication.activities.CulturalDeputyActivity;
 import ir.ac.sku.www.sessapplication.activities.NewsActivity;
+import ir.ac.sku.www.sessapplication.activities.PhoneBookActivity;
+import ir.ac.sku.www.sessapplication.activities.fragmentHome.EducationalDeputyActivity;
+import ir.ac.sku.www.sessapplication.activities.fragmentHome.OfficeDeputyActivity;
+import ir.ac.sku.www.sessapplication.activities.fragmentHome.ResearchDeputyActivity;
+import ir.ac.sku.www.sessapplication.activities.fragmentHome.StudentDeputyActivity;
 
 public class HomeFragment extends Fragment {
 
-    private CardView journals;
+    private CardView educational;
+    private CardView student;
+    private CardView cultural;
+    private CardView research;
+    private CardView office;
     private CardView news;
-    private CardView competitions;
+    private CardView phoneBook;
+
     private View rootView;
 
     @Nullable
@@ -29,10 +38,10 @@ public class HomeFragment extends Fragment {
         this.rootView = view;
         init();
 
-        journals.setOnClickListener(new View.OnClickListener() {
+        cultural.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(rootView.getContext(), JournalsActivity.class));
+                startActivity(new Intent(rootView.getContext(), CulturalDeputyActivity.class));
             }
         });
 
@@ -43,10 +52,38 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        competitions.setOnClickListener(new View.OnClickListener() {
+        phoneBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(rootView.getContext(), CompetitionsActivity.class));
+                startActivity(new Intent(rootView.getContext(), PhoneBookActivity.class));
+            }
+        });
+
+        educational.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(rootView.getContext(), EducationalDeputyActivity.class));
+            }
+        });
+
+        student.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(rootView.getContext(), StudentDeputyActivity.class));
+            }
+        });
+
+        research.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(rootView.getContext(), ResearchDeputyActivity.class));
+            }
+        });
+
+        office.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(rootView.getContext(), OfficeDeputyActivity.class));
             }
         });
 
@@ -54,8 +91,12 @@ public class HomeFragment extends Fragment {
     }
 
     private void init() {
-        journals = rootView.findViewById(R.id.homeFragment_Journals);
+        cultural = rootView.findViewById(R.id.homeFragment_CulturalDeputy);
         news = rootView.findViewById(R.id.homeFragment_News);
-        competitions = rootView.findViewById(R.id.homeFragment_Competitions);
+        phoneBook = rootView.findViewById(R.id.homeFragment_PhoneBook);
+        educational = rootView.findViewById(R.id.homeFragment_EducationalDeputy);
+        student = rootView.findViewById(R.id.homeFragment_StudentDeputy);
+        research = rootView.findViewById(R.id.homeFragment_ResearchDeputy);
+        office = rootView.findViewById(R.id.homeFragment_OfficeDeputy);
     }
 }

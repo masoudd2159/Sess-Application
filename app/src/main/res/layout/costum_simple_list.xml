@@ -16,6 +16,7 @@
         android:layout_gravity="end"
         android:gravity="end"
         android:orientation="horizontal"
+        android:layoutDirection="ltr"
         android:padding="10dp">
 
         <TextView
@@ -34,6 +35,7 @@
             android:id="@+id/image_id"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layoutDirection="ltr"
             android:layout_gravity="center"
             android:src="@drawable/ic_competitions" />
 

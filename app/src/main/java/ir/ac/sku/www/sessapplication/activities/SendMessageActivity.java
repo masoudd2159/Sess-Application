@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -148,6 +150,7 @@ public class SendMessageActivity extends MyActivity {
             StringRequest stringRequest = new StringRequest(Request.Method.POST,
                     MyConfig.MSG_SEND_MESSAGES,
                     new Response.Listener<String>() {
+                        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                         @Override
                         public void onResponse(String response) {
                             isOk = gson.fromJson(new String(response.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), IsOk.class);
@@ -188,7 +191,7 @@ public class SendMessageActivity extends MyActivity {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<String, String>();
-                    params.put("cookie", Objects.requireNonNull(preferencesCookie.getString(PreferenceName.COOKIE_PREFERENCE_COOKIE, "NULL")));
+                    params.put("cookie", preferencesCookie.getString(PreferenceName.COOKIE_PREFERENCE_COOKIE, "NULL"));
                     params.put("id", getIntent().getStringExtra("id"));
                     params.put("stNumber", getIntent().getStringExtra("studentNumber"));
                     params.put("subject", title.getText().toString().trim());

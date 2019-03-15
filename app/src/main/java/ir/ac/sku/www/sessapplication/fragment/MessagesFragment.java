@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -86,6 +88,12 @@ public class MessagesFragment extends Fragment {
         progressDialog = new ProgressDialog(rootView.getContext());
         progressDialog.setMessage("لطفا منتظر بمانید!");
         progressDialog.setCancelable(false);
+        progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "انصراف", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
         progressDialog.show();
 
         typeMessage = getResources().getStringArray(R.array.typeMessages);
@@ -112,6 +120,9 @@ public class MessagesFragment extends Fragment {
                 showSendMessageDialog();
             }
         });
+
+        Drawable background = viewPager.getBackground();
+        background.setAlpha(70);
 
 
         return rootView;
@@ -175,7 +186,7 @@ public class MessagesFragment extends Fragment {
 
     private void showSendMessageDialog() {
         dialog = new Dialog(rootView.getContext());
-        Objects.requireNonNull(dialog.getWindow()).getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         WindowManager.LayoutParams layoutParams = dialog.getWindow().getAttributes();
@@ -194,6 +205,7 @@ public class MessagesFragment extends Fragment {
             @SuppressLint("LongLogTag")
             @Override
             public void onClick(View v) {
+                enter.setClickable(false);
                 Log.i(MyLog.MESSAGE, "Click on Enter Button");
                 if (HttpManager.isNOTOnline(rootView.getContext())) {
                     Log.i(MyLog.MESSAGE, "OFFLine");
@@ -212,6 +224,7 @@ public class MessagesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                enter.setClickable(true);
             }
         });
 
@@ -226,6 +239,8 @@ public class MessagesFragment extends Fragment {
         GetInfoForSend.fetchFromWeb(rootView.getContext(), params, new Handler() {
             @Override
             public void onResponse(boolean ok, Object obj) {
+
+                enter.setClickable(true);
 
                 if (ok) {
                     getInfoForSend = (GetInfoForSend) obj;

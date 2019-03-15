@@ -8,32 +8,22 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import de.hdodenhof.circleimageview.CircleImageView;
-import ir.ac.sku.www.sessapplication.API.MyConfig;
 import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.API.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.utils.CheckSignUpPreferenceManager;
-import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
 public class AboutActivity extends MyActivity {
@@ -51,6 +41,7 @@ public class AboutActivity extends MyActivity {
 
     private RequestQueue queue;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,24 +74,21 @@ public class AboutActivity extends MyActivity {
             public void onClick(View v) {
                 manager.setStartSignUpPreference(true);
 
-                SharedPreferences.Editor editorCookie = preferencesCookie.edit();
-                editorCookie.putString(PreferenceName.COOKIE_PREFERENCE_COOKIE, null);
-                editorCookie.apply();
+                preferencesUsernameAndPassword.edit().clear().apply();
+                preferencesCookie.edit().clear().apply();
+                preferencesName.edit().clear().apply();
+                preferencesUserImage.edit().clear().apply();
 
                 startActivity(new Intent(AboutActivity.this, SplashScreenActivity.class));
                 finish();
             }
         });
 
-        bugReport.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(AboutActivity.this, SendMessageActivity.class));
-            }
-        });
-
-        username.setText(preferencesName.getString(PreferenceName.NAME_PREFERENCE_USERNAME, null));
-
+        if (preferencesName.getString(PreferenceName.NAME_PREFERENCE_FIRST_NAME, null) == null && preferencesName.getString(PreferenceName.NAME_PREFERENCE_LAST_NAME, null) == null) {
+            username.setText("مهمان");
+        } else {
+            username.setText(preferencesName.getString(PreferenceName.NAME_PREFERENCE_FIRST_NAME, " ") + " " + preferencesName.getString(PreferenceName.NAME_PREFERENCE_LAST_NAME, " "));
+        }
     }
 
     @SuppressLint("LongLogTag")
