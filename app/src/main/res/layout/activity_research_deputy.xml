@@ -94,7 +94,7 @@
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:paddingBottom="15dp"
-                        android:text="دفتر ارتباط با اصناف"
+                        android:text="دفتر ارتباط با صنعت"
                         android:textColor="@color/gpvch_black"
                         android:textSize="17sp" />
 

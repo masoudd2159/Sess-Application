@@ -2,18 +2,13 @@ package ir.ac.sku.www.sessapplication.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.ServerError;
@@ -23,19 +18,13 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-import ir.ac.sku.www.sessapplication.API.MyConfig;
 import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.API.PreferenceName;
-import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.activities.BottomBarActivity;
-import ir.ac.sku.www.sessapplication.activities.LoginActivity;
 import ir.ac.sku.www.sessapplication.models.IsOk;
-import ir.ac.sku.www.sessapplication.models.SendInformation;
 
 public class WebService {
     private Context context;
@@ -141,6 +130,7 @@ public class WebService {
         StringRequest stringRequest = new StringRequest(method,
                 url,
                 new Response.Listener<String>() {
+                    @SuppressLint("NewApi")
                     @Override
                     public void onResponse(String response) {
                         isOk = gson.fromJson(new String(response.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), IsOk.class);

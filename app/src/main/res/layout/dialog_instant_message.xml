@@ -80,7 +80,7 @@
             android:gravity="right"
             android:inputType="textMultiLine"
             android:layoutDirection="ltr"
-            android:lines="6"
+            android:lines="7"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:scrollbars="vertical"

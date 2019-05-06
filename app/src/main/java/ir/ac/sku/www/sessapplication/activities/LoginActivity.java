@@ -87,6 +87,7 @@ public class LoginActivity extends MyActivity {
     private SharedPreferences preferencesCookie;
     private SharedPreferences preferencesName;
     private SharedPreferences preferencesUserImage;
+    private SharedPreferences preferencesMajor;
 
     //my Class Model
     private LoginInformation loginInformation;
@@ -114,6 +115,7 @@ public class LoginActivity extends MyActivity {
         preferencesCookie = getSharedPreferences(PreferenceName.COOKIE_PREFERENCE_NAME, MODE_PRIVATE);
         preferencesName = getSharedPreferences(PreferenceName.NAME_PREFERENCE_NAME, MODE_PRIVATE);
         preferencesUserImage = getSharedPreferences(PreferenceName.USER_IMAGE_PREFERENCE_NAME, MODE_PRIVATE);
+        preferencesMajor = getSharedPreferences(PreferenceName.MAJOR_PREFERENCE_NAME, MODE_PRIVATE);
 
         progressDialog = new ProgressDialog(LoginActivity.this);
 
@@ -181,6 +183,8 @@ public class LoginActivity extends MyActivity {
                 preferencesCookie.edit().clear().apply();
                 preferencesName.edit().clear().apply();
                 preferencesUserImage.edit().clear().apply();
+                preferencesMajor.edit().clear().apply();
+
 
                 startActivity(intent);
 
@@ -330,6 +334,10 @@ public class LoginActivity extends MyActivity {
                         editorName.putString(PreferenceName.NAME_PREFERENCE_FIRST_NAME, sendInformation.getResult().getUserInformation().getName());
                         editorName.putString(PreferenceName.NAME_PREFERENCE_LAST_NAME, sendInformation.getResult().getUserInformation().getFamily());
                         editorName.apply();
+
+                        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorMajor = preferencesMajor.edit();
+                        editorMajor.putString(PreferenceName.MAJOR_PREFERENCE_MAJOR, sendInformation.getResult().getUserInformation().getMajor());
+                        editorMajor.apply();
 
                         getUserImage();
 

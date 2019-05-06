@@ -1,6 +1,7 @@
 package ir.ac.sku.www.sessapplication.activities;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -57,6 +58,12 @@ public class PhoneBookActivity extends MyActivity implements SearchView.OnQueryT
         progressDialog = new ProgressDialog(PhoneBookActivity.this);
         progressDialog.setMessage("لطفا منتظر بمانید!");
         progressDialog.setCancelable(false);
+        progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "انصراف", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
         progressDialog.show();
         getDataFromServer(query);
         return false;

@@ -3,7 +3,6 @@ package ir.ac.sku.www.sessapplication.utils;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -13,22 +12,18 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.util.Base64;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
@@ -37,22 +32,18 @@ import com.bumptech.glide.request.transition.Transition;
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
-import java.util.Map;
 
 import ir.ac.sku.www.sessapplication.API.MyConfig;
 import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.API.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.activities.BottomBarActivity;
-import ir.ac.sku.www.sessapplication.activities.LoginActivity;
-import ir.ac.sku.www.sessapplication.adapters.FoodReservationAdapter;
-import ir.ac.sku.www.sessapplication.fragment.FoodReservationFragment;
 import ir.ac.sku.www.sessapplication.models.LoginInformation;
 import ir.ac.sku.www.sessapplication.models.SendInformation;
 import pl.droidsonroids.gif.GifImageView;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class SignIn {
 
@@ -68,6 +59,7 @@ public class SignIn {
     private SharedPreferences preferencesCookie;
     private SharedPreferences preferencesName;
     private SharedPreferences preferencesUserImage;
+    private SharedPreferences preferencesMajor;
 
     //my Class Model
     private LoginInformation loginInformation;
@@ -94,10 +86,11 @@ public class SignIn {
         queue = Volley.newRequestQueue(context);
 
         manager = new CheckSignUpPreferenceManager(context);
-        preferencesUsernameAndPassword = context.getSharedPreferences(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_NAME, Context.MODE_PRIVATE);
-        preferencesCookie = context.getSharedPreferences(PreferenceName.COOKIE_PREFERENCE_NAME, Context.MODE_PRIVATE);
-        preferencesName = context.getSharedPreferences(PreferenceName.NAME_PREFERENCE_NAME, Context.MODE_PRIVATE);
-        preferencesUserImage = context.getSharedPreferences(PreferenceName.USER_IMAGE_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        preferencesUsernameAndPassword = context.getSharedPreferences(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_NAME, MODE_PRIVATE);
+        preferencesCookie = context.getSharedPreferences(PreferenceName.COOKIE_PREFERENCE_NAME, MODE_PRIVATE);
+        preferencesName = context.getSharedPreferences(PreferenceName.NAME_PREFERENCE_NAME, MODE_PRIVATE);
+        preferencesUserImage = context.getSharedPreferences(PreferenceName.USER_IMAGE_PREFERENCE_NAME, MODE_PRIVATE);
+        preferencesMajor = context.getSharedPreferences(PreferenceName.MAJOR_PREFERENCE_NAME, MODE_PRIVATE);
     }
 
     @SuppressLint("LongLogTag")
@@ -298,6 +291,10 @@ public class SignIn {
                         editorName.putString(PreferenceName.NAME_PREFERENCE_FIRST_NAME, sendInformation.getResult().getUserInformation().getName());
                         editorName.putString(PreferenceName.NAME_PREFERENCE_LAST_NAME, sendInformation.getResult().getUserInformation().getFamily());
                         editorName.apply();
+
+                        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorMajor = preferencesMajor.edit();
+                        editorMajor.putString(PreferenceName.MAJOR_PREFERENCE_MAJOR, sendInformation.getResult().getUserInformation().getMajor());
+                        editorMajor.apply();
 
                         InstantMessage instantMessage = new InstantMessage(context, sendInformation.getResult());
                         instantMessage.showInstantMessageDialog();

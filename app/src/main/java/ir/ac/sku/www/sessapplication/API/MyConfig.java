@@ -18,4 +18,5 @@ public class MyConfig {
     public static final String PHONE_BOOK                  = "http://app.sku.ac.ir/api/v1/phoneBook";
     public static final String STUDENT_JOURNALS            = "http://app.sku.ac.ir/api/v1/journals";
     public static final String STUDENT_NEWS                = "http://app.sku.ac.ir/api/v1/news";
+    public static final String APP_INFO                    = "http://app.sku.ac.ir/api/appInfo";
 }

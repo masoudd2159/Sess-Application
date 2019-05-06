@@ -17,4 +17,7 @@ public class PreferenceName {
 
     public static final String USER_IMAGE_PREFERENCE_NAME = "UserImagePreferences_Username";
     public static final String USER_IMAGE_PREFERENCE_IMAGE = "UserImagePreferences_Username";
+
+    public static final String MAJOR_PREFERENCE_NAME = "MajorPreferences_Name";
+    public static final String MAJOR_PREFERENCE_MAJOR = "MajorPreferences_Major";
 }

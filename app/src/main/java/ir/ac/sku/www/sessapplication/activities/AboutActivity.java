@@ -8,22 +8,28 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
+import java.util.HashMap;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.API.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
+import ir.ac.sku.www.sessapplication.models.GetInfoForSend;
 import ir.ac.sku.www.sessapplication.utils.CheckSignUpPreferenceManager;
+import ir.ac.sku.www.sessapplication.utils.Handler;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
 public class AboutActivity extends MyActivity {
@@ -32,14 +38,18 @@ public class AboutActivity extends MyActivity {
     private Button bugReport;
     private CircleImageView profile;
     private TextView username;
+    private TextView major;
 
     private CheckSignUpPreferenceManager manager;
     private SharedPreferences preferencesUsernameAndPassword;
     private SharedPreferences preferencesCookie;
     private SharedPreferences preferencesName;
     private SharedPreferences preferencesUserImage;
+    private SharedPreferences preferencesMajor;
 
     private RequestQueue queue;
+
+    private GetInfoForSend getInfoForSend;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -52,14 +62,18 @@ public class AboutActivity extends MyActivity {
         bugReport = findViewById(R.id.aboutActivity_BugReport);
         profile = findViewById(R.id.aboutActivity_ImageProfile);
         username = findViewById(R.id.aboutActivity_Username);
+        major = findViewById(R.id.aboutActivity_Major);
 
         queue = Volley.newRequestQueue(AboutActivity.this);
+
+        getInfoForSend = new GetInfoForSend();
 
         manager = new CheckSignUpPreferenceManager(AboutActivity.this);
         preferencesUsernameAndPassword = getSharedPreferences(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_NAME, MODE_PRIVATE);
         preferencesCookie = getSharedPreferences(PreferenceName.COOKIE_PREFERENCE_NAME, MODE_PRIVATE);
         preferencesName = getSharedPreferences(PreferenceName.NAME_PREFERENCE_NAME, MODE_PRIVATE);
         preferencesUserImage = getSharedPreferences(PreferenceName.USER_IMAGE_PREFERENCE_NAME, MODE_PRIVATE);
+        preferencesMajor = getSharedPreferences(PreferenceName.MAJOR_PREFERENCE_NAME, MODE_PRIVATE);
 
         String userImage = preferencesUserImage.getString(PreferenceName.USER_IMAGE_PREFERENCE_IMAGE, null);
 
@@ -78,9 +92,24 @@ public class AboutActivity extends MyActivity {
                 preferencesCookie.edit().clear().apply();
                 preferencesName.edit().clear().apply();
                 preferencesUserImage.edit().clear().apply();
+                preferencesMajor.edit().clear().apply();
 
                 startActivity(new Intent(AboutActivity.this, SplashScreenActivity.class));
                 finish();
+            }
+        });
+
+        bugReport.setEnabled(true);
+        bugReport.setClickable(true);
+
+        bugReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                infoForSend("tapp", "");
+
+                bugReport.setEnabled(false);
+                bugReport.setClickable(false);
+
             }
         });
 
@@ -88,6 +117,12 @@ public class AboutActivity extends MyActivity {
             username.setText("مهمان");
         } else {
             username.setText(preferencesName.getString(PreferenceName.NAME_PREFERENCE_FIRST_NAME, " ") + " " + preferencesName.getString(PreferenceName.NAME_PREFERENCE_LAST_NAME, " "));
+        }
+
+        if (preferencesMajor.getString(PreferenceName.MAJOR_PREFERENCE_MAJOR, null) == null) {
+            major.setText("");
+        } else {
+            major.setText(preferencesMajor.getString(PreferenceName.MAJOR_PREFERENCE_MAJOR, " "));
         }
     }
 
@@ -100,5 +135,31 @@ public class AboutActivity extends MyActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
         }
+    }
+
+    private void infoForSend(final String ID, final String StudentNumber) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("id", ID);
+        params.put("stNumber", StudentNumber);
+
+        GetInfoForSend.fetchFromWeb(AboutActivity.this, params, new Handler() {
+            @Override
+            public void onResponse(boolean ok, Object obj) {
+                if (ok) {
+                    getInfoForSend = (GetInfoForSend) obj;
+
+                    Intent intent = new Intent(AboutActivity.this, SendMessageActivity.class);
+                    intent.putExtra("GetInfoForSend", (Parcelable) getInfoForSend);
+                    intent.putExtra("id", ID);
+                    intent.putExtra("studentNumber", StudentNumber);
+                    startActivity(intent);
+
+                    bugReport.setEnabled(true);
+                    bugReport.setClickable(true);
+                } else {
+
+                }
+            }
+        });
     }
 }
