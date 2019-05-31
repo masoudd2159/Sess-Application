@@ -47,12 +47,14 @@
             <TextView
                 android:id="@+id/customProcess_TextViewStatus"
                 fontPath="fonts/IRANSans_Bold.ttf"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:layout_weight="1"
+                android:ellipsize="end"
                 android:gravity="center|right"
                 android:layoutDirection="ltr"
-                android:maxLines="1"
+                android:singleLine="true"
                 android:textColor="#FD383838"
                 android:textSize="15sp" />
 
@@ -85,12 +87,14 @@
             <TextView
                 android:id="@+id/customProcess_TextViewStep"
                 fontPath="fonts/IRANSans_Bold.ttf"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:layout_weight="1"
+                android:ellipsize="end"
                 android:gravity="center|right"
                 android:layoutDirection="ltr"
-                android:maxLines="1"
+                android:singleLine="true"
                 android:textColor="#FD383838"
                 android:textSize="15sp" />
 
@@ -123,12 +127,14 @@
             <TextView
                 android:id="@+id/customProcess_TextViewEmployee"
                 fontPath="fonts/IRANSans_Bold.ttf"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:layout_weight="1"
+                android:ellipsize="end"
                 android:gravity="center|right"
                 android:layoutDirection="ltr"
-                android:maxLines="1"
+                android:singleLine="true"
                 android:textColor="#FD383838"
                 android:textSize="15sp" />
 

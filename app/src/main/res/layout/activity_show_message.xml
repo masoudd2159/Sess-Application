@@ -1,242 +1,315 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#e1e1e1"
     android:layoutDirection="ltr"
+    android:orientation="vertical"
     tools:context=".activities.ShowMessageActivity"
     tools:ignore="MissingPrefix">
 
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/activityShowMessage_AppBar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:fitsSystemWindows="true"
         android:layoutDirection="ltr"
-        android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingTop="10dp"
-        android:paddingRight="10dp">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:contentScrim="?attr/colorPrimary"
+        app:expandedTitleMarginStart="24dp"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
-        <RelativeLayout
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/activityShowMessage_ToolBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layoutDirection="ltr">
+            android:layout_height="?attr/actionBarSize"
+            android:layoutDirection="ltr"
+            app:layout_collapseMode="pin"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:subtitleTextColor="@android:color/white"
+            app:titleTextColor="@android:color/white">
 
             <TextView
-                android:id="@+id/activityShowMessage_TextViewType"
+                android:id="@+id/activityShowMessage_ToolbarTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_gravity="end"
-                android:layout_marginBottom="5dp"
-                android:drawablePadding="3dp"
-                android:gravity="end"
+                android:layout_gravity="center|start"
                 android:layoutDirection="ltr"
-                android:maxLines="1"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:textColor="#3e3e3e"
-                android:textSize="15sp" />
-
-            <ImageView
-                android:id="@+id/activityShowMessage_ImageViewAttachment"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentStart="true"
-                android:layoutDirection="ltr"
-                android:src="@drawable/ic_attachment_2"
-                android:visibility="invisible" />
-
-        </RelativeLayout>
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:background="#3175a9"
-            android:layoutDirection="ltr">
-
-            <TextView
-                android:id="@+id/activityShowMessage_TextViewSubject"
-                fontPath="fonts/IRANSans_Bold.ttf"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
-                android:background="#4891c9"
-                android:drawablePadding="3dp"
-                android:gravity="right"
-                android:layoutDirection="ltr"
-                android:maxLines="4"
-                android:padding="10dp"
+                android:text="پیام ها"
                 android:textColor="@android:color/white"
-                android:textSize="19sp" />
+                android:textSize="24sp" />
 
-        </android.support.v7.widget.CardView>
+        </android.support.v7.widget.Toolbar>
 
-        <android.support.v7.widget.CardView
+    </android.support.design.widget.AppBarLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:background="@android:color/white"
             android:layoutDirection="ltr"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
+                android:layoutDirection="ltr">
+
+                <TextView
+                    android:id="@+id/activityShowMessage_TextViewType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="end"
+                    android:layout_marginBottom="5dp"
+                    android:drawablePadding="3dp"
+                    android:gravity="end"
+                    android:layoutDirection="ltr"
+                    android:maxLines="1"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textColor="#3e3e3e"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:id="@+id/activityShowMessage_ImageViewAttachment"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentStart="true"
+                    android:layoutDirection="ltr"
+                    android:src="@drawable/ic_attachment_2"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="#3175a9"
+                android:layoutDirection="ltr">
+
+                <TextView
+                    android:id="@+id/activityShowMessage_TextViewSubject"
+                    fontPath="fonts/IRANSans_Bold.ttf"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:background="#4891c9"
+                    android:drawablePadding="3dp"
+                    android:gravity="right"
+                    android:layoutDirection="ltr"
+                    android:maxLines="4"
+                    android:padding="10dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="19sp" />
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/white"
                 android:layoutDirection="ltr"
-                android:orientation="vertical"
-                android:padding="5dp">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:gravity="end|center"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:layoutDirection="ltr"
-                    android:orientation="horizontal">
+                    android:orientation="vertical"
+                    android:padding="5dp">
 
-                    <TextView
-                        android:id="@+id/activityShowMessage_TextViewSender"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
+                        android:layout_gravity="end"
+                        android:gravity="end|center"
                         android:layoutDirection="ltr"
-                        android:maxLines="1"
-                        android:textColor="#2b2b2b"
-                        android:textSize="16sp" />
+                        android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_margin="5dp"
+                        <TextView
+                            android:id="@+id/activityShowMessage_TextViewSender"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:layoutDirection="ltr"
+                            android:maxLines="1"
+                            android:textColor="#2b2b2b"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_margin="5dp"
+                            android:layoutDirection="ltr"
+                            android:src="@drawable/ic_sender" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:gravity="end|center"
                         android:layoutDirection="ltr"
-                        android:src="@drawable/ic_sender" />
+                        android:orientation="horizontal">
 
+                        <TextView
+                            android:id="@+id/activityShowMessage_TextViewDate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:layoutDirection="ltr"
+                            android:maxLines="1"
+                            android:textColor="#414141"
+                            android:textSize="15sp" />
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_margin="5dp"
+                            android:layoutDirection="ltr"
+                            android:src="@drawable/ic_calendar" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:gravity="end|top"
+                        android:layoutDirection="ltr"
+                        android:orientation="horizontal">
+
+                        <!--<TextView
+                            android:id="@+id/activityShowMessage_TextViewTarget"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:layoutDirection="ltr"
+                            android:maxLines="5"
+                            android:scrollbars="vertical"
+                            android:textColor="#414141"
+                            android:textSize="15sp" />-->
+
+                        <com.uncopt.android.widget.text.justify.JustifiedTextView
+                            android:id="@+id/activityShowMessage_TextViewTarget"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:layoutDirection="ltr"
+                            android:maxLines="5"
+                            android:scrollbars="vertical"
+                            android:textColor="#414141"
+                            android:textSize="15sp" />
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_margin="5dp"
+                            android:layoutDirection="ltr"
+                            android:src="@drawable/ic_group" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/activityShowMessage_LayoutRead"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:gravity="end|top"
+                        android:layoutDirection="ltr"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/activityShowMessage_TextViewRead"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="20dp"
+                            android:gravity="center_vertical"
+                            android:layoutDirection="ltr"
+                            android:maxLines="5"
+                            android:scrollbars="vertical"
+                            android:textColor="#414141"
+                            android:textSize="15sp" />
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_margin="5dp"
+                            android:layoutDirection="ltr"
+                            android:src="@drawable/ic_view" />
+
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:gravity="end|center"
-                    android:layoutDirection="ltr"
-                    android:orientation="horizontal">
+            </android.support.v7.widget.CardView>
 
-                    <TextView
-                        android:id="@+id/activityShowMessage_TextViewDate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
-                        android:layoutDirection="ltr"
-                        android:maxLines="1"
-                        android:textColor="#414141"
-                        android:textSize="15sp" />
-
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_margin="5dp"
-                        android:layoutDirection="ltr"
-                        android:src="@drawable/ic_calendar" />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:gravity="end|top"
-                    android:layoutDirection="ltr"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/activityShowMessage_TextViewTarget"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="20dp"
-                        android:gravity="center_vertical"
-                        android:inputType="textMultiLine"
-                        android:layoutDirection="ltr"
-                        android:maxLines="5"
-                        android:scrollbars="vertical"
-                        android:textColor="#414141"
-                        android:textSize="15sp" />
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_margin="5dp"
-                        android:layoutDirection="ltr"
-                        android:src="@drawable/ic_group" />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/activityShowMessage_LayoutRead"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:gravity="end|top"
-                    android:layoutDirection="ltr"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:id="@+id/activityShowMessage_TextViewRead"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="20dp"
-                        android:gravity="center_vertical"
-                        android:inputType="textMultiLine"
-                        android:layoutDirection="ltr"
-                        android:maxLines="5"
-                        android:scrollbars="vertical"
-                        android:textColor="#414141"
-                        android:textSize="15sp" />
-
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_margin="5dp"
-                        android:layoutDirection="ltr"
-                        android:src="@drawable/ic_view" />
-
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layoutDirection="ltr">
-
-            <TextView
-                android:id="@+id/activityShowMessage_TextViewText"
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layoutDirection="ltr"
-                android:padding="8dp"
-                android:scrollbars="vertical"
-                android:textColor="@android:color/black"
-                android:textSize="15sp" />
-        </android.support.v7.widget.CardView>
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layoutDirection="ltr">
 
-    </LinearLayout>
+                <!-- <TextView
+                     android:id="@+id/activityShowMessage_TextViewText"
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:layoutDirection="ltr"
+                     android:padding="8dp"
+                     android:scrollbars="vertical"
+                     android:textColor="@android:color/black"
+                     android:textSize="15sp" />-->
 
-</ScrollView>
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.uncopt.android.widget.text.justify.JustifiedTextView
+                        android:id="@+id/activityShowMessage_TextViewText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layoutDirection="ltr"
+                        android:padding="8dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="15sp" />
+
+                </ScrollView>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -3,13 +3,18 @@ package ir.ac.sku.www.sessapplication.activities;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.text.method.ScrollingMovementMethod;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.uncopt.android.widget.text.justify.JustifiedTextView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,9 +30,9 @@ public class ShowMessageActivity extends MyActivity {
     private TextView subject;
     private TextView sender;
     private TextView date;
-    private TextView target;
-    private TextView text;
     private TextView read;
+    private JustifiedTextView text;
+    private JustifiedTextView target;
     private LinearLayout layoutRead;
     private ImageView attachment;
     private MSGMessageShow messageShow;
@@ -37,7 +42,17 @@ public class ShowMessageActivity extends MyActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_message);
-        ShowMessageActivity.this.setTitle("پیام ها");
+
+        TextView title = findViewById(R.id.activityShowMessage_ToolbarTitle);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activityShowMessage_ToolBar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setTitle("");
+        toolbar.setSubtitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        title.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Lalezar.ttf"));
+
+
         progressDialog = new ProgressDialog(this);
 
         if (getSupportActionBar() != null) {
@@ -56,12 +71,12 @@ public class ShowMessageActivity extends MyActivity {
         sender = findViewById(R.id.activityShowMessage_TextViewSender);
         date = findViewById(R.id.activityShowMessage_TextViewDate);
         target = findViewById(R.id.activityShowMessage_TextViewTarget);
+        //text = findViewById(R.id.activityShowMessage_TextViewText);
         text = findViewById(R.id.activityShowMessage_TextViewText);
         read = findViewById(R.id.activityShowMessage_TextViewRead);
         layoutRead = findViewById(R.id.activityShowMessage_LayoutRead);
 
         target.setMovementMethod(new ScrollingMovementMethod());
-        text.setMovementMethod(new ScrollingMovementMethod());
     }
 
     private void prepareData(String ident, String type) {
@@ -85,7 +100,7 @@ public class ShowMessageActivity extends MyActivity {
         });
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "NewApi"})
     private void prepareSlides(MSGMessageShow messageShow) {
         type.setText(messageShow.getResult().getPriority());
         subject.setText(messageShow.getResult().getSubject());

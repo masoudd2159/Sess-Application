@@ -30,7 +30,7 @@ android {
         applicationId "ir.ac.sku.www.sessapplication"
         minSdkVersion 17
         targetSdkVersion 28
-        versionCode 1
+        versionCode 2
         versionName "sess.0.0.beta"
     }
     buildTypes {
@@ -65,4 +65,5 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     implementation 'es.voghdev.pdfviewpager:library:1.0.6'
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
+    implementation 'com.uncopt:android.justified:1.0'
 }

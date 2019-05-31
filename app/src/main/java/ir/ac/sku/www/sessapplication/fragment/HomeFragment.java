@@ -18,16 +18,20 @@ import ir.ac.sku.www.sessapplication.activities.fragmentHome.EducationalDeputyAc
 import ir.ac.sku.www.sessapplication.activities.fragmentHome.OfficeDeputyActivity;
 import ir.ac.sku.www.sessapplication.activities.fragmentHome.ResearchDeputyActivity;
 import ir.ac.sku.www.sessapplication.activities.fragmentHome.StudentDeputyActivity;
+import ir.ac.sku.www.sessapplication.activities.fragmentHome.TelevisionActivity;
 
 public class HomeFragment extends Fragment {
 
     private CardView educational;
     private CardView student;
-    private CardView cultural;
     private CardView research;
-    private CardView office;
+    private CardView cultural;
     private CardView news;
+    private CardView television;
+    private CardView office;
     private CardView phoneBook;
+    private CardView lost;
+    private CardView market;
 
     private View rootView;
 
@@ -86,6 +90,12 @@ public class HomeFragment extends Fragment {
                 startActivity(new Intent(rootView.getContext(), OfficeDeputyActivity.class));
             }
         });
+        television.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(rootView.getContext(), TelevisionActivity.class));
+            }
+        });
 
         return view;
     }
@@ -98,5 +108,6 @@ public class HomeFragment extends Fragment {
         student = rootView.findViewById(R.id.homeFragment_StudentDeputy);
         research = rootView.findViewById(R.id.homeFragment_ResearchDeputy);
         office = rootView.findViewById(R.id.homeFragment_OfficeDeputy);
+        television = rootView.findViewById(R.id.homeFragment_Television);
     }
 }

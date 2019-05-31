@@ -19,4 +19,7 @@ public class MyConfig {
     public static final String STUDENT_JOURNALS            = "http://app.sku.ac.ir/api/v1/journals";
     public static final String STUDENT_NEWS                = "http://app.sku.ac.ir/api/v1/news";
     public static final String APP_INFO                    = "http://app.sku.ac.ir/api/appInfo";
+
+    //Television
+    public static final String CHANNEL_3                   = "http://app.sku.ac.ir:70/m3u8.txt";
 }

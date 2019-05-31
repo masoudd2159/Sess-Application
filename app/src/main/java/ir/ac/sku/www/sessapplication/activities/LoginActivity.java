@@ -56,6 +56,7 @@ import ir.ac.sku.www.sessapplication.API.MyConfig;
 import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.API.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
+import ir.ac.sku.www.sessapplication.models.AppInfo;
 import ir.ac.sku.www.sessapplication.models.LoginInformation;
 import ir.ac.sku.www.sessapplication.models.SendInformation;
 import ir.ac.sku.www.sessapplication.utils.CheckSignUpPreferenceManager;
@@ -92,6 +93,7 @@ public class LoginActivity extends MyActivity {
     //my Class Model
     private LoginInformation loginInformation;
     private SendInformation sendInformation;
+    private AppInfo appInfo;
     private boolean doubleBackToExitPressedOnce = false;
 
     @SuppressLint("LongLogTag")
@@ -104,6 +106,8 @@ public class LoginActivity extends MyActivity {
         //allocate classes
         loginInformation = new LoginInformation();
         sendInformation = new SendInformation();
+        Intent intentAppInfo = getIntent();
+        appInfo = intentAppInfo.getParcelableExtra("AppInfo");
 
         //create queue for API Request
         queue = Volley.newRequestQueue(LoginActivity.this);
@@ -176,21 +180,24 @@ public class LoginActivity extends MyActivity {
         guest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (appInfo.getResult().getGuestLogin()) {
+                    Intent intent = new Intent(LoginActivity.this, BottomBarActivity.class);
 
-                Intent intent = new Intent(LoginActivity.this, BottomBarActivity.class);
-
-                preferencesUsernameAndPassword.edit().clear().apply();
-                preferencesCookie.edit().clear().apply();
-                preferencesName.edit().clear().apply();
-                preferencesUserImage.edit().clear().apply();
-                preferencesMajor.edit().clear().apply();
+                    preferencesUsernameAndPassword.edit().clear().apply();
+                    preferencesCookie.edit().clear().apply();
+                    preferencesName.edit().clear().apply();
+                    preferencesUserImage.edit().clear().apply();
+                    preferencesMajor.edit().clear().apply();
 
 
-                startActivity(intent);
+                    startActivity(intent);
 
-                CustomToastSuccess.success(LoginActivity.this, " خوش آمدید ", Toast.LENGTH_SHORT).show();
+                    CustomToastSuccess.success(LoginActivity.this, " خوش آمدید ", Toast.LENGTH_SHORT).show();
 
-                finish();
+                    finish();
+                } else {
+                    HttpManager.unsuccessfulOperation(LoginActivity.this, "لطفا از طریق شناسه کاربری و رمز عبور خود وارد شوید.");
+                }
             }
         });
     }

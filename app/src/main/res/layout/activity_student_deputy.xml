@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|start"
                     android:layoutDirection="ltr"
-                    android:text="معاونت آموزشی"
+                    android:text="معاونت دانشجویی"
                     android:textColor="@android:color/white"
                     android:textSize="24sp" />
 

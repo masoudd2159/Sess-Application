@@ -28,10 +28,12 @@
 
             <TextView
                 android:id="@+id/customMessage_TextViewSender"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
                 android:layoutDirection="ltr"
-                android:maxLines="1"
+                android:singleLine="true"
                 android:textColor="#3F3F3F"
                 android:textSize="15sp" />
 
@@ -55,11 +57,12 @@
 
             <TextView
                 android:id="@+id/customMessage_TextViewSubject"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
                 android:layoutDirection="ltr"
-                android:maxLines="1"
+                android:singleLine="true"
                 android:textColor="#575757"
                 android:textSize="14sp" />
 

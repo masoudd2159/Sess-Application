@@ -132,7 +132,7 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
 
-        <!--<LinearLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -150,10 +150,10 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:layoutDirection="ltr"
-                android:text="توسعه دهندگان"
+                android:text="کلیه حقوق اپلیکیشن متعلق به شرکت فاونت می باشد."
                 android:textColor="@color/sky" />
 
-            <TextView
+           <!-- <TextView
                 android:id="@+id/aboutActivity_TermsOfUse"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -162,9 +162,9 @@
                 android:gravity="center"
                 android:layoutDirection="ltr"
                 android:text="شرایط استفاده"
-                android:textColor="@color/sky" />
+                android:textColor="@color/sky" />-->
 
-            <TextView
+            <!--<TextView
                 android:id="@+id/aboutActivity_Privacy"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -173,9 +173,9 @@
                 android:gravity="center"
                 android:layoutDirection="ltr"
                 android:text="حریم خصوصی"
-                android:textColor="@color/sky" />
+                android:textColor="@color/sky" />-->
 
-        </LinearLayout>-->
+        </LinearLayout>
 
     </LinearLayout>
 

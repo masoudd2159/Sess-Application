@@ -2,6 +2,8 @@ package ir.ac.sku.www.sessapplication.models;
 
 import android.content.Context;
 import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 
 import com.android.volley.Request;
@@ -15,7 +17,7 @@ import ir.ac.sku.www.sessapplication.utils.Handler;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.WebService;
 
-public class AppInfo {
+public class AppInfo implements Parcelable {
     private Boolean ok;
     private Result result;
 
@@ -35,7 +37,7 @@ public class AppInfo {
         this.result = result;
     }
 
-    public class Result {
+    public static class Result implements Parcelable {
         private int androidMinimumVersion;
         private int androidLatestVersion;
         private String downloadAndroidUrl;
@@ -47,6 +49,7 @@ public class AppInfo {
         private String appUrl;
         private String developmentTeamUrl;
         private String contactSupportId;
+        private Boolean guestLogin;
 
         public int getAndroidMinimumVersion() {
             return androidMinimumVersion;
@@ -135,6 +138,66 @@ public class AppInfo {
         public void setContactSupportId(String contactSupportId) {
             this.contactSupportId = contactSupportId;
         }
+
+        public Boolean getGuestLogin() {
+            return guestLogin;
+        }
+
+        public void setGuestLogin(Boolean guestLogin) {
+            this.guestLogin = guestLogin;
+        }
+
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(this.androidMinimumVersion);
+            dest.writeInt(this.androidLatestVersion);
+            dest.writeString(this.downloadAndroidUrl);
+            dest.writeInt(this.iosMinimumVersion);
+            dest.writeInt(this.iosLatestVersion);
+            dest.writeString(this.downloadIosUrl);
+            dest.writeString(this.updateMessage);
+            dest.writeString(this.forceUpdateMessage);
+            dest.writeString(this.appUrl);
+            dest.writeString(this.developmentTeamUrl);
+            dest.writeString(this.contactSupportId);
+            dest.writeValue(this.guestLogin);
+        }
+
+        public Result() {
+        }
+
+        protected Result(Parcel in) {
+            this.androidMinimumVersion = in.readInt();
+            this.androidLatestVersion = in.readInt();
+            this.downloadAndroidUrl = in.readString();
+            this.iosMinimumVersion = in.readInt();
+            this.iosLatestVersion = in.readInt();
+            this.downloadIosUrl = in.readString();
+            this.updateMessage = in.readString();
+            this.forceUpdateMessage = in.readString();
+            this.appUrl = in.readString();
+            this.developmentTeamUrl = in.readString();
+            this.contactSupportId = in.readString();
+            this.guestLogin = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        }
+
+        public static final Creator<Result> CREATOR = new Creator<Result>() {
+            @Override
+            public Result createFromParcel(Parcel source) {
+                return new Result(source);
+            }
+
+            @Override
+            public Result[] newArray(int size) {
+                return new Result[size];
+            }
+        };
     }
 
     public static void fetchFromWeb(Context context, HashMap<String, String> params, final Handler handler) {
@@ -155,4 +218,36 @@ public class AppInfo {
             }
         });
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.ok);
+        dest.writeParcelable(this.result, flags);
+    }
+
+    public AppInfo() {
+    }
+
+    protected AppInfo(Parcel in) {
+        this.ok = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.result = in.readParcelable(Result.class.getClassLoader());
+    }
+
+    public static final Creator<AppInfo> CREATOR = new Creator<AppInfo>() {
+        @Override
+        public AppInfo createFromParcel(Parcel source) {
+            return new AppInfo(source);
+        }
+
+        @Override
+        public AppInfo[] newArray(int size) {
+            return new AppInfo[size];
+        }
+    };
 }
