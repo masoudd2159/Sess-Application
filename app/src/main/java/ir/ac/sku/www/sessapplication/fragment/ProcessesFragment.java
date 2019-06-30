@@ -4,17 +4,18 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.RelativeLayout;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +38,7 @@ public class ProcessesFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_process, container, false);
         this.rootView = rootView;
         recyclerView = rootView.findViewById(R.id.fragmentProcesses_RecyclerView);
-        relativeLayout=rootView.findViewById(R.id.fragmentProcesses_RelativeLayout);
+        relativeLayout = rootView.findViewById(R.id.fragmentProcesses_RelativeLayout);
 
         progressDialog = new ProgressDialog(rootView.getContext());
         progressDialog.setMessage("لطفا منتظر بمانید!");

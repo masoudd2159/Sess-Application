@@ -10,7 +10,7 @@
     tools:context=".activities.ShowMessageActivity"
     tools:ignore="MissingPrefix">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/activityShowMessage_AppBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -21,7 +21,7 @@
         app:expandedTitleMarginStart="24dp"
         app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/activityShowMessage_ToolBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -42,9 +42,9 @@
                 android:textColor="@android:color/white"
                 android:textSize="24sp" />
 
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
 
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
 
     <ScrollView
@@ -92,7 +92,7 @@
 
             </RelativeLayout>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -114,9 +114,9 @@
                     android:textColor="@android:color/white"
                     android:textSize="19sp" />
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -272,9 +272,9 @@
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
@@ -306,7 +306,7 @@
 
                 </ScrollView>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 

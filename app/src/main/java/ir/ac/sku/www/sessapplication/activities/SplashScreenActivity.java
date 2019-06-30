@@ -1,6 +1,5 @@
 package ir.ac.sku.www.sessapplication.activities;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -10,36 +9,21 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 
 import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.API.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.models.AppInfo;
-import ir.ac.sku.www.sessapplication.models.JournalModel;
 import ir.ac.sku.www.sessapplication.utils.CheckSignUpPreferenceManager;
 import ir.ac.sku.www.sessapplication.utils.Handler;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
@@ -99,26 +83,6 @@ public class SplashScreenActivity extends MyActivity {
         //checkPermission();
         appInfo = new AppInfo();
         getDataFromServer();
-    }
-
-    private void checkPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
-            }
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == PERMISSION_REQUEST_CODE) {
-            if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-            return;
-        }
     }
 
     @SuppressLint("LongLogTag")
@@ -299,7 +263,27 @@ public class SplashScreenActivity extends MyActivity {
         }
     }
 
-    private class DownloadTask extends AsyncTask<String, String, String> {
+    /*    private void checkPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+            }
+        }
+    }*/
+
+/*    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+            return;
+        }
+    }*/
+
+    /*private class DownloadTask extends AsyncTask<String, String, String> {
 
         @Override
         protected void onPreExecute() {
@@ -363,5 +347,5 @@ public class SplashScreenActivity extends MyActivity {
             }
             super.onPostExecute(result);
         }
-    }
+    }*/
 }

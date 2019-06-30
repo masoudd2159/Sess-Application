@@ -1,25 +1,18 @@
 package ir.ac.sku.www.sessapplication.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-
-import java.util.ArrayList;
-import java.util.List;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.activities.ShowStudentRequestActivity;
 import ir.ac.sku.www.sessapplication.models.StudentRequestDetails;
-import ir.ac.sku.www.sessapplication.models.StudentRequests;
 
 public class StudentRequestAdapter extends RecyclerView.Adapter<StudentRequestAdapter.MyViewHolder> {
 
@@ -65,13 +58,18 @@ public class StudentRequestAdapter extends RecyclerView.Adapter<StudentRequestAd
             user = itemView.findViewById(R.id.customShowStudentRequest_TextViewUser);
         }
 
+        @SuppressLint("SetTextI18n")
         public void bind(StudentRequestDetails.Result.Step myRequest) {
-            if (myRequest.getStatus().equals("pass")) {
-                status.setImageResource(R.drawable.ic_check);
-            } else if (myRequest.getStatus().equals("inProcess")) {
-                status.setImageResource(R.drawable.ic_pending);
-            } else if (myRequest.getStatus().equals("notPass")) {
-                status.setImageResource(R.drawable.ic_close_red);
+            switch (myRequest.getStatus()) {
+                case "pass":
+                    status.setImageResource(R.drawable.ic_check);
+                    break;
+                case "inProcess":
+                    status.setImageResource(R.drawable.ic_pending);
+                    break;
+                case "notPass":
+                    status.setImageResource(R.drawable.ic_close_red);
+                    break;
             }
             step.setText(myRequest.getName());
             title.setText("عنوان  : " + myRequest.getTitle());

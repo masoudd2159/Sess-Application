@@ -2,11 +2,9 @@ package ir.ac.sku.www.sessapplication.adapters;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,18 +14,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-
-import java.util.Objects;
 
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.activities.ShowPDFActivity;
 import ir.ac.sku.www.sessapplication.models.JournalModel;
-import ir.ac.sku.www.sessapplication.models.TotalJournalsModel;
 import pl.droidsonroids.gif.GifImageView;
-
-import android.content.Intent;
 
 public class JournalsAdapter extends RecyclerView.Adapter<JournalsAdapter.MyViewHolder> {
 

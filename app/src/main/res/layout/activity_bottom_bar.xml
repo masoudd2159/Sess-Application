@@ -9,7 +9,7 @@
     tools:context=".activities.BottomBarActivity"
     tools:ignore="MissingPrefix">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/bottomBarActivity_ToolBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
 
         </RelativeLayout>
 
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout
         android:id="@+id/bottomBarActivity_FragmentHolder"
@@ -105,7 +105,7 @@
 
     </FrameLayout>
 
-    <android.support.design.widget.BottomNavigationView
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomBarActivity_BottomBar"
         fontPath="fonts/IRANSans.ttf"
         android:layout_width="match_parent"

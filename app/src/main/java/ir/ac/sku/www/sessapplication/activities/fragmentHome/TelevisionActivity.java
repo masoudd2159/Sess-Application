@@ -2,18 +2,15 @@ package ir.ac.sku.www.sessapplication.activities.fragmentHome;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import ir.ac.sku.www.sessapplication.API.MyLog;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.activities.LoginActivity;
 import ir.ac.sku.www.sessapplication.activities.television.Channel3Activity;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;

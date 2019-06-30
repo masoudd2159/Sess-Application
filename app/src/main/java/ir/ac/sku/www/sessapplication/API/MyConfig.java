@@ -1,6 +1,8 @@
 package ir.ac.sku.www.sessapplication.API;
 
 public class MyConfig {
+    public static final String SESS                        = "http://sess.sku.ac.ir/sess/Script/Login.aspx";
+
     public static final String LOGIN_INFORMATION           = "http://app.sku.ac.ir/api/v1/user/login";
     public static final String SEND_INFORMATION            = "http://app.sku.ac.ir/api/v1/user/login";
     public static final String USER_IMAGE                  = "http://app.sku.ac.ir/api/v1/user/image";

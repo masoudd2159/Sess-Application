@@ -2,13 +2,13 @@ package ir.ac.sku.www.sessapplication.activities;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;

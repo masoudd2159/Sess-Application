@@ -2,24 +2,19 @@ package ir.ac.sku.www.sessapplication.activities;
 
 import android.app.ProgressDialog;
 import android.graphics.drawable.Drawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.MenuItem;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.HashMap;
-import java.util.Map;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.HashMap;
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.adapters.ProcessesFragmentAdapter;
 import ir.ac.sku.www.sessapplication.adapters.StudentRequestAdapter;
 import ir.ac.sku.www.sessapplication.models.StudentRequestDetails;
-import ir.ac.sku.www.sessapplication.models.StudentRequests;
 import ir.ac.sku.www.sessapplication.utils.Handler;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 

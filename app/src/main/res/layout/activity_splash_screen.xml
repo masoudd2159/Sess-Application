@@ -15,18 +15,6 @@
         android:background="@drawable/ibg_splash_screen"
         android:layoutDirection="ltr" />
 
-    <TextView
-        fontPath="fonts/IRANSans_Bold.ttf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:layoutDirection="ltr"
-        android:text="نسخه آزمایشی"
-        android:textColor="@color/red_2"
-        android:textSize="20sp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

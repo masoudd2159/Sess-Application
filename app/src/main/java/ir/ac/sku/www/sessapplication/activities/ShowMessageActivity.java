@@ -5,8 +5,6 @@ import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.text.Layout;
 import android.text.method.ScrollingMovementMethod;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,11 +12,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
+
 import com.uncopt.android.widget.text.justify.JustifiedTextView;
-
 import java.util.HashMap;
-import java.util.Map;
-
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.models.MSGMessageShow;
 import ir.ac.sku.www.sessapplication.utils.Handler;

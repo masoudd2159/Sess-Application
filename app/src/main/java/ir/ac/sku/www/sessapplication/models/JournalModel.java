@@ -1,16 +1,14 @@
 package ir.ac.sku.www.sessapplication.models;
-
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
+
+import androidx.annotation.RequiresApi;
 
 import com.android.volley.Request;
 import com.google.gson.Gson;
-
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
-
 import ir.ac.sku.www.sessapplication.API.MyConfig;
 import ir.ac.sku.www.sessapplication.utils.Handler;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;

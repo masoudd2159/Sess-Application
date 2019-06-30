@@ -15,7 +15,7 @@
         android:layoutDirection="ltr"
         android:orientation="vertical">
 
-        <android.support.design.widget.AppBarLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/journalsActivity_AppBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -26,7 +26,7 @@
             app:expandedTitleMarginStart="24dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
-            <android.support.v7.widget.Toolbar
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/journalsActivity_ToolBar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
@@ -46,9 +46,9 @@
                     android:textColor="@android:color/white"
                     android:textSize="24sp" />
 
-            </android.support.v7.widget.Toolbar>
+            </androidx.appcompat.widget.Toolbar>
 
-        </android.support.design.widget.AppBarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -70,7 +70,7 @@
 
             </LinearLayout>
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/journalsActivity_RecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

@@ -1,10 +1,9 @@
 package ir.ac.sku.www.sessapplication.adapters;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +11,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.models.JournalModel;
 import ir.ac.sku.www.sessapplication.models.PhoneBookModel;
 
 public class PhoneBookAdapter extends RecyclerView.Adapter<PhoneBookAdapter.MyViewHolder> {
@@ -67,6 +68,7 @@ public class PhoneBookAdapter extends RecyclerView.Adapter<PhoneBookAdapter.MyVi
             link = itemView.findViewById(R.id.customPhoneBook_Link);
         }
 
+        @SuppressLint("SetTextI18n")
         void bind(final PhoneBookModel.Result result) {
 
             name.setText(result.getName());

@@ -13,14 +13,14 @@
         android:layout_height="match_parent"
         android:layoutDirection="ltr">
 
-        <android.support.design.widget.AppBarLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/fragmentMessage_AppBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layoutDirection="ltr"
             android:theme="@style/AppTheme.AppBarOverlay">
 
-            <android.support.design.widget.TabLayout
+            <com.google.android.material.tabs.TabLayout
                 android:id="@+id/fragmentMessage_TabLayout"
                 fontPath="fonts/IRANSans_Bold.ttf"
                 android:layout_width="match_parent"
@@ -29,9 +29,9 @@
                 app:tabGravity="fill"
                 app:tabMode="fixed" />
 
-        </android.support.design.widget.AppBarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/fragmentMessage_ViewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

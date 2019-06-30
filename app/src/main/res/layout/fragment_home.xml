@@ -24,7 +24,62 @@
             android:layoutDirection="ltr"
             android:orientation="horizontal">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
+                android:id="@+id/homeFragment_SESS"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:layoutDirection="ltr"
+                app:cardCornerRadius="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layoutDirection="ltr"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_gravity="center"
+                        android:layoutDirection="ltr"
+                        android:padding="15dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_sku_blue" />
+
+                    <TextView
+                        fontPath="fonts/IRANSans(FaNum)_Black.ttf"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingBottom="15dp"
+                        android:text="ورود به سامانه SESS"
+                        android:textColor="@color/gpvch_black"
+                        android:textSize="17sp" />
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layoutDirection="ltr"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
                 android:id="@+id/homeFragment_EducationalDeputy"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -66,9 +121,9 @@
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/homeFragment_StudentDeputy"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -109,7 +164,7 @@
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
@@ -120,7 +175,7 @@
             android:layoutDirection="ltr"
             android:orientation="horizontal">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/homeFragment_ResearchDeputy"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -162,9 +217,9 @@
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/homeFragment_CulturalDeputy"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -205,7 +260,7 @@
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
@@ -216,7 +271,7 @@
             android:layoutDirection="ltr"
             android:orientation="horizontal">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/homeFragment_News"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -257,9 +312,9 @@
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/homeFragment_Television"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -301,7 +356,7 @@
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
@@ -312,7 +367,7 @@
             android:layoutDirection="ltr"
             android:orientation="horizontal">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/homeFragment_OfficeDeputy"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -354,9 +409,9 @@
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/homeFragment_PhoneBook"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -397,7 +452,7 @@
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
@@ -408,7 +463,7 @@
             android:layoutDirection="ltr"
             android:orientation="horizontal">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -449,9 +504,9 @@
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
@@ -491,7 +546,7 @@
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 

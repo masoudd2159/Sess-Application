@@ -2,19 +2,18 @@ package ir.ac.sku.www.sessapplication.activities;
 
 import android.app.ProgressDialog;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.adapters.JournalTotalAdapter;
-import ir.ac.sku.www.sessapplication.adapters.JournalsAdapter;
 import ir.ac.sku.www.sessapplication.models.TotalJournalsModel;
 import ir.ac.sku.www.sessapplication.utils.Handler;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;

@@ -6,15 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
@@ -24,11 +17,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
+
 import com.bumptech.glide.Glide;
-import com.roughike.bottombar.BottomBar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import ir.ac.sku.www.sessapplication.API.MyConfig;
 import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.API.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
@@ -36,13 +31,11 @@ import ir.ac.sku.www.sessapplication.fragment.FoodReservationFragment;
 import ir.ac.sku.www.sessapplication.fragment.HomeFragment;
 import ir.ac.sku.www.sessapplication.fragment.MessagesFragment;
 import ir.ac.sku.www.sessapplication.fragment.ProcessesFragment;
-import ir.ac.sku.www.sessapplication.models.LoginInformation;
 import ir.ac.sku.www.sessapplication.models.SendInformation;
 import ir.ac.sku.www.sessapplication.utils.CustomToastExit;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.InstantMessage;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
-import ir.ac.sku.www.sessapplication.utils.MyApplication;
 
 public class BottomBarActivity extends MyActivity {
 

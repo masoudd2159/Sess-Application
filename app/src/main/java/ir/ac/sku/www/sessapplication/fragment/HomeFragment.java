@@ -2,13 +2,14 @@ package ir.ac.sku.www.sessapplication.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.activities.CulturalDeputyActivity;
@@ -17,11 +18,13 @@ import ir.ac.sku.www.sessapplication.activities.PhoneBookActivity;
 import ir.ac.sku.www.sessapplication.activities.fragmentHome.EducationalDeputyActivity;
 import ir.ac.sku.www.sessapplication.activities.fragmentHome.OfficeDeputyActivity;
 import ir.ac.sku.www.sessapplication.activities.fragmentHome.ResearchDeputyActivity;
+import ir.ac.sku.www.sessapplication.activities.fragmentHome.SESSActivity;
 import ir.ac.sku.www.sessapplication.activities.fragmentHome.StudentDeputyActivity;
 import ir.ac.sku.www.sessapplication.activities.fragmentHome.TelevisionActivity;
 
 public class HomeFragment extends Fragment {
 
+    private CardView sess;
     private CardView educational;
     private CardView student;
     private CardView research;
@@ -41,6 +44,13 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         this.rootView = view;
         init();
+
+        sess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(rootView.getContext(), SESSActivity.class));
+            }
+        });
 
         cultural.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +111,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void init() {
+        sess = rootView.findViewById(R.id.homeFragment_SESS);
         cultural = rootView.findViewById(R.id.homeFragment_CulturalDeputy);
         news = rootView.findViewById(R.id.homeFragment_News);
         phoneBook = rootView.findViewById(R.id.homeFragment_PhoneBook);

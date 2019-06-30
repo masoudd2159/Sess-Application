@@ -9,7 +9,7 @@
     android:orientation="vertical"
     tools:context=".activities.ShowPDFActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/showPDF_AppBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -20,7 +20,7 @@
         app:expandedTitleMarginStart="24dp"
         app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/showPDF_ToolBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -41,9 +41,9 @@
                 android:textColor="@android:color/white"
                 android:textSize="24sp" />
 
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
 
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
         android:id="@+id/showPDF_RootLinearLayout"

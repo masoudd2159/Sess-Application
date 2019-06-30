@@ -3,12 +3,9 @@ package ir.ac.sku.www.sessapplication.adapters;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -21,6 +18,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -28,22 +28,17 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import ir.ac.sku.www.sessapplication.API.MyConfig;
 import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.API.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.activities.LoginActivity;
-import ir.ac.sku.www.sessapplication.models.SFXIncreaseCreditDetail;
 import ir.ac.sku.www.sessapplication.models.SFXMealDetail;
 import ir.ac.sku.www.sessapplication.models.SFXWeeklyList;
-import ir.ac.sku.www.sessapplication.utils.CustomToastFailure;
 import ir.ac.sku.www.sessapplication.utils.CustomToastSuccess;
 import ir.ac.sku.www.sessapplication.utils.Handler;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
