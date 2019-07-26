@@ -44,6 +44,7 @@ public class JournalModel {
         private String file;
         private String picture;
         private String description;
+        private Integer type;
         private Object createdAt;
         private Object updatedAt;
 
@@ -101,6 +102,14 @@ public class JournalModel {
 
         public void setDescription(String description) {
             this.description = description;
+        }
+
+        public Integer getType() {
+            return type;
+        }
+
+        public void setType(Integer type) {
+            this.type = type;
         }
 
         public Object getCreatedAt() {

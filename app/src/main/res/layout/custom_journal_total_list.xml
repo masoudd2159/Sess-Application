@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/journalTotalList_CardView"
@@ -25,24 +26,12 @@
             android:gravity="center"
             android:layoutDirection="ltr">
 
-            <pl.droidsonroids.gif.GifImageView
-                android:id="@+id/journalTotalList_GifImageView"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:layoutDirection="ltr"
-                android:src="@drawable/gif_loading_2"
-                android:visibility="visible" />
-
             <ImageView
                 android:id="@+id/journalTotalList_JournalImageView"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layoutDirection="ltr"
-                android:scaleType="fitXY"
-                android:visibility="invisible" />
+                android:scaleType="fitXY"/>
 
         </RelativeLayout>
 

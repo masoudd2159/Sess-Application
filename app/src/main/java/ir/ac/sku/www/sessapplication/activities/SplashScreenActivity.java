@@ -2,7 +2,6 @@ package ir.ac.sku.www.sessapplication.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,6 +19,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
+
 import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.API.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
@@ -32,9 +33,7 @@ import ir.ac.sku.www.sessapplication.utils.MyActivity;
 public class SplashScreenActivity extends MyActivity {
 
     //static method
-    private static final int SPLASH_TIME = 700;                                                     //millisecond
-    public static final String DOWNLOAD_DIRECTORY = "SeesSkuDir";
-    private static final int PERMISSION_REQUEST_CODE = 1111;
+    private static final int SPLASH_TIME = 1700;                                                     //millisecond
 
     //Splash Screen Views
     private Button tryAgain;
@@ -43,9 +42,8 @@ public class SplashScreenActivity extends MyActivity {
     private Dialog dialog;
     private Button update;
     private TextView showMessage;
-    private ProgressDialog mProgressDialog;
     private AppInfo appInfo;
-    private ProgressDialog progressDialog;
+    private LottieAnimationView animationView;
 
 
     //Utils
@@ -61,13 +59,12 @@ public class SplashScreenActivity extends MyActivity {
         //Log Splash Screen
         Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "___Splash Screen___");
 
-        preferencesName = getSharedPreferences(PreferenceName.NAME_PREFERENCE_NAME, MODE_PRIVATE);
+        animationView = findViewById(R.id.splashScreen_AnimationView);
+        animationView.setAnimation("loading_6.json");
+        animationView.playAnimation();
+        animationView.loop(true);
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progressDialog.setProgress(0);
-        progressDialog.setMax(100);
-        progressDialog.setTitle("Downloading");
+        preferencesName = getSharedPreferences(PreferenceName.NAME_PREFERENCE_NAME, MODE_PRIVATE);
 
         //find View
         tryAgain = findViewById(R.id.buttonTryAgain_SplashScreen);
@@ -80,7 +77,6 @@ public class SplashScreenActivity extends MyActivity {
 
         //my Functions
         changeStatusBarColor();
-        //checkPermission();
         appInfo = new AppInfo();
         getDataFromServer();
     }
@@ -263,89 +259,4 @@ public class SplashScreenActivity extends MyActivity {
         }
     }
 
-    /*    private void checkPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
-            }
-        }
-    }*/
-
-/*    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == PERMISSION_REQUEST_CODE) {
-            if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-            return;
-        }
-    }*/
-
-    /*private class DownloadTask extends AsyncTask<String, String, String> {
-
-        @Override
-        protected void onPreExecute() {
-            if (!progressDialog.isShowing()) {
-                progressDialog.show();
-            }
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            // param [0] : URL
-            try {
-                URL url = new URL(params[0]);
-                URLConnection connection = url.openConnection();
-                connection.connect();
-                int lengthOfFile = connection.getContentLength();
-                BufferedInputStream inputStream = new BufferedInputStream(url.openStream());
-                String fileName = params[0].substring(params[0].lastIndexOf('/') + 1);
-                File outFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + DOWNLOAD_DIRECTORY, fileName);
-                if (!outFile.getParentFile().exists()) {
-                    outFile.getParentFile().mkdirs();
-                }
-
-                if (outFile.exists()) {
-                    String ext = fileName.contains(".") ? fileName.substring(fileName.lastIndexOf('.')) : "";
-                    String name = fileName.contains(".") ? fileName.substring(0, fileName.lastIndexOf('.')) : fileName;
-                    outFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + DOWNLOAD_DIRECTORY, name + "_2" + ext);
-                }
-                OutputStream output = new FileOutputStream(outFile);
-
-                byte[] buffer = new byte[1024];
-                int count = 0;
-                int downloaded = 0;
-                while ((count = inputStream.read(buffer)) != -1) {
-                    downloaded += count;
-                    publishProgress(String.valueOf(downloaded * 100 / lengthOfFile));
-                    output.write(buffer, 0, count);
-                }
-                output.flush();
-                return outFile.getAbsolutePath();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(String... values) {
-            progressDialog.setProgress(Integer.valueOf(values[0]));
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-
-            progressDialog.dismiss();
-
-            if (result == null) {
-                Toast.makeText(SplashScreenActivity.this, "Download Failed", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(SplashScreenActivity.this, result, Toast.LENGTH_SHORT).show();
-            }
-            super.onPostExecute(result);
-        }
-    }*/
 }

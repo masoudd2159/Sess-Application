@@ -37,14 +37,26 @@
         android:layoutDirection="ltr"
         android:orientation="vertical">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/aboutActivity_ImageProfile"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
-            android:layout_gravity="center"
-            android:layoutDirection="ltr"
-            app:civ_border_color="@android:color/white"
-            app:civ_border_width="1dp" />
+        <androidx.cardview.widget.CardView
+            android:layout_width="126dp"
+            android:layout_height="126dp"
+            android:innerRadius="0dp"
+            android:shape="ring"
+            android:thicknessRatio="1.9"
+            app:cardCornerRadius="63dp">
+
+            <ImageView
+                android:id="@+id/aboutActivity_ImageProfile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layoutDirection="ltr"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_sku_blue" />
+
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/aboutActivity_Username"
@@ -153,16 +165,16 @@
                 android:text="کلیه حقوق اپلیکیشن متعلق به شرکت فاونت می باشد."
                 android:textColor="@color/sky" />
 
-           <!-- <TextView
-                android:id="@+id/aboutActivity_TermsOfUse"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:layoutDirection="ltr"
-                android:text="شرایط استفاده"
-                android:textColor="@color/sky" />-->
+            <!-- <TextView
+                 android:id="@+id/aboutActivity_TermsOfUse"
+                 android:layout_width="0dp"
+                 android:layout_height="match_parent"
+                 android:layout_gravity="center"
+                 android:layout_weight="1"
+                 android:gravity="center"
+                 android:layoutDirection="ltr"
+                 android:text="شرایط استفاده"
+                 android:textColor="@color/sky" />-->
 
             <!--<TextView
                 android:id="@+id/aboutActivity_Privacy"

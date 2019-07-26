@@ -1,190 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sendMessageActivity_CoordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F1F1F1"
+    android:fillViewport="true"
     android:layoutDirection="ltr"
     tools:context=".activities.SendMessageActivity"
     tools:ignore="MissingPrefix">
 
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/sendMessageActivity_AppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:layoutDirection="ltr"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:contentScrim="?attr/colorPrimary"
+        app:expandedTitleMarginStart="24dp"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/sendMessageActivity_ToolBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layoutDirection="ltr"
+            app:layout_collapseMode="pin"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:subtitleTextColor="@android:color/white"
+            app:titleTextColor="@android:color/white">
+
+            <TextView
+                android:id="@+id/sendMessageActivity_ToolbarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|start"
+                android:layoutDirection="ltr"
+                android:text="ارسال پیام جدید"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layoutDirection="ltr"
-        android:orientation="vertical"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:paddingBottom="20dp">
-
-        <TextView
-            android:id="@+id/sendMessageActivity_TextViewDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:baselineAligned="false"
-            android:layoutDirection="ltr"
-            android:textSize="13sp" />
-
-        <TextView
-            android:id="@+id/sendMessageActivity_TextViewName"
-            fontPath="fonts/IRANSans(FaNum)_Medium.ttf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:gravity="center"
-            android:layoutDirection="ltr"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="8dp"
-            android:background="#d1d1d1"
-            android:layoutDirection="ltr" />
-
-
-        <TextView
-            android:id="@+id/sendMessageActivity_TextViewPosition"
-            fontPath="fonts/IRANSans(FaNum)_Medium.ttf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:gravity="center"
-            android:layoutDirection="ltr"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="15dp"
-            android:background="#d1d1d1"
-            android:layoutDirection="ltr" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layoutDirection="ltr"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="110dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:layoutDirection="ltr">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/sendMessageActivity_RecyclerViewTargets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layoutDirection="ltr" />
 
-                <TextView
-                    android:id="@+id/sendMessageActivity_TextViewMessageType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="#BEBEBE"
+                android:layoutDirection="ltr" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layoutDirection="ltr"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:layoutDirection="ltr"
-                    android:text="نوع پیام : "
-                    android:textSize="16sp" />
+                    android:orientation="vertical"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp">
 
-                <NumberPicker
-                    android:id="@+id/sendMessageActivity_PickerMessageType"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_toStartOf="@id/sendMessageActivity_TextViewMessageType"
-                    android:descendantFocusability="blocksDescendants"
-                    android:layoutDirection="ltr" />
+                    <TextView
+                        android:id="@+id/sendMessageActivity_TextViewMessageType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:padding="5dp"
+                        android:text="الویت پیام"
+                        android:textColor="#313131"
+                        android:textSize="15sp" />
 
-            </RelativeLayout>
+                    <NumberPicker
+                        android:id="@+id/sendMessageActivity_PickerMessageType"
+                        android:layout_width="match_parent"
+                        android:layout_height="110dp"
+                        android:layout_gravity="center"
+                        android:descendantFocusability="blocksDescendants"
+                        android:gravity="center"
+                        android:layoutDirection="ltr" />
 
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="110dp"
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layoutDirection="ltr"
+                    android:orientation="vertical"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp">
+
+                    <TextView
+                        android:id="@+id/sendMessageActivity_TextViewSendType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:padding="5dp"
+                        android:text="نوع پیام"
+                        android:textColor="#313131"
+                        android:textSize="15sp" />
+
+                    <NumberPicker
+                        android:id="@+id/sendMessageActivity_PickerSendType"
+                        android:layout_width="match_parent"
+                        android:layout_height="110dp"
+                        android:layout_gravity="center"
+                        android:descendantFocusability="blocksDescendants"
+                        android:gravity="center"
+                        android:layoutDirection="ltr" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#BEBEBE"
+                android:layoutDirection="ltr" />
+
+            <TextView
+                android:id="@+id/sendMessageActivity_TextViewDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:baselineAligned="false"
+                android:layoutDirection="ltr"
+                android:textSize="13sp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:layoutDirection="ltr">
+                android:layout_margin="8dp"
+                android:background="@drawable/bg_white_grey"
+                android:gravity="center_vertical"
+                android:padding="3dp">
 
-                <TextView
-                    android:id="@+id/sendMessageActivity_TextViewSendType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:gravity="center"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/sendMessageActivity_EditTextTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@android:color/transparent"
+                    android:gravity="center_vertical"
+                    android:hint="عنوان"
+                    android:inputType="text"
                     android:layoutDirection="ltr"
-                    android:text="نحوه ارسال : "
+                    android:padding="8dp"
                     android:textSize="16sp" />
 
-                <NumberPicker
-                    android:id="@+id/sendMessageActivity_PickerSendType"
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="8dp"
+                android:background="@drawable/bg_white_grey"
+                android:gravity="center_vertical"
+                android:padding="3dp">
+
+                <EditText
+                    android:id="@+id/sendMessageActivity_EditText_Text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_toStartOf="@id/sendMessageActivity_TextViewSendType"
-                    android:descendantFocusability="blocksDescendants"
-                    android:layoutDirection="ltr" />
+                    android:layout_gravity="top"
+                    android:background="@android:color/transparent"
+                    android:gravity="top"
+                    android:hint="متن پیام"
+                    android:inputType="textMultiLine"
+                    android:layoutDirection="ltr"
+                    android:padding="8dp"
+                    android:textSize="15sp" />
 
-            </RelativeLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="15dp"
-            android:background="#d1d1d1"
-            android:layoutDirection="ltr" />
+    </androidx.core.widget.NestedScrollView>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:gravity="center"
-            android:layoutDirection="ltr">
-
-            <TextView
-                android:id="@+id/sendMessageActivity_TextViewTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layoutDirection="ltr"
-                android:text="عنوان : "
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/sendMessageActivity_EditTextTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:layout_toStartOf="@id/sendMessageActivity_TextViewTitle"
-                android:background="@android:color/transparent"
-                android:inputType="textPersonName"
-                android:layoutDirection="ltr"
-                android:textSize="16sp" />
-
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="15dp"
-            android:background="#d1d1d1"
-            android:layoutDirection="ltr" />
-
-        <EditText
-            android:id="@+id/sendMessageActivity_EditText_Text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="5dp"
-            android:background="@android:color/transparent"
-            android:gravity="start"
-            android:inputType="textMultiLine"
-            android:layoutDirection="ltr"
-            android:padding="5dp"
-            android:textSize="16sp" />
-
-    </LinearLayout>
-
-</ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

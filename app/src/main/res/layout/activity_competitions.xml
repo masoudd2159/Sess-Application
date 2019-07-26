@@ -26,7 +26,7 @@
             app:expandedTitleMarginStart="24dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
-            <android.support.v7.widget.Toolbar
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/CompetitionsActivity_ToolBar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
@@ -47,7 +47,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="24sp" />
 
-            </android.support.v7.widget.Toolbar>
+            </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
 

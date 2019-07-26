@@ -18,12 +18,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.models.NewsModel;
-import pl.droidsonroids.gif.GifImageView;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> {
 
@@ -57,7 +57,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         private ImageView journalImage;
         private TextView title;
         private TextView version;
-        private GifImageView gifImageView;
         private Dialog dialog;
 
         MyViewHolder(@NonNull View itemView) {
@@ -66,7 +65,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
             journalImage = itemView.findViewById(R.id.journalList_JournalImageView);
             title = itemView.findViewById(R.id.journalList_Title);
             version = itemView.findViewById(R.id.journalList_Version);
-            gifImageView = itemView.findViewById(R.id.journalList_GifImageView);
 
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
@@ -77,8 +75,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
             version.setText(news.getText());
 
             Glide.with(activity).load(news.getImage()).diskCacheStrategy(DiskCacheStrategy.ALL).into(journalImage);
-            gifImageView.setVisibility(View.INVISIBLE);
-            journalImage.setVisibility(View.VISIBLE);
         }
 
         @Override

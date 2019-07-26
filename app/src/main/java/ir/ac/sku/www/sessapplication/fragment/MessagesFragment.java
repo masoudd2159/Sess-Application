@@ -34,6 +34,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -48,7 +49,6 @@ import ir.ac.sku.www.sessapplication.models.GetInfoForSend;
 import ir.ac.sku.www.sessapplication.models.MSGMessagesParcelable;
 import ir.ac.sku.www.sessapplication.utils.Handler;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
-import pl.droidsonroids.gif.GifImageView;
 
 public class MessagesFragment extends Fragment {
 
@@ -67,7 +67,7 @@ public class MessagesFragment extends Fragment {
 
     private Dialog dialog;
 
-    private GifImageView gifImageViewEnter;
+    private LottieAnimationView gifImageViewEnter;
     private EditText studentNumber;
     private ImageView close;
     private Button enter;
@@ -215,6 +215,9 @@ public class MessagesFragment extends Fragment {
                     Log.i(MyLog.MESSAGE, "OnLine");
                     enter.setVisibility(View.INVISIBLE);
                     gifImageViewEnter.setVisibility(View.VISIBLE);
+                    gifImageViewEnter.setAnimation("loading_1.json");
+                    gifImageViewEnter.playAnimation();
+                    gifImageViewEnter.loop(true);
 
                     infoForSend(id.getText().toString().trim(), studentNumber.getText().toString().trim());
                 }

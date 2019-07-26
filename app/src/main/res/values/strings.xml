@@ -44,6 +44,12 @@
     <string name="messages">پیام ها</string>
     <string name="enterSecurityCode">لطفا کد امنیتی را وارد کنید</string>
 
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="restart">Restart</string>
+    <string name="guess">www.sku.ac.ir</string>
+    <string name="notification_text">معاونت فرهنگی دانشگاه شهرکرد</string>
+
     <string name="pdf_show_local_progress_title">pdf_show_local_progress_title</string>
     <string name="pdf_show_local_progress_content">pdf_show_local_progress_content</string>
     <string name="pdf_show_online_dialog_title">pdf_show_online_dialog_title</string>
@@ -51,10 +57,10 @@
     <string name="pdf_show_online_dialog_button_no">pdf_show_online_dialog_button_no</string>
     <string name="pdf_show_online_dialog_button_yes">pdf_show_online_dialog_button_yes</string>
 
-    <string name="messagePagerTitle_1">فوری</string>
-    <string name="messagePagerTitle_2">ناخوانده</string>
-    <string name="messagePagerTitle_3">خوانده</string>
-    <string name="messagePagerTitle_4">همه</string>
+    <string name="messagePagerTitle_1">همه</string>
+    <string name="messagePagerTitle_2">فوری</string>
+    <string name="messagePagerTitle_3">ناخوانده</string>
+    <string name="messagePagerTitle_4">خوانده</string>
     <string name="messagePagerTitle_5">ارسال شده</string>
 
     <string-array name="messagePagerTitle">
@@ -65,17 +71,17 @@
         <item>@string/messagePagerTitle_5</item>
     </string-array>
 
+    <string name="all">all</string>
     <string name="immediate">immediate</string>
     <string name="unread">unread</string>
     <string name="read">read</string>
-    <string name="all">all</string>
     <string name="send">send</string>
 
     <string-array name="typeMessages">
+        <item>@string/all</item>
         <item>@string/immediate</item>
         <item>@string/unread</item>
         <item>@string/read</item>
-        <item>@string/all</item>
         <item>@string/send</item>
     </string-array>
 

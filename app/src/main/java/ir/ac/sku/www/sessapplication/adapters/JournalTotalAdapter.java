@@ -18,12 +18,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.activities.JournalsActivity;
 import ir.ac.sku.www.sessapplication.models.TotalJournalsModel;
-import pl.droidsonroids.gif.GifImageView;
 
 public class JournalTotalAdapter extends RecyclerView.Adapter<JournalTotalAdapter.MyViewHolder> {
 
@@ -55,7 +56,6 @@ public class JournalTotalAdapter extends RecyclerView.Adapter<JournalTotalAdapte
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         private ImageView journalImage;
         private TextView title;
-        private GifImageView gifImageView;
         private NumberPicker years;
         private Dialog dialog;
 
@@ -64,7 +64,6 @@ public class JournalTotalAdapter extends RecyclerView.Adapter<JournalTotalAdapte
 
             journalImage = itemView.findViewById(R.id.journalTotalList_JournalImageView);
             title = itemView.findViewById(R.id.journalTotalList_Title);
-            gifImageView = itemView.findViewById(R.id.journalTotalList_GifImageView);
             years = itemView.findViewById(R.id.journalTotalList_PickerYears);
 
             itemView.setOnClickListener(this);
@@ -85,9 +84,6 @@ public class JournalTotalAdapter extends RecyclerView.Adapter<JournalTotalAdapte
             title.setText(journalsTotalModel.getTitle());
 
             Glide.with(activity).load(journalsTotalModel.getPicture()).diskCacheStrategy(DiskCacheStrategy.ALL).into(journalImage);
-
-            gifImageView.setVisibility(View.INVISIBLE);
-            journalImage.setVisibility(View.VISIBLE);
         }
 
         @Override

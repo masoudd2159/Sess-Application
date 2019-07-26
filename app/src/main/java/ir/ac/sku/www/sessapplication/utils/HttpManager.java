@@ -14,6 +14,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
@@ -96,7 +98,12 @@ public class HttpManager {
         dialog.setContentView(R.layout.custom_successful);
 
         Button close = dialog.findViewById(R.id.customSuccessful_ButtonClose);
-        TextView message = dialog.findViewById(R.id.customSuccessful_TextViewText);
+        TextView message = dialog.findViewById(R.id.customSuccessful_TextViewResult);
+        LottieAnimationView animationView = dialog.findViewById(R.id.customSuccessful_AnimationViewSuccessful);
+
+        animationView.setAnimation("success.json");
+        animationView.playAnimation();
+        animationView.loop(false);
 
         message.setText(successfulMessage);
 

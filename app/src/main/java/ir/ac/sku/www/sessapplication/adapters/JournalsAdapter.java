@@ -17,13 +17,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import ir.ac.sku.www.sessapplication.R;
+import ir.ac.sku.www.sessapplication.activities.MusicActivity;
 import ir.ac.sku.www.sessapplication.activities.ShowPDFActivity;
+import ir.ac.sku.www.sessapplication.activities.VideoActivity;
 import ir.ac.sku.www.sessapplication.models.JournalModel;
-import pl.droidsonroids.gif.GifImageView;
 
 public class JournalsAdapter extends RecyclerView.Adapter<JournalsAdapter.MyViewHolder> {
 
@@ -57,18 +59,18 @@ public class JournalsAdapter extends RecyclerView.Adapter<JournalsAdapter.MyView
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         private ImageView journalImage;
+        private ImageView typeImage;
         private TextView title;
         private TextView version;
-        private GifImageView gifImageView;
         private Dialog dialog;
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             journalImage = itemView.findViewById(R.id.journalList_JournalImageView);
+            typeImage = itemView.findViewById(R.id.journalList_JournalImageViewType);
             title = itemView.findViewById(R.id.journalList_Title);
             version = itemView.findViewById(R.id.journalList_Version);
-            gifImageView = itemView.findViewById(R.id.journalList_GifImageView);
 
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
@@ -78,18 +80,44 @@ public class JournalsAdapter extends RecyclerView.Adapter<JournalsAdapter.MyView
             title.setText(journalsModel.getDescription());
             version.setText("شمارگان : " + journalsModel.getVersion());
 
-            Glide.with(activity).load(journalsModel.getPicture()).diskCacheStrategy(DiskCacheStrategy.ALL).into(journalImage);
+            switch (journalsModel.getType()) {
+                case 1:
+                    typeImage.setImageResource(R.drawable.ic_pdf);
+                    break;
+                case 2:
+                    typeImage.setImageResource(R.drawable.ic_mp3);
+                    break;
+                case 3:
+                    typeImage.setImageResource(R.drawable.ic_mp4);
+                    break;
+            }
 
-            gifImageView.setVisibility(View.INVISIBLE);
-            journalImage.setVisibility(View.VISIBLE);
+            Glide.with(activity).load(journalsModel.getPicture()).diskCacheStrategy(DiskCacheStrategy.ALL).into(journalImage);
         }
 
         @Override
         public void onClick(View v) {
-            final Intent intent = new Intent(activity, ShowPDFActivity.class);
-            intent.putExtra("pdf", journals.getResult().get(getLayoutPosition()).getFile());
-            intent.putExtra("PDFName", titleName);
-            activity.startActivity(intent);
+
+            switch (journals.getResult().get(getLayoutPosition()).getType()) {
+                case 1:
+                    final Intent intentPDF = new Intent(activity, ShowPDFActivity.class);
+                    intentPDF.putExtra("pdf", journals.getResult().get(getLayoutPosition()).getFile());
+                    intentPDF.putExtra("PDFName", titleName);
+                    activity.startActivity(intentPDF);
+                    break;
+                case 2:
+                    final Intent intentMP3 = new Intent(activity, MusicActivity.class);
+                    intentMP3.putExtra("mp3", journals.getResult().get(getLayoutPosition()).getFile());
+                    intentMP3.putExtra("mp3Name", journals.getResult().get(getLayoutPosition()).getDescription());
+                    activity.startActivity(intentMP3);
+                    break;
+                case 3:
+                    final Intent intentMP4 = new Intent(activity, VideoActivity.class);
+                    intentMP4.putExtra("mp4", journals.getResult().get(getLayoutPosition()).getFile());
+                    intentMP4.putExtra("mp4Name", journals.getResult().get(getLayoutPosition()).getDescription());
+                    activity.startActivity(intentMP4);
+                    break;
+            }
         }
 
         @Override

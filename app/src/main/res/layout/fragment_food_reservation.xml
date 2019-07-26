@@ -1,648 +1,705 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/foodReservation_SwipeRefresh"
+<android.gesture.GestureOverlayView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/foodReservation_CoordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ibg_food"
+    android:gestureColor="@android:color/transparent"
     android:layoutDirection="ltr"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:uncertainGestureColor="@android:color/transparent">
 
-    <RelativeLayout
-        android:id="@+id/foodReservation_MainContent"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/foodReservation_SwipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layoutDirection="ltr">
+        android:layoutDirection="ltr"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/foodReservation_StatusBar_Top"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="5dp"
-            android:layoutDirection="ltr"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/foodReservation_IncreaseCreditButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/bg_sky_solid_bl8tl"
-                android:drawableEnd="@drawable/ic_wallet"
-                android:drawableRight="@drawable/ic_wallet"
-                android:drawablePadding="10dp"
-                android:gravity="center|right"
-                android:layoutDirection="ltr"
-                android:padding="10dp"
-                android:text="@string/increase_credit"
-                android:textColor="@android:color/white"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/foodReservation_IncreaseCreditTextView"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:background="@drawable/bg_blue_hollow_tr8br"
-                android:gravity="center|right"
-                android:layoutDirection="ltr"
-                android:padding="12dp"
-                android:textColor="@color/sky"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/foodReservation_WeekMealLayout"
+        <RelativeLayout
+            android:id="@+id/foodReservation_MainContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/foodReservation_StatusBarBottom"
-            android:layout_below="@id/foodReservation_StatusBar_Top"
-            android:layoutDirection="ltr"
-            android:orientation="vertical"
-            android:padding="5dp">
+            android:layoutDirection="ltr">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="200dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
                 android:layoutDirection="ltr"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/foodReservation_ProgressBarWaiting"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_bluegrey_solid"
-                    android:gravity="center"
+                    android:layout_weight="3"
                     android:layoutDirection="ltr"
-                    android:text="@string/dinner"
-                    android:textColor="@android:color/white" />
+                    android:visibility="visible"
+                    app:lottie_autoPlay="true"
+                    app:lottie_fileName="Cooking.json"
+                    app:lottie_loop="true" />
 
-                <TextView
+                <Space
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_bluegrey_solid"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:text="@string/lunch"
-                    android:textColor="@android:color/white" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_bluegrey_solid"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:text="@string/breakfast"
-                    android:textColor="@android:color/white" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_bluegrey_solid"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:text="@string/condition"
-                    android:textColor="@android:color/white" />
+                    android:layout_weight="1" />
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/foodReservation_StatusBar_Top"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
                 android:layoutDirection="ltr"
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/foodReservation_SaturdayDinner"
+                    android:id="@+id/foodReservation_IncreaseCreditButton"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
+                    android:background="@drawable/bg_sky_solid_bl8tl"
+                    android:drawableEnd="@drawable/ic_wallet"
+                    android:drawablePadding="10dp"
+                    android:gravity="center|right"
                     android:layoutDirection="ltr"
-                    android:padding="3dp"
-                    android:textSize="11sp" />
-
-                <Button
-                    android:id="@+id/foodReservation_SaturdayLunch"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:padding="3dp"
-                    android:textSize="11sp" />
-
-                <Button
-                    android:id="@+id/foodReservation_SaturdayBreakfast"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:padding="3dp"
-                    android:textSize="11sp" />
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:text="@string/increase_credit"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/foodReservation_IncreaseCreditTextView"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:background="@drawable/bg_bluegrey_solid"
-                    android:gravity="center"
+                    android:background="@drawable/bg_blue_hollow_tr8br"
+                    android:gravity="center|right"
                     android:layoutDirection="ltr"
-                    android:text="@string/saturday"
-                    android:textColor="@android:color/white" />
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:textColor="@color/sky"
+                    android:textSize="16sp" />
+
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/foodReservation_WeekMealLayout"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_above="@id/foodReservation_StatusBarBottom"
+                android:layout_below="@id/foodReservation_StatusBar_Top"
                 android:layoutDirection="ltr"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:padding="5dp">
 
-                <Button
-                    android:id="@+id/foodReservation_SundayDinner"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
                     android:layoutDirection="ltr"
-                    android:padding="3dp"
-                    android:textSize="11sp" />
+                    android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/foodReservation_SundayLunch"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:padding="3dp"
-                    android:textSize="11sp" />
-
-                <Button
-                    android:id="@+id/foodReservation_SundayBreakfast"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:padding="3dp"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_bluegrey_solid"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:text="@string/sunday"
-                    android:textColor="@android:color/white" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layoutDirection="ltr"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/foodReservation_MondayDinner"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:padding="3dp"
-                    android:textSize="11sp" />
-
-                <Button
-                    android:id="@+id/foodReservation_MondayLunch"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:padding="3dp"
-                    android:textSize="11sp" />
-
-                <Button
-                    android:id="@+id/foodReservation_MondayBreakfast"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:padding="3dp"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_bluegrey_solid"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:text="@string/monday"
-                    android:textColor="@android:color/white" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layoutDirection="ltr"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/foodReservation_TuesdayDinner"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:padding="3dp"
-                    android:textSize="11sp" />
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layoutDirection="ltr">
-
-                    <ProgressBar
-                        android:id="@+id/foodReservation_ProgressBarWaiting"
-                        style="?android:attr/progressBarStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
-                        android:layout_gravity="center"
-                        android:layoutDirection="ltr"
-                        android:visibility="visible" />
-
-                    <Button
-                        android:id="@+id/foodReservation_TuesdayLunch"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_bluegrey_solid"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:text="@string/dinner"
+                        android:textColor="@android:color/white" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_bluegrey_solid"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:text="@string/lunch"
+                        android:textColor="@android:color/white" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_bluegrey_solid"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:text="@string/breakfast"
+                        android:textColor="@android:color/white" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_bluegrey_solid"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:text="@string/condition"
+                        android:textColor="@android:color/white" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layoutDirection="ltr"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/foodReservation_SaturdayDinner"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
                         android:background="@android:color/transparent"
                         android:gravity="center"
                         android:layoutDirection="ltr"
                         android:padding="3dp"
                         android:textSize="11sp" />
+
+                    <Button
+                        android:id="@+id/foodReservation_SaturdayLunch"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:padding="3dp"
+                        android:textSize="11sp" />
+
+                    <Button
+                        android:id="@+id/foodReservation_SaturdayBreakfast"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:padding="3dp"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_bluegrey_solid"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:text="@string/saturday"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layoutDirection="ltr"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/foodReservation_SundayDinner"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:padding="3dp"
+                        android:textSize="11sp" />
+
+                    <Button
+                        android:id="@+id/foodReservation_SundayLunch"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:padding="3dp"
+                        android:textSize="11sp" />
+
+                    <Button
+                        android:id="@+id/foodReservation_SundayBreakfast"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:padding="3dp"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_bluegrey_solid"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:text="@string/sunday"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layoutDirection="ltr"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/foodReservation_MondayDinner"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:padding="3dp"
+                        android:textSize="11sp" />
+
+                    <Button
+                        android:id="@+id/foodReservation_MondayLunch"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:padding="3dp"
+                        android:textSize="11sp" />
+
+                    <Button
+                        android:id="@+id/foodReservation_MondayBreakfast"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:padding="3dp"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_bluegrey_solid"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:text="@string/monday"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layoutDirection="ltr"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/foodReservation_TuesdayDinner"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:padding="3dp"
+                        android:textSize="11sp" />
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layoutDirection="ltr">
+
+                        <!--<com.airbnb.lottie.LottieAnimationView
+                            android:id="@+id/foodReservation_ProgressBarWaiting"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"
+                            android:layout_gravity="center"
+                            android:layoutDirection="ltr"
+                            android:visibility="visible"
+                            app:lottie_autoPlay="true"
+                            app:lottie_fileName="Cooking.json"
+                            app:lottie_loop="true" />-->
+
+                        <!--<ProgressBar
+                            android:id="@+id/foodReservation_ProgressBarWaiting"
+                            style="?android:attr/progressBarStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"
+                            android:layout_gravity="center"
+                            android:layoutDirection="ltr"
+                            android:visibility="visible" />-->
+
+                        <Button
+                            android:id="@+id/foodReservation_TuesdayLunch"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_margin="2dp"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:layoutDirection="ltr"
+                            android:padding="3dp"
+                            android:textSize="11sp" />
+                    </RelativeLayout>
+
+
+                    <Button
+                        android:id="@+id/foodReservation_TuesdayBreakfast"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:padding="3dp"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_bluegrey_solid"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:text="@string/tuesday"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layoutDirection="ltr"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/foodReservation_WednesdayDinner"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:padding="3dp"
+                        android:textSize="11sp" />
+
+                    <Button
+                        android:id="@+id/foodReservation_WednesdayLunch"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:padding="3dp"
+                        android:textSize="11sp" />
+
+                    <Button
+                        android:id="@+id/foodReservation_WednesdayBreakfast"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:padding="3dp"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_bluegrey_solid"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:text="@string/wednesday"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layoutDirection="ltr"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/foodReservation_ThursdayDinner"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:padding="3dp"
+                        android:textSize="11sp" />
+
+                    <Button
+                        android:id="@+id/foodReservation_ThursdayLunch"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:padding="3dp"
+                        android:textSize="11sp" />
+
+                    <Button
+                        android:id="@+id/foodReservation_ThursdayBreakfast"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:padding="3dp"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_bluegrey_solid"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:text="@string/thursday"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layoutDirection="ltr"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/foodReservation_FridayDinner"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:padding="3dp"
+                        android:textSize="11sp" />
+
+                    <Button
+                        android:id="@+id/foodReservation_FridayLunch"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:padding="3dp"
+                        android:textSize="11sp" />
+
+                    <Button
+                        android:id="@+id/foodReservation_FridayBreakfast"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:padding="3dp"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_bluegrey_solid"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:text="@string/friday"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/foodReservation_StatusBarBottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@color/sky"
+                android:layoutDirection="ltr"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/foodReservation_PreviousWeek"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:background="@android:color/transparent"
+                    android:drawableStart="@drawable/ic_back"
+                    android:drawableLeft="@drawable/ic_back"
+                    android:gravity="center|left"
+                    android:layoutDirection="ltr"
+                    android:paddingRight="3dp"
+                    android:text="@string/back_week"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginBottom="7dp"
+                    android:background="@android:color/white"
+                    android:layoutDirection="ltr" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="4"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:layoutDirection="ltr">
+
+                    <TextView
+                        android:id="@+id/foodReservation_PeriodTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:textColor="@android:color/white"
+                        android:textSize="15sp"
+                        android:visibility="invisible" />
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/foodReservation_GifImageViewPeriod"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:layout_gravity="center"
+                        android:background="@color/transparent"
+                        android:layoutDirection="ltr"
+                        android:visibility="visible"
+                        app:lottie_autoPlay="true"
+                        app:lottie_fileName="loading_3.json"
+                        app:lottie_loop="true" />
+
                 </RelativeLayout>
 
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginBottom="7dp"
+                    android:background="@android:color/white"
+                    android:layoutDirection="ltr" />
 
                 <Button
-                    android:id="@+id/foodReservation_TuesdayBreakfast"
+                    android:id="@+id/foodReservation_NextWeek"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:background="@android:color/transparent"
-                    android:gravity="center"
+                    android:drawableEnd="@drawable/ic_next"
+                    android:drawableRight="@drawable/ic_next"
+                    android:gravity="center|right"
                     android:layoutDirection="ltr"
-                    android:padding="3dp"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_bluegrey_solid"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:text="@string/tuesday"
-                    android:textColor="@android:color/white" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layoutDirection="ltr"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/foodReservation_WednesdayDinner"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:padding="3dp"
-                    android:textSize="11sp" />
-
-                <Button
-                    android:id="@+id/foodReservation_WednesdayLunch"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:padding="3dp"
-                    android:textSize="11sp" />
-
-                <Button
-                    android:id="@+id/foodReservation_WednesdayBreakfast"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:padding="3dp"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_bluegrey_solid"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:text="@string/wednesday"
-                    android:textColor="@android:color/white" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layoutDirection="ltr"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/foodReservation_ThursdayDinner"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:padding="3dp"
-                    android:textSize="11sp" />
-
-                <Button
-                    android:id="@+id/foodReservation_ThursdayLunch"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:padding="3dp"
-                    android:textSize="11sp" />
-
-                <Button
-                    android:id="@+id/foodReservation_ThursdayBreakfast"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:padding="3dp"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_bluegrey_solid"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:text="@string/thursday"
-                    android:textColor="@android:color/white" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layoutDirection="ltr"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/foodReservation_FridayDinner"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:padding="3dp"
-                    android:textSize="11sp" />
-
-                <Button
-                    android:id="@+id/foodReservation_FridayLunch"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:padding="3dp"
-                    android:textSize="11sp" />
-
-                <Button
-                    android:id="@+id/foodReservation_FridayBreakfast"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:padding="3dp"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="2dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_bluegrey_solid"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:text="@string/friday"
-                    android:textColor="@android:color/white" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/foodReservation_StatusBarBottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/sky"
-            android:layoutDirection="ltr"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/foodReservation_PreviousWeek"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:background="@android:color/transparent"
-                android:drawableStart="@drawable/ic_back"
-                android:drawableLeft="@drawable/ic_back"
-                android:gravity="center|left"
-                android:layoutDirection="ltr"
-                android:paddingRight="3dp"
-                android:text="@string/back_week"
-                android:textColor="@android:color/white"
-                android:textSize="12sp" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="35dp"
-                android:layout_marginTop="7dp"
-                android:layout_marginBottom="7dp"
-                android:background="@android:color/white"
-                android:layoutDirection="ltr" />
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="4"
-                android:background="@android:color/transparent"
-                android:gravity="center"
-                android:layoutDirection="ltr">
-
-                <TextView
-                    android:id="@+id/foodReservation_PeriodTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:layoutDirection="ltr"
+                    android:paddingLeft="3dp"
+                    android:text="@string/next_week"
                     android:textColor="@android:color/white"
-                    android:textSize="15sp"
-                    android:visibility="invisible" />
+                    android:textSize="12sp"
+                    tools:ignore="RtlHardcoded" />
+            </LinearLayout>
 
-                <pl.droidsonroids.gif.GifImageView
-                    android:id="@+id/foodReservation_GifImageViewPeriod"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
-                    android:background="@android:color/transparent"
-                    android:layoutDirection="ltr"
-                    android:src="@drawable/gif_loading_2"
-                    android:visibility="visible" />
+        </RelativeLayout>
 
-            </RelativeLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="35dp"
-                android:layout_marginTop="7dp"
-                android:layout_marginBottom="7dp"
-                android:background="@android:color/white"
-                android:layoutDirection="ltr" />
-
-            <Button
-                android:id="@+id/foodReservation_NextWeek"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:background="@android:color/transparent"
-                android:drawableEnd="@drawable/ic_next"
-                android:drawableRight="@drawable/ic_next"
-                android:gravity="center|right"
-                android:layoutDirection="ltr"
-                android:paddingLeft="3dp"
-                android:text="@string/next_week"
-                android:textColor="@android:color/white"
-                android:textSize="12sp" />
-        </LinearLayout>
-    </RelativeLayout>
-
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</android.gesture.GestureOverlayView>

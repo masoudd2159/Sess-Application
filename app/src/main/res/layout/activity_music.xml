@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.MusicActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/musicActivity_AnimationView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@android:color/black"
+            android:layoutDirection="ltr"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="music_fly.json"
+            app:lottie_loop="true"
+            tools:ignore="MissingConstraints" />
+
+        <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+            android:id="@+id/musicActivity_SimpleExoPlayerView"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_alignParentBottom="true"
+            app:controller_layout_id="@layout/exo_playback_control_view" />
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

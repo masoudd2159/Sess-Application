@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    tools:context=".activities.VideoActivity">
+
+    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+        android:id="@+id/videoActivity_SimpleExoPlayerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:controller_layout_id="@layout/exo_playback_control_view" />
+
+</RelativeLayout>

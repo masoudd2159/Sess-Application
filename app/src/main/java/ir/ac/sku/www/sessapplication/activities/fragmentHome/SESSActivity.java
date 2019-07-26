@@ -28,8 +28,8 @@ public class SESSActivity extends MyActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sess);
         preferencesUsernameAndPassword = getSharedPreferences(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_NAME, MODE_PRIVATE);
-        username = preferencesUsernameAndPassword.getString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_USERNAME, null);
-        password = preferencesUsernameAndPassword.getString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_PASSWORD, null);
+        username = preferencesUsernameAndPassword.getString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_USERNAME, "");
+        password = preferencesUsernameAndPassword.getString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_PASSWORD, "");
 
         progressBar = findViewById(R.id.SESSActivity_ProgressBar);
         webView = findViewById(R.id.SESSActivity_WebView);
@@ -69,7 +69,7 @@ public class SESSActivity extends MyActivity {
             super.onPageFinished(view, url);
             view.loadUrl("javascript:var edId = document.getElementById('edId').value = '" + username + "';" +
                     " javascript:var edPass = document.getElementById('edPass').value = '" + password + "';" +
-                    "javascript:(function(){l=document.getElementById('edEnter'); e=document.createEvent('HTMLEvents'); e.initEvent('click',true,true); l.dispatchEvent(e);})()");
+                    " javascript:Save();");
             progressBar.setVisibility(View.INVISIBLE);
         }
     }

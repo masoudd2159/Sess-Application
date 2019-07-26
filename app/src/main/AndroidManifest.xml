@@ -4,10 +4,8 @@
     package="ir.ac.sku.www.sessapplication">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name=".utils.MyApplication"
@@ -31,23 +29,19 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity
-            android:name=".activities.ShowPDFActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.CompetitionsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.JournalsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.NewsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <service android:name=".utils.PlayerService">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+                <action android:name="android.media.AUDIO_BECOMING_NOISY" />
+            </intent-filter>
+        </service>
 
+        <receiver android:name=".utils.PlayerService$MediaReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+                <action android:name="android.media.AUDIO_BECOMING_NOISY" />
+            </intent-filter>
+        </receiver>
 
         <activity
             android:name=".activities.SplashScreenActivity"
@@ -59,6 +53,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activities.MainActivity"
             android:screenOrientation="portrait"
@@ -82,7 +77,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.SendMessageActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.ShowStudentRequestActivity"
             android:screenOrientation="portrait"
@@ -123,6 +119,9 @@
             android:name=".activities.television.Channel3Activity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".activities.VideoActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".activities.ShowPDFActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -138,9 +137,13 @@
             android:name=".activities.NewsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activities.fragmentHome.SESSActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.MusicActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

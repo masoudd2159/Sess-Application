@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -49,10 +50,11 @@ public class BottomBarActivity extends MyActivity {
     private BottomNavigationView bottomBar;
     //private ImageView logo;
     private ImageView more;
-    private CircleImageView profile;
+    private ImageView profile;
+    private CardView cardViewProfile;
     private int mMenuId;
     private TextView fullName;
-    private TextView slash;
+    private View slash;
 
     private SharedPreferences preferencesCookie;
     private SharedPreferences preferencesName;
@@ -104,8 +106,9 @@ public class BottomBarActivity extends MyActivity {
         }
 
         if (preferencesName.getString(PreferenceName.NAME_PREFERENCE_FIRST_NAME, null) == null && preferencesName.getString(PreferenceName.NAME_PREFERENCE_LAST_NAME, null) == null) {
-            slash.setVisibility(View.GONE);
+            cardViewProfile.setVisibility(View.GONE);
             profile.setVisibility(View.GONE);
+            slash.setVisibility(View.GONE);
             fullName.setText(" ");
         } else {
             fullName.setText(preferencesName.getString(PreferenceName.NAME_PREFERENCE_FIRST_NAME, " ") + " " + preferencesName.getString(PreferenceName.NAME_PREFERENCE_LAST_NAME, " "));
@@ -134,6 +137,7 @@ public class BottomBarActivity extends MyActivity {
         //logo = findViewById(R.id.bottomBarActivity_Logo);
         more = findViewById(R.id.bottomBarActivity_More);
         profile = findViewById(R.id.bottomBarActivity_ImageProfile);
+        cardViewProfile = findViewById(R.id.bottomBarActivity_CardViewProfile);
         fullName = findViewById(R.id.bottomBarActivity_FullName);
         slash = findViewById(R.id.bottomBarActivity_Slash);
     }

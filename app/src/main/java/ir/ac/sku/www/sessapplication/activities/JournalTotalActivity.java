@@ -1,5 +1,6 @@
 package ir.ac.sku.www.sessapplication.activities;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -62,6 +63,7 @@ public class JournalTotalActivity extends MyActivity {
         });
     }
 
+    @SuppressLint("WrongConstant")
     private void showData(TotalJournalsModel totalJournalsModel) {
         adapter = new JournalTotalAdapter(JournalTotalActivity.this, totalJournalsModel);
         int resId = R.anim.layout_animation_from_right;

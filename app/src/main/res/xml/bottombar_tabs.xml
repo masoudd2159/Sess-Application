@@ -3,7 +3,7 @@
     <tab
         activeColor="@color/black"
         barColorWhenSelected="@android:color/white"
-        icon="@drawable/ic_home3x"
+        icon="@drawable/ic_home"
         id="@+id/tab_Home"
         inActiveColor="@color/blue_grey"
         textSize="8sp"
@@ -12,7 +12,7 @@
     <tab
         activeColor="@color/black"
         barColorWhenSelected="@android:color/white"
-        icon="@drawable/ic_food3x"
+        icon="@drawable/ic_food"
         id="@+id/tab_FoodReservation"
         inActiveColor="@color/blue_grey"
         textSize="1sp"
@@ -21,7 +21,7 @@
     <tab
         activeColor="@color/black"
         barColorWhenSelected="@android:color/white"
-        icon="@drawable/ic_process3x"
+        icon="@drawable/ic_process"
         id="@+id/tab_Processes"
         inActiveColor="@color/blue_grey"
         textSize="8sp"
@@ -30,7 +30,7 @@
     <tab
         activeColor="@color/black"
         barColorWhenSelected="@android:color/white"
-        icon="@drawable/ic_message3x"
+        icon="@drawable/ic_message"
         id="@+id/tab_Messages"
         inActiveColor="@color/blue_grey"
         textSize="8sp"

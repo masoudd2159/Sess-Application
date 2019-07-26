@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -42,7 +43,6 @@ import ir.ac.sku.www.sessapplication.API.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.models.LoginInformation;
 import ir.ac.sku.www.sessapplication.models.SendInformation;
-import pl.droidsonroids.gif.GifImageView;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -67,7 +67,7 @@ public class SignIn {
     private SendInformation sendInformation;
 
     //dialog View
-    private GifImageView gifImageViewEnter;
+    private LottieAnimationView gifImageViewEnter;
     private EditText btn_Username;
     private EditText btn_Password;
     private ImageView close;
@@ -215,6 +215,9 @@ public class SignIn {
                 } else {
                     enter.setVisibility(View.INVISIBLE);
                     gifImageViewEnter.setVisibility(View.VISIBLE);
+                    gifImageViewEnter.setAnimation("loading_1.json");
+                    gifImageViewEnter.playAnimation();
+                    gifImageViewEnter.loop(true);
                     getLoginInformationUsernamePassword(handler, btn_Username.getText().toString().trim(), btn_Password.getText().toString().trim());
                 }
             }

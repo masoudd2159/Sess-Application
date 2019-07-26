@@ -2,6 +2,7 @@ package ir.ac.sku.www.sessapplication.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,10 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.activities.CulturalDeputyActivity;
+import ir.ac.sku.www.sessapplication.activities.LoginActivity;
 import ir.ac.sku.www.sessapplication.activities.NewsActivity;
 import ir.ac.sku.www.sessapplication.activities.PhoneBookActivity;
 import ir.ac.sku.www.sessapplication.activities.fragmentHome.EducationalDeputyActivity;
@@ -21,6 +24,7 @@ import ir.ac.sku.www.sessapplication.activities.fragmentHome.ResearchDeputyActiv
 import ir.ac.sku.www.sessapplication.activities.fragmentHome.SESSActivity;
 import ir.ac.sku.www.sessapplication.activities.fragmentHome.StudentDeputyActivity;
 import ir.ac.sku.www.sessapplication.activities.fragmentHome.TelevisionActivity;
+import ir.ac.sku.www.sessapplication.utils.HttpManager;
 
 public class HomeFragment extends Fragment {
 
@@ -48,7 +52,11 @@ public class HomeFragment extends Fragment {
         sess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(rootView.getContext(), SESSActivity.class));
+                if (HttpManager.isNOTOnline(rootView.getContext())) {
+                    HttpManager.noInternetAccess(rootView.getContext());
+                } else {
+                    startActivity(new Intent(rootView.getContext(), SESSActivity.class));
+                }
             }
         });
 

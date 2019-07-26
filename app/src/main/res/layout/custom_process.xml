@@ -63,7 +63,7 @@
                 android:layout_height="30dp"
                 android:layout_margin="8dp"
                 android:layoutDirection="ltr"
-                android:src="@drawable/ic_status" />
+                app:srcCompat="@drawable/ic_status" />
 
 
         </LinearLayout>
@@ -103,7 +103,7 @@
                 android:layout_height="25dp"
                 android:layout_margin="8dp"
                 android:layoutDirection="ltr"
-                android:src="@drawable/ic_step" />
+                app:srcCompat="@drawable/ic_step" />
 
 
         </LinearLayout>
@@ -143,7 +143,7 @@
                 android:layout_height="25dp"
                 android:layout_margin="8dp"
                 android:layoutDirection="ltr"
-                android:src="@drawable/ic_employee" />
+                app:srcCompat="@drawable/ic_employee" />
 
 
         </LinearLayout>

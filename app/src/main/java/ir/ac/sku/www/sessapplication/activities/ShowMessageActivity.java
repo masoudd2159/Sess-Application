@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 
 import com.uncopt.android.widget.text.justify.JustifiedTextView;
 import java.util.HashMap;
@@ -28,6 +29,7 @@ public class ShowMessageActivity extends MyActivity {
     private TextView sender;
     private TextView date;
     private TextView read;
+    private CardView cardViewType;
     private JustifiedTextView text;
     private JustifiedTextView target;
     private LinearLayout layoutRead;
@@ -72,6 +74,7 @@ public class ShowMessageActivity extends MyActivity {
         text = findViewById(R.id.activityShowMessage_TextViewText);
         read = findViewById(R.id.activityShowMessage_TextViewRead);
         layoutRead = findViewById(R.id.activityShowMessage_LayoutRead);
+        cardViewType = findViewById(R.id.activityShowMessage_CardViewType);
 
         target.setMovementMethod(new ScrollingMovementMethod());
     }
@@ -126,16 +129,16 @@ public class ShowMessageActivity extends MyActivity {
         }
 
         if (messageShow.getResult().getPriority().equals("عادي")) {
-            type.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_circle_normal, 0);
+            cardViewType.setCardBackgroundColor(0xFFA6A6A6);
         }
         if (messageShow.getResult().getPriority().equals("ضروري")) {
-            type.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_circle_essential, 0);
+            cardViewType.setCardBackgroundColor(0xFF990000);
         }
         if (messageShow.getResult().getPriority().equals("مهم")) {
-            type.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_circle_important, 0);
+            cardViewType.setCardBackgroundColor(0xFF05813B);
         }
         if (messageShow.getResult().getPriority().equals("خيلي مهم")) {
-            type.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_circle_very_important, 0);
+            cardViewType.setCardBackgroundColor(0xFF001C56);
         }
     }
 

@@ -68,7 +68,7 @@ public class StudentRequestAdapter extends RecyclerView.Adapter<StudentRequestAd
                     status.setImageResource(R.drawable.ic_pending);
                     break;
                 case "notPass":
-                    status.setImageResource(R.drawable.ic_close_red);
+                    status.setImageResource(R.drawable.ic_undone);
                     break;
             }
             step.setText(myRequest.getName());

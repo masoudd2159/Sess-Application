@@ -68,11 +68,11 @@ public class ShowPDFActivity extends MyActivity implements DownloadFile.Listener
     protected void setDownloadButtonListener() {
         final Context ctx = this;
         final DownloadFile.Listener listener = this;
-        remotePDFViewPager = new RemotePDFViewPager(ctx, getUrlFromEditText(), listener);
+        remotePDFViewPager = new RemotePDFViewPager(ctx, getUrl(), listener);
         remotePDFViewPager.setId(R.id.showPDF_PDFViewPager);
     }
 
-    protected String getUrlFromEditText() {
+    protected String getUrl() {
         return getIntent().getStringExtra("pdf");
     }
 

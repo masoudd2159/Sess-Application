@@ -48,38 +48,37 @@
                     android:textColor="@android:color/primary_text_dark"
                     android:textSize="17sp" />
 
-                <TextView
+                <View
                     android:id="@+id/bottomBarActivity_Slash"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_margin="8dp"
+                    android:background="@android:color/white"
                     android:gravity="center"
-                    android:layoutDirection="ltr"
-                    android:text="|"
-                    android:textColor="@android:color/primary_text_dark"
-                    android:textSize="26sp" />
+                    android:layoutDirection="ltr" />
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/bottomBarActivity_ImageProfile"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/bottomBarActivity_CardViewProfile"
                     android:layout_width="46dp"
                     android:layout_height="46dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layoutDirection="ltr"
-                    app:civ_border_color="@android:color/white"
-                    app:civ_border_width="1dp" />
+                    android:innerRadius="0dp"
+                    android:shape="ring"
+                    android:thicknessRatio="1.9"
+                    app:cardCornerRadius="23dp">
 
-                <!--<ImageView
-                    android:id="@+id/bottomBarActivity_Logo"
-                    android:layout_width="37dp"
-                    android:layout_height="37dp"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginRight="3dp"
-                    android:layoutDirection="ltr"
-                    android:src="@drawable/ic_sku_white" />-->
+                    <ImageView
+                        android:id="@+id/bottomBarActivity_ImageProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center"
+                        android:layoutDirection="ltr"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_sku_blue" />
+
+                </androidx.cardview.widget.CardView>
 
                 <ImageView
                     android:id="@+id/bottomBarActivity_More"

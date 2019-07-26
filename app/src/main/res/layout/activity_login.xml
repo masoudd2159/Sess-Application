@@ -160,22 +160,24 @@
 
         </ScrollView>
 
-        <pl.droidsonroids.gif.GifImageView
+        <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/loginActivity_GifImageViewEnter"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_gravity="center"
             android:background="@color/blue"
             android:layoutDirection="ltr"
-            android:src="@drawable/gif_loading_2"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="loading_3.json"
+            app:lottie_loop="true" />
 
         <Button
             android:id="@+id/loginActivity_Enter"
             style="@style/TextAppearance.AppCompat.Large"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="20dp"
             android:background="@color/blue"

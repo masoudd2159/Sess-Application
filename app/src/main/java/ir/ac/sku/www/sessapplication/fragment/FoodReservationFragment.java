@@ -5,8 +5,15 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.gesture.Gesture;
+import android.gesture.GestureLibraries;
+import android.gesture.GestureLibrary;
+import android.gesture.GestureOverlayView;
+import android.gesture.GestureStroke;
+import android.gesture.Prediction;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
@@ -26,16 +33,21 @@ import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.Request;
 import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,7 +61,6 @@ import ir.ac.sku.www.sessapplication.models.SFXWeeklyList;
 import ir.ac.sku.www.sessapplication.utils.Handler;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.WebService;
-import pl.droidsonroids.gif.GifImageView;
 
 public class FoodReservationFragment extends Fragment {
 
@@ -63,8 +74,9 @@ public class FoodReservationFragment extends Fragment {
     private Button btn_IncreaseCredit;
     private Button nextWeek;
     private Button previousWeek;
-    private ProgressBar progressBar;
-    private GifImageView gifImageViewPeriod;
+    //private ProgressBar progressBar;
+    private LottieAnimationView gifImageViewPeriod;
+    private LottieAnimationView progressBarAnimation;
     private TextView textViewPeriod;
     private LinearLayout statusBar;
 
@@ -80,7 +92,11 @@ public class FoodReservationFragment extends Fragment {
     private Dialog dialog;
     private WebService webService;
 
-    @SuppressLint("LongLogTag")
+    GestureOverlayView gesture;
+    GestureLibrary lib;
+    ArrayList<Prediction> prediction;
+
+    @SuppressLint({"LongLogTag", "ResourceType"})
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -117,39 +133,51 @@ public class FoodReservationFragment extends Fragment {
         increaseCredit();
         swipeRefresh();
 
-        rootView.setOnTouchListener(new OnSwipeTouchListener(rootView.getContext()) {
+        lib = GestureLibraries.fromRawResource(rootView.getContext(), R.id.foodReservation_CoordinatorLayout);
+        gesture = rootView.findViewById(R.id.foodReservation_CoordinatorLayout);
 
+        gesture.addOnGesturePerformedListener(new GestureOverlayView.OnGesturePerformedListener() {
             @Override
-            public void onSwipeRight() {
-                textViewPeriod.setText("");
-                gifImageViewPeriod.setVisibility(View.VISIBLE);
-                textViewPeriod.setVisibility(View.INVISIBLE);
-                Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "Previous Week List");
-                if (HttpManager.isNOTOnline(rootView.getContext())) {
-                    Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "OFFLine");
-                    HttpManager.noInternetAccess(rootView.getContext());
-                } else {
-                    Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "OnLine");
-                    getMealList("prev");
-                }
-            }
+            public void onGesturePerformed(GestureOverlayView overlay, android.gesture.Gesture gesture) {
+                ArrayList<GestureStroke> strokeList = gesture.getStrokes();
+                // prediction = lib.recognize(gesture);
+                float f[] = strokeList.get(0).points;
 
-            @Override
-            public void onSwipeLeft() {
-                textViewPeriod.setText("");
-                gifImageViewPeriod.setVisibility(View.VISIBLE);
-                textViewPeriod.setVisibility(View.INVISIBLE);
+                if (f[0] < f[f.length - 2]) {
+                    textViewPeriod.setText("");
+                    gifImageViewPeriod.setVisibility(View.VISIBLE);
+                    gifImageViewPeriod.setAnimation("loading_3.json");
+                    gifImageViewPeriod.playAnimation();
+                    gifImageViewPeriod.loop(true);
+                    textViewPeriod.setVisibility(View.INVISIBLE);
+                    Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "Previous Week List");
+                    if (HttpManager.isNOTOnline(rootView.getContext())) {
+                        Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "OFFLine");
+                        HttpManager.noInternetAccess(rootView.getContext());
+                    } else {
+                        Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "OnLine");
+                        getMealList("prev");
+                    }
+                } else if (f[0] > f[f.length - 2]) {
+                    textViewPeriod.setText("");
+                    gifImageViewPeriod.setVisibility(View.VISIBLE);
+                    gifImageViewPeriod.setAnimation("loading_3.json");
+                    gifImageViewPeriod.playAnimation();
+                    gifImageViewPeriod.loop(true);
+                    textViewPeriod.setVisibility(View.INVISIBLE);
 
-                Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "Next Week List");
-                if (HttpManager.isNOTOnline(rootView.getContext())) {
-                    Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "OFFLine");
-                    HttpManager.noInternetAccess(rootView.getContext());
-                } else {
-                    Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "OnLine");
-                    getMealList("next");
+                    Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "Next Week List");
+                    if (HttpManager.isNOTOnline(rootView.getContext())) {
+                        Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "OFFLine");
+                        HttpManager.noInternetAccess(rootView.getContext());
+                    } else {
+                        Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "OnLine");
+                        getMealList("next");
+                    }
                 }
             }
         });
+
         return rootView;
     }
 
@@ -158,7 +186,7 @@ public class FoodReservationFragment extends Fragment {
         btn_IncreaseCredit = rootView.findViewById(R.id.foodReservation_IncreaseCreditButton);
         nextWeek = rootView.findViewById(R.id.foodReservation_NextWeek);
         previousWeek = rootView.findViewById(R.id.foodReservation_PreviousWeek);
-        progressBar = rootView.findViewById(R.id.foodReservation_ProgressBarWaiting);
+        progressBarAnimation = rootView.findViewById(R.id.foodReservation_ProgressBarWaiting);
         gifImageViewPeriod = rootView.findViewById(R.id.foodReservation_GifImageViewPeriod);
         textViewPeriod = rootView.findViewById(R.id.foodReservation_PeriodTextView);
         statusBar = rootView.findViewById(R.id.foodReservation_StatusBar_Top);
@@ -169,6 +197,9 @@ public class FoodReservationFragment extends Fragment {
         //get Meal List
         textViewPeriod.setText("");
         gifImageViewPeriod.setVisibility(View.VISIBLE);
+        gifImageViewPeriod.setAnimation("loading_3.json");
+        gifImageViewPeriod.playAnimation();
+        gifImageViewPeriod.loop(true);
         textViewPeriod.setVisibility(View.INVISIBLE);
 
         Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "First List");
@@ -180,6 +211,9 @@ public class FoodReservationFragment extends Fragment {
             public void onClick(View v) {
                 textViewPeriod.setText("");
                 gifImageViewPeriod.setVisibility(View.VISIBLE);
+                gifImageViewPeriod.setAnimation("loading_3.json");
+                gifImageViewPeriod.playAnimation();
+                gifImageViewPeriod.loop(true);
                 textViewPeriod.setVisibility(View.INVISIBLE);
 
                 Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "Next Week List");
@@ -198,6 +232,9 @@ public class FoodReservationFragment extends Fragment {
             public void onClick(View v) {
                 textViewPeriod.setText("");
                 gifImageViewPeriod.setVisibility(View.VISIBLE);
+                gifImageViewPeriod.setAnimation("loading_3.json");
+                gifImageViewPeriod.playAnimation();
+                gifImageViewPeriod.loop(true);
                 textViewPeriod.setVisibility(View.INVISIBLE);
 
                 Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "Previous Week List");
@@ -219,30 +256,26 @@ public class FoodReservationFragment extends Fragment {
         String URI = MyConfig.SFX_WEEKLY_LIST + "?" + HttpManager.enCodeParameters(params);
 
         webService.request(URI, Request.Method.GET, new Handler() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(boolean ok, Object obj) {
                 if (ok) {
-                    try {
-                        sfxWeeklyList = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), SFXWeeklyList.class);
+                    sfxWeeklyList = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), SFXWeeklyList.class);
 
-                        if (sfxWeeklyList.isOk()) {
-                            Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "All Params True");
-                            progressBar.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "InVisible Gif Image View And Get Captcha");
-                                    progressBar.setVisibility(View.INVISIBLE);
-                                    adapter = new FoodReservationAdapter(rootView, R.layout.fragment_food_reservation, sfxWeeklyList);
-                                    gifImageViewPeriod.setVisibility(View.INVISIBLE);
-                                    textViewPeriod.setVisibility(View.VISIBLE);
-                                    btn_IncreaseCredit.setEnabled(true);
-                                }
-                            }, 600);
-                            Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "sfxWeeklyList Send To Adapter");
-                        }
-
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
+                    if (sfxWeeklyList.isOk()) {
+                        Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "All Params True");
+                        progressBarAnimation.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "InVisible Gif Image View");
+                                progressBarAnimation.setVisibility(View.INVISIBLE);
+                                adapter = new FoodReservationAdapter(rootView, R.layout.fragment_food_reservation, sfxWeeklyList);
+                                gifImageViewPeriod.setVisibility(View.INVISIBLE);
+                                textViewPeriod.setVisibility(View.VISIBLE);
+                                btn_IncreaseCredit.setEnabled(true);
+                            }
+                        }, 600);
+                        Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "sfxWeeklyList Send To Adapter");
                     }
                 }
             }
@@ -378,7 +411,6 @@ public class FoodReservationFragment extends Fragment {
                 } else {
                     getMealList("");
                     swipeRefreshLayout.setRefreshing(false);
-
                 }
             }
         });

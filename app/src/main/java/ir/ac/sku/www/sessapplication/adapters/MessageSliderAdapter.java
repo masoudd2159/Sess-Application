@@ -3,6 +3,7 @@ package ir.ac.sku.www.sessapplication.adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import ir.ac.sku.www.sessapplication.API.MyLog;
@@ -50,6 +52,7 @@ public class MessageSliderAdapter extends RecyclerView.Adapter<MessageSliderAdap
         private TextView subject;
         private TextView date;
         private TextView priority;
+        private CardView cardViewPriority;
         private final Context context;
 
         MyViewHolder(@NonNull View itemView) {
@@ -60,6 +63,7 @@ public class MessageSliderAdapter extends RecyclerView.Adapter<MessageSliderAdap
             subject = itemView.findViewById(R.id.customMessage_TextViewSubject);
             date = itemView.findViewById(R.id.customMessage_TextViewDate);
             priority = itemView.findViewById(R.id.customMessage_TextViewType);
+            cardViewPriority = itemView.findViewById(R.id.customMessage_CardViewType);
 
             itemView.setOnClickListener(this);
         }
@@ -82,16 +86,16 @@ public class MessageSliderAdapter extends RecyclerView.Adapter<MessageSliderAdap
             }
 
             if (message.getPriority().equals("عادي")) {
-                priority.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_circle_normal, 0);
+                cardViewPriority.setCardBackgroundColor(0xFFA6A6A6);
             }
             if (message.getPriority().equals("ضروري")) {
-                priority.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_circle_essential, 0);
+                cardViewPriority.setCardBackgroundColor(0xFF990000);
             }
             if (message.getPriority().equals("مهم")) {
-                priority.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_circle_important, 0);
+                cardViewPriority.setCardBackgroundColor(0xFF05813B);
             }
             if (message.getPriority().equals("خيلي مهم")) {
-                priority.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_circle_very_important, 0);
+                cardViewPriority.setCardBackgroundColor(0xFF001C56);
             }
         }
 

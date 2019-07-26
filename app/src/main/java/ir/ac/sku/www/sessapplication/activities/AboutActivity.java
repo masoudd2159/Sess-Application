@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
@@ -36,7 +37,7 @@ public class AboutActivity extends MyActivity {
 
     private Button logout;
     private Button bugReport;
-    private CircleImageView profile;
+    private ImageView profile;
     private TextView username;
     private TextView major;
 

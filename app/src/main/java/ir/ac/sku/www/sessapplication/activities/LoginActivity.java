@@ -32,6 +32,7 @@ import androidx.core.content.ContextCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.vectordrawable.graphics.drawable.ArgbEvaluator;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -61,14 +62,13 @@ import ir.ac.sku.www.sessapplication.utils.Handler;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 import ir.ac.sku.www.sessapplication.utils.WebService;
-import pl.droidsonroids.gif.GifImageView;
 
 public class LoginActivity extends MyActivity {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private EditText user;
     private EditText password;
-    private GifImageView gifImageViewEnter;
+    private LottieAnimationView gifImageViewEnter;
     private Button enter;
     private Button guest;
     private ScrollView scrollView;
@@ -168,6 +168,8 @@ public class LoginActivity extends MyActivity {
                     Log.i(MyLog.LOGIN_ACTIVITY, "OnLine");
                     getLoginInformation(false);
                     swipeRefreshLayout.setRefreshing(false);
+                    enter.setVisibility(View.VISIBLE);
+                    gifImageViewEnter.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -299,6 +301,9 @@ public class LoginActivity extends MyActivity {
             password.setEnabled(false);
             enter.setVisibility(View.INVISIBLE);
             gifImageViewEnter.setVisibility(View.VISIBLE);
+            gifImageViewEnter.setAnimation("loading_3.json");
+            gifImageViewEnter.playAnimation();
+            gifImageViewEnter.loop(true);
 
             Log.i(MyLog.LOGIN_ACTIVITY, "Run Function Send Params Post");
 

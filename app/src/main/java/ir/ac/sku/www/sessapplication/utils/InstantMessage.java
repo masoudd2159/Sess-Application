@@ -93,7 +93,7 @@ public class InstantMessage {
         tv_Message.setText(instantMessage.getInstantMessage().get(index).getText());
 
         if (instantMessage.getInstantMessage().get(index).getAttachment()) {
-            tv_Subject.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_attachment, 0, R.drawable.ic_subject, 0);
+            tv_Subject.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_attachment_1, 0, R.drawable.ic_subject, 0);
         } else if (!instantMessage.getInstantMessage().get(index).getAttachment()) {
             tv_Subject.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_subject, 0);
         }
