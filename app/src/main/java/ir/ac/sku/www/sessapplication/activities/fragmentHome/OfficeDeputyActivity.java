@@ -3,14 +3,19 @@ package ir.ac.sku.www.sessapplication.activities.fragmentHome;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 
 import ir.ac.sku.www.sessapplication.R;
+import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
 public class OfficeDeputyActivity extends MyActivity {
+
+    ImageView img_AbsenceOfEmployees;
+    ImageView img_Automation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +31,16 @@ public class OfficeDeputyActivity extends MyActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         title.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Lalezar.ttf"));
 
+        init();
+
+        img_AbsenceOfEmployees.setColorFilter(HttpManager.getBlackWhiteFilter());
+        img_Automation.setColorFilter(HttpManager.getBlackWhiteFilter());
+
+    }
+
+    private void init() {
+        img_AbsenceOfEmployees = findViewById(R.id.officeDeputyActivity_AbsenceOfEmployees_ImageView);
+        img_Automation = findViewById(R.id.officeDeputyActivity_Automation_ImageView);
     }
 
     @Override

@@ -76,6 +76,7 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:id="@+id/educationalDeputyActivity_Attendance_ImageView"
                         android:layout_width="90dp"
                         android:layout_height="90dp"
                         android:layout_gravity="center"
@@ -104,6 +105,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/educationalDeputyActivity_Processes"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -119,6 +121,7 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:id="@+id/educationalDeputyActivity_Processes_ImageView"
                         android:layout_width="90dp"
                         android:layout_height="90dp"
                         android:layout_gravity="center"
@@ -173,6 +176,7 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:id="@+id/educationalDeputyActivity_Professors_ImageView"
                         android:layout_width="90dp"
                         android:layout_height="90dp"
                         android:layout_gravity="center"
@@ -216,6 +220,7 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:id="@+id/educationalDeputyActivity_WeeklySchedule_ImageView"
                         android:layout_width="90dp"
                         android:layout_height="90dp"
                         android:layout_gravity="center"

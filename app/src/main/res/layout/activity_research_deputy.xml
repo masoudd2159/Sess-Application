@@ -76,6 +76,7 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:id="@+id/researchDeputyActivity_IndustryRelations_ImageView"
                         android:layout_width="90dp"
                         android:layout_height="90dp"
                         android:layout_gravity="center"
@@ -119,6 +120,7 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:id="@+id/researchDeputyActivity_SeminarsAndConferences_ImageView"
                         android:layout_width="90dp"
                         android:layout_height="90dp"
                         android:layout_gravity="center"
@@ -173,6 +175,7 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:id="@+id/researchDeputyActivity_InformationTechnologyCenter_ImageView"
                         android:layout_width="90dp"
                         android:layout_height="90dp"
                         android:layout_gravity="center"

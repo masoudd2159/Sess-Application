@@ -76,6 +76,7 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:id="@+id/officeDeputyActivity_AbsenceOfEmployees_ImageView"
                         android:layout_width="90dp"
                         android:layout_height="90dp"
                         android:layout_gravity="center"
@@ -119,6 +120,7 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:id="@+id/officeDeputyActivity_Automation_ImageView"
                         android:layout_width="90dp"
                         android:layout_height="90dp"
                         android:layout_gravity="center"

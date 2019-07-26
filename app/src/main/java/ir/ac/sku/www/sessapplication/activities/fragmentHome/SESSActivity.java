@@ -68,8 +68,8 @@ public class SESSActivity extends MyActivity {
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
             view.loadUrl("javascript:var edId = document.getElementById('edId').value = '" + username + "';" +
-                    " javascript:var edPass = document.getElementById('edPass').value = '" + password + "';" +
-                    " javascript:Save();");
+                    " javascript:var edPass = document.getElementById('edPass').value = '" + password + "';" /*+
+                    " javascript:Save();"*/);
             progressBar.setVisibility(View.INVISIBLE);
         }
     }

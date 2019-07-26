@@ -1,16 +1,23 @@
 package ir.ac.sku.www.sessapplication.activities.fragmentHome;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 
 import ir.ac.sku.www.sessapplication.R;
+import ir.ac.sku.www.sessapplication.activities.MainActivity;
+import ir.ac.sku.www.sessapplication.fragment.FoodReservationFragment;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
 public class StudentDeputyActivity extends MyActivity {
+
+    private CardView cardView_FoodReservation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +33,22 @@ public class StudentDeputyActivity extends MyActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         title.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Lalezar.ttf"));
 
+        init();
+
+        cardView_FoodReservation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("position", 1);
+                intent.putExtra("title", "رزرو غذا");
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    private void init() {
+        cardView_FoodReservation = findViewById(R.id.studentDeputyActivity_FoodReservation);
     }
 
     @Override

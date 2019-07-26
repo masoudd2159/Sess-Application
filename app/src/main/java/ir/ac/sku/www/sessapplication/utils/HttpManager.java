@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -136,5 +138,11 @@ public class HttpManager {
             }
         }
         return "";
+    }
+
+    public static ColorMatrixColorFilter getBlackWhiteFilter() {
+        ColorMatrix matrix = new ColorMatrix();
+        matrix.setSaturation(0);
+        return new ColorMatrixColorFilter(matrix);
     }
 }

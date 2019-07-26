@@ -3,14 +3,20 @@ package ir.ac.sku.www.sessapplication.activities.fragmentHome;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 
 import ir.ac.sku.www.sessapplication.R;
+import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
 public class ResearchDeputyActivity extends MyActivity {
+
+    ImageView img_IndustryRelations;
+    ImageView img_SeminarsAndConferences;
+    ImageView img_InformationTechnologyCenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +32,18 @@ public class ResearchDeputyActivity extends MyActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         title.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Lalezar.ttf"));
 
+        init();
+
+        img_IndustryRelations.setColorFilter(HttpManager.getBlackWhiteFilter());
+        img_SeminarsAndConferences.setColorFilter(HttpManager.getBlackWhiteFilter());
+        img_InformationTechnologyCenter.setColorFilter(HttpManager.getBlackWhiteFilter());
+
+    }
+
+    private void init() {
+        img_IndustryRelations = findViewById(R.id.researchDeputyActivity_IndustryRelations_ImageView);
+        img_SeminarsAndConferences = findViewById(R.id.researchDeputyActivity_SeminarsAndConferences_ImageView);
+        img_InformationTechnologyCenter = findViewById(R.id.researchDeputyActivity_InformationTechnologyCenter_ImageView);
     }
 
     @Override
