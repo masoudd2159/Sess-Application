@@ -1,5 +1,5 @@
 package ir.ac.sku.www.sessapplication.utils;
 
-public interface Handler {
+public interface MyHandler {
     public void onResponse(boolean ok, Object obj);
 }

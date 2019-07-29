@@ -1,5 +1,6 @@
 package ir.ac.sku.www.sessapplication.activities;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -17,7 +18,7 @@ import java.util.HashMap;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.adapters.JournalsAdapter;
 import ir.ac.sku.www.sessapplication.models.JournalModel;
-import ir.ac.sku.www.sessapplication.utils.Handler;
+import ir.ac.sku.www.sessapplication.utils.MyHandler;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
 public class JournalsActivity extends MyActivity {
@@ -56,7 +57,7 @@ public class JournalsActivity extends MyActivity {
         HashMap<String, String> params = new HashMap<>();
         params.put("id", String.valueOf(getIntent().getExtras().getInt("id")));
         params.put("year", getIntent().getStringExtra("year"));
-        JournalModel.fetchFromWeb(JournalsActivity.this, params, new Handler() {
+        JournalModel.fetchFromWeb(JournalsActivity.this, params, new MyHandler() {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 progressDialog.dismiss();
@@ -69,6 +70,7 @@ public class JournalsActivity extends MyActivity {
         });
     }
 
+    @SuppressLint("WrongConstant")
     private void showData(JournalModel journalsModel) {
         adapter = new JournalsAdapter(JournalsActivity.this, journalsModel, getIntent().getStringExtra("title"));
         int resId = R.anim.layout_animation_from_right;

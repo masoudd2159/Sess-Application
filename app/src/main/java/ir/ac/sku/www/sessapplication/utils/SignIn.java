@@ -95,7 +95,7 @@ public class SignIn {
     }
 
     @SuppressLint("LongLogTag")
-    public void SignInDialog(final Handler handler) {
+    public void SignInDialog(final MyHandler handler) {
         Log.i(MyLog.SIGN_IN, "Sign In : SignInDialog");
         if (preferencesUsernameAndPassword.getString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_USERNAME, null) == null && preferencesUsernameAndPassword.getString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_PASSWORD, null) == null) {
             showUsernamePasswordDialog(handler);
@@ -105,7 +105,7 @@ public class SignIn {
     }
 
     @SuppressLint("LongLogTag")
-    private void getLoginInformation(final Handler handler) {
+    private void getLoginInformation(final MyHandler handler) {
         Log.i(MyLog.SIGN_IN, "Run Request Cookie Function");
 
         StringRequest request = new StringRequest(MyConfig.LOGIN_INFORMATION,
@@ -146,7 +146,7 @@ public class SignIn {
     }
 
     @SuppressLint("LongLogTag")
-    private void sendParamsPost(final Handler handler) {
+    private void sendParamsPost(final MyHandler handler) {
         if (loginInformation.getCookie() == null) {
             if (HttpManager.isNOTOnline(context)) {
                 HttpManager.noInternetAccess(context);
@@ -162,7 +162,7 @@ public class SignIn {
             params.put("password", preferencesUsernameAndPassword.getString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_PASSWORD, null));
 
             WebService webService = new WebService(context);
-            webService.requestPost(MyConfig.SEND_INFORMATION, Request.Method.POST, params, new Handler() {
+            webService.requestPost(MyConfig.SEND_INFORMATION, Request.Method.POST, params, new MyHandler() {
                 @SuppressLint("NewApi")
                 @Override
                 public void onResponse(boolean ok, Object obj) {
@@ -188,7 +188,7 @@ public class SignIn {
         }
     }
 
-    private void showUsernamePasswordDialog(final Handler handler) {
+    private void showUsernamePasswordDialog(final MyHandler handler) {
         dialog = new Dialog(context);
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -235,7 +235,7 @@ public class SignIn {
     }
 
 
-    private void getLoginInformationUsernamePassword(final Handler handler, final String username, final String password) {
+    private void getLoginInformationUsernamePassword(final MyHandler handler, final String username, final String password) {
         StringRequest request = new StringRequest(MyConfig.LOGIN_INFORMATION,
                 new Response.Listener<String>() {
                     @SuppressLint("NewApi")
@@ -262,7 +262,7 @@ public class SignIn {
         queue.add(request);
     }
 
-    private void sendParamsPostUsernamePassword(final Handler handler, final String username, final String password) {
+    private void sendParamsPostUsernamePassword(final MyHandler handler, final String username, final String password) {
         if (loginInformation.getCookie() == null) {
             getLoginInformationUsernamePassword(handler, username, password);
         } else if (loginInformation.getCookie() != null) {
@@ -273,7 +273,7 @@ public class SignIn {
             params.put("password", password);
 
             WebService webService = new WebService(context);
-            webService.requestPost(MyConfig.SEND_INFORMATION, Request.Method.POST, params, new Handler() {
+            webService.requestPost(MyConfig.SEND_INFORMATION, Request.Method.POST, params, new MyHandler() {
                 @SuppressLint("NewApi")
                 @Override
                 public void onResponse(boolean ok, Object obj) {

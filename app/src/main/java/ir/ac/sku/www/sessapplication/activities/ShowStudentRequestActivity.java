@@ -1,5 +1,6 @@
 package ir.ac.sku.www.sessapplication.activities;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -12,10 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.HashMap;
+
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.adapters.StudentRequestAdapter;
 import ir.ac.sku.www.sessapplication.models.StudentRequestDetails;
-import ir.ac.sku.www.sessapplication.utils.Handler;
+import ir.ac.sku.www.sessapplication.utils.MyHandler;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
 public class ShowStudentRequestActivity extends MyActivity {
@@ -54,7 +56,7 @@ public class ShowStudentRequestActivity extends MyActivity {
         HashMap<String, String> params = new HashMap<>();
         params.put("ident", ident);
 
-        StudentRequestDetails.fetchFromWeb(ShowStudentRequestActivity.this, params, new Handler() {
+        StudentRequestDetails.fetchFromWeb(ShowStudentRequestActivity.this, params, new MyHandler() {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 progressDialog.dismiss();
@@ -67,6 +69,7 @@ public class ShowStudentRequestActivity extends MyActivity {
         });
     }
 
+    @SuppressLint("WrongConstant")
     private void showData(StudentRequestDetails studentRequestDetails) {
         title.setText(studentRequestDetails.getResult().getTitle());
         adapter = new StudentRequestAdapter(studentRequestDetails);

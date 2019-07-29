@@ -49,7 +49,7 @@ public class WebService {
 
 
     @SuppressLint("LongLogTag")
-    public void request(final String url, final int method, final Handler handler) {
+    public void request(final String url, final int method, final MyHandler handler) {
 
         Log.i(MyLog.WEB_SERVICE, "Request");
 
@@ -79,11 +79,11 @@ public class WebService {
                                 handler.onResponse(false, "");
                             } else if (Integer.parseInt(isOk.getDescription().getErrorCode()) < 0) {
                                 SignIn signIn = new SignIn(context);
-                                signIn.SignInDialog(new Handler() {
+                                signIn.SignInDialog(new MyHandler() {
                                     @Override
                                     public void onResponse(boolean ok, Object obj) {
                                         if (ok) {
-                                            request(url, method, new Handler() {
+                                            request(url, method, new MyHandler() {
                                                 @Override
                                                 public void onResponse(boolean ok, Object obj) {
                                                     handler.onResponse(ok, obj);
@@ -120,7 +120,7 @@ public class WebService {
     }
 
     @SuppressLint("LongLogTag")
-    public void requestPost(final String url, final int method, final HashMap<String, String> params, final Handler handler) {
+    public void requestPost(final String url, final int method, final HashMap<String, String> params, final MyHandler handler) {
         Log.i(MyLog.WEB_SERVICE, "Request Post");
         Log.i(MyLog.WEB_SERVICE, "Handler : ‌" + String.valueOf(handler));
         Log.i(MyLog.WEB_SERVICE, "URL : " + url);
@@ -147,11 +147,11 @@ public class WebService {
                                 handler.onResponse(true, response);
                             } else if (Integer.parseInt(isOk.getDescription().getErrorCode()) < 0) {
                                 SignIn signIn = new SignIn(context);
-                                signIn.SignInDialog(new Handler() {
+                                signIn.SignInDialog(new MyHandler() {
                                     @Override
                                     public void onResponse(boolean ok, Object obj) {
                                         if (ok) {
-                                            requestPost(url, method, params, new Handler() {
+                                            requestPost(url, method, params, new MyHandler() {
                                                 @Override
                                                 public void onResponse(boolean ok, Object obj) {
                                                     handler.onResponse(ok, obj);

@@ -61,13 +61,14 @@
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/televisionActivity_tv1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                app:cardBackgroundColor="#D10000"
                 android:layout_weight="1"
                 android:layoutDirection="ltr"
+                app:cardBackgroundColor="#D10000"
                 app:cardCornerRadius="12dp">
 
                 <LinearLayout
@@ -105,13 +106,14 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/televisionActivity_tv2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                app:cardBackgroundColor="#D10000"
                 android:layout_weight="1"
                 android:layoutDirection="ltr"
+                app:cardBackgroundColor="#D10000"
                 app:cardCornerRadius="12dp">
 
                 <LinearLayout
@@ -165,9 +167,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                app:cardBackgroundColor="#D10000"
                 android:layout_weight="1"
                 android:layoutDirection="ltr"
+                app:cardBackgroundColor="#D10000"
                 app:cardCornerRadius="12dp">
 
                 <LinearLayout
@@ -205,13 +207,14 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/televisionActivity_tv4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                app:cardBackgroundColor="#D10000"
                 android:layout_weight="1"
                 android:layoutDirection="ltr"
+                app:cardBackgroundColor="#D10000"
                 app:cardCornerRadius="12dp">
 
                 <LinearLayout

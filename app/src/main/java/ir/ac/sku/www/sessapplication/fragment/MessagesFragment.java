@@ -35,6 +35,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -47,7 +48,7 @@ import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.activities.SendMessageActivity;
 import ir.ac.sku.www.sessapplication.models.GetInfoForSend;
 import ir.ac.sku.www.sessapplication.models.MSGMessagesParcelable;
-import ir.ac.sku.www.sessapplication.utils.Handler;
+import ir.ac.sku.www.sessapplication.utils.MyHandler;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 
 public class MessagesFragment extends Fragment {
@@ -61,9 +62,7 @@ public class MessagesFragment extends Fragment {
     private ViewPager viewPager;
     private TabLayout tabLayout;
 
-    private ImageButton fabBtn;
-    private FrameLayout fab;
-    private View fabShadow;
+    private FloatingActionButton floatingActionButton;
 
     private Dialog dialog;
 
@@ -108,19 +107,18 @@ public class MessagesFragment extends Fragment {
         prepareData(typeMessage[0], 0);
 
         Animation animation = AnimationUtils.loadAnimation(rootView.getContext(), R.anim.simple_grow);
-        fab = rootView.findViewById(R.id.addButton_Main);
-        fabBtn = rootView.findViewById(R.id.addButton_ImageButtonAdd);
-        fabShadow = rootView.findViewById(R.id.addButton_Shadow);
 
-        fab.startAnimation(animation);
-
-        fabBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(MyLog.MESSAGE, "on fab Button Clicked");
-                showSendMessageDialog();
-            }
-        });
+        floatingActionButton = rootView.findViewById(R.id.fragmentMessage_FloatingActionButton);
+        floatingActionButton.startAnimation(animation);
+        if (floatingActionButton != null) {
+            floatingActionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.i(MyLog.MESSAGE, "on fab Button Clicked");
+                    showSendMessageDialog();
+                }
+            });
+        }
 
         Drawable background = viewPager.getBackground();
         background.setAlpha(70);
@@ -148,7 +146,7 @@ public class MessagesFragment extends Fragment {
 
         Log.i(MyLog.MESSAGE, type);
 
-        MSGMessagesParcelable.fetchFromWeb(rootView.getContext(), (HashMap<String, String>) params, new Handler() {
+        MSGMessagesParcelable.fetchFromWeb(rootView.getContext(), (HashMap<String, String>) params, new MyHandler() {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 if (ok) {
@@ -240,7 +238,7 @@ public class MessagesFragment extends Fragment {
         params.put("id", ID);
         params.put("stNumber", StudentNumber);
 
-        GetInfoForSend.fetchFromWeb(rootView.getContext(), params, new Handler() {
+        GetInfoForSend.fetchFromWeb(rootView.getContext(), params, new MyHandler() {
             @Override
             public void onResponse(boolean ok, Object obj) {
 

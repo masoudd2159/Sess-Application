@@ -53,7 +53,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.MainActivity"
             android:screenOrientation="portrait"
@@ -116,9 +115,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.television.Channel3Activity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".activities.VideoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -144,6 +140,9 @@
             android:name=".activities.MusicActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.ChannelActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

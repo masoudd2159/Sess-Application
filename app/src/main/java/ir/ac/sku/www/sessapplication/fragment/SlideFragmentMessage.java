@@ -64,6 +64,7 @@ public class SlideFragmentMessage extends Fragment {
         return rootView;
     }
 
+    @SuppressLint("WrongConstant")
     private void showData(MSGMessagesParcelable messages) {
         adapter = new MessageSliderAdapter(messages.getResult());
         int resId = R.anim.layout_animation_from_right;

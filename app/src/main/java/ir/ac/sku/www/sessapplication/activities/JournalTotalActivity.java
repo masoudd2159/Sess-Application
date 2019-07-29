@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.adapters.JournalTotalAdapter;
 import ir.ac.sku.www.sessapplication.models.TotalJournalsModel;
-import ir.ac.sku.www.sessapplication.utils.Handler;
+import ir.ac.sku.www.sessapplication.utils.MyHandler;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
 public class JournalTotalActivity extends MyActivity {
@@ -50,7 +50,7 @@ public class JournalTotalActivity extends MyActivity {
     }
 
     private void getDataFromServer() {
-        TotalJournalsModel.fetchFromWeb(JournalTotalActivity.this, null, new Handler() {
+        TotalJournalsModel.fetchFromWeb(JournalTotalActivity.this, null, new MyHandler() {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 progressDialog.dismiss();

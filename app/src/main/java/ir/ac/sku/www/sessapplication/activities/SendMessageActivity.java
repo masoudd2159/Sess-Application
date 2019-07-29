@@ -41,7 +41,7 @@ import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.adapters.TargetsAdapter;
 import ir.ac.sku.www.sessapplication.models.GetInfoForSend;
 import ir.ac.sku.www.sessapplication.models.MSGSendMessage;
-import ir.ac.sku.www.sessapplication.utils.Handler;
+import ir.ac.sku.www.sessapplication.utils.MyHandler;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 import ir.ac.sku.www.sessapplication.utils.SignIn;
@@ -154,7 +154,7 @@ public class SendMessageActivity extends MyActivity {
                                     HttpManager.unsuccessfulOperation(SendMessageActivity.this, message.getDescription().getErrorText());
                                 } else if (Integer.parseInt(message.getDescription().getErrorCode()) < 0) {
                                     SignIn signIn = new SignIn(SendMessageActivity.this);
-                                    signIn.SignInDialog(new Handler() {
+                                    signIn.SignInDialog(new MyHandler() {
                                         @Override
                                         public void onResponse(boolean ok, Object obj) {
                                             if (ok) {

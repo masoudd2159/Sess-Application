@@ -58,7 +58,7 @@ import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.adapters.FoodReservationAdapter;
 import ir.ac.sku.www.sessapplication.models.SFXIncreaseCreditDetail;
 import ir.ac.sku.www.sessapplication.models.SFXWeeklyList;
-import ir.ac.sku.www.sessapplication.utils.Handler;
+import ir.ac.sku.www.sessapplication.utils.MyHandler;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.WebService;
 
@@ -255,7 +255,7 @@ public class FoodReservationFragment extends Fragment {
         params.put("week", week);
         String URI = MyConfig.SFX_WEEKLY_LIST + "?" + HttpManager.enCodeParameters(params);
 
-        webService.request(URI, Request.Method.GET, new Handler() {
+        webService.request(URI, Request.Method.GET, new MyHandler() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(boolean ok, Object obj) {
@@ -314,7 +314,7 @@ public class FoodReservationFragment extends Fragment {
         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "cookie Picker : " + params.get("cookie"));
 
 
-        webService.request(URI, Request.Method.GET, new Handler() {
+        webService.request(URI, Request.Method.GET, new MyHandler() {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 if (ok) {

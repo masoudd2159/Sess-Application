@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,43 +8,45 @@
     tools:context=".fragment.MessagesFragment"
     tools:ignore="MissingPrefix">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layoutDirection="ltr">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/fragmentMessage_AppBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layoutDirection="ltr"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/fragmentMessage_AppBarLayout"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/fragmentMessage_TabLayout"
+            fontPath="fonts/IRANSans_Bold.ttf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layoutDirection="ltr"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            app:tabGravity="fill"
+            app:tabMode="fixed" />
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/fragmentMessage_TabLayout"
-                fontPath="fonts/IRANSans_Bold.ttf"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layoutDirection="ltr"
-                app:tabGravity="fill"
-                app:tabMode="fixed" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-        </com.google.android.material.appbar.AppBarLayout>
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/fragmentMessage_ViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/fragmentMessage_AppBarLayout"
+        android:background="@drawable/ibg_messages"
+        android:layoutDirection="ltr"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/fragmentMessage_ViewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/fragmentMessage_AppBarLayout"
-            android:background="@drawable/ibg_messages"
-            android:layoutDirection="ltr"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fragmentMessage_FloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:layoutDirection="ltr"
+        android:src="@drawable/ic_action_add"
+        app:fabSize="normal"
+        app:layout_anchor="@id/fragmentMessage_ViewPager"
+        app:layout_anchorGravity="bottom|right|end"
+        app:pressedTranslationZ="12dp" />
 
-    </RelativeLayout>
-
-
-    <include
-        layout="@layout/add_button"
-        android:layoutDirection="ltr" />
-
-</FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

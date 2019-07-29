@@ -58,7 +58,7 @@ import ir.ac.sku.www.sessapplication.models.SendInformation;
 import ir.ac.sku.www.sessapplication.utils.CheckSignUpPreferenceManager;
 import ir.ac.sku.www.sessapplication.utils.CustomToastExit;
 import ir.ac.sku.www.sessapplication.utils.CustomToastSuccess;
-import ir.ac.sku.www.sessapplication.utils.Handler;
+import ir.ac.sku.www.sessapplication.utils.MyHandler;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 import ir.ac.sku.www.sessapplication.utils.WebService;
@@ -313,7 +313,7 @@ public class LoginActivity extends MyActivity {
             params.put("password", password.getText().toString().trim());
 
             WebService webService = new WebService(LoginActivity.this);
-            webService.requestPost(MyConfig.SEND_INFORMATION, Request.Method.POST, params, new Handler() {
+            webService.requestPost(MyConfig.SEND_INFORMATION, Request.Method.POST, params, new MyHandler() {
                 @SuppressLint("NewApi")
                 @Override
                 public void onResponse(boolean ok, Object obj) {

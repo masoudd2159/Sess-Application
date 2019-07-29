@@ -1,5 +1,6 @@
 package ir.ac.sku.www.sessapplication.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
@@ -23,7 +24,7 @@ import java.util.Map;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.adapters.ProcessesFragmentAdapter;
 import ir.ac.sku.www.sessapplication.models.StudentRequests;
-import ir.ac.sku.www.sessapplication.utils.Handler;
+import ir.ac.sku.www.sessapplication.utils.MyHandler;
 
 public class ProcessesFragment extends Fragment {
 
@@ -59,7 +60,7 @@ public class ProcessesFragment extends Fragment {
         Map<String, String> params = new HashMap<>();
         params.put("type", "test");
 
-        StudentRequests.fetchFromWeb(rootView.getContext(), (HashMap<String, String>) params, new Handler() {
+        StudentRequests.fetchFromWeb(rootView.getContext(), (HashMap<String, String>) params, new MyHandler() {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 progressDialog.dismiss();
@@ -75,6 +76,7 @@ public class ProcessesFragment extends Fragment {
         background.setAlpha(75);
     }
 
+    @SuppressLint("WrongConstant")
     private void showData(StudentRequests studentRequests) {
         ProcessesFragmentAdapter adapter = new ProcessesFragmentAdapter(studentRequests.getResult().getRequests());
         int resId = R.anim.layout_animation_from_right;

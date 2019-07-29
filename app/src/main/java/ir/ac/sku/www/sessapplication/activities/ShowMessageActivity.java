@@ -19,7 +19,7 @@ import com.uncopt.android.widget.text.justify.JustifiedTextView;
 import java.util.HashMap;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.models.MSGMessageShow;
-import ir.ac.sku.www.sessapplication.utils.Handler;
+import ir.ac.sku.www.sessapplication.utils.MyHandler;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
 public class ShowMessageActivity extends MyActivity {
@@ -88,7 +88,7 @@ public class ShowMessageActivity extends MyActivity {
         params.put("ident", ident);
         params.put("type", type);
 
-        MSGMessageShow.fetchFromWeb(ShowMessageActivity.this, params, new Handler() {
+        MSGMessageShow.fetchFromWeb(ShowMessageActivity.this, params, new MyHandler() {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 progressDialog.dismiss();

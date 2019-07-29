@@ -1,4 +1,5 @@
 package ir.ac.sku.www.sessapplication.activities;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
@@ -17,7 +18,7 @@ import java.util.HashMap;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.adapters.PhoneBookAdapter;
 import ir.ac.sku.www.sessapplication.models.PhoneBookModel;
-import ir.ac.sku.www.sessapplication.utils.Handler;
+import ir.ac.sku.www.sessapplication.utils.MyHandler;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
 public class PhoneBookActivity extends MyActivity implements SearchView.OnQueryTextListener {
@@ -73,7 +74,7 @@ public class PhoneBookActivity extends MyActivity implements SearchView.OnQueryT
     private void getDataFromServer(String query) {
         HashMap<String, String> params = new HashMap<>();
         params.put("name", query);
-        PhoneBookModel.fetchFromWeb(PhoneBookActivity.this, params, new Handler() {
+        PhoneBookModel.fetchFromWeb(PhoneBookActivity.this, params, new MyHandler() {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 progressDialog.dismiss();
@@ -86,6 +87,7 @@ public class PhoneBookActivity extends MyActivity implements SearchView.OnQueryT
         });
     }
 
+    @SuppressLint("WrongConstant")
     private void showData(PhoneBookModel phoneBookModel) {
         adapter = new PhoneBookAdapter(PhoneBookActivity.this, phoneBookModel);
         int resId = R.anim.layout_animation_from_right;

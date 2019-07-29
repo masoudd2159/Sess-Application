@@ -10,14 +10,18 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
+import ir.ac.sku.www.sessapplication.API.MyConfig;
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.activities.television.Channel3Activity;
+import ir.ac.sku.www.sessapplication.activities.ChannelActivity;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
 public class TelevisionActivity extends MyActivity {
 
+    private CardView channel_1;
+    private CardView channel_2;
     private CardView channel_3;
+    private CardView channel_4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +45,19 @@ public class TelevisionActivity extends MyActivity {
                 if (HttpManager.isNOTOnline(TelevisionActivity.this)) {
                     HttpManager.noInternetAccess(TelevisionActivity.this);
                 } else {
-                    startActivity(new Intent(TelevisionActivity.this, Channel3Activity.class));
+                    Intent intentTV3 = new Intent(TelevisionActivity.this, ChannelActivity.class);
+                    intentTV3.putExtra("URL", MyConfig.CHANNEL_3);
+                    startActivity(intentTV3);
                 }
             }
         });
     }
 
     private void init() {
+        channel_1 = findViewById(R.id.televisionActivity_tv1);
+        channel_2 = findViewById(R.id.televisionActivity_tv2);
         channel_3 = findViewById(R.id.televisionActivity_tv3);
+        channel_4 = findViewById(R.id.televisionActivity_tv4);
     }
 
     @Override

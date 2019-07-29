@@ -1,5 +1,6 @@
 package ir.ac.sku.www.sessapplication.activities;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -33,7 +34,7 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.adapters.NewsAdapter;
 import ir.ac.sku.www.sessapplication.models.NewsModel;
-import ir.ac.sku.www.sessapplication.utils.Handler;
+import ir.ac.sku.www.sessapplication.utils.MyHandler;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
 public class NewsActivity extends MyActivity {
@@ -134,11 +135,11 @@ public class NewsActivity extends MyActivity {
     private void init() {
         viewPager = findViewById(R.id.newsActivity_ViewPager);
         layoutDot = findViewById(R.id.newsActivity_DotLayout);
-        recyclerView = (RecyclerView) findViewById(R.id.newsActivity_RecyclerView);
+        recyclerView = findViewById(R.id.newsActivity_RecyclerView);
     }
 
     private void getDataFromServer() {
-        NewsModel.fetchFromWeb(NewsActivity.this, null, new Handler() {
+        NewsModel.fetchFromWeb(NewsActivity.this, null, new MyHandler() {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 progressDialog.dismiss();
@@ -172,6 +173,7 @@ public class NewsActivity extends MyActivity {
         });
     }
 
+    @SuppressLint("WrongConstant")
     private void showData(NewsModel newsModel) {
         adapter = new NewsAdapter(NewsActivity.this, newsModel);
         int resId = R.anim.layout_animation_from_right;

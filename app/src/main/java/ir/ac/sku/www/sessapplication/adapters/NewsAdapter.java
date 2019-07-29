@@ -18,7 +18,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
@@ -38,7 +37,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.custom_journal_list, viewGroup, false);
+        View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.custom_news_list, viewGroup, false);
         return new NewsAdapter.MyViewHolder(itemView);
     }
 
@@ -54,17 +53,17 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
 
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
-        private ImageView journalImage;
+        private ImageView newsImage;
         private TextView title;
-        private TextView version;
+        private TextView summary;
         private Dialog dialog;
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            journalImage = itemView.findViewById(R.id.journalList_JournalImageView);
-            title = itemView.findViewById(R.id.journalList_Title);
-            version = itemView.findViewById(R.id.journalList_Version);
+            newsImage = itemView.findViewById(R.id.newsList_NewsImageView);
+            title = itemView.findViewById(R.id.newsList_Title);
+            summary = itemView.findViewById(R.id.newsList_Summary);
 
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
@@ -72,9 +71,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
 
         void bind(NewsModel.Result.News news) {
             title.setText(news.getTitle());
-            version.setText(news.getText());
+            summary.setText(news.getText());
 
-            Glide.with(activity).load(news.getImage()).diskCacheStrategy(DiskCacheStrategy.ALL).into(journalImage);
+            Glide.with(activity).load(news.getImage()).diskCacheStrategy(DiskCacheStrategy.ALL).into(newsImage);
         }
 
         @Override

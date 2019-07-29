@@ -30,8 +30,8 @@ import ir.ac.sku.www.sessapplication.API.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.models.GetInfoForSend;
 import ir.ac.sku.www.sessapplication.utils.CheckSignUpPreferenceManager;
-import ir.ac.sku.www.sessapplication.utils.Handler;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
+import ir.ac.sku.www.sessapplication.utils.MyHandler;
 
 public class AboutActivity extends MyActivity {
 
@@ -143,7 +143,7 @@ public class AboutActivity extends MyActivity {
         params.put("id", ID);
         params.put("stNumber", StudentNumber);
 
-        GetInfoForSend.fetchFromWeb(AboutActivity.this, params, new Handler() {
+        GetInfoForSend.fetchFromWeb(AboutActivity.this, params, new MyHandler() {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 if (ok) {

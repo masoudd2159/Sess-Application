@@ -26,7 +26,7 @@ import ir.ac.sku.www.sessapplication.API.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.models.AppInfo;
 import ir.ac.sku.www.sessapplication.utils.CheckSignUpPreferenceManager;
-import ir.ac.sku.www.sessapplication.utils.Handler;
+import ir.ac.sku.www.sessapplication.utils.MyHandler;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
@@ -114,7 +114,7 @@ public class SplashScreenActivity extends MyActivity {
                 }
             });
         } else {
-            AppInfo.fetchFromWeb(SplashScreenActivity.this, null, new Handler() {
+            AppInfo.fetchFromWeb(SplashScreenActivity.this, null, new MyHandler() {
                 @Override
                 public void onResponse(boolean ok, Object obj) {
                     if (ok) {

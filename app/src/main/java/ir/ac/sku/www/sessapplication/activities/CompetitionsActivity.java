@@ -1,4 +1,5 @@
 package ir.ac.sku.www.sessapplication.activities;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -14,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.adapters.CompetitionsAdapter;
 import ir.ac.sku.www.sessapplication.models.CompetitionsModel;
-import ir.ac.sku.www.sessapplication.utils.Handler;
+import ir.ac.sku.www.sessapplication.utils.MyHandler;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
 public class CompetitionsActivity extends MyActivity {
@@ -50,7 +51,7 @@ public class CompetitionsActivity extends MyActivity {
     }
 
     private void getDataFromServer() {
-        CompetitionsModel.fetchFromWeb(CompetitionsActivity.this, null, new Handler() {
+        CompetitionsModel.fetchFromWeb(CompetitionsActivity.this, null, new MyHandler() {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 progressDialog.dismiss();
@@ -63,6 +64,7 @@ public class CompetitionsActivity extends MyActivity {
         });
     }
 
+    @SuppressLint("WrongConstant")
     private void showData(CompetitionsModel competitionsModel) {
         adapter = new CompetitionsAdapter(CompetitionsActivity.this, competitionsModel);
         int resId = R.anim.layout_animation_from_right;

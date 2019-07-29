@@ -9,7 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
 import ir.ac.sku.www.sessapplication.API.MyConfig;
-import ir.ac.sku.www.sessapplication.utils.Handler;
+import ir.ac.sku.www.sessapplication.utils.MyHandler;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.WebService;
 
@@ -136,12 +136,12 @@ public class MSGMessageShow {
         }
     }
 
-    public static void fetchFromWeb(Context context, HashMap<String, String> params, final Handler handler) {
+    public static void fetchFromWeb(Context context, HashMap<String, String> params, final MyHandler handler) {
         final Gson gson = new Gson();
 
         WebService webService = new WebService(context);
         String myURL = MyConfig.MSG_MESSAGES + "?" + HttpManager.enCodeParameters(params);
-        webService.request(myURL, Request.Method.GET, new Handler() {
+        webService.request(myURL, Request.Method.GET, new MyHandler() {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 if (ok) {
