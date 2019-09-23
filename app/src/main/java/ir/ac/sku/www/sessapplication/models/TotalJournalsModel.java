@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi;
 import com.android.volley.Request;
 import com.google.gson.Gson;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
@@ -115,7 +116,12 @@ public class TotalJournalsModel {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 if (ok) {
-                    TotalJournalsModel totalJournalsModel = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), TotalJournalsModel.class);
+                    TotalJournalsModel totalJournalsModel = null;
+                    try {
+                        totalJournalsModel = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), TotalJournalsModel.class);
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                     if (totalJournalsModel.getOk()) {
                         handler.onResponse(true, totalJournalsModel);
                     }

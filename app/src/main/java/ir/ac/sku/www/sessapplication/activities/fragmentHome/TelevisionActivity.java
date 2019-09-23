@@ -39,6 +39,32 @@ public class TelevisionActivity extends MyActivity {
 
         init();
 
+        channel_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (HttpManager.isNOTOnline(TelevisionActivity.this)) {
+                    HttpManager.noInternetAccess(TelevisionActivity.this);
+                } else {
+                    Intent intentTV3 = new Intent(TelevisionActivity.this, ChannelActivity.class);
+                    intentTV3.putExtra("URL", MyConfig.CHANNEL_1);
+                    startActivity(intentTV3);
+                }
+            }
+        });
+
+        channel_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (HttpManager.isNOTOnline(TelevisionActivity.this)) {
+                    HttpManager.noInternetAccess(TelevisionActivity.this);
+                } else {
+                    Intent intentTV3 = new Intent(TelevisionActivity.this, ChannelActivity.class);
+                    intentTV3.putExtra("URL", MyConfig.CHANNEL_2);
+                    startActivity(intentTV3);
+                }
+            }
+        });
+
         channel_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

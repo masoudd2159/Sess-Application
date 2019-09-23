@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi;
 import com.android.volley.Request;
 import com.google.gson.Gson;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
@@ -165,7 +166,12 @@ public class StudentRequestDetails {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 if (ok) {
-                    StudentRequestDetails studentRequestDetails = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), StudentRequestDetails.class);
+                    StudentRequestDetails studentRequestDetails = null;
+                    try {
+                        studentRequestDetails = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), StudentRequestDetails.class);
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                     if (studentRequestDetails.getOk()) {
                         handler.onResponse(true, studentRequestDetails);
                     }

@@ -54,11 +54,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:ellipsize="end"
                         android:gravity="center"
                         android:layoutDirection="ltr"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:paddingBottom="15dp"
+                        android:singleLine="true"
                         android:text="ورود به سامانه SESS"
                         android:textColor="@color/gpvch_black"
                         android:textSize="17sp" />
@@ -109,11 +111,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:ellipsize="end"
                         android:gravity="center"
                         android:layoutDirection="ltr"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:paddingBottom="15dp"
+                        android:singleLine="true"
                         android:text="معاونت آموزشی"
                         android:textColor="@color/gpvch_black"
                         android:textSize="17sp" />
@@ -152,11 +156,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:ellipsize="end"
                         android:gravity="center"
                         android:layoutDirection="ltr"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:paddingBottom="15dp"
+                        android:singleLine="true"
                         android:text="معاونت دانشجویی"
                         android:textColor="@color/gpvch_black"
                         android:textSize="17sp" />
@@ -205,11 +211,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:ellipsize="end"
                         android:gravity="center"
                         android:layoutDirection="ltr"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:paddingBottom="15dp"
+                        android:singleLine="true"
                         android:text="معاونت پژوهشی"
                         android:textColor="@color/gpvch_black"
                         android:textSize="17sp" />
@@ -248,11 +256,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:ellipsize="end"
                         android:gravity="center"
                         android:layoutDirection="ltr"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:paddingBottom="15dp"
+                        android:singleLine="true"
                         android:text="معاونت فرهنگی"
                         android:textColor="@color/gpvch_black"
                         android:textSize="17sp" />
@@ -300,11 +310,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:ellipsize="end"
                         android:gravity="center"
                         android:layoutDirection="ltr"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:paddingBottom="15dp"
+                        android:singleLine="true"
                         android:text="اخبار و اطلاعیه ها"
                         android:textColor="@color/gpvch_black"
                         android:textSize="17sp" />
@@ -314,7 +326,7 @@
 
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
+            <!--<androidx.cardview.widget.CardView
                 android:id="@+id/homeFragment_Television"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -344,11 +356,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:ellipsize="end"
                         android:gravity="center"
                         android:layoutDirection="ltr"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:paddingBottom="15dp"
+                        android:singleLine="true"
                         android:text="پخش زنده تلویزیون"
                         android:textColor="@color/gpvch_black"
                         android:textSize="17sp" />
@@ -356,7 +370,7 @@
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>-->
 
         </LinearLayout>
 
@@ -397,11 +411,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:ellipsize="end"
                         android:gravity="center"
                         android:layoutDirection="ltr"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:paddingBottom="15dp"
+                        android:singleLine="true"
                         android:text="معاونت اداری مالی"
                         android:textColor="@color/gpvch_black"
                         android:textSize="15sp" />
@@ -440,11 +456,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:ellipsize="end"
                         android:gravity="center"
                         android:layoutDirection="ltr"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:paddingBottom="15dp"
+                        android:singleLine="true"
                         android:text="دفتر تلفن"
                         android:textColor="@color/gpvch_black"
                         android:textSize="18sp" />
@@ -492,11 +510,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:ellipsize="end"
                         android:gravity="center"
                         android:layoutDirection="ltr"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:paddingBottom="15dp"
+                        android:singleLine="true"
                         android:text="اشیاء گمشده"
                         android:textColor="@color/gpvch_black"
                         android:textSize="16sp" />
@@ -534,11 +554,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:ellipsize="end"
                         android:gravity="center"
                         android:layoutDirection="ltr"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:paddingBottom="15dp"
+                        android:singleLine="true"
                         android:text="بازارچه الکترونیک"
                         android:textColor="@color/gpvch_black"
                         android:textSize="17sp" />

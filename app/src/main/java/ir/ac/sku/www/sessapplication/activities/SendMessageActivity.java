@@ -31,6 +31,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
@@ -144,7 +145,11 @@ public class SendMessageActivity extends MyActivity {
                         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                         @Override
                         public void onResponse(String response) {
-                            message = gson.fromJson(new String(response.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), MSGSendMessage.class);
+                            try {
+                                message = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"), MSGSendMessage.class);
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            }
                             if (message.getOk()) {
                                 HttpManager.successfulOperation(SendMessageActivity.this, message.getResult());
                                 title.setText("");

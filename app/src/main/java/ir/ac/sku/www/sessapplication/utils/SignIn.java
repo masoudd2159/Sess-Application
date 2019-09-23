@@ -34,6 +34,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
@@ -167,7 +168,11 @@ public class SignIn {
                 @Override
                 public void onResponse(boolean ok, Object obj) {
                     Log.i(MyLog.SIGN_IN, "get Login Info");
-                    sendInformation = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), SendInformation.class);
+                    try {
+                        sendInformation = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), SendInformation.class);
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                     if (sendInformation.isOk()) {
                         Log.i(MyLog.SIGN_IN, "All Params True");
                         @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorCookie = preferencesCookie.edit();
@@ -241,7 +246,11 @@ public class SignIn {
                     @SuppressLint("NewApi")
                     @Override
                     public void onResponse(String response) {
-                        loginInformation = gson.fromJson(new String(response.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), LoginInformation.class);
+                        try {
+                            loginInformation = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"), LoginInformation.class);
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
 
                         if (loginInformation.isOk()) {
                             sendParamsPostUsernamePassword(handler, username, password);
@@ -277,7 +286,11 @@ public class SignIn {
                 @SuppressLint("NewApi")
                 @Override
                 public void onResponse(boolean ok, Object obj) {
-                    sendInformation = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), SendInformation.class);
+                    try {
+                        sendInformation = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), SendInformation.class);
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                     dialog.dismiss();
 
                     if (sendInformation.isOk()) {

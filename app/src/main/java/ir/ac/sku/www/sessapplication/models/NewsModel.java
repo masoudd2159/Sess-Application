@@ -6,6 +6,7 @@ import android.content.Context;
 import com.android.volley.Request;
 import com.google.gson.Gson;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
@@ -163,7 +164,12 @@ public class NewsModel {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 if (ok) {
-                    @SuppressLint({"NewApi", "LocalSuppress"}) NewsModel newsModel = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), NewsModel.class);
+                    @SuppressLint({"NewApi", "LocalSuppress"}) NewsModel newsModel = null;
+                    try {
+                        newsModel = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), NewsModel.class);
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                     if (newsModel.getOk()) {
                         handler.onResponse(true, newsModel);
                     }

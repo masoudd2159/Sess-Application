@@ -34,7 +34,7 @@ public class HomeFragment extends Fragment {
     private CardView research;
     private CardView cultural;
     private CardView news;
-    private CardView television;
+    //private CardView television;
     private CardView office;
     private CardView phoneBook;
     private CardView lost;
@@ -108,12 +108,12 @@ public class HomeFragment extends Fragment {
                 startActivity(new Intent(rootView.getContext(), OfficeDeputyActivity.class));
             }
         });
-        television.setOnClickListener(new View.OnClickListener() {
+        /*television.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(rootView.getContext(), TelevisionActivity.class));
             }
-        });
+        });*/
 
         return view;
     }
@@ -127,6 +127,6 @@ public class HomeFragment extends Fragment {
         student = rootView.findViewById(R.id.homeFragment_StudentDeputy);
         research = rootView.findViewById(R.id.homeFragment_ResearchDeputy);
         office = rootView.findViewById(R.id.homeFragment_OfficeDeputy);
-        television = rootView.findViewById(R.id.homeFragment_Television);
+        //television = rootView.findViewById(R.id.homeFragment_Television);
     }
 }

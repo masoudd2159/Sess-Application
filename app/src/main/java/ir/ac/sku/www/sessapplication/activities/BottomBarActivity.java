@@ -3,6 +3,7 @@ package ir.ac.sku.www.sessapplication.activities;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,9 +21,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import ir.ac.sku.www.sessapplication.API.MyLog;
@@ -33,12 +36,14 @@ import ir.ac.sku.www.sessapplication.fragment.HomeFragment;
 import ir.ac.sku.www.sessapplication.fragment.MessagesFragment;
 import ir.ac.sku.www.sessapplication.fragment.ProcessesFragment;
 import ir.ac.sku.www.sessapplication.models.SendInformation;
+import ir.ac.sku.www.sessapplication.utils.ColoredSnackBar;
+import ir.ac.sku.www.sessapplication.utils.ConnectivityReceiver;
 import ir.ac.sku.www.sessapplication.utils.CustomToastExit;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.InstantMessage;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
-public class BottomBarActivity extends MyActivity {
+public class BottomBarActivity extends MyActivity implements ConnectivityReceiver.ConnectivityReceiverListener {
 
     //My Fragment
     private HomeFragment homeFragment;
@@ -48,20 +53,22 @@ public class BottomBarActivity extends MyActivity {
 
     //My View
     private BottomNavigationView bottomBar;
-    //private ImageView logo;
     private ImageView more;
     private ImageView profile;
     private CardView cardViewProfile;
-    private int mMenuId;
     private TextView fullName;
     private View slash;
+    private CoordinatorLayout fragmentHolder;
+
 
     private SharedPreferences preferencesCookie;
     private SharedPreferences preferencesName;
     private SharedPreferences preferencesUserImage;
 
     private SendInformation.Result instantMessage;
+    private ConnectivityReceiver receiver;
     private boolean doubleBackToExitPressedOnce = false;
+    private boolean starter = false;
 
     @SuppressLint({"LongLogTag", "SetTextI18n"})
     @Override
@@ -71,6 +78,8 @@ public class BottomBarActivity extends MyActivity {
         setContentView(R.layout.activity_bottom_bar);
         //Initial Views
         init();
+
+        receiver = new ConnectivityReceiver();
 
         Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "___Bottom Bar Activity___");
 
@@ -132,6 +141,20 @@ public class BottomBarActivity extends MyActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        receiver.setListener(this);
+        registerReceiver(receiver, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        receiver.setListener(null);
+        unregisterReceiver(receiver);
+    }
+
     private void init() {
         bottomBar = findViewById(R.id.bottomBarActivity_BottomBar);
         //logo = findViewById(R.id.bottomBarActivity_Logo);
@@ -140,6 +163,7 @@ public class BottomBarActivity extends MyActivity {
         cardViewProfile = findViewById(R.id.bottomBarActivity_CardViewProfile);
         fullName = findViewById(R.id.bottomBarActivity_FullName);
         slash = findViewById(R.id.bottomBarActivity_Slash);
+        fragmentHolder = findViewById(R.id.bottomBarActivity_FragmentHolder);
     }
 
     private void BottomBarAction() {
@@ -267,5 +291,18 @@ public class BottomBarActivity extends MyActivity {
                 doubleBackToExitPressedOnce = false;
             }
         }, 2000);
+    }
+
+    @Override
+    public void onNetworkConnectionChange(boolean isConnected) {
+        if (starter) {
+            if (isConnected) {
+                //ColoredSnackBar.success(Snackbar.make(fragmentHolder, "شما به اینترنت متصل شدید.", Snackbar.LENGTH_SHORT)).show();
+            } else {
+                ColoredSnackBar.error(Snackbar.make(fragmentHolder, "مشکلی در اتصال به اینترنت به وجود آمده!", Snackbar.LENGTH_SHORT)).show();
+            }
+        } else {
+            starter = true;
+        }
     }
 }

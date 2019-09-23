@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">app.sku.ac.ir:70</domain>
         <domain includeSubdomains="true">app.sku.ac.ir</domain>
         <domain includeSubdomains="true">sess.sku.ac.ir</domain>
     </domain-config>

@@ -2,31 +2,31 @@ package ir.ac.sku.www.sessapplication.activities;
 
 import android.app.ProgressDialog;
 import android.graphics.Color;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.MediaController;
-import android.widget.VideoView;
+
+import com.devbrackets.android.exomedia.listener.OnPreparedListener;
+import com.devbrackets.android.exomedia.ui.widget.VideoView;
 
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
-public class ChannelActivity extends MyActivity {
+public class ChannelActivity extends MyActivity implements OnPreparedListener {
 
     private VideoView videoView;
-    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_channel);
         changeStatusBarColor();
-
         videoView = (VideoView) findViewById(R.id.channelActivity_VideoView);
+        videoView.setOnPreparedListener(this);
+        videoView.setVideoURI(Uri.parse(getIntent().getStringExtra("URL")));
     }
 
     private void changeStatusBarColor() {
@@ -42,23 +42,10 @@ public class ChannelActivity extends MyActivity {
     @Override
     protected void onResume() {
         super.onResume();
+    }
 
-        videoView.setMediaController(new MediaController(this));
-        videoView.setVideoURI(Uri.parse(getIntent().getStringExtra("URL")));
-        videoView.requestFocus();
+    @Override
+    public void onPrepared() {
         videoView.start();
-
-        progressDialog = new ProgressDialog(ChannelActivity.this);
-        progressDialog.setMessage("درحال بارگذاری اطلاعات ...");
-        progressDialog.setCancelable(true);
-        progressDialog.show();
-
-
-        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-
-            public void onPrepared(MediaPlayer mp) {
-                progressDialog.dismiss();
-            }
-        });
     }
 }

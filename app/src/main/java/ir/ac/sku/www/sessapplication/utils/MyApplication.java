@@ -9,6 +9,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 public class MyApplication extends Application {
 
     private static Context context;
+    private static MyApplication instance;
 
     @Override
     public void onCreate() {
@@ -19,6 +20,8 @@ public class MyApplication extends Application {
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
+
+        instance = this;
     }
 
     public static Context getContext() {
@@ -27,5 +30,13 @@ public class MyApplication extends Application {
 
     public static void setContext(Context context) {
         MyApplication.context = context;
+    }
+
+    public static synchronized MyApplication getInstance() {
+        return instance;
+    }
+
+    public void setConnectivityReceiverListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
+        ConnectivityReceiver.listener = listener;
     }
 }

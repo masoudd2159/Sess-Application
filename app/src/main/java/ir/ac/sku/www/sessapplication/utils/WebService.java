@@ -18,6 +18,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
@@ -61,10 +62,13 @@ public class WebService {
         StringRequest stringRequest = new StringRequest(method,
                 myURL,
                 new Response.Listener<String>() {
-                    @SuppressLint("NewApi")
                     @Override
                     public void onResponse(String response) {
-                        isOk = gson.fromJson(new String(response.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), IsOk.class);
+                        try {
+                            isOk = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"), IsOk.class);
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
                         Log.i(MyLog.WEB_SERVICE, "OK : " + isOk.isOk());
 
                         if (isOk.isOk()) {
@@ -133,7 +137,11 @@ public class WebService {
                     @SuppressLint("NewApi")
                     @Override
                     public void onResponse(String response) {
-                        isOk = gson.fromJson(new String(response.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), IsOk.class);
+                        try {
+                            isOk = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"), IsOk.class);
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
                         Log.i(MyLog.WEB_SERVICE, "OK : " + isOk.isOk());
 
                         if (isOk.isOk()) {

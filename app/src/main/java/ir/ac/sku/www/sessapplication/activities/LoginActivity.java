@@ -45,6 +45,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
@@ -239,7 +240,11 @@ public class LoginActivity extends MyActivity {
                         progressDialog.dismiss();
 
                         Log.i(MyLog.LOGIN_ACTIVITY, "get JSON Cookie From Server");
-                        loginInformation = gson.fromJson(new String(response.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), LoginInformation.class);
+                        try {
+                            loginInformation = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"), LoginInformation.class);
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
 
                         if (loginInformation.isOk()) {
                             Log.i(MyLog.LOGIN_ACTIVITY, "Cookie : " + loginInformation.getCookie());
@@ -318,7 +323,11 @@ public class LoginActivity extends MyActivity {
                 @Override
                 public void onResponse(boolean ok, Object obj) {
                     Log.i(MyLog.LOGIN_ACTIVITY, "get Login Info");
-                    sendInformation = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), SendInformation.class);
+                    try {
+                        sendInformation = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), SendInformation.class);
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
 
                     if (sendInformation.isOk()) {
                         Log.i(MyLog.LOGIN_ACTIVITY, "All Params True");

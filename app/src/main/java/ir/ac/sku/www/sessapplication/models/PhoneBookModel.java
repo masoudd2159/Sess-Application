@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi;
 import com.android.volley.Request;
 import com.google.gson.Gson;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
@@ -129,7 +130,12 @@ public class PhoneBookModel {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 if (ok) {
-                    PhoneBookModel phoneBookModel = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), PhoneBookModel.class);
+                    PhoneBookModel phoneBookModel = null;
+                    try {
+                        phoneBookModel = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), PhoneBookModel.class);
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                     if (phoneBookModel.getOk()) {
                         handler.onResponse(true, phoneBookModel);
                     }

@@ -1,15 +1,24 @@
 package ir.ac.sku.www.sessapplication.adapters;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.uncopt.android.widget.text.justify.JustifiedTextView;
 
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.models.CompetitionsModel;
@@ -26,7 +35,7 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.costum_simple_list, viewGroup, false);
+        View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.custom_competitions_list, viewGroup, false);
         return new MyViewHolder(itemView);
     }
 
@@ -43,16 +52,33 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView title;
+        private JustifiedTextView description;
+        private ImageView picture;
+        private RecyclerView recyclerView;
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            title = itemView.findViewById(R.id.text_id);
+            title = itemView.findViewById(R.id.customCompetitionsList_TextViewTitle);
+            description = itemView.findViewById(R.id.customCompetitionsList_TextViewDescription);
+            picture = itemView.findViewById(R.id.customCompetitionsList_ImageViewPicture);
+            recyclerView = itemView.findViewById(R.id.customCompetitionsList_RecyclerView);
+
             itemView.setOnClickListener(this);
         }
 
+        @SuppressLint("WrongConstant")
         void bind(CompetitionsModel.Result competitions) {
             title.setText(competitions.getTitle());
+            description.setText(competitions.getDescription());
+            Glide.with(activity).load(competitions.getPicture()).diskCacheStrategy(DiskCacheStrategy.ALL).into(picture);
+
+            AttachmentAdapter adapter = new AttachmentAdapter(activity, competitions);
+            int resId = R.anim.layout_animation_from_right;
+            LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(activity, resId);
+            recyclerView.setLayoutAnimation(animation);
+            recyclerView.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
+            recyclerView.setAdapter(adapter);
         }
 
         @Override
@@ -60,6 +86,60 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(competitions.getResult().get(getLayoutPosition()).getUrl()));
             activity.startActivity(intent);
+        }
+
+        public class AttachmentAdapter extends RecyclerView.Adapter<AttachmentAdapter.MyAttachmentAdapterViewHolder> {
+
+            private CompetitionsModel.Result result;
+            private Activity activity;
+
+            public AttachmentAdapter(@NonNull Activity activity, CompetitionsModel.Result result) {
+                this.result = result;
+                this.activity = activity;
+            }
+
+            @NonNull
+            @Override
+            public MyAttachmentAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+                View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.custom_simple_attachment_list, viewGroup, false);
+                return new MyAttachmentAdapterViewHolder(itemView);
+            }
+
+            @Override
+            public void onBindViewHolder(@NonNull MyAttachmentAdapterViewHolder holder, int position) {
+                holder.bind(result.getFiles().get(position));
+            }
+
+            @Override
+            public int getItemCount() {
+                return result.getFiles().size();
+            }
+
+            class MyAttachmentAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+                private TextView description;
+
+                public MyAttachmentAdapterViewHolder(@NonNull View itemView) {
+                    super(itemView);
+
+                    description = itemView.findViewById(R.id.textViewDescription);
+
+                    itemView.setOnClickListener(this);
+                }
+
+                @SuppressLint("WrongConstant")
+                void bind(CompetitionsModel.Result.File file) {
+                    description.setText(file.getDescription());
+                }
+
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(result.getFiles().get(getLayoutPosition()).getLink()));
+                    activity.startActivity(intent);
+                }
+            }
+
         }
     }
 }

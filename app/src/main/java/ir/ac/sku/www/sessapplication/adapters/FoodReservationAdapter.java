@@ -792,7 +792,11 @@ public class FoodReservationAdapter {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 if (ok) {
-                    sfxMealDetail = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), SFXMealDetail.class);
+                    try {
+                        sfxMealDetail = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), SFXMealDetail.class);
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                     if (sfxMealDetail.getOk()) {
                         if (sfxMealDetail.getResult().size() <= 0) {
                             Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "No food found");
@@ -998,7 +1002,11 @@ public class FoodReservationAdapter {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 if (ok) {
-                    weeklyList = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), SFXWeeklyList.class);
+                    try {
+                        weeklyList = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), SFXWeeklyList.class);
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                     if (weeklyList.isOk()) {
                         sfxWeeklyList = weeklyList;
                         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, sfxWeeklyList.getResult().getMessage());
