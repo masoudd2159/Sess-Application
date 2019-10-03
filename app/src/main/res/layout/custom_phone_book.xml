@@ -37,7 +37,7 @@
 
             <TextView
                 android:id="@+id/customPhoneBook_Name"
-                fontPath="fonts/IRANSans(FaNum)_Bold.ttf"
+                fontPath="fonts/IRANSansMobile(FaNum)_Bold.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="7dp"

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.QuickContactBadge;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -37,6 +39,7 @@ public class AboutActivity extends MyActivity {
 
     private Button logout;
     private Button bugReport;
+    private Button email;
     private ImageView profile;
     private TextView username;
     private TextView major;
@@ -64,6 +67,7 @@ public class AboutActivity extends MyActivity {
         profile = findViewById(R.id.aboutActivity_ImageProfile);
         username = findViewById(R.id.aboutActivity_Username);
         major = findViewById(R.id.aboutActivity_Major);
+        email = findViewById(R.id.aboutActivity_Email);
 
         queue = Volley.newRequestQueue(AboutActivity.this);
 
@@ -97,6 +101,16 @@ public class AboutActivity extends MyActivity {
 
                 startActivity(new Intent(AboutActivity.this, SplashScreenActivity.class));
                 finish();
+            }
+        });
+
+        email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "app@sku.ac.ir", null));
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "گزارش مشکلات اندروید");
+                startActivity(Intent.createChooser(emailIntent, "ارسال ایمیل به پشتیبانی"));
             }
         });
 
@@ -158,7 +172,6 @@ public class AboutActivity extends MyActivity {
                     bugReport.setEnabled(true);
                     bugReport.setClickable(true);
                 } else {
-
                 }
             }
         });

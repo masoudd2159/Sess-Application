@@ -34,7 +34,7 @@
 
             <TextView
                 android:id="@+id/customShowStudentRequest_TextViewStep"
-                fontPath="fonts/IRANSans(FaNum)_Black.ttf"
+                fontPath="fonts/IRANSansMobile(FaNum)_Black.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"

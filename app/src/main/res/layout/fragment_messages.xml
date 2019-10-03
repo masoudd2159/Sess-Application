@@ -17,7 +17,7 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/fragmentMessage_TabLayout"
-            fontPath="fonts/IRANSans_Bold.ttf"
+            fontPath="fonts/IRANSansMobile_Bold.ttf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layoutDirection="ltr"

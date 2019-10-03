@@ -86,7 +86,7 @@
                         android:src="@drawable/ic_absence" />
 
                     <TextView
-                        fontPath="fonts/IRANSans(FaNum)_Black.ttf"
+                        fontPath="fonts/IRANSansMobile_Black.ttf"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -131,7 +131,7 @@
                         android:src="@drawable/ic_processes" />
 
                     <TextView
-                        fontPath="fonts/IRANSans(FaNum)_Black.ttf"
+                        fontPath="fonts/IRANSansMobile_Black.ttf"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -186,7 +186,7 @@
                         android:src="@drawable/ic_professors" />
 
                     <TextView
-                        fontPath="fonts/IRANSans(FaNum)_Black.ttf"
+                        fontPath="fonts/IRANSansMobile_Black.ttf"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -230,7 +230,7 @@
                         android:src="@drawable/ic_schedule" />
 
                     <TextView
-                        fontPath="fonts/IRANSans(FaNum)_Black.ttf"
+                        fontPath="fonts/IRANSansMobile_Black.ttf"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"

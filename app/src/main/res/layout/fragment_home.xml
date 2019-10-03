@@ -50,7 +50,7 @@
                         android:src="@drawable/ic_sku_blue" />
 
                     <TextView
-                        fontPath="fonts/IRANSans(FaNum)_Black.ttf"
+                        fontPath="fonts/IRANSansMobile_Black.ttf"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -107,7 +107,7 @@
                         android:src="@drawable/ic_training" />
 
                     <TextView
-                        fontPath="fonts/IRANSans(FaNum)_Black.ttf"
+                        fontPath="fonts/IRANSansMobile_Black.ttf"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -152,7 +152,7 @@
                         android:src="@drawable/ic_student" />
 
                     <TextView
-                        fontPath="fonts/IRANSans(FaNum)_Black.ttf"
+                        fontPath="fonts/IRANSansMobile_Black.ttf"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -207,7 +207,7 @@
                         android:src="@drawable/ic_research" />
 
                     <TextView
-                        fontPath="fonts/IRANSans(FaNum)_Black.ttf"
+                        fontPath="fonts/IRANSansMobile_Black.ttf"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -252,7 +252,7 @@
                         android:src="@drawable/ic_cultural" />
 
                     <TextView
-                        fontPath="fonts/IRANSans(FaNum)_Black.ttf"
+                        fontPath="fonts/IRANSansMobile_Black.ttf"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -271,106 +271,6 @@
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layoutDirection="ltr"
-            android:orientation="horizontal">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/homeFragment_News"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:layoutDirection="ltr"
-                app:cardCornerRadius="12dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layoutDirection="ltr"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
-                        android:layout_gravity="center"
-                        android:layoutDirection="ltr"
-                        android:padding="15dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/ic_news" />
-
-                    <TextView
-                        fontPath="fonts/IRANSans(FaNum)_Black.ttf"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:ellipsize="end"
-                        android:gravity="center"
-                        android:layoutDirection="ltr"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:paddingBottom="15dp"
-                        android:singleLine="true"
-                        android:text="اخبار و اطلاعیه ها"
-                        android:textColor="@color/gpvch_black"
-                        android:textSize="17sp" />
-
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <!--<androidx.cardview.widget.CardView
-                android:id="@+id/homeFragment_Television"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:layoutDirection="ltr"
-                app:cardCornerRadius="12dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layoutDirection="ltr"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
-                        android:layout_gravity="center"
-                        android:layoutDirection="ltr"
-                        android:padding="15dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/ic_tv" />
-
-                    <TextView
-                        fontPath="fonts/IRANSans(FaNum)_Black.ttf"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:ellipsize="end"
-                        android:gravity="center"
-                        android:layoutDirection="ltr"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:paddingBottom="15dp"
-                        android:singleLine="true"
-                        android:text="پخش زنده تلویزیون"
-                        android:textColor="@color/gpvch_black"
-                        android:textSize="17sp" />
-
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>-->
 
         </LinearLayout>
 
@@ -407,7 +307,7 @@
                         android:src="@drawable/ic_office" />
 
                     <TextView
-                        fontPath="fonts/IRANSans(FaNum)_Black.ttf"
+                        fontPath="fonts/IRANSansMobile_Black.ttf"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -426,6 +326,60 @@
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/homeFragment_News"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:layoutDirection="ltr"
+                app:cardCornerRadius="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layoutDirection="ltr"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_gravity="center"
+                        android:layoutDirection="ltr"
+                        android:padding="15dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_news" />
+
+                    <TextView
+                        fontPath="fonts/IRANSansMobile_Black.ttf"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingBottom="15dp"
+                        android:singleLine="true"
+                        android:text="اخبار و اطلاعیه ها"
+                        android:textColor="@color/gpvch_black"
+                        android:textSize="17sp" />
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layoutDirection="ltr"
+            android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/homeFragment_PhoneBook"
@@ -452,7 +406,7 @@
                         android:src="@drawable/ic_phone_book" />
 
                     <TextView
-                        fontPath="fonts/IRANSans(FaNum)_Black.ttf"
+                        fontPath="fonts/IRANSansMobile_Black.ttf"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -472,16 +426,8 @@
 
             </androidx.cardview.widget.CardView>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layoutDirection="ltr"
-            android:orientation="horizontal">
-
             <androidx.cardview.widget.CardView
+                android:id="@+id/homeFragment_Support"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -503,10 +449,10 @@
                         android:layoutDirection="ltr"
                         android:padding="15dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/ic_lost" />
+                        android:src="@drawable/ic_support" />
 
                     <TextView
-                        fontPath="fonts/IRANSans(FaNum)_Black.ttf"
+                        fontPath="fonts/IRANSansMobile_Black.ttf"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -517,18 +463,20 @@
                         android:paddingRight="5dp"
                         android:paddingBottom="15dp"
                         android:singleLine="true"
-                        android:text="اشیاء گمشده"
+                        android:text="پشتیبانی"
                         android:textColor="@color/gpvch_black"
-                        android:textSize="16sp" />
+                        android:textSize="17sp" />
 
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
+            <!--<androidx.cardview.widget.CardView
+                android:id="@+id/homeFragment_Television"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:layoutDirection="ltr"
@@ -547,10 +495,10 @@
                         android:layoutDirection="ltr"
                         android:padding="15dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/ic_store" />
+                        android:src="@drawable/ic_tv" />
 
                     <TextView
-                        fontPath="fonts/IRANSans(FaNum)_Black.ttf"
+                        fontPath="fonts/IRANSansMobile_Black.ttf"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -561,16 +509,114 @@
                         android:paddingRight="5dp"
                         android:paddingBottom="15dp"
                         android:singleLine="true"
-                        android:text="بازارچه الکترونیک"
+                        android:text="پخش زنده تلویزیون"
                         android:textColor="@color/gpvch_black"
                         android:textSize="17sp" />
 
 
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>-->
 
         </LinearLayout>
+
+        <!-- <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="0dp"
+             android:layout_weight="1"
+             android:layoutDirection="ltr"
+             android:orientation="horizontal">
+
+             <androidx.cardview.widget.CardView
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+                 android:layout_gravity="center"
+                 android:layout_margin="5dp"
+                 android:layout_weight="1"
+                 android:layoutDirection="ltr"
+                 app:cardCornerRadius="12dp">
+
+                 <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:layoutDirection="ltr"
+                     android:orientation="vertical">
+
+                     <ImageView
+                         android:layout_width="90dp"
+                         android:layout_height="90dp"
+                         android:layout_gravity="center"
+                         android:layoutDirection="ltr"
+                         android:padding="15dp"
+                         android:scaleType="fitXY"
+                         android:src="@drawable/ic_lost" />
+
+                     <TextView
+                         fontPath="fonts/IRANSansMobile_Black.ttf"
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:layout_gravity="center"
+                         android:ellipsize="end"
+                         android:gravity="center"
+                         android:layoutDirection="ltr"
+                         android:paddingLeft="5dp"
+                         android:paddingRight="5dp"
+                         android:paddingBottom="15dp"
+                         android:singleLine="true"
+                         android:text="اشیاء گمشده"
+                         android:textColor="@color/gpvch_black"
+                         android:textSize="16sp" />
+
+
+                 </LinearLayout>
+
+             </androidx.cardview.widget.CardView>
+
+             <androidx.cardview.widget.CardView
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+                 android:layout_margin="5dp"
+                 android:layout_weight="1"
+                 android:layoutDirection="ltr"
+                 app:cardCornerRadius="12dp">
+
+                 <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:layoutDirection="ltr"
+                     android:orientation="vertical">
+
+                     <ImageView
+                         android:layout_width="90dp"
+                         android:layout_height="90dp"
+                         android:layout_gravity="center"
+                         android:layoutDirection="ltr"
+                         android:padding="15dp"
+                         android:scaleType="fitXY"
+                         android:src="@drawable/ic_store" />
+
+                     <TextView
+                         fontPath="fonts/IRANSansMobile_Black.ttf"
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:layout_gravity="center"
+                         android:ellipsize="end"
+                         android:gravity="center"
+                         android:layoutDirection="ltr"
+                         android:paddingLeft="5dp"
+                         android:paddingRight="5dp"
+                         android:paddingBottom="15dp"
+                         android:singleLine="true"
+                         android:text="بازارچه الکترونیک"
+                         android:textColor="@color/gpvch_black"
+                         android:textSize="17sp" />
+
+
+                 </LinearLayout>
+
+             </androidx.cardview.widget.CardView>
+
+         </LinearLayout>-->
 
 
     </LinearLayout>

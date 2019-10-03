@@ -63,6 +63,12 @@
     <string name="messagePagerTitle_4">خوانده</string>
     <string name="messagePagerTitle_5">ارسال شده</string>
 
+    <string name="all">all</string>
+
+    <string name="immediate">immediate</string>
+    <string name="unread">unread</string>
+    <string name="read">read</string>
+    <string name="send">send</string>
     <string-array name="messagePagerTitle">
         <item>@string/messagePagerTitle_1</item>
         <item>@string/messagePagerTitle_2</item>
@@ -70,12 +76,6 @@
         <item>@string/messagePagerTitle_4</item>
         <item>@string/messagePagerTitle_5</item>
     </string-array>
-
-    <string name="all">all</string>
-    <string name="immediate">immediate</string>
-    <string name="unread">unread</string>
-    <string name="read">read</string>
-    <string name="send">send</string>
 
     <string-array name="typeMessages">
         <item>@string/all</item>

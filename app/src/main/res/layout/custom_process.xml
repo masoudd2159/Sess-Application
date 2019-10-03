@@ -27,7 +27,7 @@
 
         <TextView
             android:id="@+id/customProcess_TextViewRequest"
-            fontPath="fonts/IRANSans_Black.ttf"
+            fontPath="fonts/IRANSansMobile(FaNum)_Black.ttf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -46,7 +46,7 @@
 
             <TextView
                 android:id="@+id/customProcess_TextViewStatus"
-                fontPath="fonts/IRANSans_Bold.ttf"
+                fontPath="fonts/IRANSansMobile(FaNum)_Bold.ttf"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -86,7 +86,7 @@
 
             <TextView
                 android:id="@+id/customProcess_TextViewStep"
-                fontPath="fonts/IRANSans_Bold.ttf"
+                fontPath="fonts/IRANSansMobile(FaNum)_Bold.ttf"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -126,7 +126,7 @@
 
             <TextView
                 android:id="@+id/customProcess_TextViewEmployee"
-                fontPath="fonts/IRANSans_Bold.ttf"
+                fontPath="fonts/IRANSansMobile(FaNum)_Bold.ttf"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"

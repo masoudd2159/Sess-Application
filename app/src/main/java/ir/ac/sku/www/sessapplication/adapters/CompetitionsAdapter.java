@@ -2,7 +2,9 @@ package ir.ac.sku.www.sessapplication.adapters;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,16 +22,19 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.uncopt.android.widget.text.justify.JustifiedTextView;
 
+import ir.ac.sku.www.sessapplication.API.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.models.CompetitionsModel;
 
 public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapter.MyViewHolder> {
+    private SharedPreferences preferencesCookie;
     private CompetitionsModel competitions;
     private Activity activity;
 
     public CompetitionsAdapter(@NonNull Activity activity, CompetitionsModel competitionsModel) {
         this.competitions = (competitionsModel == null) ? new CompetitionsModel() : competitionsModel;
         this.activity = activity;
+        preferencesCookie = activity.getSharedPreferences(PreferenceName.COOKIE_PREFERENCE_NAME, Context.MODE_PRIVATE);
     }
 
     @NonNull
@@ -84,7 +89,8 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(competitions.getResult().get(getLayoutPosition()).getUrl()));
+            String myURL = competitions.getResult().get(getLayoutPosition()).getUrl() + "?cookie=" + preferencesCookie.getString(PreferenceName.COOKIE_PREFERENCE_COOKIE, "NULL");
+            intent.setData(Uri.parse(myURL));
             activity.startActivity(intent);
         }
 

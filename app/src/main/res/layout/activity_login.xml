@@ -140,7 +140,7 @@
 
                     <Button
                         android:id="@+id/loginActivity_ButtonGuest"
-                        fontPath="fonts/IRANSans(FaNum)_Medium.ttf"
+                        fontPath="fonts/IRANSansMobile_Medium.ttf"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"

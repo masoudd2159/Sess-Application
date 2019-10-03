@@ -60,7 +60,7 @@
 
         <TextView
             android:id="@+id/aboutActivity_Username"
-            fontPath="fonts/IRANSans_Black.ttf"
+            fontPath="fonts/IRANSansMobile_Black.ttf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -74,7 +74,7 @@
 
         <TextView
             android:id="@+id/aboutActivity_Major"
-            fontPath="fonts/IRANSans_Black.ttf"
+            fontPath="fonts/IRANSansMobile_Black.ttf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -95,22 +95,22 @@
         android:layoutDirection="ltr"
         android:orientation="vertical">
 
-        <!--        <Button
-                    android:id="@+id/aboutActivity_Email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="60dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="60dp"
-                    android:background="@drawable/bg_grey_about"
-                    android:drawableEnd="@drawable/ic_email"
-                    android:drawablePadding="10dp"
-                    android:inputType="text"
-                    android:layoutDirection="ltr"
-                    android:padding="10dp"
-                    android:text="info@app.sku.ac.ir"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />-->
+        <Button
+            android:id="@+id/aboutActivity_Email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="60dp"
+            android:background="@drawable/bg_grey_about"
+            android:drawableEnd="@drawable/ic_email"
+            android:drawablePadding="10dp"
+            android:inputType="text"
+            android:layoutDirection="ltr"
+            android:padding="10dp"
+            android:text="app@sku.ac.ir"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/aboutActivity_BugReport"
@@ -134,7 +134,7 @@
             android:layout_marginLeft="60dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="60dp"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="15dp"
             android:background="@drawable/bg_red_about"
             android:drawableEnd="@drawable/ic_logout"
             android:layoutDirection="ltr"

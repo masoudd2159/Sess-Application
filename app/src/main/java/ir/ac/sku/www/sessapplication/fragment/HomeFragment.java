@@ -2,7 +2,6 @@ package ir.ac.sku.www.sessapplication.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +11,9 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.R;
+import ir.ac.sku.www.sessapplication.activities.AboutActivity;
 import ir.ac.sku.www.sessapplication.activities.CulturalDeputyActivity;
-import ir.ac.sku.www.sessapplication.activities.LoginActivity;
 import ir.ac.sku.www.sessapplication.activities.NewsActivity;
 import ir.ac.sku.www.sessapplication.activities.PhoneBookActivity;
 import ir.ac.sku.www.sessapplication.activities.fragmentHome.EducationalDeputyActivity;
@@ -23,7 +21,6 @@ import ir.ac.sku.www.sessapplication.activities.fragmentHome.OfficeDeputyActivit
 import ir.ac.sku.www.sessapplication.activities.fragmentHome.ResearchDeputyActivity;
 import ir.ac.sku.www.sessapplication.activities.fragmentHome.SESSActivity;
 import ir.ac.sku.www.sessapplication.activities.fragmentHome.StudentDeputyActivity;
-import ir.ac.sku.www.sessapplication.activities.fragmentHome.TelevisionActivity;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 
 public class HomeFragment extends Fragment {
@@ -34,6 +31,7 @@ public class HomeFragment extends Fragment {
     private CardView research;
     private CardView cultural;
     private CardView news;
+    private CardView support;
     //private CardView television;
     private CardView office;
     private CardView phoneBook;
@@ -108,12 +106,12 @@ public class HomeFragment extends Fragment {
                 startActivity(new Intent(rootView.getContext(), OfficeDeputyActivity.class));
             }
         });
-        /*television.setOnClickListener(new View.OnClickListener() {
+        support.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(rootView.getContext(), TelevisionActivity.class));
+                startActivity(new Intent(rootView.getContext(), AboutActivity.class));
             }
-        });*/
+        });
 
         return view;
     }
@@ -127,6 +125,7 @@ public class HomeFragment extends Fragment {
         student = rootView.findViewById(R.id.homeFragment_StudentDeputy);
         research = rootView.findViewById(R.id.homeFragment_ResearchDeputy);
         office = rootView.findViewById(R.id.homeFragment_OfficeDeputy);
+        support = rootView.findViewById(R.id.homeFragment_Support);
         //television = rootView.findViewById(R.id.homeFragment_Television);
     }
 }

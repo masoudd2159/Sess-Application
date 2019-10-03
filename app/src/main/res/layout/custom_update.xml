@@ -48,7 +48,7 @@
 
         <TextView
             android:id="@+id/customUpdate_ShowMessage"
-            fontPath="fonts/IRANSans_Light.ttf"
+            fontPath="fonts/IRANSansMobile(FaNum)_Light.ttf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

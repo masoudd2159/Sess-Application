@@ -51,7 +51,7 @@
 
                 <TextView
                     android:id="@+id/journalList_Title"
-                    fontPath="fonts/IRANSans(FaNum)_Medium.ttf"
+                    fontPath="fonts/IRANSansMobile(FaNum)_Medium.ttf"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"

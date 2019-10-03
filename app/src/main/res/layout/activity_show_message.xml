@@ -120,7 +120,7 @@
 
                 <TextView
                     android:id="@+id/activityShowMessage_TextViewSubject"
-                    fontPath="fonts/IRANSans_Bold.ttf"
+                    fontPath="fonts/IRANSansMobile(FaNum)_Bold.ttf"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="end"

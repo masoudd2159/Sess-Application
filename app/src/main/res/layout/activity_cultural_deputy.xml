@@ -86,7 +86,7 @@
                         android:src="@drawable/ic_journals" />
 
                     <TextView
-                        fontPath="fonts/IRANSans(FaNum)_Black.ttf"
+                        fontPath="fonts/IRANSansMobile_Black.ttf"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -126,7 +126,7 @@
                         android:src="@drawable/ic_competitions" />
 
                     <TextView
-                        fontPath="fonts/IRANSans(FaNum)_Black.ttf"
+                        fontPath="fonts/IRANSansMobile_Black.ttf"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
