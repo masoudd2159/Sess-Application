@@ -2,8 +2,11 @@ package ir.ac.sku.www.sessapplication.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -12,14 +15,17 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.farsitel.bazaar.IUpdateCheckService;
 
 import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.API.PreferenceName;
@@ -45,6 +51,10 @@ public class SplashScreenActivity extends MyActivity {
     private AppInfo appInfo;
     private LottieAnimationView animationView;
 
+    IUpdateCheckService service;
+    UpdateServiceConnection connection;
+    private static final String TAG = "UpdateCheck";
+
 
     //Utils
     private CheckSignUpPreferenceManager checkSignUpPreferenceManager;
@@ -55,6 +65,7 @@ public class SplashScreenActivity extends MyActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        initService();
 
         //Log Splash Screen
         Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "___Splash Screen___");
@@ -79,6 +90,12 @@ public class SplashScreenActivity extends MyActivity {
         changeStatusBarColor();
         appInfo = new AppInfo();
         getDataFromServer();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        releaseService();
     }
 
     @SuppressLint("LongLogTag")
@@ -214,6 +231,21 @@ public class SplashScreenActivity extends MyActivity {
         dialog.show();
     }
 
+    private void initService() {
+        Log.i(TAG, "initService()");
+        connection = new UpdateServiceConnection();
+        Intent i = new Intent("com.farsitel.bazaar.service.UpdateCheckService.BIND");
+        i.setPackage("com.farsitel.bazaar");
+        boolean ret = bindService(i, connection, Context.BIND_AUTO_CREATE);
+        Log.d(TAG, "initService() bound value: " + ret);
+    }
+
+    private void releaseService() {
+        unbindService(connection);
+        connection = null;
+        Log.d(TAG, "releaseService(): unbound.");
+    }
+
     private class BackgroundTask extends AsyncTask {
 
         Intent intentLoginActivity;
@@ -256,6 +288,27 @@ public class SplashScreenActivity extends MyActivity {
                 startActivity(intentBottomBarActivity);
             }
             finish();
+        }
+    }
+
+    class UpdateServiceConnection implements ServiceConnection {
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder boundService) {
+            service = IUpdateCheckService.Stub.asInterface((IBinder) boundService);
+            try {
+                long vCode = service.getVersionCode("ir.ac.sku.www.sessapplication");
+                //Toast.makeText(SplashScreenActivity.this, "Version Code:" + vCode, Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Log.d(TAG, "onServiceConnected(): Connected");
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            service = null;
+            Log.d(TAG, "onServiceDisconnected(): Disconnected");
         }
     }
 

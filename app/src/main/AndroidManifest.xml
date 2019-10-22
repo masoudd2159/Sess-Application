@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="ir.ac.sku.www.sessapplication"
     android:versionCode="3"
-    android:versionName="sess.1.0.beta">
+    android:versionName="sess.1.0.beta"
+    tools:ignore="GradleOverrides">
 
     <application
         android:name=".utils.MyApplication"
@@ -16,6 +17,10 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:targetApi="n">
+        <meta-data
+            android:name="co.ronash.pushe.token"
+            android:value="PUSHE_624655216451" />
+
         <activity
             android:name=".activities.SplashScreenActivity"
             android:screenOrientation="portrait"
@@ -142,9 +147,10 @@
             </intent-filter>
         </service>
     </application>
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>

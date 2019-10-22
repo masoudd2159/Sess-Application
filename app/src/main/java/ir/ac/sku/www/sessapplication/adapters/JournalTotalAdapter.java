@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,7 +23,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.devbrackets.android.exomedia.ui.animation.TopViewHideShowAnimation;
 
+import java.util.Arrays;
+
+import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.activities.JournalsActivity;
 import ir.ac.sku.www.sessapplication.models.TotalJournalsModel;
@@ -72,14 +78,26 @@ public class JournalTotalAdapter extends RecyclerView.Adapter<JournalTotalAdapte
 
         void bind(TotalJournalsModel.Result journalsTotalModel) {
 
-            String[] valueType = new String[journalsTotalModel.getYear().size()];
-            for (int i = 0; i < journalsTotalModel.getYear().size(); i++) {
-                valueType[i] = journalsTotalModel.getYear().get(i);
-            }
+            if (!journalsTotalModel.getYear().isEmpty()) {
+                String[] valueType = new String[journalsTotalModel.getYear().size()];
+                for (int i = 0; i < journalsTotalModel.getYear().size(); i++) {
+                    valueType[i] = journalsTotalModel.getYear().get(i);
+                }
+                years.setMinValue(0);
+                years.setMaxValue(0);
+                try {
+                    years.setDisplayedValues(valueType);
+                } catch (Exception e) {
+                    Log.e(MyLog.SESS, "years occurs Error");
+                }
+                years.setMaxValue(valueType.length - 1);
 
-            years.setMinValue(0);
-            years.setMaxValue(journalsTotalModel.getYear().size() - 1);
-            years.setDisplayedValues(valueType);
+            } else {
+                String[] valueType = {"0"};
+                years.setMaxValue(valueType.length - 1);
+                years.setMinValue(0);
+                years.setDisplayedValues(valueType);
+            }
 
             title.setText(journalsTotalModel.getTitle());
 
@@ -88,11 +106,15 @@ public class JournalTotalAdapter extends RecyclerView.Adapter<JournalTotalAdapte
 
         @Override
         public void onClick(View v) {
-            final Intent intent = new Intent(activity, JournalsActivity.class);
-            intent.putExtra("id", journals.getResult().get(getLayoutPosition()).getId());
-            intent.putExtra("year", journals.getResult().get(getLayoutPosition()).getYear().get(years.getValue()));
-            intent.putExtra("title", journals.getResult().get(getLayoutPosition()).getTitle());
-            activity.startActivity(intent);
+            if (!journals.getResult().get(getLayoutPosition()).getYear().isEmpty()) {
+                final Intent intent = new Intent(activity, JournalsActivity.class);
+                intent.putExtra("id", journals.getResult().get(getLayoutPosition()).getId());
+                intent.putExtra("year", journals.getResult().get(getLayoutPosition()).getYear().get(years.getValue()));
+                intent.putExtra("title", journals.getResult().get(getLayoutPosition()).getTitle());
+                activity.startActivity(intent);
+            } else {
+                Toast.makeText(activity, "محتوای مورد نظر در دسترس نیست!", Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override
