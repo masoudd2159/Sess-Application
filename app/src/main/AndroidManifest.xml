@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="ir.ac.sku.www.sessapplication"
     android:versionCode="3"
-    android:versionName="sess.1.0.beta"
-    tools:ignore="GradleOverrides">
+    android:versionName="sess.1.0.beta">
 
     <application
         android:name=".utils.MyApplication"
