@@ -137,11 +137,7 @@ public class WebService {
                     @SuppressLint("NewApi")
                     @Override
                     public void onResponse(String response) {
-                        try {
-                            isOk = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"), IsOk.class);
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        }
+                        isOk = gson.fromJson(new String(response.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), IsOk.class);
                         Log.i(MyLog.WEB_SERVICE, "OK : " + isOk.isOk());
 
                         if (isOk.isOk()) {
