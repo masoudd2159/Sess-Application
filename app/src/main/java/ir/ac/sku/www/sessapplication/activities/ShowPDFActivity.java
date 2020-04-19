@@ -2,12 +2,16 @@ package ir.ac.sku.www.sessapplication.activities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Message;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -47,11 +51,7 @@ public class ShowPDFActivity extends MyActivity implements DownloadFile.Listener
         title.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Lalezar.ttf"));
 
         root = (LinearLayout) findViewById(R.id.showPDF_RootLinearLayout);
-
         progressDialog = new ProgressDialog(ShowPDFActivity.this);
-        progressDialog.setMessage("لطفا منتظر بمانید!");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
 
         setDownloadButtonListener();
     }
@@ -97,11 +97,17 @@ public class ShowPDFActivity extends MyActivity implements DownloadFile.Listener
     @Override
     public void onFailure(Exception e) {
         e.printStackTrace();
+        Toast.makeText(this, "Error : " + e.toString(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onProgressUpdate(int progress, int total) {
-
+        progressDialog.setMessage("لطفا منتظر بمانید!");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setCancelable(false);
+        progressDialog.setProgress(progress / 1024);
+        progressDialog.setMax(total / 1024);
+        progressDialog.show();
     }
 
     @Override
