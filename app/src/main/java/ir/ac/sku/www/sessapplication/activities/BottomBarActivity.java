@@ -286,7 +286,6 @@ public class BottomBarActivity extends MyActivity implements ConnectivityReceive
         CustomToastExit.exit(BottomBarActivity.this, "برای خروج برنامه دو بار کلید بازگشت را فشار دهید", Toast.LENGTH_SHORT).show();
 
         new Handler().postDelayed(new Runnable() {
-
             @Override
             public void run() {
                 doubleBackToExitPressedOnce = false;

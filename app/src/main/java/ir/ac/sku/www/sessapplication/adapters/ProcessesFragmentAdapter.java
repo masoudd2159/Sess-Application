@@ -52,7 +52,7 @@ public class ProcessesFragmentAdapter extends RecyclerView.Adapter<ProcessesFrag
         private TextView employee;
 
 
-        public MyViewHolder(@NonNull View itemView) {
+         MyViewHolder(@NonNull View itemView) {
             super(itemView);
             context = itemView.getContext();
 

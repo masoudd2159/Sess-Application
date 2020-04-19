@@ -26,7 +26,6 @@ import android.widget.TextView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.farsitel.bazaar.IUpdateCheckService;
 
-import co.ronash.pushe.Pushe;
 import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.API.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
@@ -51,8 +50,8 @@ public class SplashScreenActivity extends MyActivity {
     private AppInfo appInfo;
     private LottieAnimationView animationView;
 
-    IUpdateCheckService service;
-    UpdateServiceConnection connection;
+    private IUpdateCheckService service;
+    private UpdateServiceConnection connection;
     private static final String TAG = "UpdateCheck";
 
 

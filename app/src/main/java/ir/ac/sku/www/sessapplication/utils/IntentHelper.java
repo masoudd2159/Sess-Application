@@ -8,7 +8,7 @@ import android.util.Log;
 
 import ir.ac.sku.www.sessapplication.API.MyLog;
 
-public class IntentHelper {
+class IntentHelper {
 
     static void openWiFiSettingScreen(Context context) {
         Log.i(MyLog.SESS, "Open WiFi Setting Screen");

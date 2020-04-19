@@ -80,7 +80,6 @@ public class WebService {
 
                             if (Integer.parseInt(isOk.getDescription().getErrorCode()) > 0) {
                                 HttpManager.unsuccessfulOperation(context, isOk.getDescription().getErrorText());
-                                handler.onResponse(false, "");
                             } else if (Integer.parseInt(isOk.getDescription().getErrorCode()) < 0) {
                                 SignIn signIn = new SignIn(context);
                                 signIn.SignInDialog(new MyHandler() {
@@ -120,6 +119,7 @@ public class WebService {
                         }*/
                     }
                 });
+
         queue.add(stringRequest);
     }
 
