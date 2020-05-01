@@ -27,14 +27,14 @@ import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.models.CompetitionsModel;
 
 public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapter.MyViewHolder> {
-    private SharedPreferences preferencesCookie;
+    private SharedPreferences preferencesUserInformation;
     private CompetitionsModel competitions;
     private Activity activity;
 
     public CompetitionsAdapter(@NonNull Activity activity, CompetitionsModel competitionsModel) {
         this.competitions = (competitionsModel == null) ? new CompetitionsModel() : competitionsModel;
         this.activity = activity;
-        preferencesCookie = activity.getSharedPreferences(PreferenceName.COOKIE_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        preferencesUserInformation = activity.getSharedPreferences(PreferenceName.PREFERENCE_USER_INFORMATION, Context.MODE_PRIVATE);
     }
 
     @NonNull
@@ -89,7 +89,7 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            String myURL = competitions.getResult().get(getLayoutPosition()).getUrl() + "?cookie=" + preferencesCookie.getString(PreferenceName.COOKIE_PREFERENCE_COOKIE, "NULL");
+            String myURL = competitions.getResult().get(getLayoutPosition()).getUrl() + "?cookie=" + preferencesUserInformation.getString(PreferenceName.PREFERENCE_COOKIE, "NULL");
             intent.setData(Uri.parse(myURL));
             activity.startActivity(intent);
         }

@@ -43,16 +43,12 @@ public class SplashScreenActivity extends MyActivity {
     //Splash Screen Views
     private Button tryAgain;
     private TextView fullName;
-    private SharedPreferences preferencesName;
+    private SharedPreferences preferencesUserInformation;
     private Dialog dialog;
     private Button update;
     private TextView showMessage;
     private AppInfo appInfo;
     private LottieAnimationView animationView;
-
-    private IUpdateCheckService service;
-    private UpdateServiceConnection connection;
-    private static final String TAG = "UpdateCheck";
 
 
     //Utils
@@ -64,7 +60,6 @@ public class SplashScreenActivity extends MyActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        initService();
 
         //Log Splash Screen
         Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "___Splash Screen___");
@@ -74,13 +69,13 @@ public class SplashScreenActivity extends MyActivity {
         animationView.playAnimation();
         animationView.loop(true);
 
-        preferencesName = getSharedPreferences(PreferenceName.NAME_PREFERENCE_NAME, MODE_PRIVATE);
+        preferencesUserInformation = getSharedPreferences(PreferenceName.PREFERENCE_USER_INFORMATION, MODE_PRIVATE);
 
         //find View
         tryAgain = findViewById(R.id.buttonTryAgain_SplashScreen);
         fullName = findViewById(R.id.splashScreen_FullName);
 
-        fullName.setText(preferencesName.getString(PreferenceName.NAME_PREFERENCE_FIRST_NAME, "") + " " + preferencesName.getString(PreferenceName.NAME_PREFERENCE_LAST_NAME, ""));
+        fullName.setText(preferencesUserInformation.getString(PreferenceName.PREFERENCE_FIRST_NAME, "") + " " + preferencesUserInformation.getString(PreferenceName.PREFERENCE_LAST_NAME, ""));
 
         //Allocate MyUtils
         checkSignUpPreferenceManager = new CheckSignUpPreferenceManager(SplashScreenActivity.this);
@@ -89,12 +84,6 @@ public class SplashScreenActivity extends MyActivity {
         changeStatusBarColor();
         appInfo = new AppInfo();
         getDataFromServer();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        releaseService();
     }
 
     @SuppressLint("LongLogTag")
@@ -208,15 +197,6 @@ public class SplashScreenActivity extends MyActivity {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(appInfo.getResult().getDownloadAndroidUrl()));
                 startActivity(intent);
-
-                /*String url = appInfo.getResult().getDownloadAndroidUrl().trim();
-                if (url.isEmpty()) {
-                    Toast.makeText(SplashScreenActivity.this, "لینک دانلود در دسترس نیست!", Toast.LENGTH_SHORT).show();
-                    return;
-                } else {
-                    new DownloadTask().execute(url);
-                }*/
-
             }
         });
 
@@ -228,21 +208,6 @@ public class SplashScreenActivity extends MyActivity {
         });
 
         dialog.show();
-    }
-
-    private void initService() {
-        Log.i(TAG, "initService()");
-        connection = new UpdateServiceConnection();
-        Intent i = new Intent("com.farsitel.bazaar.service.UpdateCheckService.BIND");
-        i.setPackage("com.farsitel.bazaar");
-        boolean ret = bindService(i, connection, Context.BIND_AUTO_CREATE);
-        Log.d(TAG, "initService() bound value: " + ret);
-    }
-
-    private void releaseService() {
-        unbindService(connection);
-        connection = null;
-        Log.d(TAG, "releaseService(): unbound.");
     }
 
     private class BackgroundTask extends AsyncTask {
@@ -287,27 +252,6 @@ public class SplashScreenActivity extends MyActivity {
                 startActivity(intentBottomBarActivity);
             }
             finish();
-        }
-    }
-
-    class UpdateServiceConnection implements ServiceConnection {
-
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder boundService) {
-            service = IUpdateCheckService.Stub.asInterface((IBinder) boundService);
-            try {
-                long vCode = service.getVersionCode("ir.ac.sku.www.sessapplication");
-                //Toast.makeText(SplashScreenActivity.this, "Version Code:" + vCode, Toast.LENGTH_LONG).show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            Log.d(TAG, "onServiceConnected(): Connected");
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            service = null;
-            Log.d(TAG, "onServiceDisconnected(): Disconnected");
         }
     }
 

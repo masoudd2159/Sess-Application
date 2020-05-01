@@ -94,7 +94,7 @@
                         android:layoutDirection="ltr"
                         android:padding="15dp"
                         android:text="مجلات و نشریات"
-                        android:textColor="@color/gpvch_black"
+                        android:textColor="@color/black"
                         android:textSize="17sp" />
 
                 </LinearLayout>
@@ -134,7 +134,7 @@
                         android:layoutDirection="ltr"
                         android:padding="15dp"
                         android:text="مسابقات"
-                        android:textColor="@color/gpvch_black"
+                        android:textColor="@color/black"
                         android:textSize="17sp" />
 
 

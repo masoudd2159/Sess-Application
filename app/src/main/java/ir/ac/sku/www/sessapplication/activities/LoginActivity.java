@@ -79,12 +79,11 @@ public class LoginActivity extends MyActivity {
     //Required libraries
     private RequestQueue queue;
     private Gson gson;
+
     private CheckSignUpPreferenceManager manager;
-    private SharedPreferences preferencesUsernameAndPassword;
-    private SharedPreferences preferencesCookie;
-    private SharedPreferences preferencesName;
-    private SharedPreferences preferencesUserImage;
-    private SharedPreferences preferencesMajor;
+    private SharedPreferences preferencesUserInformation;
+    private SharedPreferences.Editor editSharedPreferences;
+
 
     //my Class Model
     private LoginInformation loginInformation;
@@ -92,7 +91,7 @@ public class LoginActivity extends MyActivity {
     private AppInfo appInfo;
     private boolean doubleBackToExitPressedOnce = false;
 
-    @SuppressLint("LongLogTag")
+    @SuppressLint({"LongLogTag", "CommitPrefEdits"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,12 +109,10 @@ public class LoginActivity extends MyActivity {
 
         //use Gson Lib
         gson = new Gson();
+
         manager = new CheckSignUpPreferenceManager(LoginActivity.this);
-        preferencesUsernameAndPassword = getSharedPreferences(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_NAME, MODE_PRIVATE);
-        preferencesCookie = getSharedPreferences(PreferenceName.COOKIE_PREFERENCE_NAME, MODE_PRIVATE);
-        preferencesName = getSharedPreferences(PreferenceName.NAME_PREFERENCE_NAME, MODE_PRIVATE);
-        preferencesUserImage = getSharedPreferences(PreferenceName.USER_IMAGE_PREFERENCE_NAME, MODE_PRIVATE);
-        preferencesMajor = getSharedPreferences(PreferenceName.MAJOR_PREFERENCE_NAME, MODE_PRIVATE);
+        preferencesUserInformation = getSharedPreferences(PreferenceName.PREFERENCE_USER_INFORMATION, MODE_PRIVATE);
+        editSharedPreferences = preferencesUserInformation.edit();
 
         progressDialog = new ProgressDialog(LoginActivity.this);
 
@@ -180,14 +177,7 @@ public class LoginActivity extends MyActivity {
             public void onClick(View v) {
                 if (appInfo.getResult().getGuestLogin()) {
                     Intent intent = new Intent(LoginActivity.this, BottomBarActivity.class);
-
-                    preferencesUsernameAndPassword.edit().clear().apply();
-                    preferencesCookie.edit().clear().apply();
-                    preferencesName.edit().clear().apply();
-                    preferencesUserImage.edit().clear().apply();
-                    preferencesMajor.edit().clear().apply();
-
-
+                    preferencesUserInformation.edit().clear().apply();
                     startActivity(intent);
 
                     CustomToastSuccess.success(LoginActivity.this, " خوش آمدید ", Toast.LENGTH_SHORT).show();
@@ -238,13 +228,8 @@ public class LoginActivity extends MyActivity {
                     @Override
                     public void onResponse(String response) {
                         progressDialog.dismiss();
-
                         Log.i(MyLog.LOGIN_ACTIVITY, "get JSON Cookie From Server");
-                        try {
-                            loginInformation = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"), LoginInformation.class);
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        }
+                        loginInformation = gson.fromJson(new String(response.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), LoginInformation.class);
 
                         if (loginInformation.isOk()) {
                             Log.i(MyLog.LOGIN_ACTIVITY, "Cookie : " + loginInformation.getCookie());
@@ -323,37 +308,21 @@ public class LoginActivity extends MyActivity {
                 @Override
                 public void onResponse(boolean ok, Object obj) {
                     Log.i(MyLog.LOGIN_ACTIVITY, "get Login Info");
-                    try {
-                        sendInformation = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), SendInformation.class);
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-
+                    sendInformation = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), SendInformation.class);
                     if (sendInformation.isOk()) {
                         Log.i(MyLog.LOGIN_ACTIVITY, "All Params True");
-
                         Intent intent = new Intent(LoginActivity.this, BottomBarActivity.class).putExtra("InstantMessage", sendInformation.getResult());
-
-                        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorUserPass = preferencesUsernameAndPassword.edit();
-                        editorUserPass.putString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_USERNAME, user.getText().toString().trim());
-                        editorUserPass.putString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_PASSWORD, password.getText().toString().trim());
-                        editorUserPass.apply();
 
                         Log.i(MyLog.LOGIN_ACTIVITY, "Username : " + user.getText().toString().trim());
                         Log.i(MyLog.LOGIN_ACTIVITY, "Password : " + password.getText().toString().trim());
 
-                        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorCookie = preferencesCookie.edit();
-                        editorCookie.putString(PreferenceName.COOKIE_PREFERENCE_COOKIE, loginInformation.getCookie());
-                        editorCookie.apply();
-
-                        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorName = preferencesName.edit();
-                        editorName.putString(PreferenceName.NAME_PREFERENCE_FIRST_NAME, sendInformation.getResult().getUserInformation().getName());
-                        editorName.putString(PreferenceName.NAME_PREFERENCE_LAST_NAME, sendInformation.getResult().getUserInformation().getFamily());
-                        editorName.apply();
-
-                        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorMajor = preferencesMajor.edit();
-                        editorMajor.putString(PreferenceName.MAJOR_PREFERENCE_MAJOR, sendInformation.getResult().getUserInformation().getMajor());
-                        editorMajor.apply();
+                        editSharedPreferences.putString(PreferenceName.PREFERENCE_USERNAME, user.getText().toString().trim());
+                        editSharedPreferences.putString(PreferenceName.PREFERENCE_PASSWORD, password.getText().toString().trim());
+                        editSharedPreferences.putString(PreferenceName.PREFERENCE_COOKIE, loginInformation.getCookie());
+                        editSharedPreferences.putString(PreferenceName.PREFERENCE_FIRST_NAME, sendInformation.getResult().getUserInformation().getName());
+                        editSharedPreferences.putString(PreferenceName.PREFERENCE_LAST_NAME, sendInformation.getResult().getUserInformation().getFamily());
+                        editSharedPreferences.putString(PreferenceName.PREFERENCE_MAJOR, sendInformation.getResult().getUserInformation().getMajor());
+                        editSharedPreferences.apply();
 
                         getUserImage();
 
@@ -402,13 +371,13 @@ public class LoginActivity extends MyActivity {
                         resource.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
                         byte[] b = byteArrayOutputStream.toByteArray();
                         String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
-                        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editorUserImage = preferencesUserImage.edit();
-                        editorUserImage.putString(PreferenceName.USER_IMAGE_PREFERENCE_IMAGE, encodedImage);
-                        editorUserImage.apply();
+                        editSharedPreferences.putString(PreferenceName.PREFERENCE_IMAGE, encodedImage);
+                        editSharedPreferences.apply();
                     }
                 });
     }
 
+    @SuppressLint("RestrictedApi")
     private void animateOnFocus(View v) {
         final CardView first_container = (CardView) v.getParent();
         final CardView second_container = (CardView) first_container.getParent();
@@ -477,6 +446,7 @@ public class LoginActivity extends MyActivity {
         first_container.startAnimation(a);
     }
 
+    @SuppressLint("RestrictedApi")
     private void animateOnFocusLost(View v) {
         final CardView first_container = (CardView) v.getParent();
         final CardView second_container = (CardView) first_container.getParent();

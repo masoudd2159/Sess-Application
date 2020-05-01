@@ -58,7 +58,7 @@ public class SendMessageActivity extends MyActivity {
 
     private RequestQueue queue;
     private Gson gson;
-    private SharedPreferences preferencesCookie;
+    private SharedPreferences preferencesUserInformation;
     private MSGSendMessage message;
     private GetInfoForSend getInfoForSend;
     private TargetsAdapter adapter;
@@ -82,7 +82,7 @@ public class SendMessageActivity extends MyActivity {
         getInfoForSend = getIntent().getParcelableExtra("GetInfoForSend");
 
         init();
-        preferencesCookie = getSharedPreferences(PreferenceName.COOKIE_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        preferencesUserInformation = getSharedPreferences(PreferenceName.PREFERENCE_USER_INFORMATION, MODE_PRIVATE);
         queue = Volley.newRequestQueue(SendMessageActivity.this);
         gson = new Gson();
         message = new MSGSendMessage();
@@ -145,11 +145,7 @@ public class SendMessageActivity extends MyActivity {
                         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                         @Override
                         public void onResponse(String response) {
-                            try {
-                                message = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"), MSGSendMessage.class);
-                            } catch (UnsupportedEncodingException e) {
-                                e.printStackTrace();
-                            }
+                            message = gson.fromJson(new String(response.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), MSGSendMessage.class);
                             if (message.getOk()) {
                                 HttpManager.successfulOperation(SendMessageActivity.this, message.getResult());
                                 title.setText("");
@@ -186,7 +182,7 @@ public class SendMessageActivity extends MyActivity {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<String, String>();
-                    params.put("cookie", preferencesCookie.getString(PreferenceName.COOKIE_PREFERENCE_COOKIE, null));
+                    params.put("cookie", preferencesUserInformation.getString(PreferenceName.PREFERENCE_COOKIE, null));
                     params.put("id", getIntent().getStringExtra("id"));
                     params.put("stNumber", getIntent().getStringExtra("studentNumber"));
                     params.put("subject", title.getText().toString().trim());

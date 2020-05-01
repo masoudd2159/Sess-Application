@@ -39,45 +39,34 @@ public class AboutActivity extends MyActivity {
     private Button email;
     private ImageView profile;
     private TextView username;
-    private TextView major;
+    private TextView majorUser;
 
     private CheckSignUpPreferenceManager manager;
-    private SharedPreferences preferencesUsernameAndPassword;
-    private SharedPreferences preferencesCookie;
-    private SharedPreferences preferencesName;
-    private SharedPreferences preferencesUserImage;
-    private SharedPreferences preferencesMajor;
+    private SharedPreferences preferencesUserInformation;
 
-    private RequestQueue queue;
-
-    private GetInfoForSend getInfoForSend;
-
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         changeStatusBarColor();
-
-        logout = findViewById(R.id.aboutActivity_Logout);
-        bugReport = findViewById(R.id.aboutActivity_BugReport);
-        profile = findViewById(R.id.aboutActivity_ImageProfile);
-        username = findViewById(R.id.aboutActivity_Username);
-        major = findViewById(R.id.aboutActivity_Major);
-        email = findViewById(R.id.aboutActivity_Email);
-
-        queue = Volley.newRequestQueue(AboutActivity.this);
-
-        getInfoForSend = new GetInfoForSend();
+        init();
 
         manager = new CheckSignUpPreferenceManager(AboutActivity.this);
-        preferencesUsernameAndPassword = getSharedPreferences(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_NAME, MODE_PRIVATE);
-        preferencesCookie = getSharedPreferences(PreferenceName.COOKIE_PREFERENCE_NAME, MODE_PRIVATE);
-        preferencesName = getSharedPreferences(PreferenceName.NAME_PREFERENCE_NAME, MODE_PRIVATE);
-        preferencesUserImage = getSharedPreferences(PreferenceName.USER_IMAGE_PREFERENCE_NAME, MODE_PRIVATE);
-        preferencesMajor = getSharedPreferences(PreferenceName.MAJOR_PREFERENCE_NAME, MODE_PRIVATE);
+        preferencesUserInformation = getSharedPreferences(PreferenceName.PREFERENCE_USER_INFORMATION, MODE_PRIVATE);
 
-        String userImage = preferencesUserImage.getString(PreferenceName.USER_IMAGE_PREFERENCE_IMAGE, null);
+        String userImage = preferencesUserInformation.getString(PreferenceName.PREFERENCE_IMAGE, null);
+        String fristName = preferencesUserInformation.getString(PreferenceName.PREFERENCE_FIRST_NAME, "");
+        String lastName = preferencesUserInformation.getString(PreferenceName.PREFERENCE_LAST_NAME, "");
+        String major = preferencesUserInformation.getString(PreferenceName.PREFERENCE_MAJOR, "");
+
+        if (fristName.equals("") && lastName.equals("")) {
+            username.setText("مهمان");
+        } else {
+            username.setText(fristName + " " + lastName);
+        }
+
+        majorUser.setText(major);
 
         if (userImage != null) {
             byte[] b = Base64.decode(userImage, Base64.DEFAULT);
@@ -89,13 +78,7 @@ public class AboutActivity extends MyActivity {
             @Override
             public void onClick(View v) {
                 manager.setStartSignUpPreference(true);
-
-                preferencesUsernameAndPassword.edit().clear().apply();
-                preferencesCookie.edit().clear().apply();
-                preferencesName.edit().clear().apply();
-                preferencesUserImage.edit().clear().apply();
-                preferencesMajor.edit().clear().apply();
-
+                preferencesUserInformation.edit().clear().apply();
                 startActivity(new Intent(AboutActivity.this, SplashScreenActivity.class));
                 finish();
             }
@@ -117,25 +100,22 @@ public class AboutActivity extends MyActivity {
         bugReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                infoForSend("tapp", "");
-
+                infoForSend();
                 bugReport.setEnabled(false);
                 bugReport.setClickable(false);
 
             }
         });
 
-        if (preferencesName.getString(PreferenceName.NAME_PREFERENCE_FIRST_NAME, null) == null && preferencesName.getString(PreferenceName.NAME_PREFERENCE_LAST_NAME, null) == null) {
-            username.setText("مهمان");
-        } else {
-            username.setText(preferencesName.getString(PreferenceName.NAME_PREFERENCE_FIRST_NAME, " ") + " " + preferencesName.getString(PreferenceName.NAME_PREFERENCE_LAST_NAME, " "));
-        }
+    }
 
-        if (preferencesMajor.getString(PreferenceName.MAJOR_PREFERENCE_MAJOR, null) == null) {
-            major.setText("");
-        } else {
-            major.setText(preferencesMajor.getString(PreferenceName.MAJOR_PREFERENCE_MAJOR, " "));
-        }
+    private void init() {
+        logout = findViewById(R.id.aboutActivity_Logout);
+        bugReport = findViewById(R.id.aboutActivity_BugReport);
+        profile = findViewById(R.id.aboutActivity_ImageProfile);
+        username = findViewById(R.id.aboutActivity_Username);
+        majorUser = findViewById(R.id.aboutActivity_Major);
+        email = findViewById(R.id.aboutActivity_Email);
     }
 
     @SuppressLint("LongLogTag")
@@ -149,26 +129,23 @@ public class AboutActivity extends MyActivity {
         }
     }
 
-    private void infoForSend(final String ID, final String StudentNumber) {
+    private void infoForSend() {
         HashMap<String, String> params = new HashMap<>();
-        params.put("id", ID);
-        params.put("stNumber", StudentNumber);
+        params.put("id", "tapp");
+        params.put("stNumber", "");
 
         GetInfoForSend.fetchFromWeb(AboutActivity.this, params, new MyHandler() {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 if (ok) {
-                    getInfoForSend = (GetInfoForSend) obj;
-
                     Intent intent = new Intent(AboutActivity.this, SendMessageActivity.class);
-                    intent.putExtra("GetInfoForSend", (Parcelable) getInfoForSend);
-                    intent.putExtra("id", ID);
-                    intent.putExtra("studentNumber", StudentNumber);
+                    intent.putExtra("GetInfoForSend", (Parcelable) (GetInfoForSend) obj);
+                    intent.putExtra("id", "tapp");
+                    intent.putExtra("studentNumber", "");
                     startActivity(intent);
 
                     bugReport.setEnabled(true);
                     bugReport.setClickable(true);
-                } else {
                 }
             }
         });

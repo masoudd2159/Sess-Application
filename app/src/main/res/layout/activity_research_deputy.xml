@@ -96,7 +96,7 @@
                         android:paddingRight="5dp"
                         android:paddingBottom="15dp"
                         android:text="دفتر ارتباط با صنعت"
-                        android:textColor="@color/gpvch_black"
+                        android:textColor="@color/black"
                         android:textSize="17sp" />
 
 
@@ -140,7 +140,7 @@
                         android:paddingRight="5dp"
                         android:paddingBottom="15dp"
                         android:text="سمینار ها و همایش ها"
-                        android:textColor="@color/gpvch_black"
+                        android:textColor="@color/black"
                         android:textSize="15sp" />
 
 
@@ -195,7 +195,7 @@
                         android:paddingRight="5dp"
                         android:paddingBottom="15dp"
                         android:text="مرکز فناوری اطلاعات"
-                        android:textColor="@color/gpvch_black"
+                        android:textColor="@color/black"
                         android:textSize="16sp" />
 
 

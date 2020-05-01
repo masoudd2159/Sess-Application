@@ -1,7 +1,6 @@
 package ir.ac.sku.www.sessapplication.activities;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -35,6 +34,7 @@ import ir.ac.sku.www.sessapplication.fragment.FoodReservationFragment;
 import ir.ac.sku.www.sessapplication.fragment.HomeFragment;
 import ir.ac.sku.www.sessapplication.fragment.MessagesFragment;
 import ir.ac.sku.www.sessapplication.fragment.ProcessesFragment;
+import ir.ac.sku.www.sessapplication.fragment.SignInDialogFragment;
 import ir.ac.sku.www.sessapplication.models.SendInformation;
 import ir.ac.sku.www.sessapplication.utils.ColoredSnackBar;
 import ir.ac.sku.www.sessapplication.utils.ConnectivityReceiver;
@@ -43,7 +43,7 @@ import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.InstantMessage;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
-public class BottomBarActivity extends MyActivity implements ConnectivityReceiver.ConnectivityReceiverListener {
+public class BottomBarActivity extends MyActivity implements ConnectivityReceiver.ConnectivityReceiverListener, SignInDialogFragment.UserInterface {
 
     //My Fragment
     private HomeFragment homeFragment;
@@ -61,9 +61,7 @@ public class BottomBarActivity extends MyActivity implements ConnectivityReceive
     private CoordinatorLayout fragmentHolder;
 
 
-    private SharedPreferences preferencesCookie;
-    private SharedPreferences preferencesName;
-    private SharedPreferences preferencesUserImage;
+    private SharedPreferences preferencesUserInformation;
 
     private SendInformation.Result instantMessage;
     private ConnectivityReceiver receiver;
@@ -84,9 +82,7 @@ public class BottomBarActivity extends MyActivity implements ConnectivityReceive
 
         Log.i(MyLog.BOTTOM_BAR_ACTIVITY, "___Bottom Bar Activity___");
 
-        preferencesCookie = BottomBarActivity.this.getSharedPreferences(PreferenceName.COOKIE_PREFERENCE_NAME, Context.MODE_PRIVATE);
-        preferencesName = getSharedPreferences(PreferenceName.NAME_PREFERENCE_NAME, MODE_PRIVATE);
-        preferencesUserImage = getSharedPreferences(PreferenceName.USER_IMAGE_PREFERENCE_NAME, MODE_PRIVATE);
+        preferencesUserInformation = getSharedPreferences(PreferenceName.PREFERENCE_USER_INFORMATION, MODE_PRIVATE);
 
 
         instantMessage = new SendInformation.Result();
@@ -97,7 +93,7 @@ public class BottomBarActivity extends MyActivity implements ConnectivityReceive
 
             Glide
                     .with(BottomBarActivity.this)
-                    .load("http://app.sku.ac.ir/api/v1/user/image?cookie=" + preferencesCookie.getString(PreferenceName.COOKIE_PREFERENCE_COOKIE, null))
+                    .load("http://app.sku.ac.ir/api/v1/user/image?cookie=" + preferencesUserInformation.getString(PreferenceName.PREFERENCE_COOKIE, null))
                     .into(profile);
 
             if (instantMessage.getInstantMessage().size() > 0) {
@@ -106,7 +102,7 @@ public class BottomBarActivity extends MyActivity implements ConnectivityReceive
                 message.showInstantMessageDialog();
             }
         } else {
-            String userImage = preferencesUserImage.getString(PreferenceName.USER_IMAGE_PREFERENCE_IMAGE, null);
+            String userImage = preferencesUserInformation.getString(PreferenceName.PREFERENCE_IMAGE, null);
 
             if (userImage != null) {
                 byte[] b = Base64.decode(userImage, Base64.DEFAULT);
@@ -115,13 +111,13 @@ public class BottomBarActivity extends MyActivity implements ConnectivityReceive
             }
         }
 
-        if (preferencesName.getString(PreferenceName.NAME_PREFERENCE_FIRST_NAME, null) == null && preferencesName.getString(PreferenceName.NAME_PREFERENCE_LAST_NAME, null) == null) {
+        if (preferencesUserInformation.getString(PreferenceName.PREFERENCE_FIRST_NAME, null) == null && preferencesUserInformation.getString(PreferenceName.PREFERENCE_LAST_NAME, null) == null) {
             cardViewProfile.setVisibility(View.GONE);
             profile.setVisibility(View.GONE);
             slash.setVisibility(View.GONE);
             fullName.setText(" ");
         } else {
-            fullName.setText(preferencesName.getString(PreferenceName.NAME_PREFERENCE_FIRST_NAME, " ") + " " + preferencesName.getString(PreferenceName.NAME_PREFERENCE_LAST_NAME, " "));
+            fullName.setText(preferencesUserInformation.getString(PreferenceName.PREFERENCE_FIRST_NAME, " ") + " " + preferencesUserInformation.getString(PreferenceName.PREFERENCE_LAST_NAME, " "));
         }
 
         //allocate Fragments
@@ -304,5 +300,19 @@ public class BottomBarActivity extends MyActivity implements ConnectivityReceive
         } else {
             starter = true;
         }
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void addUserPersonalInfo(String name, String family, String cookie) {
+        cardViewProfile.setVisibility(View.VISIBLE);
+        profile.setVisibility(View.VISIBLE);
+        slash.setVisibility(View.VISIBLE);
+        Glide
+                .with(BottomBarActivity.this)
+                .load("http://app.sku.ac.ir/api/v1/user/image?cookie=" + cookie)
+                .into(profile);
+        fullName.setText(name + " " + family);
+
     }
 }

@@ -18,7 +18,6 @@ public class SESSActivity extends MyActivity {
 
     private WebView webView;
     private ProgressBar progressBar;
-    private SharedPreferences preferencesUsernameAndPassword;
     private String username;
     private String password;
 
@@ -27,9 +26,9 @@ public class SESSActivity extends MyActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sess);
-        preferencesUsernameAndPassword = getSharedPreferences(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_NAME, MODE_PRIVATE);
-        username = preferencesUsernameAndPassword.getString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_USERNAME, "");
-        password = preferencesUsernameAndPassword.getString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_PASSWORD, "");
+        SharedPreferences preferencesUserInformation = getSharedPreferences(PreferenceName.PREFERENCE_USER_INFORMATION, MODE_PRIVATE);
+        username = preferencesUserInformation.getString(PreferenceName.PREFERENCE_USERNAME, "");
+        password = preferencesUserInformation.getString(PreferenceName.PREFERENCE_PASSWORD, "");
 
         progressBar = findViewById(R.id.SESSActivity_ProgressBar);
         webView = findViewById(R.id.SESSActivity_WebView);

@@ -63,8 +63,8 @@ public class FoodReservationFragment extends Fragment {
     //My Library
     private SwipeRefreshLayout swipeRefreshLayout;
     private Gson gson;
-    private SharedPreferences preferencesCookie;
     private View rootView;
+    private SharedPreferences preferencesUserInformation;
 
     //My Views
     private Button btn_IncreaseCredit;
@@ -112,7 +112,7 @@ public class FoodReservationFragment extends Fragment {
 
         //use Lib
         gson = new Gson();
-        preferencesCookie = this.getActivity().getSharedPreferences(PreferenceName.COOKIE_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        preferencesUserInformation = rootView.getContext().getSharedPreferences(PreferenceName.PREFERENCE_USER_INFORMATION, Context.MODE_PRIVATE);
 
         //create Dialog
         dialog = new Dialog(rootView.getContext(), R.style.Theme_Dialog);
@@ -393,7 +393,7 @@ public class FoodReservationFragment extends Fragment {
     private void increaseAmount(String subject, String plan) {
         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "increaseAmount Start");
         Map<String, String> params = new HashMap<>();
-        params.put("cookie", preferencesCookie.getString(PreferenceName.COOKIE_PREFERENCE_COOKIE, null));
+        params.put("cookie", preferencesUserInformation.getString(PreferenceName.PREFERENCE_COOKIE, null));
         params.put("subject", subject);
         params.put("plan", plan);
         String URIPayment = MyConfig.SFX_INCREASE_CREDIT_AMOUNT + "?" + HttpManager.enCodeParameters(params);

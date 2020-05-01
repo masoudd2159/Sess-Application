@@ -1,7 +1,7 @@
 package ir.ac.sku.www.sessapplication.API;
 
 public class MyLog {
-    public static final String SESS = "SEAS Application ";
+    public static final String SESS = "SEASApplication ";
     public static final String SPLASH_SCREEN_ACTIVITY    = SESS + ": " + "Splash Screen Activity ---- ";
     public static final String HTTP_MANAGER              = SESS + ": " + "HTTP Manager -------------- ";
     public static final String LOGIN_ACTIVITY            = SESS + ": " + "Login Activity ------------ ";

@@ -107,8 +107,7 @@ public class FoodReservationAdapter {
     private Gson gson;
 
     //Preferences
-    private SharedPreferences preferencesUsernameAndPassword;
-    private SharedPreferences preferencesCookie;
+    private SharedPreferences preferencesUserInformation;
 
     //My Java Model Class
     private SFXWeeklyList weeklyList;
@@ -127,8 +126,7 @@ public class FoodReservationAdapter {
         //use Lib
         gson = new Gson();
         queue = Volley.newRequestQueue(rootView.getContext());
-        preferencesUsernameAndPassword = rootView.getContext().getSharedPreferences(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_NAME, Context.MODE_PRIVATE);
-        preferencesCookie = rootView.getContext().getSharedPreferences(PreferenceName.COOKIE_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        preferencesUserInformation = rootView.getContext().getSharedPreferences(PreferenceName.PREFERENCE_USER_INFORMATION, Context.MODE_PRIVATE);
 
         //my Functions
         init();
@@ -922,7 +920,7 @@ public class FoodReservationAdapter {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("cookie", preferencesCookie.getString(PreferenceName.COOKIE_PREFERENCE_COOKIE, null));
+                params.put("cookie", preferencesUserInformation.getString(PreferenceName.PREFERENCE_COOKIE, null));
                 params.put("meal", meal_code);
                 params.put("date", date_code);
                 params.put("restaurant", restaurant_code);
@@ -989,7 +987,7 @@ public class FoodReservationAdapter {
         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Delete Food Run");
 
         Map<String, String> params = new HashMap<String, String>();
-        params.put("username", preferencesUsernameAndPassword.getString(PreferenceName.USERNAME_AND_PASSWORD_PREFERENCE_USERNAME, null));
+        params.put("username", preferencesUserInformation.getString(PreferenceName.PREFERENCE_USERNAME, null));
         params.put("data", data);
         String URI = MyConfig.SFX_DELETE_MEAL + "?" + HttpManager.enCodeParameters(params);
         weeklyList = new SFXWeeklyList();

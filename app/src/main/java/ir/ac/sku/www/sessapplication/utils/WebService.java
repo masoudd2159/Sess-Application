@@ -31,7 +31,7 @@ public class WebService {
     private Context context;
     private RequestQueue queue;
     private Gson gson;
-    private SharedPreferences preferencesCookie;
+    private SharedPreferences preferencesUserInformation;
     private IsOk isOk;
 
 
@@ -42,7 +42,7 @@ public class WebService {
         this.context = context;
         Log.i(MyLog.WEB_SERVICE, "Context : " + String.valueOf(context));
 
-        preferencesCookie = context.getSharedPreferences(PreferenceName.COOKIE_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        preferencesUserInformation = context.getSharedPreferences(PreferenceName.PREFERENCE_USER_INFORMATION, Context.MODE_PRIVATE);
         queue = Volley.newRequestQueue(context);
         gson = new Gson();
         isOk = new IsOk();
@@ -56,7 +56,7 @@ public class WebService {
 
         Log.i(MyLog.WEB_SERVICE, "Handler : ‌" + String.valueOf(handler));
 
-        String myURL = url + "&cookie=" + preferencesCookie.getString(PreferenceName.COOKIE_PREFERENCE_COOKIE, "NULL");
+        String myURL = url + "&cookie=" + preferencesUserInformation.getString(PreferenceName.PREFERENCE_COOKIE, "NULL");
         Log.i(MyLog.WEB_SERVICE, "URL : " + myURL);
 
         StringRequest stringRequest = new StringRequest(method,
@@ -64,11 +64,7 @@ public class WebService {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        try {
-                            isOk = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"), IsOk.class);
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        }
+                        isOk = gson.fromJson(new String(response.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), IsOk.class);
                         Log.i(MyLog.WEB_SERVICE, "OK : " + isOk.isOk());
 
                         if (isOk.isOk()) {
