@@ -12,7 +12,6 @@ import androidx.cardview.widget.CardView;
 
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.activities.MainActivity;
-import ir.ac.sku.www.sessapplication.fragment.FoodReservationFragment;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
 public class StudentDeputyActivity extends MyActivity {

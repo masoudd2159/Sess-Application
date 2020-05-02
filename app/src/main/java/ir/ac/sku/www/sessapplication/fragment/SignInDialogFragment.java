@@ -23,8 +23,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.Request;
@@ -49,7 +47,6 @@ import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.models.LoginInformation;
 import ir.ac.sku.www.sessapplication.models.SendInformation;
 import ir.ac.sku.www.sessapplication.utils.CheckSignUpPreferenceManager;
-import ir.ac.sku.www.sessapplication.utils.CustomToastSuccess;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.InstantMessage;
 import ir.ac.sku.www.sessapplication.utils.MyHandler;
@@ -225,14 +222,17 @@ public class SignInDialogFragment extends DialogFragment {
                         manager.setStartSignUpPreference(false);
                         new SignIn(rootView.getContext()).SignInDialog(handler);
 
-                        CustomToastSuccess.success(rootView.getContext(), " خوش آمدید " + sendInformation.getResult().getUserInformation().getName() + " " + sendInformation.getResult().getUserInformation().getFamily(), Toast.LENGTH_SHORT).show();
-
+                        if (getFragmentManager() != null) {
+                            new WelcomeDialogFragment(
+                                    " خوش آمدید " + sendInformation.getResult().getUserInformation().getName() + " " + sendInformation.getResult().getUserInformation().getFamily()
+                            ).show(getFragmentManager(), "WelcomeDialogFragment");
+                        }
 
                     } else if (!sendInformation.isOk()) {
                         Toast.makeText(rootView.getContext(), sendInformation.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
-                        FragmentManager fragmentManager = ((FragmentActivity) rootView.getContext()).getSupportFragmentManager();
-                        SignInDialogFragment fragment = new SignInDialogFragment(handler);
-                        fragment.show(fragmentManager, "addUserPersonalInfo");
+                        if (getFragmentManager() != null) {
+                            new SignInDialogFragment(handler).show(getFragmentManager(),"addUserPersonalInfo");
+                        }
                     }
                 }
             });

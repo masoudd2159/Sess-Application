@@ -35,6 +35,7 @@ import ir.ac.sku.www.sessapplication.fragment.HomeFragment;
 import ir.ac.sku.www.sessapplication.fragment.MessagesFragment;
 import ir.ac.sku.www.sessapplication.fragment.ProcessesFragment;
 import ir.ac.sku.www.sessapplication.fragment.SignInDialogFragment;
+import ir.ac.sku.www.sessapplication.fragment.WelcomeDialogFragment;
 import ir.ac.sku.www.sessapplication.models.SendInformation;
 import ir.ac.sku.www.sessapplication.utils.ColoredSnackBar;
 import ir.ac.sku.www.sessapplication.utils.ConnectivityReceiver;
@@ -112,12 +113,20 @@ public class BottomBarActivity extends MyActivity implements ConnectivityReceive
         }
 
         if (preferencesUserInformation.getString(PreferenceName.PREFERENCE_FIRST_NAME, null) == null && preferencesUserInformation.getString(PreferenceName.PREFERENCE_LAST_NAME, null) == null) {
-            cardViewProfile.setVisibility(View.GONE);
-            profile.setVisibility(View.GONE);
-            slash.setVisibility(View.GONE);
+            cardViewProfile.setVisibility(View.INVISIBLE);
+            profile.setVisibility(View.INVISIBLE);
+            slash.setVisibility(View.INVISIBLE);
             fullName.setText(" ");
         } else {
-            fullName.setText(preferencesUserInformation.getString(PreferenceName.PREFERENCE_FIRST_NAME, " ") + " " + preferencesUserInformation.getString(PreferenceName.PREFERENCE_LAST_NAME, " "));
+            updateUserInformation(
+                    preferencesUserInformation.getString(PreferenceName.PREFERENCE_FIRST_NAME, " "),
+                    preferencesUserInformation.getString(PreferenceName.PREFERENCE_LAST_NAME, " "),
+                    preferencesUserInformation.getString(PreferenceName.PREFERENCE_COOKIE, null)
+            );
+
+           /* new WelcomeDialogFragment(
+                    " خوش آمدید " + preferencesUserInformation.getString(PreferenceName.PREFERENCE_FIRST_NAME, " ") + " " + preferencesUserInformation.getString(PreferenceName.PREFERENCE_LAST_NAME, " ")
+            ).show(getSupportFragmentManager(), "WelcomeDialogFragment");*/
         }
 
         //allocate Fragments
@@ -143,6 +152,19 @@ public class BottomBarActivity extends MyActivity implements ConnectivityReceive
         super.onResume();
         receiver.setListener(this);
         registerReceiver(receiver, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
+
+        if (preferencesUserInformation.getString(PreferenceName.PREFERENCE_FIRST_NAME, null) == null && preferencesUserInformation.getString(PreferenceName.PREFERENCE_LAST_NAME, null) == null) {
+            cardViewProfile.setVisibility(View.INVISIBLE);
+            profile.setVisibility(View.INVISIBLE);
+            slash.setVisibility(View.INVISIBLE);
+            fullName.setText(" ");
+        } else {
+            updateUserInformation(
+                    preferencesUserInformation.getString(PreferenceName.PREFERENCE_FIRST_NAME, " "),
+                    preferencesUserInformation.getString(PreferenceName.PREFERENCE_LAST_NAME, " "),
+                    preferencesUserInformation.getString(PreferenceName.PREFERENCE_COOKIE, null)
+            );
+        }
     }
 
     @Override
@@ -305,6 +327,11 @@ public class BottomBarActivity extends MyActivity implements ConnectivityReceive
     @SuppressLint("SetTextI18n")
     @Override
     public void addUserPersonalInfo(String name, String family, String cookie) {
+        updateUserInformation(name, family, cookie);
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void updateUserInformation(String name, String family, String cookie) {
         cardViewProfile.setVisibility(View.VISIBLE);
         profile.setVisibility(View.VISIBLE);
         slash.setVisibility(View.VISIBLE);
@@ -313,6 +340,5 @@ public class BottomBarActivity extends MyActivity implements ConnectivityReceive
                 .load("http://app.sku.ac.ir/api/v1/user/image?cookie=" + cookie)
                 .into(profile);
         fullName.setText(name + " " + family);
-
     }
 }

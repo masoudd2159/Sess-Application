@@ -53,6 +53,7 @@ import ir.ac.sku.www.sessapplication.API.MyConfig;
 import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.API.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
+import ir.ac.sku.www.sessapplication.fragment.WelcomeDialogFragment;
 import ir.ac.sku.www.sessapplication.models.AppInfo;
 import ir.ac.sku.www.sessapplication.models.LoginInformation;
 import ir.ac.sku.www.sessapplication.models.SendInformation;

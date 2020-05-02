@@ -246,7 +246,7 @@ public class FoodReservationFragment extends Fragment {
     }
 
     @SuppressLint("LongLogTag")
-    public void getMealList(String week) {
+    private void getMealList(String week) {
         Map<String, String> params = new HashMap<>();
         params.put("week", week);
         String URI = MyConfig.SFX_WEEKLY_LIST + "?" + HttpManager.enCodeParameters(params);
@@ -293,6 +293,7 @@ public class FoodReservationFragment extends Fragment {
                 dialog.getWindow().getAttributes().windowAnimations = R.style.PauseDialogAnimation;
                 WindowManager.LayoutParams layoutParams = dialog.getWindow().getAttributes();
                 layoutParams.dimAmount = 0.7f;
+                layoutParams.gravity = Gravity.BOTTOM;
                 dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
                 dialog.setContentView(R.layout.sfx_increase_credit_detail);
                 dialog.setCanceledOnTouchOutside(true);

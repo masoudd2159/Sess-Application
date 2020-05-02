@@ -12,9 +12,10 @@ import androidx.fragment.app.FragmentTransaction;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.fragment.FoodReservationFragment;
 import ir.ac.sku.www.sessapplication.fragment.ProcessesFragment;
+import ir.ac.sku.www.sessapplication.fragment.SignInDialogFragment;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
-public class MainActivity extends MyActivity {
+public class MainActivity extends MyActivity implements SignInDialogFragment.UserInterface {
 
     private Bundle extras;
     private TextView title;
@@ -50,9 +51,7 @@ public class MainActivity extends MyActivity {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.mainActivity_FragmentHolder, foodReservationFragment);
                 fragmentTransaction.commit();
-            }
-
-            else if (extras.getInt("position") == 2) {
+            } else if (extras.getInt("position") == 2) {
 
                 title.setText(extras.getString("title"));
 
@@ -73,5 +72,10 @@ public class MainActivity extends MyActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void addUserPersonalInfo(String name, String family, String cookie) {
+
     }
 }

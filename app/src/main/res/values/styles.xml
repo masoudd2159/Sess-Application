@@ -49,6 +49,11 @@
         <item name="android:windowExitAnimation">@anim/slidebottom</item>
     </style>
 
+    <style name="FragmentDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/fade_in_dialog</item>
+        <item name="android:windowExitAnimation">@anim/fade_out_dialog</item>
+    </style>
+
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
