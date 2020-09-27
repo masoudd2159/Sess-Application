@@ -11,27 +11,32 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import ir.ac.sku.www.sessapplication.API.MyConfig;
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.activities.AboutActivity;
-import ir.ac.sku.www.sessapplication.activities.CulturalDeputyActivity;
-import ir.ac.sku.www.sessapplication.activities.NewsActivity;
-import ir.ac.sku.www.sessapplication.activities.PhoneBookActivity;
-import ir.ac.sku.www.sessapplication.activities.fragmentHome.EducationalDeputyActivity;
-import ir.ac.sku.www.sessapplication.activities.fragmentHome.OfficeDeputyActivity;
-import ir.ac.sku.www.sessapplication.activities.fragmentHome.ResearchDeputyActivity;
-import ir.ac.sku.www.sessapplication.activities.fragmentHome.SESSActivity;
-import ir.ac.sku.www.sessapplication.activities.fragmentHome.StudentDeputyActivity;
+import ir.ac.sku.www.sessapplication.activities.about.AboutActivity;
+import ir.ac.sku.www.sessapplication.activities.utils.ActivityWebView;
+import ir.ac.sku.www.sessapplication.activities.home.CulturalDeputyActivity;
+import ir.ac.sku.www.sessapplication.activities.home.NewsActivity;
+import ir.ac.sku.www.sessapplication.activities.home.PhoneBookActivity;
+import ir.ac.sku.www.sessapplication.activities.home.EducationalDeputyActivity;
+import ir.ac.sku.www.sessapplication.activities.home.LeaderActivity;
+import ir.ac.sku.www.sessapplication.activities.home.NewbieActivity;
+import ir.ac.sku.www.sessapplication.activities.home.OfficeDeputyActivity;
+import ir.ac.sku.www.sessapplication.activities.home.ResearchDeputyActivity;
+import ir.ac.sku.www.sessapplication.activities.home.StudentDeputyActivity;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 
 public class HomeFragment extends Fragment {
 
     private CardView sess;
+    private CardView nahad;
     private CardView educational;
     private CardView student;
     private CardView research;
     private CardView cultural;
     private CardView news;
     private CardView support;
+    private CardView newbie;
     //private CardView television;
     private CardView office;
     private CardView phoneBook;
@@ -53,7 +58,9 @@ public class HomeFragment extends Fragment {
                 if (HttpManager.isNOTOnline(rootView.getContext())) {
                     HttpManager.noInternetAccess(rootView.getContext());
                 } else {
-                    startActivity(new Intent(rootView.getContext(), SESSActivity.class));
+                    Intent intent = new Intent(rootView.getContext(), ActivityWebView.class);
+                    intent.putExtra("key.EXTRA_OBJC", MyConfig.SESS);
+                    rootView.getContext().startActivity(intent);
                 }
             }
         });
@@ -113,6 +120,17 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        newbie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(rootView.getContext(), NewbieActivity.class));
+            }
+        });
+
+        nahad.setOnClickListener(v -> {
+            startActivity(new Intent(rootView.getContext(), LeaderActivity.class));
+        });
+
         return view;
     }
 
@@ -126,6 +144,8 @@ public class HomeFragment extends Fragment {
         research = rootView.findViewById(R.id.homeFragment_ResearchDeputy);
         office = rootView.findViewById(R.id.homeFragment_OfficeDeputy);
         support = rootView.findViewById(R.id.homeFragment_Support);
+        newbie = rootView.findViewById(R.id.homeFragment_Newbie);
+        nahad = rootView.findViewById(R.id.homeFragment_Nahad);
         //television = rootView.findViewById(R.id.homeFragment_Television);
     }
 }

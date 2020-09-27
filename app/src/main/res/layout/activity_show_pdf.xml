@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     android:layoutDirection="ltr"
     android:orientation="vertical"
-    tools:context=".activities.ShowPDFActivity">
+    tools:context=".activities.utils.ShowPDFActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/showPDF_AppBar"

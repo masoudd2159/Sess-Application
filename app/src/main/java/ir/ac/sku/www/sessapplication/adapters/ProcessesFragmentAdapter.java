@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.activities.ShowStudentRequestActivity;
+import ir.ac.sku.www.sessapplication.activities.processes.ShowStudentRequestActivity;
 import ir.ac.sku.www.sessapplication.models.StudentRequests;
 
 public class ProcessesFragmentAdapter extends RecyclerView.Adapter<ProcessesFragmentAdapter.MyViewHolder> {

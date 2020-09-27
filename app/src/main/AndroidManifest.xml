@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="ir.ac.sku.www.sessapplication">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -18,6 +19,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:targetApi="n">
+
         <meta-data
             android:name="co.ronash.pushe.token"
             android:value="PUSHE_624655216451" />
@@ -42,86 +44,97 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity
+            android:name=".activities.utils.ActivityWebView"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.utils.ParsMapActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.home.NewbieActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".activities.BottomBarActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.AboutActivity"
+            android:name=".activities.home.LeaderActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.ShowMessageActivity"
+            android:name=".activities.about.AboutActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.SendMessageActivity"
+            android:name=".activities.messages.ShowMessageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.ShowStudentRequestActivity"
+            android:name=".activities.messages.SendMessageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.JournalTotalActivity"
+            android:name=".activities.processes.ShowStudentRequestActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CulturalDeputyActivity"
+            android:name=".activities.home.JournalTotalActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.PhoneBookActivity"
+            android:name=".activities.home.CulturalDeputyActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.fragmentHome.ResearchDeputyActivity"
+            android:name=".activities.home.PhoneBookActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.fragmentHome.StudentDeputyActivity"
+            android:name=".activities.home.ResearchDeputyActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.fragmentHome.EducationalDeputyActivity"
+            android:name=".activities.home.StudentDeputyActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.fragmentHome.OfficeDeputyActivity"
+            android:name=".activities.home.EducationalDeputyActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.fragmentHome.TelevisionActivity"
+            android:name=".activities.home.OfficeDeputyActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.VideoActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.ShowPDFActivity"
+            android:name=".activities.home.TelevisionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CompetitionsActivity"
+            android:name=".activities.utils.VideoActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.utils.ShowPDFActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.JournalsActivity"
+            android:name=".activities.home.CompetitionsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.NewsActivity"
+            android:name=".activities.home.JournalsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.fragmentHome.SESSActivity"
+            android:name=".activities.home.NewsActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.MusicActivity"
+            android:name=".activities.utils.MusicActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.ChannelActivity"
+            android:name=".activities.home.ChannelActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <provider
@@ -147,8 +160,6 @@
                 <action android:name="android.media.AUDIO_BECOMING_NOISY" />
             </intent-filter>
         </service>
-
     </application>
-
 
 </manifest>

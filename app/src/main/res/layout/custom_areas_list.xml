@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/customAreasListView_TextViewPersianTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginBottom="@dimen/_4sdp"
+        android:ellipsize="end"
+        android:layoutDirection="ltr"
+        android:padding="@dimen/_8sdp"
+        android:layout_marginLeft="@dimen/_14ssp"
+        android:layout_marginRight="@dimen/_14ssp"
+        android:singleLine="true"
+        android:textColor="#3F3F3F"
+        android:textSize="@dimen/_13ssp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/_20ssp"
+        android:layout_marginRight="@dimen/_20ssp"
+        android:background="@color/overlay_dark_20" />
+
+</LinearLayout>

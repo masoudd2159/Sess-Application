@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#D0DDDDDD"
     android:layoutDirection="ltr"
-    tools:context=".activities.fragmentHome.EducationalDeputyActivity"
+    tools:context=".activities.home.EducationalDeputyActivity"
     tools:ignore="MissingPrefix">
 
     <LinearLayout

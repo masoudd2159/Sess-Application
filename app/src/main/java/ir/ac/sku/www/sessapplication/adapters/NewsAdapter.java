@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import ir.ac.sku.www.sessapplication.R;
+import ir.ac.sku.www.sessapplication.activities.utils.ActivityWebView;
 import ir.ac.sku.www.sessapplication.models.NewsModel;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> {
@@ -78,8 +78,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
 
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(news.getResult().getNews().get(getLayoutPosition()).getLink()));
+            Intent intent = new Intent(activity, ActivityWebView.class);
+            intent.putExtra("key.EXTRA_OBJC", news.getResult().getNews().get(getLayoutPosition()).getLink());
             activity.startActivity(intent);
         }
 

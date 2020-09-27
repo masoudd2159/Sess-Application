@@ -17,14 +17,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.activities.MusicActivity;
-import ir.ac.sku.www.sessapplication.activities.ShowPDFActivity;
-import ir.ac.sku.www.sessapplication.activities.VideoActivity;
+import ir.ac.sku.www.sessapplication.activities.utils.MusicActivity;
+import ir.ac.sku.www.sessapplication.activities.utils.ShowPDFActivity;
+import ir.ac.sku.www.sessapplication.activities.utils.VideoActivity;
 import ir.ac.sku.www.sessapplication.models.JournalModel;
 
 public class JournalsAdapter extends RecyclerView.Adapter<JournalsAdapter.MyViewHolder> {

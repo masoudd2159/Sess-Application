@@ -62,7 +62,7 @@ public class StudentRequestAdapter extends RecyclerView.Adapter<StudentRequestAd
         public void bind(StudentRequestDetails.Result.Step myRequest) {
             switch (myRequest.getStatus()) {
                 case "pass":
-                    status.setImageResource(R.drawable.ic_check);
+                    status.setImageResource(R.drawable.ic_pass);
                     break;
                 case "inProcess":
                     status.setImageResource(R.drawable.ic_pending);

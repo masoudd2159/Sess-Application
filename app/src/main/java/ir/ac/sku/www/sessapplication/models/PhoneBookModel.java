@@ -9,13 +9,12 @@ import com.android.volley.Request;
 import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 
 import ir.ac.sku.www.sessapplication.API.MyConfig;
-import ir.ac.sku.www.sessapplication.utils.MyHandler;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
+import ir.ac.sku.www.sessapplication.utils.MyHandler;
 import ir.ac.sku.www.sessapplication.utils.WebService;
 
 public class PhoneBookModel {
@@ -24,6 +23,29 @@ public class PhoneBookModel {
     private List<Result> result = null;
     private Description description;
 
+    public static void fetchFromWeb(Context context, HashMap<String, String> params, final MyHandler handler) {
+        final Gson gson = new Gson();
+
+        WebService webService = new WebService(context);
+        String myURL = MyConfig.PHONE_BOOK + "?" + HttpManager.enCodeParameters(params);
+        webService.request(myURL, Request.Method.GET, new MyHandler() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onResponse(boolean ok, Object obj) {
+                if (ok) {
+                    PhoneBookModel phoneBookModel = null;
+                    try {
+                        phoneBookModel = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), PhoneBookModel.class);
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    if (phoneBookModel.getOk()) {
+                        handler.onResponse(true, phoneBookModel);
+                    }
+                }
+            }
+        });
+    }
 
     public Boolean getOk() {
         return ok;
@@ -118,30 +140,6 @@ public class PhoneBookModel {
         public void setErrorCode(String errorCode) {
             this.errorCode = errorCode;
         }
-    }
-
-    public static void fetchFromWeb(Context context, HashMap<String, String> params, final MyHandler handler) {
-        final Gson gson = new Gson();
-
-        WebService webService = new WebService(context);
-        String myURL = MyConfig.PHONE_BOOK + "?" + HttpManager.enCodeParameters(params);
-        webService.request(myURL, Request.Method.GET, new MyHandler() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-            @Override
-            public void onResponse(boolean ok, Object obj) {
-                if (ok) {
-                    PhoneBookModel phoneBookModel = null;
-                    try {
-                        phoneBookModel = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), PhoneBookModel.class);
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                    if (phoneBookModel.getOk()) {
-                        handler.onResponse(true, phoneBookModel);
-                    }
-                }
-            }
-        });
     }
 
 }

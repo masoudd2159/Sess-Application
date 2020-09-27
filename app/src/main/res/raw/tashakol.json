@@ -1,0 +1,67 @@
+[
+  {
+    "section": "تشکل های دانشگاه شهرکرد",
+    "data": [
+      {
+        "faName": "جامعه اسلامی",
+        "enName": "",
+        "description": "",
+        "establishedYear": "",
+        "logo": "logo_jamee.jpg",
+        "secretary": "",
+        "telegram": "",
+        "instagram": "",
+        "twitter": "",
+        "email": "",
+        "phone": "",
+        "website": "",
+        "admin": [
+          {
+            "name": "",
+            "telegramId": ""
+          }
+        ]
+      },
+      {
+        "faName": "انجمن اسلامی دانشجویان مستقل",
+        "enName": "",
+        "description": "",
+        "establishedYear": "",
+        "logo": "logo_mostaghel.jpg",
+        "secretary": "",
+        "telegram": "",
+        "instagram": "",
+        "twitter": "",
+        "email": "",
+        "phone": "",
+        "website": "",
+        "admin": [
+          {
+            "name": "",
+            "telegramId": ""
+          }
+        ]
+      },
+      {
+        "faName": "بسیج دانشجویی دانشگاه شهرکرد",
+        "enName": "",
+        "description": "",
+        "establishedYear": "",
+        "logo": "logo_basij.jpg",
+        "secretary": "",
+        "telegram": "",
+        "instagram": "",
+        "twitter": "",
+        "email": "",
+        "phone": "",
+        "website": "",
+        "admin": [
+          {
+            "name": "",
+            "telegramId": ""
+          }
+        ]
+      }
+    ]
+  }
+]

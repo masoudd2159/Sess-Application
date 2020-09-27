@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import ir.ac.sku.www.sessapplication.R;
+import ir.ac.sku.www.sessapplication.activities.utils.ActivityWebView;
 import ir.ac.sku.www.sessapplication.models.PhoneBookModel;
 
 public class PhoneBookAdapter extends RecyclerView.Adapter<PhoneBookAdapter.MyViewHolder> {
@@ -114,8 +115,8 @@ public class PhoneBookAdapter extends RecyclerView.Adapter<PhoneBookAdapter.MyVi
                 public void onClick(View v) {
 
                     if (!result.getLink().equals("") && !result.getLink().equals(" ")) {
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse(result.getLink()));
+                        Intent intent = new Intent(activity, ActivityWebView.class);
+                        intent.putExtra("key.EXTRA_OBJC", result.getLink());
                         activity.startActivity(intent);
                     } else {
                         Toast.makeText(activity, "لینک مورد نظر در سیستم وجود ندارد!", Toast.LENGTH_SHORT).show();

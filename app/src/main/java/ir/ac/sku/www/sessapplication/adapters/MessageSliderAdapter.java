@@ -3,7 +3,6 @@ package ir.ac.sku.www.sessapplication.adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.activities.ShowMessageActivity;
+import ir.ac.sku.www.sessapplication.activities.messages.ShowMessageActivity;
 import ir.ac.sku.www.sessapplication.models.MSGMessagesParcelable;
 
 public class MessageSliderAdapter extends RecyclerView.Adapter<MessageSliderAdapter.MyViewHolder> {

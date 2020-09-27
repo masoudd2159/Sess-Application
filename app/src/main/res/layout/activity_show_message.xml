@@ -7,7 +7,7 @@
     android:background="#e1e1e1"
     android:layoutDirection="ltr"
     android:orientation="vertical"
-    tools:context=".activities.ShowMessageActivity"
+    tools:context=".activities.messages.ShowMessageActivity"
     tools:ignore="MissingPrefix">
 
     <com.google.android.material.appbar.AppBarLayout

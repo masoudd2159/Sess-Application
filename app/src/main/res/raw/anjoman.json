@@ -1,0 +1,779 @@
+[
+  {
+    "section": "دانشکده فنی مهندسی",
+    "data": [
+      {
+        "faName": "انجمن علمی دانشجویی مهندسی کامپیوتر",
+        "enName": "Computer Engineering Student Association Shahrekord University",
+        "description": "مهندسی نرم افزار و مهندسی فناوری و اطلاعات",
+        "logo": "logo_cessasku.jpg",
+        "secretary": "آقای محمد جواد آکوچکیان",
+        "telegram": "https://t.me/cessasku",
+        "instagram": "https://instagram.com/cessa_sku",
+        "twitter": "",
+        "email": "cessa.sku@gmail.com",
+        "phone": "03832324401",
+        "website": "http://cesku.ir/",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "آقای محمد جواد آکوچکیان",
+            "telegramId": "@cessasku_admin"
+          }
+        ]
+      },
+      {
+        "faName": "انجمن علمی دانشجویی مهندسی برق",
+        "enName": "",
+        "description": "",
+        "logo": "logo_eesku.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/eesku",
+        "instagram": "https://www.instagram.com/eesa_sku",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "آقای احسان شهریاری",
+            "telegramId": "https://t.me/Eh3anshahriari"
+          },
+          {
+            "name": "آقای علی",
+            "telegramId": "https://t.me/@Alini_2020"
+          }
+        ]
+      },
+      {
+        "faName": "انجمن علمی دانشجویی مهندسی مکانیک",
+        "enName": "Scientific Association of Mechanical Engineering of Shahrekord University",
+        "description": "",
+        "logo": "logo_mechanicaleng_sku.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/mechanicaleng_sku",
+        "instagram": "https://instagram.com/mechanicaleng_sku",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "اقای رسول واحدی",
+            "telegramId": "https://t.me/rasou1vhd"
+          },
+          {
+            "name": "علی غفاراللهی",
+            "telegramId": "https://t.me/Gh76ali"
+          }
+        ]
+      },
+      {
+        "faName": "انجمن علمی دانشجویی مهندسی عمران",
+        "enName": "",
+        "description": "",
+        "logo": "logo_civil_sku.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/civil_sku",
+        "instagram": "https://instagram.com/civil_sku",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "آقای محمد رضا قاسمی",
+            "telegramId": "https://t.me/Mhmdrza_gh"
+          }
+        ]
+      },
+      {
+        "faName": "انجمن علمی دانشجویی مهندسی مواد",
+        "enName": "Society of Metallurgical Engineering of Shahrekord University",
+        "description": "انجمن علمی برتر کشور در زمینه نوآوری و خلاقیت در سال 96",
+        "logo": "logo_msku_ir.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/msku_ir",
+        "instagram": "",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "http://www.msku.ir",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "",
+            "telegramId": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "section": "دانشکده علوم‌ ریاضی",
+    "data": [
+      {
+        "faName": "انجمن علمی دانشجویی علوم کامپیوتر",
+        "enName": "Computer Science",
+        "description": "",
+        "logo": "logo_sku_cs.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/SKU_CS",
+        "instagram": "",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "",
+            "telegramId": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "section": "دانشکده علوم پایه",
+    "data": [
+      {
+        "faName": "انجمن علمی دانشجویی زیست شناسی",
+        "enName": "Biology Student Association Shahrekord University",
+        "description": "",
+        "logo": "logo_sku_biology.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/sku_Biology",
+        "instagram": "https://instagram.com/sku_biology",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "خانم آتنا",
+            "telegramId": "https://t.me/Athenah_R"
+          }
+        ]
+      },
+      {
+        "faName": "انجمن علمی دانشجویی ژنتیک",
+        "enName": "",
+        "description": "",
+        "logo": "logo_genetics_sku.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/Genetics_sku",
+        "instagram": "https://instagram.com/genetics_sku",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "بی نام",
+            "telegramId": "https://t.me/Genetic_sku"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "section": "دانشکده دامپزشکی",
+    "data": [
+      {
+        "faName": "انجمن علمی دانشجویی دامپزشکی",
+        "enName": "",
+        "description": "",
+        "logo": "logo_skuvet.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/skuvet",
+        "instagram": "https://instagram.com/anjomandvm",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "اقای مازیار ویسی",
+            "telegramId": "https://t.me/maziyar_veisii"
+          },
+          {
+            "name": "آقای علی میرزایی",
+            "telegramId": "https://t.me/ali_mirzaee26"
+          },
+          {
+            "name": "آقای مهدی",
+            "telegramId": "https://t.me/mehdikzm75"
+          },
+          {
+            "name": "آقای حسین",
+            "telegramId": "https://t.me/HoseinEm11"
+          },
+          {
+            "name": "آقای احمد",
+            "telegramId": "https://t.me/mancity8"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "section": "دانشکده کشاورزی",
+    "data": [
+      {
+        "faName": "انجمن علمی دانشجویی مهندسی مکانیک بیوسیستم",
+        "enName": "",
+        "description": "مهندسی ماشین های صنایع غذایی و مهندسی مکانیک بیوسیستم",
+        "logo": "logo_sku_mb.jpg",
+        "secretary": "اقای امیر حسین جعفری",
+        "telegram": "https://t.me/sku_mb",
+        "instagram": "https://instagram.com/sku_mb",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "اقای امیر حسین جعفری",
+            "telegramId": "https://t.me/ahj_1375"
+          }
+        ]
+      },
+      {
+        "faName": "انجمن علمی دانشجویی مهندسی گیاهپزشکی",
+        "enName": "",
+        "description": "",
+        "logo": "logo_plant_protection_sku.jpg",
+        "secretary": "آقای امیر رضا اسماعیلی",
+        "telegram": "https://t.me/plant_protection_sku",
+        "instagram": "https://instagram.com/plant_protection_sku",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "آقای امیر رضا اسماعیلی",
+            "telegramId": "https://t.me/Amirrezaesmaeili"
+          },
+          {
+            "name": "بی نام",
+            "telegramId": "https://t.me/M1hb1"
+          }
+        ]
+      },
+      {
+        "faName": "انجمن علمی دانشجویی مهندسی علوم باغبانی",
+        "enName": "",
+        "description": "",
+        "logo": "logo_baghbani_sku.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/baghbani_sku",
+        "instagram": "https://instagram.com/baghbani_sku",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "بی نام",
+            "telegramId": "https://t.me/pardis_sku"
+          }
+        ]
+      },
+      {
+        "faName": "انجمن علمی علوم و مهندسی آب ",
+        "enName": "Water Engineering",
+        "description": "",
+        "logo": "logo_sku_water.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/sku_water",
+        "instagram": "https://instagram.com/sku_water",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "آقای محمد تاج سعید",
+            "telegramId": "https://t.me/MT_Taj"
+          }
+        ]
+      },
+      {
+        "faName": "انجمن علمی دانشجویی علوم و مهندسی خاکشناسی",
+        "enName": "",
+        "description": "",
+        "logo": "logo_soil_engineering_sku.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/SoilEngineering_Sku",
+        "instagram": "",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "آقای مهرشاد نوروزی",
+            "telegramId": "https://t.me/Mehrshadnorouzi"
+          }
+        ]
+      },
+      {
+        "faName": "انجمن علمی دانشجویی مهندسی علوم دامی",
+        "enName": "",
+        "description": "",
+        "logo": "logo_skuanimalscience.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/skuanimalscience",
+        "instagram": "https://instagram.com/animalsciencesku",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "آقای حسین غلامی",
+            "telegramId": "https://t.me/hosseingholami98"
+          }
+        ]
+      },
+      {
+        "faName": "انجمن علمی دانشجویی مهندسی تولید و ژنتیک گیاهی",
+        "enName": "",
+        "description": "",
+        "logo": "logo_plants_genetics_sku.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/plants_genetics_sku",
+        "instagram": "https://instagram.com/plants_genetics_sku",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "بی نام",
+            "telegramId": "https://t.me/mehdih78"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "section": "دانشکده ادبیات",
+    "data": [
+      {
+        "faName": "انجمن علمی دانشجویی باستان شناسی",
+        "enName": "Archaeologist Association",
+        "description": "",
+        "logo": "logo_archaeologist_association.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/skuArchaeologist",
+        "instagram": "https://instagram.com/archaeologist_association",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "آقای هادی",
+            "telegramId": "https://t.me/HADI_R_999"
+          }
+        ]
+      },
+      {
+        "faName": "انجمن علمی دانشجویی تربیت بدنی",
+        "enName": "",
+        "description": "",
+        "logo": "logo_physical_education_sku.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/physical_education_sku",
+        "instagram": "https://instagram.com/sku_physical_edu",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "بی نام",
+            "telegramId": "https://t.me/Referee1998"
+          },
+          {
+            "name": "بی نام",
+            "telegramId": "https://t.me/M_narimosa"
+          }
+        ]
+      },
+      {
+        "faName": "انجمن علمی دانشجویی مشاوره و روان شناسی",
+        "enName": "",
+        "description": "",
+        "logo": "logo_counsel_sku.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/counsel_sku",
+        "instagram": "https://instagram.com/counsel_sku",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "آقای مهدی زارعی",
+            "telegramId": "https://t.me/mm_zarei"
+          }
+        ]
+      },
+      {
+        "faName": "انجمن علمی دانشجویی حقوق",
+        "enName": "",
+        "description": "",
+        "logo": "logo_sku_law.jpg",
+        "secretary": "آقای امیر محمد احمدی",
+        "telegram": "https://t.me/sku_law",
+        "instagram": "https://instagram.com/sku_law",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "آقای امیر محمد احمدی",
+            "telegramId": "https://t.me/amirmohamad_ahmadi"
+          },
+          {
+            "name": "آقای عرفان",
+            "telegramId": "https://t.me/Erfangh1998"
+          }
+        ]
+      },
+      {
+        "faName": "انجمن علمی دانشجویی زبان و ادبیات فارسی",
+        "enName": "",
+        "description": "",
+        "logo": "logo_anjoman_elmi_adbt_sku.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/anjoman_elmi_adbt_sku",
+        "instagram": "https://instagram.com/anjoman_elmi_adbt_sku",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "خانم فاطمه شایان",
+            "telegramId": "https://t.me/Fateme_shayan10"
+          }
+        ]
+      },
+      {
+        "faName": "انجمن علمی دانشجویی گردشگری",
+        "enName": "",
+        "description": "",
+        "logo": "logo_tourism_sku.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/Tourism_SKU",
+        "instagram": "https://instagram.com/tourism_sku",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "خانم شیدا",
+            "telegramId": "https://t.me/Shyda_00"
+          }
+        ]
+      },
+      {
+        "faName": "انجمن علمی دانشجویی زبان انگلیسی",
+        "enName": "English Academic Association",
+        "description": "",
+        "logo": "logo_sku_ea.jpg",
+        "secretary": "آقای پویا محمودی",
+        "telegram": "https://t.me/SKU_EA",
+        "instagram": "https://instagram.com/SKU_EA/",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "آقای پویا محمودی",
+            "telegramId": "https://t.me/pouyamahmoudi"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "section": "دانشکده منابع طبیعی و علوم زمین",
+    "data": [
+      {
+        "faName": "انجمن علمی دانشجویی علوم و مهندسی شیلات",
+        "enName": "",
+        "description": "",
+        "logo": "logo_shilat_sku.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/shilat_sku",
+        "instagram": "https://instagram.com/anjoman_shillat",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "خانم شقایق مرادی",
+            "telegramId": "https://t.me/Sh_moradi24"
+          },
+          {
+            "name": "آقای شهریار مرادی",
+            "telegramId": "https://t.me/Shahriar_moradi_76"
+          }
+        ]
+      },
+      {
+        "faName": "انجمن علمی دانشجویی علوم و مهندسی جنگل",
+        "enName": "",
+        "description": "",
+        "logo": "logo_saofsku.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/saofsku",
+        "instagram": "https://instagram.com/saofsku",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "آقای رضا مرینیجات",
+            "telegramId": "https://t.me/RezAmorinejad"
+          },
+          {
+            "name": "سامره درخشان",
+            "telegramId": "https://t.me/SaDerakhshan"
+          }
+        ]
+      },
+      {
+        "faName": "انجمن علمی دانشجویی علوم و مهندسی محیط زیست",
+        "enName": "",
+        "description": "",
+        "logo": "logo_environmental98_sku.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/environmental98_sku",
+        "instagram": "",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "آقای پویا",
+            "telegramId": "https://t.me/pooria_sku"
+          }
+        ]
+      },
+      {
+        "faName": "انجمن علمی دانشجویی مهندسی طبیعت",
+        "enName": "",
+        "description": "",
+        "logo": "logo_skutabiat97.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/skutabiat97",
+        "instagram": "",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "خانم زهرا",
+            "telegramId": "https://t.me/ZHRa_Aro"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "section": "دانشکده هنر فارسان",
+    "data": [
+      {
+        "faName": "انجمن علمی دانشجویی فقه وحقوق اسلامی",
+        "enName": "",
+        "description": "",
+        "logo": "logo_islamic_law_2019.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/islamic_law_2019",
+        "instagram": "",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "اصلانی",
+            "telegramId": "https://t.me/Aslani2019"
+          }
+        ]
+      },
+      {
+        "faName": "انجمن علمی دانشجویی صنایع دستی",
+        "enName": "",
+        "description": "",
+        "logo": "logo_sku_art_handicrafts.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/SKU_Handicrafts",
+        "instagram": "https://instagram.com/sku_art_handicrafts",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "خانم زینب",
+            "telegramId": "https://t.me/Zeynab_0098"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "section": "انجمن های علمی دانشجویی بین رشته ای",
+    "data": [
+      {
+        "faName": "انجمن علمی دانشجویی بازی های دیجیتال و انیمیشن",
+        "enName": "Digital Games & Animation Student Scientific Association",
+        "description": "برترین انجمن علمی دانشجویی دانشگاه شهرکرد و همچنین برترین غرفه جشنواره حرکت",
+        "logo": "logo_gcsku.jpg",
+        "secretary": "آقای سید حسین علوی",
+        "telegram": "https://t.me/gcsku",
+        "instagram": "https://instagram.com/gcsku",
+        "twitter": "https://twitter.com/GcskU",
+        "email": "skugameconv@gmail.com",
+        "phone": "03832321634",
+        "website": "https://www.aparat.com/gamekadee",
+        "establishedYear": "1397",
+        "admin": [
+          {
+            "name": "آقای سید حسین علوی",
+            "telegramId": "https://t.me/a313dc"
+          },
+          {
+            "name": "آقای مسعود دباغی",
+            "telegramId": "https://t.me/Masoud_Dabbaghi"
+          }
+        ]
+      },
+      {
+        "faName": "انجمن علمی دانشجویی کار آفرینی",
+        "enName": "",
+        "description": "دانشجوی امروز ، کارآفرین فردا",
+        "logo": "logo_karafarinsku.jpg",
+        "secretary": "آقای یاسر رضایی",
+        "telegram": "https://t.me/karafarinsku",
+        "instagram": "https://instagram.com/karafarinsku",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "آقای یاسر رضایی",
+            "telegramId": "https://t.me/yaserdinani"
+          },
+          {
+            "name": "بی نام",
+            "telegramId": "https://t.me/Ejmin97"
+          }
+        ]
+      },
+      {
+        "faName": "انجمن علمی دانشجویی نوآوری و فناوری",
+        "enName": "",
+        "description": "",
+        "logo": "logo_ita_sku.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/ita_sku",
+        "instagram": "https://instagram.com/ita_sku",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "",
+            "telegramId": "https://t.me/"
+          }
+        ]
+      },
+      {
+        "faName": "انجمن علمی دانشجویی مکاترونیک و هوش مصنوعی",
+        "enName": "",
+        "description": "",
+        "logo": "logo_sku_robotic.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/sku_robotic",
+        "instagram": "https://instagram.com/sku_robotic",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "خانم بهار بهارلویی",
+            "telegramId": "https://t.me/Bahar_bh_l_79"
+          }
+        ]
+      },
+      {
+        "faName": "انجمن علمی دانشجویی نجوم و ستاره شناسی",
+        "enName": "",
+        "description": "",
+        "logo": "logo_astro_sku.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/astro_sku",
+        "instagram": "https://instagram.com/astro_sku",
+        "twitter": "",
+        "email": "",
+        "phone": "03832321628",
+        "website": "",
+        "establishedYear": "",
+        "admin": [
+          {
+            "name": "مهدی فندرسکی پور",
+            "telegramId": "https://t.me/Mahdifendereskipour"
+          }
+        ]
+      }
+    ]
+  }
+]

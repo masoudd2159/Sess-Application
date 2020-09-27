@@ -21,8 +21,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,7 +43,7 @@ import java.util.Map;
 
 import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.activities.SendMessageActivity;
+import ir.ac.sku.www.sessapplication.activities.messages.SendMessageActivity;
 import ir.ac.sku.www.sessapplication.models.GetInfoForSend;
 import ir.ac.sku.www.sessapplication.models.MSGMessagesParcelable;
 import ir.ac.sku.www.sessapplication.utils.MyHandler;

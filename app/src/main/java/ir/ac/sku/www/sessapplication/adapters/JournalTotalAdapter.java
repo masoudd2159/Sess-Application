@@ -20,16 +20,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.devbrackets.android.exomedia.ui.animation.TopViewHideShowAnimation;
-
-import java.util.Arrays;
 
 import ir.ac.sku.www.sessapplication.API.MyLog;
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.activities.JournalsActivity;
+import ir.ac.sku.www.sessapplication.activities.home.JournalsActivity;
 import ir.ac.sku.www.sessapplication.models.TotalJournalsModel;
 
 public class JournalTotalAdapter extends RecyclerView.Adapter<JournalTotalAdapter.MyViewHolder> {

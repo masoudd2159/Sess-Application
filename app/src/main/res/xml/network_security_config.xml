@@ -4,5 +4,22 @@
         <domain includeSubdomains="true">app.sku.ac.ir:70</domain>
         <domain includeSubdomains="true">app.sku.ac.ir</domain>
         <domain includeSubdomains="true">sess.sku.ac.ir</domain>
+        <domain includeSubdomains="true">sku.ac.ir</domain>
+        <domain includeSubdomains="true">leader.ir</domain>
+        <domain includeSubdomains="true">sku.nahad.ir</domain>
+        <domain includeSubdomains="true">president.ir</domain>
+        <domain includeSubdomains="true">msrt.ir</domain>
+        <domain includeSubdomains="true">saorg.ir</domain>
+        <domain includeSubdomains="true">isic.ir</domain>
+        <domain includeSubdomains="true">isc.gov.ir</domain>
+        <domain includeSubdomains="true">chb.bmn.ir</domain>
+        <domain includeSubdomains="true">portal.chbstp.ir</domain>
+        <domain includeSubdomains="true">iran.ir</domain>
+        <domain includeSubdomains="true">hodat.ir</domain>
+        <domain includeSubdomains="true">hamsan.tebyan.net</domain>
+        <domain includeSubdomains="true">labbayk.ir</domain>
+        <domain includeSubdomains="true">ezdevaj.org</domain>
+        <domain includeSubdomains="true">namaz.ir</domain>
+        <domain includeSubdomains="true">hamandishi.nahad.ir</domain>
     </domain-config>
 </network-security-config>

@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="topicsArray">
+
+        <item>1</item>
+        <item>درباره دانشگاه</item>
+        <item>ic_university</item>
+
+        <item>2</item>
+        <item>حوزه ریاست</item>
+        <item>ic_president</item>
+
+        <item>3</item>
+        <item>دانشکده ها</item>
+        <item>ic_collage</item>
+
+        <item>4</item>
+        <item>معاونت ها</item>
+        <item>ic_assistance</item>
+
+        <item>5</item>
+        <item>پژوهشکده ها</item>
+        <item>ic_researchs</item>
+
+        <item>6</item>
+        <item>انجمن ها</item>
+        <item>ic_idea</item>
+
+        <item>7</item>
+        <item>کانون ها</item>
+        <item>ic_trust</item>
+
+        <item>8</item>
+        <item>تشکل ها</item>
+        <item>ic_meeting</item>
+
+        <item>9</item>
+        <item>افراد</item>
+        <item>ic_team</item>
+
+        <item>10</item>
+        <item>لینک های مفید</item>
+        <item>ic_links</item>
+
+    </string-array>
+
+    <string-array name="detailsArray">
+
+        <item>1</item>
+        <item>1</item>
+        <item>معرفی دانشگاه شهرکرد</item>
+        <item>https://www.sku.ac.ir/%D9%85%D8%B9%D8%B1%D9%81%DB%8C-%D8%AF%D8%A7%D9%86%D8%B4%DA%AF%D8%A7%D9%87-%D8%B4%D9%87%D8%B1%DA%A9%D8%B1%D8%AF</item>
+
+        <item>2</item>
+        <item>1</item>
+        <item>افتخارات دانشگاه شهرکرد</item>
+        <item>https://www.sku.ac.ir/%D8%A7%D9%81%D8%AA%D8%AE%D8%A7%D8%B1%D8%A7%D8%AA-%D8%AF%D8%A7%D9%86%D8%B4%DA%AF%D8%A7%D9%87-%D8%B4%D9%87%D8%B1%DA%A9%D8%B1%D8%AF</item>
+
+        <item>3</item>
+        <item>1</item>
+        <item>نقشه دانشگاه شهرکرد</item>
+        <item>https://www.sku.ac.ir/%D9%86%D9%82%D8%B4%D9%87-%D8%AF%D8%A7%D9%86%D8%B4%DA%AF%D8%A7%D9%87-%D8%B4%D9%87%D8%B1%DA%A9%D8%B1%D8%AF</item>
+
+        <item>4</item>
+        <item>1</item>
+        <item>تور مجازی دانشگاه شهرکرد</item>
+        <item>https://www.sku.ac.ir/File/28380/sku</item>
+
+        <item>5</item>
+        <item>1</item>
+        <item>آلبوم عکس دانشگاه شهرکرد</item>
+        <item>https://www.sku.ac.ir/Photo-Album/6/#</item>
+
+        <item>47</item>
+        <item>1</item>
+        <item>میثاق نامه دانشجویان</item>
+        <item>https://www.msrt.ir/fa/news/13538/%D9%85%D8%AA%D9%86-%D9%85%DB%8C%D8%AB%D8%A7%D9%82-%D9%86%D8%A7%D9%85%D9%87-%D8%AF%D8%A7%D9%86%D8%B4%DA%AF%D8%A7%D9%87%DB%8C%D8%A7%D9%86-%D8%A8%D8%A7-%D8%A2%D8%B1%D9%85%D8%A7%D9%86%D9%87%D8%A7%DB%8C-%D8%A7%D9%86%D9%82%D9%84%D8%A7%D8%A8-%D8%A7%D8%B3%D9%84%D8%A7%D9%85%DB%8C-</item>
+
+        <item>49</item>
+        <item>1</item>
+        <item>پیام ریاست محترم و هیئت رئیسه</item>
+        <item>https://www.sku.ac.ir/Faculty/veterinary/News/6262</item>
+
+        <item>6</item>
+        <item>1</item>
+        <item>درباره شهرکرد</item>
+        <item>https://www.sku.ac.ir/%D8%AF%D8%B1%D8%A8%D8%A7%D8%B1%D9%87-%D8%B4%D9%87%D8%B1%DA%A9%D8%B1%D8%AF</item>
+
+        <item>7</item>
+        <item>1</item>
+        <item>درباره استان چهارمحال بختیاری</item>
+        <item>https://www.sku.ac.ir/%D8%AF%D8%B1%D8%A8%D8%A7%D8%B1%D9%87-%D8%A7%D8%B3%D8%AA%D8%A7%D9%86-%DA%86%D9%87%D8%A7%D8%B1%D9%85%D8%AD%D8%A7%D9%84-%D9%88-%D8%A8%D8%AE%D8%AA%DB%8C%D8%A7%D8%B1%DB%8C</item>
+
+        <item>8</item>
+        <item>2</item>
+        <item>معرفی ریاست دانشگاه</item>
+        <item>https://www.sku.ac.ir/Vice-President/admin/Page/4227/%D8%B1%DB%8C%D8%A7%D8%B3%D8%AA</item>
+
+        <item>9</item>
+        <item>2</item>
+        <item>وظایف و اختیارات ریاست دانشگاه</item>
+        <item>https://www.sku.ac.ir/Vice-President/admin/Page/4189/%D9%88%D8%B8%D8%A7%DB%8C%D9%81-%D9%88%20%D8%A7%D8%AE%D8%AA%DB%8C%D8%A7%D8%B1%D8%A7%D8%AA%20%D8%B1%DB%8C%D8%A7%D8%B3%D8%AA%20%D8%AF%D8%A7%D9%86%D8%B4%DA%AF%D8%A7%D9%87</item>
+
+        <item>10</item>
+        <item>2</item>
+        <item>روسای پیشین</item>
+        <item>https://www.sku.ac.ir/Vice-President/admin/Page/4188/%D8%B1%D9%88%D8%B3%D8%A7%DB%8C-%D9%BE%DB%8C%D8%B4%DB%8C%D9%86</item>
+
+        <item>11</item>
+        <item>2</item>
+        <item>وظایف دفتر حوزه ریاست</item>
+        <item>https://www.sku.ac.ir/Vice-President/admin/Page/4226/%D9%88%D8%B8%D8%A7%DB%8C%D9%81-%D8%AF%D9%81%D8%AA%D8%B1-%D8%AD%D9%88%D8%B2%D9%87-%D8%B1%DB%8C%D8%A7%D8%B3%D8%AA</item>
+
+        <item>12</item>
+        <item>2</item>
+        <item>وظایف روابط عمومی</item>
+        <item>https://www.sku.ac.ir/Vice-President/admin/Page/4193/%D9%88%D8%B8%D8%A7%DB%8C%D9%81-%D8%B1%D9%88%D8%A7%D8%A8%D8%B7-%D8%B9%D9%85%D9%88%D9%85%DB%8C</item>
+
+        <item>13</item>
+        <item>2</item>
+        <item>لیست اعضای هیات امنا</item>
+        <item>https://www.sku.ac.ir/Vice-President/admin/Page/4231/%D9%84%DB%8C%D8%B3%D8%AA-%D8%A7%D8%B9%D8%B6%D8%A7%D8%A1-%D9%87%DB%8C%D8%A7%D8%AA-%D8%A7%D9%85%D9%86%D8%A7</item>
+
+        <item>14</item>
+        <item>2</item>
+        <item>لیست اعضای کمیسیون دائمی هیات امنا</item>
+        <item>https://www.sku.ac.ir/Vice-President/admin/Page/4232/%D9%84%DB%8C%D8%B3%D8%AA-%D8%A7%D8%B9%D8%B6%D8%A7%DB%8C-%DA%A9%D9%85%DB%8C%D8%B3%DB%8C%D9%88%D9%86-%D8%AF%D8%A7%D8%A6%D9%85%DB%8C-%D9%87%DB%8C%D8%A7%D8%AA-%D8%A7%D9%85%D9%86%D8%A7</item>
+
+        <item>15</item>
+        <item>2</item>
+        <item>حراست</item>
+        <item>https://www.sku.ac.ir/Vice-President/admin/Page/4241/%D8%AD%D8%B1%D8%A7%D8%B3%D8%AA</item>
+
+        <item>16</item>
+        <item>3</item>
+        <item>دانشکده ادبیات و علوم انسانی</item>
+        <item>https://www.sku.ac.ir/Faculty/Literature/Faculty-Introduce</item>
+
+        <item>17</item>
+        <item>3</item>
+        <item>دانشکده فنی و مهندسی</item>
+        <item>https://www.sku.ac.ir/Faculty/Engineering/Faculty-Introduce</item>
+
+        <item>18</item>
+        <item>3</item>
+        <item>دانشکده منابع طبیعی و علوم زمین</item>
+        <item>https://www.sku.ac.ir/Faculty/natural-resources/Page/4204/%D9%85%D8%B9%D8%B1%D9%81%DB%8C-%D8%AF%D8%A7%D9%86%D8%B4%DA%A9%D8%AF%D9%87</item>
+
+        <item>19</item>
+        <item>3</item>
+        <item>دانشکده علوم ریاضی</item>
+        <item>https://www.sku.ac.ir/Faculty/Mathematical/Faculty-Introduce</item>
+
+        <item>20</item>
+        <item>3</item>
+        <item>دانشکده هنر و علوم انسانی فارسان</item>
+        <item>https://www.sku.ac.ir/Faculty/Art</item>
+
+        <item>21</item>
+        <item>3</item>
+        <item>دانشکده علوم پایه</item>
+        <item>https://www.sku.ac.ir/Faculty/science/Page/3114/%D9%85%D8%B9%D8%B1%D9%81%DB%8C-%D8%AF%D8%A7%D9%86%D8%B4%DA%A9%D8%AF%D9%87%D8%8C%20%D8%A7%D9%87%D8%AF%D8%A7%D9%81%D8%8C%20%D9%88%D8%B8%D8%A7%DB%8C%D9%81</item>
+
+        <item>22</item>
+        <item>3</item>
+        <item>دانشکده دامپزشکی</item>
+        <item>https://www.sku.ac.ir/Faculty/Veterinary/Faculty-Introduce</item>
+
+        <item>23</item>
+        <item>3</item>
+        <item>دانشکده کشاورزی</item>
+        <item>https://www.sku.ac.ir/Faculty/agriculture/Page/4228/%D9%85%D8%B9%D8%B1%D9%81%DB%8C-%D8%AF%D8%A7%D9%86%D8%B4%DA%A9%D8%AF%D9%87</item>
+
+        <item>24</item>
+        <item>3</item>
+        <item>دانشکده فنی و مهندسی بروجن</item>
+        <item>https://www.sku.ac.ir/Faculty/borujen/Page/4237/%D9%85%D8%B9%D8%B1%D9%81%DB%8C-%D8%AF%D8%A7%D9%86%D8%B4%DA%A9%D8%AF%D9%87</item>
+
+        <item>25</item>
+        <item>4</item>
+        <item>معاونت فرهنگی - اجتماعی</item>
+        <item>https://www.sku.ac.ir/Vice-President/Cultural</item>
+
+        <item>26</item>
+        <item>4</item>
+        <item>معاونت پژوهش و فناوری</item>
+        <item>https://www.sku.ac.ir/Vice-President/research</item>
+
+        <item>27</item>
+        <item>4</item>
+        <item>معاونت آموزشی</item>
+        <item>https://www.sku.ac.ir/Vice-President/Academics</item>
+
+        <item>28</item>
+        <item>4</item>
+        <item>معاونت دانشجویی</item>
+        <item>https://www.sku.ac.ir/Vice-President/Student</item>
+
+        <item>29</item>
+        <item>4</item>
+        <item>معاونت اداری و مالی و مدیریت منابع</item>
+        <item>https://www.sku.ac.ir/Vice-President/Financial</item>
+
+        <item>30</item>
+        <item>5</item>
+        <item>پژوهشکده فناوری جنین دام</item>
+        <item>https://www.sku.ac.ir/office/Research%20Institute%20of%20Animal%20Embryo%20Technology</item>
+
+        <item>31</item>
+        <item>5</item>
+        <item>پژوهشکده زیست فناوری</item>
+        <item>https://www.sku.ac.ir/Vice-President/research/page/4070</item>
+
+        <item>32</item>
+        <item>5</item>
+        <item>پژوهشکده نانو</item>
+        <item>https://www.sku.ac.ir/office/nanocenter</item>
+
+        <item>33</item>
+        <item>9</item>
+        <item>اعضای هیات علمی دانشگاه</item>
+        <item>https://www.sku.ac.ir/Shahrekord-University-Professors</item>
+
+        <item>32</item>
+        <item>9</item>
+        <item>کارمندان دانشگاه</item>
+        <item>https://www.sku.ac.ir/Shahrekord-University-Employees</item>
+
+        <item>34</item>
+        <item>9</item>
+        <item>دانشجویان</item>
+        <item>https://www.sku.ac.ir/University-Students</item>
+
+        <item>35</item>
+        <item>10</item>
+        <item>دفتر مقام معظم رهبری</item>
+        <item>https://www.leader.ir/</item>
+
+        <item>36</item>
+        <item>10</item>
+        <item>دفتر نهاد نمایندگی مقام معظم رهبری</item>
+        <item>http://sku.nahad.ir/</item>
+
+        <item>37</item>
+        <item>10</item>
+        <item>ریاست جمهوری</item>
+        <item>http://www.president.ir/</item>
+
+        <item>38</item>
+        <item>10</item>
+        <item>وزارت علوم , تحقیقات و فناوری</item>
+        <item>https://www.msrt.ir/fa</item>
+
+        <item>48</item>
+        <item>10</item>
+        <item>زیارت آنلاین شهدای گمنام دانشگاه شهرکرد</item>
+        <item>https://www.msrt.ir/fa</item>
+
+        <item>39</item>
+        <item>10</item>
+        <item>سازمان امور دانشجویان</item>
+        <item>http://www.saorg.ir/</item>
+
+        <item>40</item>
+        <item>10</item>
+        <item>سازمان بین المللی دانشگاهیان</item>
+        <item>https://isic.ir/international/</item>
+
+        <item>41</item>
+        <item>10</item>
+        <item>پایگاه استنادی علوم جهان اسلام (ISC)</item>
+        <item>http://www.isc.gov.ir/</item>
+
+        <item>42</item>
+        <item>10</item>
+        <item>بنیاد نخبگان استان</item>
+        <item>http://chb.bmn.ir/</item>
+
+        <item>43</item>
+        <item>10</item>
+        <item>پارک علم و فناوری استان</item>
+        <item>http://portal.chbstp.ir/</item>
+
+        <item>44</item>
+        <item>10</item>
+        <item>دفتر دانشجویان شاهد و ایثارگر</item>
+        <item>https://www.sku.ac.ir/Vice-President/admin/Page/4211/%D9%85%D8%B9%D8%B1%D9%81%DB%8C-%D8%A7%D8%AF%D8%A7%D8%B1%D9%87-%D8%AF%D8%A7%D9%86%D8%B4%D8%AC%D9%88%DB%8C%D8%A7%D9%86-%D8%B4%D8%A7%D9%87%D8%AF-%D9%88-%D8%A7%DB%8C%D8%AB%D8%A7%D8%B1%DA%AF%D8%B1</item>
+
+        <item>45</item>
+        <item>10</item>
+        <item>دفتر همكاری های علمی و بين المللی</item>
+        <item>https://www.sku.ac.ir/Office/SICG</item>
+
+        <item>46</item>
+        <item>10</item>
+        <item>درگاه دولت</item>
+        <item>http://www.iran.ir/</item>
+    </string-array>
+
+</resources>
