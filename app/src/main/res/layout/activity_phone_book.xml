@@ -7,7 +7,7 @@
     android:background="#EEEEEE"
     android:layoutDirection="ltr"
     android:orientation="vertical"
-    tools:context=".activities.home.PhoneBookActivity">
+    tools:context=".activity.home.PhoneBookActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

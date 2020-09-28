@@ -29,8 +29,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.Objects;
 
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.adapters.AdminAdapter;
-import ir.ac.sku.www.sessapplication.models.AssociationModel;
+import ir.ac.sku.www.sessapplication.adapter.AdminAdapter;
+import ir.ac.sku.www.sessapplication.model.AssociationModel;
 
 public class AssociationDialogFragment extends DialogFragment {
 

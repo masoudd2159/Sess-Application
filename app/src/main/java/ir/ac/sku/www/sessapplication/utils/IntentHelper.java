@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.provider.Settings;
 import android.util.Log;
 
-import ir.ac.sku.www.sessapplication.API.MyLog;
+import ir.ac.sku.www.sessapplication.api.MyLog;
 
 class IntentHelper {
 

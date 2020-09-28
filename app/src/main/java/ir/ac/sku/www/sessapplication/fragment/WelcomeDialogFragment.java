@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 
@@ -24,7 +23,7 @@ import androidx.fragment.app.DialogFragment;
 
 import java.util.Objects;
 
-import ir.ac.sku.www.sessapplication.API.MyLog;
+import ir.ac.sku.www.sessapplication.api.MyLog;
 import ir.ac.sku.www.sessapplication.R;
 
 public class WelcomeDialogFragment extends DialogFragment {

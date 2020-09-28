@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.home.NewbieActivity"
+    tools:context=".activity.home.NewbieActivity"
     tools:ignore="MissingPrefix">
 
     <com.google.android.material.appbar.AppBarLayout

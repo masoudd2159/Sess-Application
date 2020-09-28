@@ -23,6 +23,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.Request;
@@ -41,14 +43,14 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Objects;
 
-import ir.ac.sku.www.sessapplication.API.MyConfig;
-import ir.ac.sku.www.sessapplication.API.PreferenceName;
+import ir.ac.sku.www.sessapplication.api.MyConfig;
+import ir.ac.sku.www.sessapplication.api.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.models.LoginInformation;
-import ir.ac.sku.www.sessapplication.models.SendInformation;
+import ir.ac.sku.www.sessapplication.model.LoginInformation;
+import ir.ac.sku.www.sessapplication.model.SendInformation;
 import ir.ac.sku.www.sessapplication.utils.CheckSignUpPreferenceManager;
+import ir.ac.sku.www.sessapplication.fragment.dialogfragment.DialogFragmentInstantMessage;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
-import ir.ac.sku.www.sessapplication.utils.InstantMessage;
 import ir.ac.sku.www.sessapplication.utils.MyHandler;
 import ir.ac.sku.www.sessapplication.utils.SignIn;
 import ir.ac.sku.www.sessapplication.utils.WebService;
@@ -214,8 +216,8 @@ public class SignInDialogFragment extends DialogFragment {
                                 loginInformation.getCookie()
                         );
 
-                        InstantMessage instantMessage = new InstantMessage(rootView.getContext(), sendInformation.getResult());
-                        instantMessage.showInstantMessageDialog();
+                        FragmentManager fragmentManager = ((FragmentActivity) rootView.getContext()).getSupportFragmentManager();
+                        new DialogFragmentInstantMessage(sendInformation.getResult()).show(fragmentManager, "DialogFragmentInstantMessage");
 
                         getUserImage();
 

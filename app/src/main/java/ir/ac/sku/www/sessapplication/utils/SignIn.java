@@ -1,34 +1,19 @@
 package ir.ac.sku.www.sessapplication.utils;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -41,17 +26,16 @@ import com.bumptech.glide.request.transition.Transition;
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
-import ir.ac.sku.www.sessapplication.API.MyConfig;
-import ir.ac.sku.www.sessapplication.API.MyLog;
-import ir.ac.sku.www.sessapplication.API.PreferenceName;
-import ir.ac.sku.www.sessapplication.R;
+import ir.ac.sku.www.sessapplication.api.MyConfig;
+import ir.ac.sku.www.sessapplication.api.MyLog;
+import ir.ac.sku.www.sessapplication.api.PreferenceName;
 import ir.ac.sku.www.sessapplication.fragment.SignInDialogFragment;
-import ir.ac.sku.www.sessapplication.models.LoginInformation;
-import ir.ac.sku.www.sessapplication.models.SendInformation;
+import ir.ac.sku.www.sessapplication.fragment.dialogfragment.DialogFragmentInstantMessage;
+import ir.ac.sku.www.sessapplication.model.LoginInformation;
+import ir.ac.sku.www.sessapplication.model.SendInformation;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -171,8 +155,8 @@ public class SignIn {
                         editSharedPreferences.apply();
                         handler.onResponse(true, null);
 
-                        InstantMessage instantMessage = new InstantMessage(context, sendInformation.getResult());
-                        instantMessage.showInstantMessageDialog();
+                        FragmentManager fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
+                        new DialogFragmentInstantMessage(sendInformation.getResult()).show(fragmentManager, "DialogFragmentInstantMessage");
 
                         getUserImage();
 

@@ -7,7 +7,7 @@
     android:background="#E7E7E7"
     android:layoutDirection="ltr"
     android:orientation="vertical"
-    tools:context=".activities.home.JournalTotalActivity">
+    tools:context=".activity.home.JournalTotalActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

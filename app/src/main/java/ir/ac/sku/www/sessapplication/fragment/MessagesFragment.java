@@ -41,11 +41,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import ir.ac.sku.www.sessapplication.API.MyLog;
+import ir.ac.sku.www.sessapplication.api.MyLog;
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.activities.messages.SendMessageActivity;
-import ir.ac.sku.www.sessapplication.models.GetInfoForSend;
-import ir.ac.sku.www.sessapplication.models.MSGMessagesParcelable;
+import ir.ac.sku.www.sessapplication.activity.messages.SendMessageActivity;
+import ir.ac.sku.www.sessapplication.model.GetInfoForSend;
+import ir.ac.sku.www.sessapplication.model.MSGMessagesParcelable;
 import ir.ac.sku.www.sessapplication.utils.MyHandler;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 

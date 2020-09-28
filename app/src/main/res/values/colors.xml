@@ -39,7 +39,7 @@
     <color name="brown">#795548</color>
     <color name="lite_grey">#E0E0E0</color>
     <color name="black">#313030</color>
-    <color name="white">#ffffff</color>
+    <color name="white">#FFFFFFFF</color>
     <color name="white_2">#4bffffff</color>
 
     <color name="testColor">#002fff</color>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_bar_layout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_256sdp"
+    android:fitsSystemWindows="true"
+    android:layoutDirection="ltr"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    app:contentScrim="?attr/colorPrimary"
+    tools:ignore="MissingPrefix">
+
+    <com.google.android.material.appbar.CollapsingToolbarLayout
+        android:id="@+id/toolbar_collapsing"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:layoutDirection="ltr"
+        app:contentScrim="?attr/colorPrimary"
+        app:expandedTitleMarginStart="24dp"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layoutDirection="ltr">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/toolbar_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:layoutDirection="ltr" />
+
+            <LinearLayout
+                android:id="@+id/toolbar_dot_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layoutDirection="ltr"
+                android:orientation="horizontal" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/scrim"
+            android:layoutDirection="ltr" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:layoutDirection="ltr"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:layout_collapseMode="pin"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|start"
+                android:ellipsize="end"
+                android:layoutDirection="ltr"
+                android:singleLine="true"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_20ssp" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+</com.google.android.material.appbar.AppBarLayout>

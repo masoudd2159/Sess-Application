@@ -11,32 +11,71 @@
     app:shadowMargin="@dimen/_8sdp"
     app:shadowRadius="@dimen/_8sdp">
 
-    <LinearLayout
-        android:id="@+id/customDepartmentView_LinearLayout"
+    <RelativeLayout
+        android:id="@+id/customDepartmentView_LayoutContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical"
         app:layout_gravity="center">
 
-        <ImageView
-            android:id="@+id/customDepartmentView_ImageView"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_50sdp"
-            android:layout_margin="@dimen/_8sdp"
-            app:layout_gravity="center" />
-
-        <TextView
-            android:id="@+id/customDepartmentView_TextView"
+        <LinearLayout
+            android:id="@+id/customDepartmentView_LinearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/customDepartmentView_ImageView"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_margin="@dimen/_8sdp"
+                app:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/customDepartmentView_TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/_8sdp"
+                android:gravity="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/_13ssp" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/customDepartmentView_LinearLayout_uni"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_margin="@dimen/_8sdp"
             android:gravity="center"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/_13ssp" />
+            android:visibility="visible"
+            app:layout_gravity="center">
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/customDepartmentView_ImageView_uni"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/customDepartmentView_TextView_uni"
+                app:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/customDepartmentView_TextView_uni"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="-32dp"
+                android:gravity="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/_13ssp" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 
 
 </com.loopeer.shadow.ShadowView>

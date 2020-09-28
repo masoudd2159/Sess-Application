@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/cyan"
     android:layoutDirection="ltr"
-    tools:context=".activities.SplashScreenActivity"
+    tools:context=".activity.SplashScreenActivity"
     tools:ignore="MissingPrefix">
 
     <ImageView

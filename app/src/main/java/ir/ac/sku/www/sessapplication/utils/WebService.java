@@ -18,14 +18,13 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-import ir.ac.sku.www.sessapplication.API.MyLog;
-import ir.ac.sku.www.sessapplication.API.PreferenceName;
-import ir.ac.sku.www.sessapplication.models.IsOk;
+import ir.ac.sku.www.sessapplication.api.MyLog;
+import ir.ac.sku.www.sessapplication.api.PreferenceName;
+import ir.ac.sku.www.sessapplication.model.IsOk;
 
 public class WebService {
     private Context context;

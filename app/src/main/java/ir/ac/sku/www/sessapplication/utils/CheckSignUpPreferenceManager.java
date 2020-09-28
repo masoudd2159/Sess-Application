@@ -3,7 +3,7 @@ package ir.ac.sku.www.sessapplication.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import ir.ac.sku.www.sessapplication.API.PreferenceName;
+import ir.ac.sku.www.sessapplication.api.PreferenceName;
 
 public class CheckSignUpPreferenceManager {
 

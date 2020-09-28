@@ -11,19 +11,19 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import ir.ac.sku.www.sessapplication.API.MyConfig;
+import ir.ac.sku.www.sessapplication.api.MyConfig;
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.activities.about.AboutActivity;
-import ir.ac.sku.www.sessapplication.activities.utils.ActivityWebView;
-import ir.ac.sku.www.sessapplication.activities.home.CulturalDeputyActivity;
-import ir.ac.sku.www.sessapplication.activities.home.NewsActivity;
-import ir.ac.sku.www.sessapplication.activities.home.PhoneBookActivity;
-import ir.ac.sku.www.sessapplication.activities.home.EducationalDeputyActivity;
-import ir.ac.sku.www.sessapplication.activities.home.LeaderActivity;
-import ir.ac.sku.www.sessapplication.activities.home.NewbieActivity;
-import ir.ac.sku.www.sessapplication.activities.home.OfficeDeputyActivity;
-import ir.ac.sku.www.sessapplication.activities.home.ResearchDeputyActivity;
-import ir.ac.sku.www.sessapplication.activities.home.StudentDeputyActivity;
+import ir.ac.sku.www.sessapplication.activity.about.AboutActivity;
+import ir.ac.sku.www.sessapplication.activity.utils.ActivityWebView;
+import ir.ac.sku.www.sessapplication.activity.home.CulturalDeputyActivity;
+import ir.ac.sku.www.sessapplication.activity.home.NewsActivity;
+import ir.ac.sku.www.sessapplication.activity.home.PhoneBookActivity;
+import ir.ac.sku.www.sessapplication.activity.home.EducationalDeputyActivity;
+import ir.ac.sku.www.sessapplication.activity.home.LeaderActivity;
+import ir.ac.sku.www.sessapplication.activity.home.NewbieActivity;
+import ir.ac.sku.www.sessapplication.activity.home.OfficeDeputyActivity;
+import ir.ac.sku.www.sessapplication.activity.home.ResearchDeputyActivity;
+import ir.ac.sku.www.sessapplication.activity.home.StudentDeputyActivity;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 
 public class HomeFragment extends Fragment {

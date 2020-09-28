@@ -8,7 +8,7 @@
     android:fitsSystemWindows="true"
     android:layoutDirection="ltr"
     android:orientation="vertical"
-    tools:context=".activities.home.NewsActivity">
+    tools:context=".activity.home.NewsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/newsActivity_AppBar"

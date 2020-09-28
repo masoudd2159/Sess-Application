@@ -8,7 +8,7 @@
     android:background="#F1F1F1"
     android:fillViewport="true"
     android:layoutDirection="ltr"
-    tools:context=".activities.messages.SendMessageActivity"
+    tools:context=".activity.messages.SendMessageActivity"
     tools:ignore="MissingPrefix">
 
     <com.google.android.material.appbar.AppBarLayout

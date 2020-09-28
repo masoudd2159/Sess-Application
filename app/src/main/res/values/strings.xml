@@ -3,6 +3,10 @@
 
     <string name="try_again">تلاش مجدد</string>
     <string name="shahrekord_university">دانشگاه شهرکرد</string>
+    <string name="exit_message">برای خروج برنامه دو بار کلید بازگشت را فشار دهید.</string>
+
+    <!-- Fragment Home -->
+    <string name="support">ارتباط با پشتیبانی</string>
 
     <string name="disconnect_title">عدم اتصال به اینترنت</string>
     <string name="disconnect_description">اتصال شما به اینترنت برقرار نیست. برای استفاده از این سرویس به اینترنت متصل شوید.</string>
@@ -69,6 +73,7 @@
     <string name="unread">unread</string>
     <string name="read">read</string>
     <string name="send">send</string>
+
     <string-array name="messagePagerTitle">
         <item>@string/messagePagerTitle_1</item>
         <item>@string/messagePagerTitle_2</item>

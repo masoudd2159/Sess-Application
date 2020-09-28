@@ -22,8 +22,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.adapters.ProcessesFragmentAdapter;
-import ir.ac.sku.www.sessapplication.models.StudentRequests;
+import ir.ac.sku.www.sessapplication.adapter.ProcessesFragmentAdapter;
+import ir.ac.sku.www.sessapplication.model.StudentRequests;
 import ir.ac.sku.www.sessapplication.utils.MyHandler;
 
 public class ProcessesFragment extends Fragment {
