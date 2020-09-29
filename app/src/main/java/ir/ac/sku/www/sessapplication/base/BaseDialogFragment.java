@@ -40,12 +40,12 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
         if (getDialog() != null && getDialog().isShowing()) {
             dismiss();
         } else {
-            baseActivity.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-            baseActivity.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            baseActivity.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            WindowManager.LayoutParams layoutParams = baseActivity.getWindow().getAttributes();
+            getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+            getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+            getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            WindowManager.LayoutParams layoutParams = getDialog().getWindow().getAttributes();
             layoutParams.dimAmount = 0.7f;
-            baseActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            getDialog().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
             getDialog().setCancelable(false);
         }
 

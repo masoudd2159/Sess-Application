@@ -2,10 +2,12 @@ package ir.ac.sku.www.sessapplication.fragment.dialogfragment;
 
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import butterknife.BindView;
@@ -32,15 +34,20 @@ public class DialogFragmentInstantMessage extends BaseDialogFragment {
         return R.layout.dialog_instant_message;
     }
 
-    @Override public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        tv_Message.setMovementMethod(new ScrollingMovementMethod());
-        setInstantMessageInformation((instantMessage.getInstantMessage().size() - 1));
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (instantMessage.getInstantMessage().size() > 0) {
+            tv_Message.setMovementMethod(new ScrollingMovementMethod());
+            setInstantMessageInformation((instantMessage.getInstantMessage().size() - 1));
+        } else {
+            dismiss();
+        }
     }
 
     @Override public void onResume() {
         super.onResume();
-        changeDialogSize((int) (getDisplayMetrics().widthPixels * 0.85), ViewGroup.LayoutParams.WRAP_CONTENT);
+        changeDialogSize((int) (getDisplayMetrics().widthPixels * 0.75), ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
     private void setInstantMessageInformation(final int index) {

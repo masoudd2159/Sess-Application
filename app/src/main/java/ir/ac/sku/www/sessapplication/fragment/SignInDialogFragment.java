@@ -43,13 +43,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Objects;
 
+import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.api.MyConfig;
 import ir.ac.sku.www.sessapplication.api.PreferenceName;
-import ir.ac.sku.www.sessapplication.R;
+import ir.ac.sku.www.sessapplication.fragment.dialogfragment.DialogFragmentInstantMessage;
 import ir.ac.sku.www.sessapplication.model.LoginInformation;
 import ir.ac.sku.www.sessapplication.model.SendInformation;
 import ir.ac.sku.www.sessapplication.utils.CheckSignUpPreferenceManager;
-import ir.ac.sku.www.sessapplication.fragment.dialogfragment.DialogFragmentInstantMessage;
 import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.MyHandler;
 import ir.ac.sku.www.sessapplication.utils.SignIn;
@@ -80,6 +80,10 @@ public class SignInDialogFragment extends DialogFragment {
     //my Class Model
     private LoginInformation loginInformation;
     private SendInformation sendInformation;
+
+    public SignInDialogFragment(MyHandler myHandler) {
+        this.myHandler = myHandler;
+    }
 
     @SuppressLint("CommitPrefEdits")
     @Nullable
@@ -153,10 +157,6 @@ public class SignInDialogFragment extends DialogFragment {
         enter = rootView.findViewById(R.id.dialogUsernamePassword_Enter);
     }
 
-    public SignInDialogFragment(MyHandler myHandler) {
-        this.myHandler = myHandler;
-    }
-
     private void getLoginInformationUsernamePassword(final MyHandler handler, final String username, final String password) {
         StringRequest request = new StringRequest(MyConfig.LOGIN_INFORMATION,
                 new Response.Listener<String>() {
@@ -216,9 +216,10 @@ public class SignInDialogFragment extends DialogFragment {
                                 loginInformation.getCookie()
                         );
 
-                        FragmentManager fragmentManager = ((FragmentActivity) rootView.getContext()).getSupportFragmentManager();
-                        new DialogFragmentInstantMessage(sendInformation.getResult()).show(fragmentManager, "DialogFragmentInstantMessage");
-
+                        if (sendInformation.getResult().getInstantMessage().size() > 0) {
+                            FragmentManager fragmentManager = ((FragmentActivity) rootView.getContext()).getSupportFragmentManager();
+                            new DialogFragmentInstantMessage(sendInformation.getResult()).show(fragmentManager, "DialogFragmentInstantMessage");
+                        }
                         getUserImage();
 
                         manager.setStartSignUpPreference(false);
@@ -233,7 +234,7 @@ public class SignInDialogFragment extends DialogFragment {
                     } else if (!sendInformation.isOk()) {
                         Toast.makeText(rootView.getContext(), sendInformation.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
                         if (getFragmentManager() != null) {
-                            new SignInDialogFragment(handler).show(getFragmentManager(),"addUserPersonalInfo");
+                            new SignInDialogFragment(handler).show(getFragmentManager(), "addUserPersonalInfo");
                         }
                     }
                 }
@@ -259,10 +260,6 @@ public class SignInDialogFragment extends DialogFragment {
                 });
     }
 
-    public static interface UserInterface {
-        void addUserPersonalInfo(String name, String family, String cookie);
-    }
-
     @Override
     public void onAttach(@NonNull Activity activity) {
         super.onAttach(activity);
@@ -275,5 +272,9 @@ public class SignInDialogFragment extends DialogFragment {
         Objects.requireNonNull(Objects.requireNonNull(getDialog()).getWindow()).setLayout(
                 (int) (displayMetrics.widthPixels * 0.7),
                 ViewGroup.LayoutParams.WRAP_CONTENT);
+    }
+
+    public static interface UserInterface {
+        void addUserPersonalInfo(String name, String family, String cookie);
     }
 }

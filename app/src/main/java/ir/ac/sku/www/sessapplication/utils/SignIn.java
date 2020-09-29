@@ -155,8 +155,10 @@ public class SignIn {
                         editSharedPreferences.apply();
                         handler.onResponse(true, null);
 
-                        FragmentManager fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
-                        new DialogFragmentInstantMessage(sendInformation.getResult()).show(fragmentManager, "DialogFragmentInstantMessage");
+                        if (sendInformation.getResult().getInstantMessage().size() > 0) {
+                            FragmentManager fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
+                            new DialogFragmentInstantMessage(sendInformation.getResult()).show(fragmentManager, "DialogFragmentInstantMessage");
+                        }
 
                         getUserImage();
 

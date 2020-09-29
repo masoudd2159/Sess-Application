@@ -3,7 +3,7 @@ package ir.ac.sku.www.sessapplication.api;
 public class MyConfig {
     public static final String SESS                        = "https://sess.sku.ac.ir/sess/Script/Login.aspx";
 
-    public static final String IMAGE                       = "http://app.sku.ac.ir/api/v1/user/image?cookie=";
+    public static final String IMAGE                       = "https://app.sku.ac.ir/api/v1/user/image?cookie=";
 
     public static final String LOGIN_INFORMATION           = "https://app.sku.ac.ir/api/v1/user/login";
     public static final String SEND_INFORMATION            = "https://app.sku.ac.ir/api/v1/user/login";
