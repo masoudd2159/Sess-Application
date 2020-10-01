@@ -3,10 +3,15 @@ package ir.ac.sku.www.sessapplication.base;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,8 +24,10 @@ import butterknife.ButterKnife;
 import co.ronash.pushe.Pushe;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import ir.ac.sku.www.sessapplication.R;
+import ir.ac.sku.www.sessapplication.api.MyLog;
 import ir.ac.sku.www.sessapplication.utils.ColoredSnackBar;
 import ir.ac.sku.www.sessapplication.utils.ConnectivityReceiver;
+import ir.ac.sku.www.sessapplication.utils.SharedPreferencesUtils;
 
 @SuppressLint("Registered")
 public abstract class BaseActivity
@@ -28,10 +35,10 @@ public abstract class BaseActivity
         implements ConnectivityReceiver.ConnectivityReceiverListener {
 
     public String TAG = getClass().getSimpleName();
-
+    public SharedPreferencesUtils preferencesUtils;
     @Nullable @BindView(R.id.toolbar_title) TextView title;
     @Nullable @BindView(R.id.toolbar) Toolbar toolbar;
-
+    @Nullable @BindView(R.id.layout_content) View snackBarLayout;
     private ConnectivityReceiver receiver;
     private boolean starter = false;
 
@@ -46,8 +53,8 @@ public abstract class BaseActivity
         setContentView(getLayoutResource());
 
         receiver = new ConnectivityReceiver();
+        preferencesUtils = new SharedPreferencesUtils(this);
 
-        Pushe.initialize(this, true);
         ButterKnife.bind(this);
 
         initToolbar();
@@ -68,7 +75,10 @@ public abstract class BaseActivity
     @Override
     public void onNetworkConnectionChange(boolean isConnected) {
         if (starter) {
-            ColoredSnackBar.error(Snackbar.make(getLayoutSnackBar(), "مشکلی در اتصال به اینترنت به وجود آمده!", Snackbar.LENGTH_SHORT)).show();
+            if (snackBarLayout != null)
+                ColoredSnackBar.error(Snackbar.make(snackBarLayout, getResources().getString(R.string.connection_fail), Snackbar.LENGTH_SHORT)).show();
+            else
+                Toast.makeText(this, getResources().getString(R.string.connection_fail), Toast.LENGTH_SHORT).show();
         } else {
             starter = true;
         }
@@ -94,5 +104,12 @@ public abstract class BaseActivity
 
     protected abstract int getLayoutResource();
 
-    protected abstract View getLayoutSnackBar();
+    public void changeStatusBarColor() {
+        Log.i(MyLog.SESS + TAG, "Change Status Bar");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
+    }
 }

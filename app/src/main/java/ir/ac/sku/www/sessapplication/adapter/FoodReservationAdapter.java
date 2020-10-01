@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import ir.ac.sku.www.sessapplication.api.MyConfig;
+import ir.ac.sku.www.sessapplication.api.ApplicationAPI;
 import ir.ac.sku.www.sessapplication.api.MyLog;
 import ir.ac.sku.www.sessapplication.api.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
@@ -41,7 +41,7 @@ import ir.ac.sku.www.sessapplication.model.SFXMealDetail;
 import ir.ac.sku.www.sessapplication.model.SFXWeeklyList;
 import ir.ac.sku.www.sessapplication.utils.CustomToastSuccess;
 import ir.ac.sku.www.sessapplication.utils.MyHandler;
-import ir.ac.sku.www.sessapplication.utils.HttpManager;
+import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 import ir.ac.sku.www.sessapplication.utils.SignIn;
 import ir.ac.sku.www.sessapplication.utils.WebService;
 
@@ -625,9 +625,9 @@ public class FoodReservationAdapter {
         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Choose Meal Item : " + status);
         restaurantCode = null;
         foodCode = null;
-        if (HttpManager.isNOTOnline(rootView.getContext())) {
+        if (ManagerHelper.isInternet(rootView.getContext())) {
             Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "OFFLine");
-            HttpManager.noInternetAccess(rootView.getContext());
+            ManagerHelper.noInternetAccess(rootView.getContext());
         } else {
             Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "OnLine");
 
@@ -674,9 +674,9 @@ public class FoodReservationAdapter {
                     btn_Food.setEnabled(false);
                     btn_Food.setClickable(false);
                     Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "on Food Click Listener");
-                    if (HttpManager.isNOTOnline(rootView.getContext())) {
+                    if (ManagerHelper.isInternet(rootView.getContext())) {
                         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "OFFLine");
-                        HttpManager.noInternetAccess(rootView.getContext());
+                        ManagerHelper.noInternetAccess(rootView.getContext());
                         dialog.dismiss();
                     } else {
                         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "OnLine");
@@ -693,9 +693,9 @@ public class FoodReservationAdapter {
                 @Override
                 public void onClick(View v) {
                     Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "on Buy Click Listener");
-                    if (HttpManager.isNOTOnline(rootView.getContext())) {
+                    if (ManagerHelper.isInternet(rootView.getContext())) {
                         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "OFFLine");
-                        HttpManager.noInternetAccess(rootView.getContext());
+                        ManagerHelper.noInternetAccess(rootView.getContext());
                         dialog.dismiss();
                     } else {
                         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "OnLine");
@@ -777,7 +777,7 @@ public class FoodReservationAdapter {
         params.put("meal", meal_code);
         params.put("date", date_code);
         params.put("restaurant", restaurant_code);
-        String URI = MyConfig.SFX_MEAL_DETAIL + "?" + HttpManager.enCodeParameters(params);
+        String URI = ApplicationAPI.SFX_MEAL_DETAIL + "?" + ManagerHelper.enCodeParameters(params);
 
         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "mealCode       : " + params.get("meal"));
         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "dateCode       : " + params.get("date"));
@@ -876,7 +876,7 @@ public class FoodReservationAdapter {
         weeklyList = new SFXWeeklyList();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                MyConfig.SFX_BUY_MEAL,
+                ApplicationAPI.SFX_BUY_MEAL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -892,7 +892,7 @@ public class FoodReservationAdapter {
                                 restaurantCode = null;
                                 foodCode = null;
                                 if (Integer.parseInt(weeklyList.getDescription().getErrorCode()) > 0) {
-                                    HttpManager.unsuccessfulOperation(rootView.getContext(), weeklyList.getDescription().getErrorText());
+                                    ManagerHelper.unsuccessfulOperation(rootView.getContext(), weeklyList.getDescription().getErrorText());
                                 } else if (Integer.parseInt(weeklyList.getDescription().getErrorCode()) < 0) {
                                     SignIn signIn = new SignIn(rootView.getContext());
                                    // signIn.SignInDialog();
@@ -967,9 +967,9 @@ public class FoodReservationAdapter {
             @Override
             public void onClick(View v) {
                 Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "on Delete Click Listener");
-                if (HttpManager.isNOTOnline(rootView.getContext())) {
+                if (ManagerHelper.isInternet(rootView.getContext())) {
                     Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "OFFLine");
-                    HttpManager.noInternetAccess(rootView.getContext());
+                    ManagerHelper.noInternetAccess(rootView.getContext());
                     dialog.dismiss();
                 } else {
                     Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "OnLine");
@@ -988,7 +988,7 @@ public class FoodReservationAdapter {
         Map<String, String> params = new HashMap<String, String>();
         params.put("username", preferencesUserInformation.getString(PreferenceName.PREFERENCE_USERNAME, null));
         params.put("data", data);
-        String URI = MyConfig.SFX_DELETE_MEAL + "?" + HttpManager.enCodeParameters(params);
+        String URI = ApplicationAPI.SFX_DELETE_MEAL + "?" + ManagerHelper.enCodeParameters(params);
         weeklyList = new SFXWeeklyList();
 
 

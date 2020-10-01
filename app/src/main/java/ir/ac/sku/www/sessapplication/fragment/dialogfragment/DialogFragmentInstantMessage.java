@@ -35,8 +35,8 @@ public class DialogFragmentInstantMessage extends BaseDialogFragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onViewCreated(@NonNull View rootView, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(rootView, savedInstanceState);
         if (instantMessage.getInstantMessage().size() > 0) {
             tv_Message.setMovementMethod(new ScrollingMovementMethod());
             setInstantMessageInformation((instantMessage.getInstantMessage().size() - 1));

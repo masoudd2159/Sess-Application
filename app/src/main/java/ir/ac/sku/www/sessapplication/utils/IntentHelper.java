@@ -8,14 +8,14 @@ import android.util.Log;
 
 import ir.ac.sku.www.sessapplication.api.MyLog;
 
-class IntentHelper {
+public class IntentHelper {
 
-    static void openWiFiSettingScreen(Context context) {
+    public static void openWiFiSettingScreen(Context context) {
         Log.i(MyLog.SESS, "Open WiFi Setting Screen");
         context.startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
     }
 
-    static void openDataUsageScreen(Context context) {
+    public static void openDataUsageScreen(Context context) {
         Log.i(MyLog.SESS, "Open Data Usage Screen");
         Intent intent = new Intent();
         intent.setComponent(new ComponentName("com.android.settings",

@@ -47,7 +47,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import ir.ac.sku.www.sessapplication.api.MyConfig;
+import ir.ac.sku.www.sessapplication.api.ApplicationAPI;
 import ir.ac.sku.www.sessapplication.api.MyLog;
 import ir.ac.sku.www.sessapplication.api.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
@@ -55,7 +55,7 @@ import ir.ac.sku.www.sessapplication.adapter.FoodReservationAdapter;
 import ir.ac.sku.www.sessapplication.model.SFXIncreaseCreditDetail;
 import ir.ac.sku.www.sessapplication.model.SFXWeeklyList;
 import ir.ac.sku.www.sessapplication.utils.MyHandler;
-import ir.ac.sku.www.sessapplication.utils.HttpManager;
+import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 import ir.ac.sku.www.sessapplication.utils.WebService;
 
 public class FoodReservationFragment extends Fragment {
@@ -147,9 +147,9 @@ public class FoodReservationFragment extends Fragment {
                     gifImageViewPeriod.loop(true);
                     textViewPeriod.setVisibility(View.INVISIBLE);
                     Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "Previous Week List");
-                    if (HttpManager.isNOTOnline(rootView.getContext())) {
+                    if (ManagerHelper.isInternet(rootView.getContext())) {
                         Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "OFFLine");
-                        HttpManager.noInternetAccess(rootView.getContext());
+                        ManagerHelper.noInternetAccess(rootView.getContext());
                     } else {
                         Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "OnLine");
                         getMealList("prev");
@@ -163,9 +163,9 @@ public class FoodReservationFragment extends Fragment {
                     textViewPeriod.setVisibility(View.INVISIBLE);
 
                     Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "Next Week List");
-                    if (HttpManager.isNOTOnline(rootView.getContext())) {
+                    if (ManagerHelper.isInternet(rootView.getContext())) {
                         Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "OFFLine");
-                        HttpManager.noInternetAccess(rootView.getContext());
+                        ManagerHelper.noInternetAccess(rootView.getContext());
                     } else {
                         Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "OnLine");
                         getMealList("next");
@@ -213,9 +213,9 @@ public class FoodReservationFragment extends Fragment {
                 textViewPeriod.setVisibility(View.INVISIBLE);
 
                 Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "Next Week List");
-                if (HttpManager.isNOTOnline(rootView.getContext())) {
+                if (ManagerHelper.isInternet(rootView.getContext())) {
                     Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "OFFLine");
-                    HttpManager.noInternetAccess(rootView.getContext());
+                    ManagerHelper.noInternetAccess(rootView.getContext());
                 } else {
                     Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "OnLine");
                     getMealList("next");
@@ -234,9 +234,9 @@ public class FoodReservationFragment extends Fragment {
                 textViewPeriod.setVisibility(View.INVISIBLE);
 
                 Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "Previous Week List");
-                if (HttpManager.isNOTOnline(rootView.getContext())) {
+                if (ManagerHelper.isInternet(rootView.getContext())) {
                     Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "OFFLine");
-                    HttpManager.noInternetAccess(rootView.getContext());
+                    ManagerHelper.noInternetAccess(rootView.getContext());
                 } else {
                     Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "OnLine");
                     getMealList("prev");
@@ -249,7 +249,7 @@ public class FoodReservationFragment extends Fragment {
     private void getMealList(String week) {
         Map<String, String> params = new HashMap<>();
         params.put("week", week);
-        String URI = MyConfig.SFX_WEEKLY_LIST + "?" + HttpManager.enCodeParameters(params);
+        String URI = ApplicationAPI.SFX_WEEKLY_LIST + "?" + ManagerHelper.enCodeParameters(params);
 
         webService.request(URI, Request.Method.GET, new MyHandler() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -311,7 +311,7 @@ public class FoodReservationFragment extends Fragment {
     private void setPicker() {
         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "setPicker Start");
         Map<String, String> params = new HashMap<>();
-        String URI = MyConfig.SFX_INCREASE_CREDIT + "?" + HttpManager.enCodeParameters(params);
+        String URI = ApplicationAPI.SFX_INCREASE_CREDIT + "?" + ManagerHelper.enCodeParameters(params);
         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "cookie Picker : " + params.get("cookie"));
 
 
@@ -397,7 +397,7 @@ public class FoodReservationFragment extends Fragment {
         params.put("cookie", preferencesUserInformation.getString(PreferenceName.PREFERENCE_COOKIE, null));
         params.put("subject", subject);
         params.put("plan", plan);
-        String URIPayment = MyConfig.SFX_INCREASE_CREDIT_AMOUNT + "?" + HttpManager.enCodeParameters(params);
+        String URIPayment = ApplicationAPI.SFX_INCREASE_CREDIT_AMOUNT + "?" + ManagerHelper.enCodeParameters(params);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(URIPayment));
         getActivity().startActivity(intent);
@@ -407,8 +407,8 @@ public class FoodReservationFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if (HttpManager.isNOTOnline(rootView.getContext())) {
-                    HttpManager.noInternetAccess(rootView.getContext());
+                if (ManagerHelper.isInternet(rootView.getContext())) {
+                    ManagerHelper.noInternetAccess(rootView.getContext());
                 } else {
                     getMealList("");
                     swipeRefreshLayout.setRefreshing(false);

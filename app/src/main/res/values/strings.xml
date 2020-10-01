@@ -1,17 +1,27 @@
 <resources>
     <string name="app_name">دانشگاه شهرکرد</string>
+    <string name="shahrekord_university">دانشگاه شهرکرد</string>
+    <string name="app_email">app@sku.ac.ir</string>
+
+    <!-- AboutActivity -->
+    <string name="bug_report">گزارش مشکلات اندروید</string>
+    <string name="send_email_to_support">ارسال ایمیل به پشتیبانی</string>
+
+    <!-- API Fail message -->
+    <string name="unable_to_connect_to_the_server">هنگام اتصال به سرور مشکلی وجود دارد! لطفا دوباره تلاش کنید.</string>
 
     <string name="try_again">تلاش مجدد</string>
-    <string name="shahrekord_university">دانشگاه شهرکرد</string>
     <string name="exit_message">برای خروج برنامه دو بار کلید بازگشت را فشار دهید.</string>
 
     <!-- Fragment Home -->
     <string name="support">ارتباط با پشتیبانی</string>
+    <string name="support_report">گزارش مشکلات اپلیکیشن</string>
 
     <string name="disconnect_title">عدم اتصال به اینترنت</string>
     <string name="disconnect_description">اتصال شما به اینترنت برقرار نیست. برای استفاده از این سرویس به اینترنت متصل شوید.</string>
     <string name="disconnect_wifi">اینترنت Wi-Fi</string>
     <string name="disconnect_data">اینترنت موبایل</string>
+    <string name="connection_fail">مشکلی در اتصال به اینترنت به وجود آمده!</string>
     <string name="user">شناسه کاربری</string>
     <string name="password">کلمه عبور</string>
     <string name="security_tag">عبارت امنیتی</string>
@@ -90,5 +100,9 @@
         <item>@string/send</item>
     </string-array>
     <string name="title_activity_maps">Map</string>
+    <string name="logout">خروج از حساب کاربری</string>
+    <string name="favnet">کلیه حقوق اپلیکیشن متعلق به شرکت فاونت می باشد.</string>
+    <string name="update_application">به روزرسانی اپلیکیشن</string>
+    <string name="update">به روزرسانی</string>
 
 </resources>

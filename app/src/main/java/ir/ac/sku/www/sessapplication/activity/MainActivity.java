@@ -13,6 +13,7 @@ import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.fragment.FoodReservationFragment;
 import ir.ac.sku.www.sessapplication.fragment.ProcessesFragment;
 import ir.ac.sku.www.sessapplication.fragment.SignInDialogFragment;
+import ir.ac.sku.www.sessapplication.model.SendInformation;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
 public class MainActivity extends MyActivity implements SignInDialogFragment.UserInterface {
@@ -74,8 +75,7 @@ public class MainActivity extends MyActivity implements SignInDialogFragment.Use
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void addUserPersonalInfo(String name, String family, String cookie) {
+    @Override public void addUserPersonalInfo(SendInformation.Result.UserInformation userInformation, String cookie) {
 
     }
 }

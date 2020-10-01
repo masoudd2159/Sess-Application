@@ -13,7 +13,7 @@ import androidx.cardview.widget.CardView;
 
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.activity.MainActivity;
-import ir.ac.sku.www.sessapplication.utils.HttpManager;
+import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
 public class EducationalDeputyActivity extends MyActivity {
@@ -40,9 +40,9 @@ public class EducationalDeputyActivity extends MyActivity {
 
         init();
 
-        img_Attendance.setColorFilter(HttpManager.getBlackWhiteFilter());
-        img_Professors.setColorFilter(HttpManager.getBlackWhiteFilter());
-        img_WeeklySchedule.setColorFilter(HttpManager.getBlackWhiteFilter());
+        img_Attendance.setColorFilter(ManagerHelper.getBlackWhiteFilter());
+        img_Professors.setColorFilter(ManagerHelper.getBlackWhiteFilter());
+        img_WeeklySchedule.setColorFilter(ManagerHelper.getBlackWhiteFilter());
 
         processes.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -77,7 +77,7 @@
             android:layout_marginRight="@dimen/_4sdp"
             android:contentDescription="@string/support"
             android:layoutDirection="ltr"
-            android:onClick="moreOnClickListener"
+            android:onClick="onClickItemMore"
             app:srcCompat="@drawable/ic_more" />
 
     </RelativeLayout>

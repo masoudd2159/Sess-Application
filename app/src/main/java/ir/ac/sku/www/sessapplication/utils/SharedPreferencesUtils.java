@@ -9,25 +9,23 @@ import android.util.Base64;
 
 public class SharedPreferencesUtils {
 
-    public static final String PREFERENCE_USER_INFORMATION = "UserInformation";
+    private static final String PREFERENCE_USER_INFORMATION = "UserInformation";
 
-    public static final String PREFERENCE_USERNAME = "Preferences_Username";
-    public static final String PREFERENCE_PASSWORD = "Preferences_Password";
-    public static final String PREFERENCE_COOKIE = "Preferences_Cookie";
-    public static final String PREFERENCE_FIRST_NAME = "Preferences_FirstName";
-    public static final String PREFERENCE_LAST_NAME = "Preferences_LastName";
-    public static final String PREFERENCE_IMAGE = "Preferences_Image";
-    public static final String PREFERENCE_MAJOR = "Preferences_Major";
-
-
-    public static final String SIGN_UP_PREFERENCE_NAME = "CheckSignUpPreferenceManager";
-    public static final String SIGN_UP_PREFERENCE_START_KEY = "StartSignUpPreference";
+    private static final String PREFERENCE_USERNAME = "Preferences_Username";
+    private static final String PREFERENCE_PASSWORD = "Preferences_Password";
+    private static final String PREFERENCE_COOKIE = "Preferences_Cookie";
+    private static final String PREFERENCE_FIRST_NAME = "Preferences_FirstName";
+    private static final String PREFERENCE_LAST_NAME = "Preferences_LastName";
+    private static final String PREFERENCE_IMAGE = "Preferences_Image";
+    private static final String PREFERENCE_MAJOR = "Preferences_Major";
+    private static final String PREFERENCE_START_KEY = "Preferences_StartKey";
 
     private SharedPreferences preferencesUserInformation;
     private SharedPreferences.Editor editSharedPreferences;
 
 
-    @SuppressLint("CommitPrefEdits") public SharedPreferencesUtils(Context context) {
+    @SuppressLint("CommitPrefEdits")
+    public SharedPreferencesUtils(Context context) {
         preferencesUserInformation = context.getSharedPreferences(PREFERENCE_USER_INFORMATION, Context.MODE_PRIVATE);
         editSharedPreferences = preferencesUserInformation.edit();
     }
@@ -96,7 +94,16 @@ public class SharedPreferencesUtils {
         editSharedPreferences.putString(PREFERENCE_USERNAME, username.trim()).apply();
     }
 
+    public boolean isStartKey() {
+        return preferencesUserInformation.getBoolean(PREFERENCE_START_KEY, true);
+    }
+
+    public void setStartKey(boolean startKey) {
+        editSharedPreferences.putBoolean(PREFERENCE_START_KEY, startKey).apply();
+    }
+
     public void clearSharedPreferences() {
         editSharedPreferences.clear().apply();
+        setStartKey(true);
     }
 }

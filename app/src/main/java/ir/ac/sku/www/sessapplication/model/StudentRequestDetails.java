@@ -9,9 +9,9 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 
-import ir.ac.sku.www.sessapplication.api.MyConfig;
+import ir.ac.sku.www.sessapplication.api.ApplicationAPI;
 import ir.ac.sku.www.sessapplication.utils.MyHandler;
-import ir.ac.sku.www.sessapplication.utils.HttpManager;
+import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 import ir.ac.sku.www.sessapplication.utils.WebService;
 
 public class StudentRequestDetails {
@@ -157,7 +157,7 @@ public class StudentRequestDetails {
         final Gson gson = new Gson();
 
         WebService webService = new WebService(context);
-        String myURL = MyConfig.STUDENT_REQUEST + "?" + HttpManager.enCodeParameters(params);
+        String myURL = ApplicationAPI.STUDENT_REQUEST + "?" + ManagerHelper.enCodeParameters(params);
         webService.request(myURL, Request.Method.GET, new MyHandler() {
             @Override
             public void onResponse(boolean ok, Object obj) {

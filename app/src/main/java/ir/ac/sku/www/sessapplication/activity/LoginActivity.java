@@ -6,15 +6,11 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.view.inputmethod.EditorInfo;
@@ -48,22 +44,20 @@ import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
-import ir.ac.sku.www.sessapplication.api.MyConfig;
+import ir.ac.sku.www.sessapplication.R;
+import ir.ac.sku.www.sessapplication.api.ApplicationAPI;
 import ir.ac.sku.www.sessapplication.api.MyLog;
 import ir.ac.sku.www.sessapplication.api.PreferenceName;
-import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.model.AppInfo;
+import ir.ac.sku.www.sessapplication.base.BaseActivity;
 import ir.ac.sku.www.sessapplication.model.LoginInformation;
 import ir.ac.sku.www.sessapplication.model.SendInformation;
-import ir.ac.sku.www.sessapplication.utils.CheckSignUpPreferenceManager;
 import ir.ac.sku.www.sessapplication.utils.CustomToastExit;
 import ir.ac.sku.www.sessapplication.utils.CustomToastSuccess;
 import ir.ac.sku.www.sessapplication.utils.MyHandler;
-import ir.ac.sku.www.sessapplication.utils.HttpManager;
-import ir.ac.sku.www.sessapplication.utils.MyActivity;
 import ir.ac.sku.www.sessapplication.utils.WebService;
+import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 
-public class LoginActivity extends MyActivity {
+public class LoginActivity extends BaseActivity {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private EditText user;
@@ -79,7 +73,6 @@ public class LoginActivity extends MyActivity {
     private RequestQueue queue;
     private Gson gson;
 
-    private CheckSignUpPreferenceManager manager;
     private SharedPreferences preferencesUserInformation;
     private SharedPreferences.Editor editSharedPreferences;
 
@@ -87,21 +80,23 @@ public class LoginActivity extends MyActivity {
     //my Class Model
     private LoginInformation loginInformation;
     private SendInformation sendInformation;
-    private AppInfo appInfo;
+    private boolean appInfo;
     private boolean doubleBackToExitPressedOnce = false;
+
+    @Override protected int getLayoutResource() {
+        return R.layout.activity_login;
+    }
 
     @SuppressLint({"LongLogTag", "CommitPrefEdits"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
         Log.i(MyLog.LOGIN_ACTIVITY, "___Login Activity___");
 
         //allocate classes
         loginInformation = new LoginInformation();
         sendInformation = new SendInformation();
-        Intent intentAppInfo = getIntent();
-        appInfo = intentAppInfo.getParcelableExtra("AppInfo");
+        appInfo = getIntent().getBooleanExtra("isGuestLogin", true);
 
         //create queue for API Request
         queue = Volley.newRequestQueue(LoginActivity.this);
@@ -109,7 +104,7 @@ public class LoginActivity extends MyActivity {
         //use Gson Lib
         gson = new Gson();
 
-        manager = new CheckSignUpPreferenceManager(LoginActivity.this);
+
         preferencesUserInformation = getSharedPreferences(PreferenceName.PREFERENCE_USER_INFORMATION, MODE_PRIVATE);
         editSharedPreferences = preferencesUserInformation.edit();
 
@@ -141,9 +136,9 @@ public class LoginActivity extends MyActivity {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     Log.i(MyLog.LOGIN_ACTIVITY, "Click on Editor Action Listener");
 
-                    if (HttpManager.isNOTOnline(LoginActivity.this)) {
+                    if (ManagerHelper.isInternet(LoginActivity.this)) {
                         Log.i(MyLog.LOGIN_ACTIVITY, "OFFLine");
-                        HttpManager.noInternetAccess(LoginActivity.this);
+                        ManagerHelper.noInternetAccess(LoginActivity.this);
                     } else {
                         Log.i(MyLog.LOGIN_ACTIVITY, "OnLine");
                         sendParamsPost();
@@ -158,9 +153,9 @@ public class LoginActivity extends MyActivity {
             public void onRefresh() {
                 Log.i(MyLog.LOGIN_ACTIVITY, "Swipe Refresh Layout");
 
-                if (HttpManager.isNOTOnline(LoginActivity.this)) {
+                if (ManagerHelper.isInternet(LoginActivity.this)) {
                     Log.i(MyLog.LOGIN_ACTIVITY, "OFFLine");
-                    HttpManager.noInternetAccess(LoginActivity.this);
+                    ManagerHelper.noInternetAccess(LoginActivity.this);
                 } else {
                     Log.i(MyLog.LOGIN_ACTIVITY, "OnLine");
                     getLoginInformation(false);
@@ -174,7 +169,7 @@ public class LoginActivity extends MyActivity {
         guest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (appInfo.getResult().getGuestLogin()) {
+                if (appInfo) {
                     Intent intent = new Intent(LoginActivity.this, BottomBarActivity.class);
                     preferencesUserInformation.edit().clear().apply();
                     startActivity(intent);
@@ -183,21 +178,10 @@ public class LoginActivity extends MyActivity {
 
                     finish();
                 } else {
-                    HttpManager.unsuccessfulOperation(LoginActivity.this, "لطفا از طریق شناسه کاربری و رمز عبور خود وارد شوید.");
+                    ManagerHelper.unsuccessfulOperation(LoginActivity.this, "لطفا از طریق شناسه کاربری و رمز عبور خود وارد شوید.");
                 }
             }
         });
-    }
-
-    @SuppressLint("LongLogTag")
-    private void changeStatusBarColor() {
-        Log.i(MyLog.LOGIN_ACTIVITY, "Change Status Bar");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
-        }
     }
 
     @SuppressLint("LongLogTag")
@@ -221,7 +205,7 @@ public class LoginActivity extends MyActivity {
         progressDialog.show();
 
 
-        StringRequest request = new StringRequest(MyConfig.LOGIN_INFORMATION,
+        StringRequest request = new StringRequest(ApplicationAPI.LOGIN_INFORMATION,
                 new Response.Listener<String>() {
                     @SuppressLint("NewApi")
                     @Override
@@ -233,9 +217,9 @@ public class LoginActivity extends MyActivity {
                         if (loginInformation.isOk()) {
                             Log.i(MyLog.LOGIN_ACTIVITY, "Cookie : " + loginInformation.getCookie());
 
-                            if (HttpManager.isNOTOnline(LoginActivity.this)) {
+                            if (ManagerHelper.isInternet(LoginActivity.this)) {
                                 Log.i(MyLog.LOGIN_ACTIVITY, "OFFLine");
-                                HttpManager.noInternetAccess(LoginActivity.this);
+                                ManagerHelper.noInternetAccess(LoginActivity.this);
                             } else {
                                 Log.i(MyLog.LOGIN_ACTIVITY, "OnLine");
                                 if (where) {
@@ -265,9 +249,9 @@ public class LoginActivity extends MyActivity {
     public void onEnterClickListener(View view) {
         Log.i(MyLog.LOGIN_ACTIVITY, "Click on Enter Button");
 
-        if (HttpManager.isNOTOnline(LoginActivity.this)) {
+        if (ManagerHelper.isInternet(LoginActivity.this)) {
             Log.i(MyLog.LOGIN_ACTIVITY, "OFFLine");
-            HttpManager.noInternetAccess(LoginActivity.this);
+            ManagerHelper.noInternetAccess(LoginActivity.this);
         } else {
             Log.i(MyLog.LOGIN_ACTIVITY, "OnLine");
             sendParamsPost();
@@ -277,9 +261,9 @@ public class LoginActivity extends MyActivity {
     @SuppressLint("LongLogTag")
     private void sendParamsPost() {
         if (loginInformation.getCookie() == null) {
-            if (HttpManager.isNOTOnline(LoginActivity.this)) {
+            if (ManagerHelper.isInternet(LoginActivity.this)) {
                 Log.i(MyLog.LOGIN_ACTIVITY, "OFFLine");
-                HttpManager.noInternetAccess(LoginActivity.this);
+                ManagerHelper.noInternetAccess(LoginActivity.this);
             } else {
                 Log.i(MyLog.LOGIN_ACTIVITY, "OnLine");
                 getLoginInformation(true);
@@ -302,7 +286,7 @@ public class LoginActivity extends MyActivity {
             params.put("password", password.getText().toString().trim());
 
             WebService webService = new WebService(LoginActivity.this);
-            webService.requestPost(MyConfig.SEND_INFORMATION, Request.Method.POST, params, new MyHandler() {
+            webService.requestPost(ApplicationAPI.SEND_INFORMATION, Request.Method.POST, params, new MyHandler() {
                 @SuppressLint("NewApi")
                 @Override
                 public void onResponse(boolean ok, Object obj) {
@@ -324,9 +308,7 @@ public class LoginActivity extends MyActivity {
                         editSharedPreferences.apply();
 
                         getUserImage();
-
-                        manager.setStartSignUpPreference(false);
-
+                        preferencesUtils.setStartKey(false);
                         startActivity(intent);
 
                         CustomToastSuccess.success(LoginActivity.this, " خوش آمدید " + sendInformation.getResult().getUserInformation().getName() + " " + sendInformation.getResult().getUserInformation().getFamily(), Toast.LENGTH_SHORT).show();
@@ -339,7 +321,7 @@ public class LoginActivity extends MyActivity {
                         Log.i(MyLog.LOGIN_ACTIVITY, "Error Code : " + sendInformation.getDescription().getErrorCode());
                         Log.i(MyLog.LOGIN_ACTIVITY, "Error Text : " + sendInformation.getDescription().getErrorText());
 
-                        HttpManager.unsuccessfulOperation(LoginActivity.this, sendInformation.getDescription().getErrorText());
+                        ManagerHelper.unsuccessfulOperation(LoginActivity.this, sendInformation.getDescription().getErrorText());
                         getLoginInformation(false);
 
                         user.setEnabled(true);
@@ -549,9 +531,9 @@ public class LoginActivity extends MyActivity {
         super.onResume();
         Log.i(MyLog.LOGIN_ACTIVITY, "onResume");
 
-        if (HttpManager.isNOTOnline(LoginActivity.this)) {
+        if (ManagerHelper.isInternet(LoginActivity.this)) {
             Log.i(MyLog.LOGIN_ACTIVITY, "OFFLine");
-            HttpManager.noInternetAccess(LoginActivity.this);
+            ManagerHelper.noInternetAccess(LoginActivity.this);
         } else {
             Log.i(MyLog.LOGIN_ACTIVITY, "OnLine");
             getLoginInformation(false);

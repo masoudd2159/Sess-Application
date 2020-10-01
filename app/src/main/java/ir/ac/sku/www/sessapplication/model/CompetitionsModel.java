@@ -12,8 +12,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 
-import ir.ac.sku.www.sessapplication.api.MyConfig;
-import ir.ac.sku.www.sessapplication.utils.HttpManager;
+import ir.ac.sku.www.sessapplication.api.ApplicationAPI;
+import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 import ir.ac.sku.www.sessapplication.utils.MyHandler;
 import ir.ac.sku.www.sessapplication.utils.WebService;
 
@@ -129,7 +129,7 @@ public class CompetitionsModel {
         final Gson gson = new Gson();
 
         WebService webService = new WebService(context);
-        String myURL = MyConfig.STUDENT_COMPETITIONS + "?" + HttpManager.enCodeParameters(params);
+        String myURL = ApplicationAPI.STUDENT_COMPETITIONS + "?" + ManagerHelper.enCodeParameters(params);
         webService.request(myURL, Request.Method.GET, new MyHandler() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override

@@ -47,7 +47,7 @@ import ir.ac.sku.www.sessapplication.activity.messages.SendMessageActivity;
 import ir.ac.sku.www.sessapplication.model.GetInfoForSend;
 import ir.ac.sku.www.sessapplication.model.MSGMessagesParcelable;
 import ir.ac.sku.www.sessapplication.utils.MyHandler;
-import ir.ac.sku.www.sessapplication.utils.HttpManager;
+import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 
 public class MessagesFragment extends Fragment {
 
@@ -204,9 +204,9 @@ public class MessagesFragment extends Fragment {
             public void onClick(View v) {
                 enter.setClickable(false);
                 Log.i(MyLog.MESSAGE, "Click on Enter Button");
-                if (HttpManager.isNOTOnline(rootView.getContext())) {
+                if (ManagerHelper.isInternet(rootView.getContext())) {
                     Log.i(MyLog.MESSAGE, "OFFLine");
-                    HttpManager.noInternetAccess(rootView.getContext());
+                    ManagerHelper.noInternetAccess(rootView.getContext());
                 } else {
                     Log.i(MyLog.MESSAGE, "OnLine");
                     enter.setVisibility(View.INVISIBLE);

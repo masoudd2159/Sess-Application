@@ -1,21 +1,28 @@
 package ir.ac.sku.www.sessapplication.utils;
 
-import android.app.Application;
-import android.content.Context;
+import androidx.multidex.MultiDexApplication;
 
 import io.github.inflationx.calligraphy3.CalligraphyConfig;
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
 import io.github.inflationx.viewpump.ViewPump;
 import ir.ac.sku.www.sessapplication.R;
+import ir.ac.sku.www.sessapplication.api.OkClientFactory;
+import okhttp3.OkHttpClient;
 
-public class MyApplication extends Application {
+public class MyApplication extends MultiDexApplication {
 
-    private static Context context;
-    private static MyApplication instance;
+    private static MyApplication appInstance;
+    private static OkHttpClient mOkHttpClient;
+
+    public static MyApplication getAppInstance() {
+        return appInstance;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+        initializeOkHttpClient();
 
         ViewPump.init(ViewPump.builder()
                 .addInterceptor(new CalligraphyInterceptor(
@@ -24,23 +31,14 @@ public class MyApplication extends Application {
                                 .setFontAttrId(R.attr.fontPath)
                                 .build()))
                 .build());
-
-        instance = this;
     }
 
-    public static Context getContext() {
-        return context;
+    public OkHttpClient getOkHttpClient() {
+        return mOkHttpClient;
     }
 
-    public static void setContext(Context context) {
-        MyApplication.context = context;
-    }
-
-    public static synchronized MyApplication getInstance() {
-        return instance;
-    }
-
-    public void setConnectivityReceiverListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
-        ConnectivityReceiver.listener = listener;
+    private void initializeOkHttpClient() {
+        appInstance = this;
+        mOkHttpClient = OkClientFactory.provideOkHttpClient(this);
     }
 }

@@ -25,6 +25,7 @@ import java.util.Map;
 import ir.ac.sku.www.sessapplication.api.MyLog;
 import ir.ac.sku.www.sessapplication.api.PreferenceName;
 import ir.ac.sku.www.sessapplication.model.IsOk;
+import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 
 public class WebService {
     private Context context;
@@ -74,7 +75,7 @@ public class WebService {
                             Log.i(MyLog.WEB_SERVICE, "Error Text : " + isOk.getDescription().getErrorText());
 
                             if (Integer.parseInt(isOk.getDescription().getErrorCode()) > 0) {
-                                HttpManager.unsuccessfulOperation(context, isOk.getDescription().getErrorText());
+                                ManagerHelper.unsuccessfulOperation(context, isOk.getDescription().getErrorText());
                             } else if (Integer.parseInt(isOk.getDescription().getErrorCode()) < 0) {
                                 SignIn signIn = new SignIn(context);
                                 signIn.SignInDialog(new MyHandler() {
@@ -102,15 +103,15 @@ public class WebService {
                         request(url, method, handler);
 
                         /*if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                            HttpManager.unsuccessfulOperation(context, "اینترنت شما ضعیف است!");
+                            ManagerHelper.unsuccessfulOperation(context, "اینترنت شما ضعیف است!");
                         } else if (error instanceof AuthFailureError) {
-                            HttpManager.unsuccessfulOperation(context, "AuthFailureError");
+                            ManagerHelper.unsuccessfulOperation(context, "AuthFailureError");
                         } else if (error instanceof ServerError) {
-                            HttpManager.unsuccessfulOperation(context, "سرور در حال حاظر از دسترس خارج است!");
+                            ManagerHelper.unsuccessfulOperation(context, "سرور در حال حاظر از دسترس خارج است!");
                         } else if (error instanceof NetworkError) {
-                            HttpManager.unsuccessfulOperation(context, "NetworkError");
+                            ManagerHelper.unsuccessfulOperation(context, "NetworkError");
                         } else if (error instanceof ParseError) {
-                            HttpManager.unsuccessfulOperation(context, "ParseError");
+                            ManagerHelper.unsuccessfulOperation(context, "ParseError");
                         }*/
                     }
                 });
@@ -172,15 +173,15 @@ public class WebService {
                         //  handler.onResponse(false, null);
 
                         if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                            HttpManager.unsuccessfulOperation(context, "اینترنت شما ضعیف است!");
+                            ManagerHelper.unsuccessfulOperation(context, "اینترنت شما ضعیف است!");
                         } else if (error instanceof AuthFailureError) {
-                            HttpManager.unsuccessfulOperation(context, "AuthFailureError");
+                            ManagerHelper.unsuccessfulOperation(context, "AuthFailureError");
                         } else if (error instanceof ServerError) {
-                            HttpManager.unsuccessfulOperation(context, "سرور در حال حاظر از دسترس خارج است!");
+                            ManagerHelper.unsuccessfulOperation(context, "سرور در حال حاظر از دسترس خارج است!");
                         } else if (error instanceof NetworkError) {
-                            HttpManager.unsuccessfulOperation(context, "NetworkError");
+                            ManagerHelper.unsuccessfulOperation(context, "NetworkError");
                         } else if (error instanceof ParseError) {
-                            HttpManager.unsuccessfulOperation(context, "ParseError");
+                            ManagerHelper.unsuccessfulOperation(context, "ParseError");
                         }
 
                     }

@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.utils.HttpManager;
+import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
 public class OfficeDeputyActivity extends MyActivity {
@@ -33,8 +33,8 @@ public class OfficeDeputyActivity extends MyActivity {
 
         init();
 
-        img_AbsenceOfEmployees.setColorFilter(HttpManager.getBlackWhiteFilter());
-        img_Automation.setColorFilter(HttpManager.getBlackWhiteFilter());
+        img_AbsenceOfEmployees.setColorFilter(ManagerHelper.getBlackWhiteFilter());
+        img_Automation.setColorFilter(ManagerHelper.getBlackWhiteFilter());
 
     }
 

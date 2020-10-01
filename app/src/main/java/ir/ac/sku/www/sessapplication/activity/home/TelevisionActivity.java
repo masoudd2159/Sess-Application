@@ -10,9 +10,9 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
-import ir.ac.sku.www.sessapplication.api.MyConfig;
+import ir.ac.sku.www.sessapplication.api.ApplicationAPI;
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.utils.HttpManager;
+import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
 public class TelevisionActivity extends MyActivity {
@@ -41,11 +41,11 @@ public class TelevisionActivity extends MyActivity {
         channel_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (HttpManager.isNOTOnline(TelevisionActivity.this)) {
-                    HttpManager.noInternetAccess(TelevisionActivity.this);
+                if (ManagerHelper.isInternet(TelevisionActivity.this)) {
+                    ManagerHelper.noInternetAccess(TelevisionActivity.this);
                 } else {
                     Intent intentTV3 = new Intent(TelevisionActivity.this, ChannelActivity.class);
-                    intentTV3.putExtra("URL", MyConfig.CHANNEL_1);
+                    intentTV3.putExtra("URL", ApplicationAPI.CHANNEL_1);
                     startActivity(intentTV3);
                 }
             }
@@ -54,11 +54,11 @@ public class TelevisionActivity extends MyActivity {
         channel_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (HttpManager.isNOTOnline(TelevisionActivity.this)) {
-                    HttpManager.noInternetAccess(TelevisionActivity.this);
+                if (ManagerHelper.isInternet(TelevisionActivity.this)) {
+                    ManagerHelper.noInternetAccess(TelevisionActivity.this);
                 } else {
                     Intent intentTV3 = new Intent(TelevisionActivity.this, ChannelActivity.class);
-                    intentTV3.putExtra("URL", MyConfig.CHANNEL_2);
+                    intentTV3.putExtra("URL", ApplicationAPI.CHANNEL_2);
                     startActivity(intentTV3);
                 }
             }
@@ -67,11 +67,11 @@ public class TelevisionActivity extends MyActivity {
         channel_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (HttpManager.isNOTOnline(TelevisionActivity.this)) {
-                    HttpManager.noInternetAccess(TelevisionActivity.this);
+                if (ManagerHelper.isInternet(TelevisionActivity.this)) {
+                    ManagerHelper.noInternetAccess(TelevisionActivity.this);
                 } else {
                     Intent intentTV3 = new Intent(TelevisionActivity.this, ChannelActivity.class);
-                    intentTV3.putExtra("URL", MyConfig.CHANNEL_3);
+                    intentTV3.putExtra("URL", ApplicationAPI.CHANNEL_3);
                     startActivity(intentTV3);
                 }
             }

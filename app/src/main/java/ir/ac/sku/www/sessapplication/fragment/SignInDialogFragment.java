@@ -2,18 +2,12 @@ package ir.ac.sku.www.sessapplication.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.SharedPreferences;
+import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,7 +16,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
@@ -41,41 +34,32 @@ import com.google.gson.Gson;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
-import java.util.Objects;
 
+import butterknife.BindView;
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.api.MyConfig;
-import ir.ac.sku.www.sessapplication.api.PreferenceName;
+import ir.ac.sku.www.sessapplication.api.ApplicationAPI;
+import ir.ac.sku.www.sessapplication.base.BaseDialogFragment;
 import ir.ac.sku.www.sessapplication.fragment.dialogfragment.DialogFragmentInstantMessage;
 import ir.ac.sku.www.sessapplication.model.LoginInformation;
 import ir.ac.sku.www.sessapplication.model.SendInformation;
-import ir.ac.sku.www.sessapplication.utils.CheckSignUpPreferenceManager;
-import ir.ac.sku.www.sessapplication.utils.HttpManager;
 import ir.ac.sku.www.sessapplication.utils.MyHandler;
 import ir.ac.sku.www.sessapplication.utils.SignIn;
 import ir.ac.sku.www.sessapplication.utils.WebService;
+import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 
-import static android.content.Context.MODE_PRIVATE;
+public class SignInDialogFragment extends BaseDialogFragment {
 
-public class SignInDialogFragment extends DialogFragment {
-
-    private View rootView;
-
-    private LottieAnimationView gifImageViewEnter;
-    private EditText btn_Username;
-    private EditText btn_Password;
-    private ImageView close;
-    private Button enter;
+    @BindView(R.id.dialogUsernamePassword_GifImageViewEnter) LottieAnimationView gifImageViewEnter;
+    @BindView(R.id.dialogUsernamePassword_EditTextUsername) EditText btn_Username;
+    @BindView(R.id.dialogUsernamePassword_EditTextPassword) EditText btn_Password;
+    @BindView(R.id.dialogUsernamePassword_Close) ImageView close;
+    @BindView(R.id.dialogUsernamePassword_Enter) Button enter;
 
     //Required libraries
     private Gson gson;
     private RequestQueue queue;
     private MyHandler myHandler;
     private UserInterface userInterface;
-
-    //Preferences
-    private CheckSignUpPreferenceManager manager;
-    private SharedPreferences.Editor editSharedPreferences;
 
     //my Class Model
     private LoginInformation loginInformation;
@@ -85,42 +69,26 @@ public class SignInDialogFragment extends DialogFragment {
         this.myHandler = myHandler;
     }
 
-    @SuppressLint("CommitPrefEdits")
-    @Nullable
+    @Override public int getLayoutResource() {
+        return R.layout.dialog_username_password;
+    }
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.dialog_username_password, container, false);
-
-        if (getDialog() != null && getDialog().isShowing())
-            dismiss();
-
-        init();
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         loginInformation = new LoginInformation();
         sendInformation = new SendInformation();
 
         gson = new Gson();
-        queue = Volley.newRequestQueue(rootView.getContext());
-
-        manager = new CheckSignUpPreferenceManager(rootView.getContext());
-        SharedPreferences preferencesUserInformation = rootView.getContext().getSharedPreferences(PreferenceName.PREFERENCE_USER_INFORMATION, MODE_PRIVATE);
-        editSharedPreferences = preferencesUserInformation.edit();
-
-        getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        WindowManager.LayoutParams layoutParams = getDialog().getWindow().getAttributes();
-        layoutParams.dimAmount = 0.7f;
-        getDialog().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-        getDialog().setCancelable(false);
+        queue = Volley.newRequestQueue(getActivity());
 
         enter.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("LongLogTag")
             @Override
             public void onClick(View v) {
                 enter.setClickable(false);
-                if (HttpManager.isNOTOnline(rootView.getContext())) {
-                    HttpManager.noInternetAccess(rootView.getContext());
+                if (ManagerHelper.isInternet(getActivity())) {
+                    ManagerHelper.noInternetAccess(getActivity());
                 } else {
                     enter.setVisibility(View.INVISIBLE);
                     gifImageViewEnter.setVisibility(View.VISIBLE);
@@ -139,26 +107,16 @@ public class SignInDialogFragment extends DialogFragment {
                 enter.setClickable(true);
             }
         });
-
-        return rootView;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        changeDialogSize();
-    }
-
-    private void init() {
-        gifImageViewEnter = rootView.findViewById(R.id.dialogUsernamePassword_GifImageViewEnter);
-        btn_Username = rootView.findViewById(R.id.dialogUsernamePassword_EditTextUsername);
-        btn_Password = rootView.findViewById(R.id.dialogUsernamePassword_EditTextPassword);
-        close = rootView.findViewById(R.id.dialogUsernamePassword_Close);
-        enter = rootView.findViewById(R.id.dialogUsernamePassword_Enter);
+        changeDialogSize((int) (getDisplayMetrics().widthPixels * 0.65), ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
     private void getLoginInformationUsernamePassword(final MyHandler handler, final String username, final String password) {
-        StringRequest request = new StringRequest(MyConfig.LOGIN_INFORMATION,
+        StringRequest request = new StringRequest(ApplicationAPI.LOGIN_INFORMATION,
                 new Response.Listener<String>() {
                     @SuppressLint("NewApi")
                     @Override
@@ -173,7 +131,7 @@ public class SignInDialogFragment extends DialogFragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        new AlertDialog.Builder(rootView.getContext())
+                        new AlertDialog.Builder(getActivity())
                                 .setTitle("ERROR")
                                 .setMessage(error.getMessage())
                                 .setPositiveButton("Ok", null)
@@ -194,36 +152,31 @@ public class SignInDialogFragment extends DialogFragment {
             params.put("username", username);
             params.put("password", password);
 
-            WebService webService = new WebService(rootView.getContext());
-            webService.requestPost(MyConfig.SEND_INFORMATION, Request.Method.POST, params, new MyHandler() {
+            WebService webService = new WebService(getActivity());
+            webService.requestPost(ApplicationAPI.SEND_INFORMATION, Request.Method.POST, params, new MyHandler() {
                 @SuppressLint({"NewApi", "LongLogTag"})
                 @Override
                 public void onResponse(boolean ok, Object obj) {
                     sendInformation = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), SendInformation.class);
                     dismiss();
                     if (sendInformation.isOk()) {
-                        editSharedPreferences.putString(PreferenceName.PREFERENCE_USERNAME, username);
-                        editSharedPreferences.putString(PreferenceName.PREFERENCE_PASSWORD, password);
-                        editSharedPreferences.putString(PreferenceName.PREFERENCE_COOKIE, loginInformation.getCookie());
-                        editSharedPreferences.putString(PreferenceName.PREFERENCE_FIRST_NAME, sendInformation.getResult().getUserInformation().getName());
-                        editSharedPreferences.putString(PreferenceName.PREFERENCE_LAST_NAME, sendInformation.getResult().getUserInformation().getFamily());
-                        editSharedPreferences.putString(PreferenceName.PREFERENCE_MAJOR, sendInformation.getResult().getUserInformation().getMajor());
-                        editSharedPreferences.apply();
+                        preferencesUtils.setUsername(username);
+                        preferencesUtils.setPassword(password);
+                        preferencesUtils.setCookie(loginInformation.getCookie());
+                        preferencesUtils.setFirstName(sendInformation.getResult().getUserInformation().getName());
+                        preferencesUtils.setLastName(sendInformation.getResult().getUserInformation().getFamily());
+                        preferencesUtils.setMajor(sendInformation.getResult().getUserInformation().getMajor());
 
-                        userInterface.addUserPersonalInfo(
-                                sendInformation.getResult().getUserInformation().getName(),
-                                sendInformation.getResult().getUserInformation().getFamily(),
-                                loginInformation.getCookie()
-                        );
+                        userInterface.addUserPersonalInfo(sendInformation.getResult().getUserInformation(), loginInformation.getCookie());
 
                         if (sendInformation.getResult().getInstantMessage().size() > 0) {
-                            FragmentManager fragmentManager = ((FragmentActivity) rootView.getContext()).getSupportFragmentManager();
+                            FragmentManager fragmentManager = ((FragmentActivity) getActivity()).getSupportFragmentManager();
                             new DialogFragmentInstantMessage(sendInformation.getResult()).show(fragmentManager, "DialogFragmentInstantMessage");
                         }
                         getUserImage();
 
-                        manager.setStartSignUpPreference(false);
-                        new SignIn(rootView.getContext()).SignInDialog(handler);
+                        preferencesUtils.setStartKey(false);
+                        new SignIn(getActivity()).SignInDialog(handler);
 
                         if (getFragmentManager() != null) {
                             new WelcomeDialogFragment(
@@ -232,7 +185,7 @@ public class SignInDialogFragment extends DialogFragment {
                         }
 
                     } else if (!sendInformation.isOk()) {
-                        Toast.makeText(rootView.getContext(), sendInformation.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), sendInformation.getDescription().getErrorText(), Toast.LENGTH_SHORT).show();
                         if (getFragmentManager() != null) {
                             new SignInDialogFragment(handler).show(getFragmentManager(), "addUserPersonalInfo");
                         }
@@ -244,7 +197,7 @@ public class SignInDialogFragment extends DialogFragment {
 
     @SuppressLint("LongLogTag")
     private void getUserImage() {
-        Glide.with(rootView.getContext())
+        Glide.with(getActivity())
                 .asBitmap()
                 .load(sendInformation.getResult().getUserInformation().getImage() + "?cookie=" + loginInformation.getCookie())
                 .into(new SimpleTarget<Bitmap>() {
@@ -253,28 +206,18 @@ public class SignInDialogFragment extends DialogFragment {
                         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                         resource.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
                         byte[] b = byteArrayOutputStream.toByteArray();
-                        String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
-                        editSharedPreferences.putString(PreferenceName.PREFERENCE_IMAGE, encodedImage);
-                        editSharedPreferences.apply();
+                        preferencesUtils.setImage(Base64.encodeToString(b, Base64.DEFAULT));
                     }
                 });
     }
 
     @Override
-    public void onAttach(@NonNull Activity activity) {
-        super.onAttach(activity);
-        this.userInterface = (UserInterface) activity;
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.userInterface = (UserInterface) context;
     }
 
-    private void changeDialogSize() {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        Objects.requireNonNull(getActivity()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        Objects.requireNonNull(Objects.requireNonNull(getDialog()).getWindow()).setLayout(
-                (int) (displayMetrics.widthPixels * 0.7),
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-    }
-
-    public static interface UserInterface {
-        void addUserPersonalInfo(String name, String family, String cookie);
+    public interface UserInterface {
+        void addUserPersonalInfo(SendInformation.Result.UserInformation userInformation, String cookie);
     }
 }

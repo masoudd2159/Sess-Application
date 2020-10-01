@@ -1,193 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/aboutActivity_MainContent"
+    android:id="@+id/layout_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="ltr"
-    android:orientation="vertical"
     tools:context=".activity.about.AboutActivity"
     tools:ignore="MissingPrefix">
 
     <RelativeLayout
-        android:id="@+id/aboutActivity_LayoutBackground"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_height="match_parent"
         android:layoutDirection="ltr">
 
-        <ImageView
-            android:id="@+id/aboutActivity_SKUBackGround"
+        <RelativeLayout
+            android:id="@+id/aboutActivity_LayoutBackground"
             android:layout_width="match_parent"
-            android:layout_height="175dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layoutDirection="ltr"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ibg_sku" />
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/aboutActivity_LayoutProfile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="105dp"
-        android:gravity="center"
-        android:layoutDirection="ltr"
-        android:orientation="vertical">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="126dp"
-            android:layout_height="126dp"
-            android:innerRadius="0dp"
-            android:shape="ring"
-            android:thicknessRatio="1.9"
-            app:cardCornerRadius="63dp">
+            android:layoutDirection="ltr">
 
             <ImageView
-                android:id="@+id/aboutActivity_ImageProfile"
+                android:id="@+id/aboutActivity_SKUBackGround"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/_150sdp"
                 android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
                 android:layoutDirection="ltr"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ibg_sku" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/aboutActivity_LayoutProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/_75sdp"
+            android:gravity="center"
+            android:layoutDirection="ltr"
+            android:orientation="vertical">
+
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/aboutActivity_ImageProfile"
+                android:layout_width="@dimen/_128sdp"
+                android:layout_height="@dimen/_128sdp"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:layoutDirection="ltr"
+                android:padding="1dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_sku_blue" />
+                android:src="@drawable/ic_sku_blue"
+                app:civ_border_color="@color/overlay_dark_30"
+                app:civ_border_width="1dp" />
 
-        </androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/aboutActivity_Username"
+                fontPath="fonts/IRANSansMobile_Black.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:gravity="center"
+                android:layoutDirection="ltr"
+                android:maxLines="1"
+                android:textColor="@color/grey_80"
+                android:textSize="@dimen/_20ssp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/aboutActivity_Username"
-            fontPath="fonts/IRANSansMobile_Black.ttf"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:layoutDirection="ltr"
-            android:maxLines="1"
-            android:textColor="#5b5b5b"
-            android:textSize="25sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/aboutActivity_Major"
-            fontPath="fonts/IRANSansMobile_Black.ttf"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:layoutDirection="ltr"
-            android:maxLines="1"
-            android:textColor="#5b5b5b"
-            android:textSize="25sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:layoutDirection="ltr"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/aboutActivity_Email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="60dp"
-            android:background="@drawable/bg_grey_about"
-            android:drawableEnd="@drawable/ic_email"
-            android:drawablePadding="10dp"
-            android:inputType="text"
-            android:layoutDirection="ltr"
-            android:padding="10dp"
-            android:text="app@sku.ac.ir"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/aboutActivity_BugReport"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="60dp"
-            android:background="@drawable/bg_grey_about"
-            android:drawableEnd="@drawable/ic_bug"
-            android:layoutDirection="ltr"
-            android:padding="10dp"
-            android:text="گزارش مشکلات برنامه"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/aboutActivity_Logout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="60dp"
-            android:layout_marginBottom="15dp"
-            android:background="@drawable/bg_red_about"
-            android:drawableEnd="@drawable/ic_logout"
-            android:layoutDirection="ltr"
-            android:padding="10dp"
-            android:text="خروج از حساب کاربری"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
+            <TextView
+                android:id="@+id/aboutActivity_Major"
+                fontPath="fonts/IRANSansMobile_Black.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:gravity="center"
+                android:layoutDirection="ltr"
+                android:maxLines="1"
+                android:textColor="@color/grey_60"
+                android:textSize="@dimen/_18ssp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="10dp"
+            android:layout_alignParentBottom="true"
             android:gravity="center"
             android:layoutDirection="ltr"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/aboutActivity_Developers"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+            <Button
+                android:id="@+id/aboutActivity_Email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginRight="@dimen/_50sdp"
+                android:background="@drawable/bg_grey_about"
+                android:drawableEnd="@drawable/ic_email"
+                android:drawablePadding="@dimen/_8sdp"
+                android:inputType="text"
+                android:layoutDirection="ltr"
+                android:onClick="onClickItemEmail"
+                android:padding="@dimen/_8sdp"
+                android:text="@string/app_email"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13ssp" />
+
+            <Button
+                android:id="@+id/aboutActivity_BugReport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginRight="@dimen/_50sdp"
+                android:background="@drawable/bg_grey_about"
+                android:drawableEnd="@drawable/ic_bug"
+                android:layoutDirection="ltr"
+                android:onClick="onClickItemBugReport"
+                android:padding="@dimen/_8sdp"
+                android:text="@string/support_report"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13ssp" />
+
+            <Button
+                android:id="@+id/aboutActivity_Logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_50sdp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/bg_red_about"
+                android:drawableEnd="@drawable/ic_logout"
+                android:layoutDirection="ltr"
+                android:onClick="onClickItemLogout"
+                android:padding="10dp"
+                android:text="@string/logout"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13ssp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
                 android:gravity="center"
                 android:layoutDirection="ltr"
-                android:text="کلیه حقوق اپلیکیشن متعلق به شرکت فاونت می باشد."
-                android:textColor="@color/sky" />
+                android:orientation="horizontal">
 
-            <!-- <TextView
-                 android:id="@+id/aboutActivity_TermsOfUse"
-                 android:layout_width="0dp"
-                 android:layout_height="match_parent"
-                 android:layout_gravity="center"
-                 android:layout_weight="1"
-                 android:gravity="center"
-                 android:layoutDirection="ltr"
-                 android:text="شرایط استفاده"
-                 android:textColor="@color/sky" />-->
+                <TextView
+                    android:id="@+id/aboutActivity_Developers"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layoutDirection="ltr"
+                    android:text="@string/favnet"
+                    android:textColor="@color/sky" />
 
-            <!--<TextView
-                android:id="@+id/aboutActivity_Privacy"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:layoutDirection="ltr"
-                android:text="حریم خصوصی"
-                android:textColor="@color/sky" />-->
+                <!-- <TextView
+                     android:id="@+id/aboutActivity_TermsOfUse"
+                     android:layout_width="0dp"
+                     android:layout_height="match_parent"
+                     android:layout_gravity="center"
+                     android:layout_weight="1"
+                     android:gravity="center"
+                     android:layoutDirection="ltr"
+                     android:text="شرایط استفاده"
+                     android:textColor="@color/sky" />-->
+
+                <!--<TextView
+                    android:id="@+id/aboutActivity_Privacy"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layoutDirection="ltr"
+                    android:text="حریم خصوصی"
+                    android:textColor="@color/sky" />-->
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
-</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

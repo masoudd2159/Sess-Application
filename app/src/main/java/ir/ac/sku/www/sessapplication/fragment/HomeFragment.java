@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import ir.ac.sku.www.sessapplication.api.MyConfig;
+import ir.ac.sku.www.sessapplication.api.ApplicationAPI;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.activity.about.AboutActivity;
 import ir.ac.sku.www.sessapplication.activity.utils.ActivityWebView;
@@ -24,7 +24,7 @@ import ir.ac.sku.www.sessapplication.activity.home.NewbieActivity;
 import ir.ac.sku.www.sessapplication.activity.home.OfficeDeputyActivity;
 import ir.ac.sku.www.sessapplication.activity.home.ResearchDeputyActivity;
 import ir.ac.sku.www.sessapplication.activity.home.StudentDeputyActivity;
-import ir.ac.sku.www.sessapplication.utils.HttpManager;
+import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 
 public class HomeFragment extends Fragment {
 
@@ -55,11 +55,11 @@ public class HomeFragment extends Fragment {
         sess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (HttpManager.isNOTOnline(rootView.getContext())) {
-                    HttpManager.noInternetAccess(rootView.getContext());
+                if (ManagerHelper.isInternet(rootView.getContext())) {
+                    ManagerHelper.noInternetAccess(rootView.getContext());
                 } else {
                     Intent intent = new Intent(rootView.getContext(), ActivityWebView.class);
-                    intent.putExtra("key.EXTRA_OBJC", MyConfig.SESS);
+                    intent.putExtra("key.EXTRA_OBJC", ApplicationAPI.SESS);
                     rootView.getContext().startActivity(intent);
                 }
             }

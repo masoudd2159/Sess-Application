@@ -1,228 +1,107 @@
 package ir.ac.sku.www.sessapplication.activity;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 
-import ir.ac.sku.www.sessapplication.api.MyLog;
-import ir.ac.sku.www.sessapplication.api.PreferenceName;
+import butterknife.BindView;
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.model.AppInfo;
-import ir.ac.sku.www.sessapplication.utils.CheckSignUpPreferenceManager;
-import ir.ac.sku.www.sessapplication.utils.MyHandler;
-import ir.ac.sku.www.sessapplication.utils.HttpManager;
-import ir.ac.sku.www.sessapplication.utils.MyActivity;
+import ir.ac.sku.www.sessapplication.api.MyLog;
+import ir.ac.sku.www.sessapplication.base.BaseActivity;
+import ir.ac.sku.www.sessapplication.fragment.dialogfragment.DialogFragmentUpdate;
+import ir.ac.sku.www.sessapplication.model.appInfo.AppInfo;
+import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 
-public class SplashScreenActivity extends MyActivity {
+public class SplashScreenActivity extends BaseActivity implements DialogFragmentUpdate.OnCancelListener {
 
     //static method
     private static final int SPLASH_TIME = 1700;                                                     //millisecond
 
     //Splash Screen Views
-    private Button tryAgain;
-    private TextView fullName;
-    private SharedPreferences preferencesUserInformation;
-    private Dialog dialog;
-    private Button update;
-    private TextView showMessage;
-    private AppInfo appInfo;
-    private LottieAnimationView animationView;
+    @BindView(R.id.buttonTryAgain_SplashScreen) Button tryAgain;
+    @BindView(R.id.splashScreen_FullName) TextView fullName;
+    @BindView(R.id.splashScreen_AnimationView) LottieAnimationView animationView;
 
+    @Override protected int getLayoutResource() {
+        return R.layout.activity_splash_screen;
+    }
 
-    //Utils
-    private CheckSignUpPreferenceManager checkSignUpPreferenceManager;
-
-    //onCreate
-    @SuppressLint({"LongLogTag", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
-
-        //Log Splash Screen
-        Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "___Splash Screen___");
-
-        animationView = findViewById(R.id.splashScreen_AnimationView);
-        animationView.setAnimation("loading_6.json");
-        animationView.playAnimation();
-        animationView.loop(true);
-
-        preferencesUserInformation = getSharedPreferences(PreferenceName.PREFERENCE_USER_INFORMATION, MODE_PRIVATE);
-
-        //find View
-        tryAgain = findViewById(R.id.buttonTryAgain_SplashScreen);
-        fullName = findViewById(R.id.splashScreen_FullName);
-
-        fullName.setText(preferencesUserInformation.getString(PreferenceName.PREFERENCE_FIRST_NAME, "") + " " + preferencesUserInformation.getString(PreferenceName.PREFERENCE_LAST_NAME, ""));
-
-        //Allocate MyUtils
-        checkSignUpPreferenceManager = new CheckSignUpPreferenceManager(SplashScreenActivity.this);
-
-        //my Functions
         changeStatusBarColor();
-        appInfo = new AppInfo();
+        SetUpView();
         getDataFromServer();
     }
 
-    @SuppressLint("LongLogTag")
-    private void changeStatusBarColor() {
-        Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "Change Status Bar");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
-        }
+    @SuppressLint("SetTextI18n")
+    private void SetUpView() {
+        animationView.setAnimation("loading_6.json");
+        animationView.playAnimation();
+        animationView.loop(true);
+        if (preferencesUtils.getFirstName() != null && preferencesUtils.getLastName() != null)
+            fullName.setText(preferencesUtils.getFirstName() + " " + preferencesUtils.getLastName());
+        else
+            fullName.setText("");
     }
 
-    @SuppressLint("LongLogTag")
     private void getDataFromServer() {
-        Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "Check Online");
-        if (HttpManager.isNOTOnline(this)) {
-            Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "OFFLine");
-            HttpManager.noInternetAccess(this);
-            tryAgain.setVisibility(View.VISIBLE);
-            tryAgain.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "Clicked on Try Again");
-                    if (HttpManager.isNOTOnline(SplashScreenActivity.this)) {
-                        Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "OFFLine");
-                        HttpManager.noInternetAccess(SplashScreenActivity.this);
-                    } else {
-                        Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "OnLine");
-                        tryAgain.setVisibility(View.INVISIBLE);
-                        getDataFromServer();
-                    }
+        if (ManagerHelper.isInternetAvailable(this)) {
+            AppInfo.fetchFromWeb(this, null, (ok, obj) -> {
+                if (ok) {
+                    checkOnLine((AppInfo) obj);
                 }
             });
         } else {
-            AppInfo.fetchFromWeb(SplashScreenActivity.this, null, new MyHandler() {
-                @Override
-                public void onResponse(boolean ok, Object obj) {
-                    if (ok) {
-                        appInfo = (AppInfo) obj;
-                        checkOnLine();
-                    }
+            Log.i(MyLog.SESS + TAG, "Device Offline");
+            ManagerHelper.noInternetAccess(this);
+            tryAgain.setVisibility(View.VISIBLE);
+            tryAgain.setOnClickListener(v -> {
+                if (ManagerHelper.checkInternetServices(this)) {
+                    Log.i(MyLog.SESS + TAG, "Device Online");
+                    tryAgain.setVisibility(View.INVISIBLE);
+                    getDataFromServer();
                 }
             });
         }
     }
 
-    @SuppressLint("LongLogTag")
-    private void checkOnLine() {
-        Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "Check Online");
-        if (HttpManager.isNOTOnline(this)) {
-            Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "OFFLine");
-            HttpManager.noInternetAccess(this);
-            tryAgain.setVisibility(View.VISIBLE);
-            tryAgain.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "Clicked on Try Again");
-                    if (HttpManager.isNOTOnline(SplashScreenActivity.this)) {
-                        Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "OFFLine");
-                        HttpManager.noInternetAccess(SplashScreenActivity.this);
-                    } else {
-                        Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "OnLine");
-                        tryAgain.setVisibility(View.INVISIBLE);
-                        checkOnLine();
-                    }
-                }
-            });
-        } else {
-            Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "OnLine");
-            try {
-                PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-                int version = pInfo.versionCode;
-                if (version < appInfo.getResult().getAndroidLatestVersion()) {
-                    checkVersion();
-                } else {
-                    new BackgroundTask().execute();
-                }
-            } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void checkVersion() {
-        dialog = new Dialog(SplashScreenActivity.this);
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-        dialog.setContentView(R.layout.custom_update);
-        update = dialog.findViewById(R.id.customUpdate_UpdateButton);
-        showMessage = dialog.findViewById(R.id.customUpdate_ShowMessage);
-
+    private void checkOnLine(AppInfo appInfo) {
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            int version = pInfo.versionCode;
-            if (version < appInfo.getResult().getAndroidMinimumVersion()) {
-                dialog.setCancelable(false);
-                showMessage.setText(appInfo.getResult().getForceUpdateMessage());
+            if (pInfo.versionCode < appInfo.getResult().getAndroidLatestVersion()) {
+                new DialogFragmentUpdate(appInfo).show(getSupportFragmentManager(), "DialogFragmentNoInternetAccess");
             } else {
-                dialog.setCancelable(true);
-                showMessage.setText(appInfo.getResult().getUpdateMessage());
+                new SplashScreen().execute();
             }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-
-        update.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("LongLogTag")
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(appInfo.getResult().getDownloadAndroidUrl()));
-                startActivity(intent);
-            }
-        });
-
-        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                new BackgroundTask().execute();
-            }
-        });
-
-        dialog.show();
     }
 
-    private class BackgroundTask extends AsyncTask {
+    @Override
+    public void onCancelListener() {
+        Log.i(MyLog.SESS + TAG, "on Cancel Listener");
+        new SplashScreen().execute();
+    }
 
-        Intent intentLoginActivity;
-        Intent intentBottomBarActivity;
+    private class SplashScreen extends AsyncTask<Void, Void, Void> {
 
-        @SuppressLint("LongLogTag")
+        private Intent intentLoginActivity;
+        private Intent intentBottomBarActivity;
+
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "Create new Intent");
-            intentLoginActivity = new Intent(SplashScreenActivity.this, LoginActivity.class);
-            intentBottomBarActivity = new Intent(SplashScreenActivity.this, BottomBarActivity.class);
-        }
-
-        @SuppressLint("LongLogTag")
-        @Override
-        protected Object doInBackground(Object[] objects) {
-            Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "do In Background");
+        protected Void doInBackground(Void... voids) {
+            Log.i(MyLog.SESS + TAG, "do In Background");
             try {
                 Thread.sleep(SPLASH_TIME);
             } catch (InterruptedException e) {
@@ -231,23 +110,27 @@ public class SplashScreenActivity extends MyActivity {
             return null;
         }
 
-        @SuppressLint("LongLogTag")
         @Override
-        protected void onPostExecute(Object o) {
-            super.onPostExecute(o);
-            Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "on Post Execute");
-            if (checkSignUpPreferenceManager.startSignUpPreference()) {
-                Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "Check SignUp Preference Manager : " + checkSignUpPreferenceManager.startSignUpPreference());
-                Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "Start Activity : Login Activity");
-                intentLoginActivity.putExtra("AppInfo", appInfo);
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Log.i(MyLog.SESS + TAG, "on Pre Execute");
+            intentLoginActivity = new Intent(SplashScreenActivity.this, LoginActivity.class);
+            intentBottomBarActivity = new Intent(SplashScreenActivity.this, BottomBarActivity.class);
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Log.i(MyLog.SESS + TAG, "on Post Execute");
+            if (preferencesUtils.isStartKey()) {
+                Log.i(MyLog.SESS + TAG, "Start Activity : Login Activity");
+                intentLoginActivity.putExtra("isGuestLogin", true);
                 startActivity(intentLoginActivity);
-            } else if (!checkSignUpPreferenceManager.startSignUpPreference()) {
-                Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "Check SignUp Preference Manager : " + checkSignUpPreferenceManager.startSignUpPreference());
-                Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "Start Activity : Bottom Bar Activity");
+            } else {
+                Log.i(MyLog.SESS + TAG, "Start Activity : Bottom Bar Activity");
                 startActivity(intentBottomBarActivity);
             }
             finish();
         }
     }
-
 }

@@ -1,82 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:layoutDirection="ltr"
-    android:orientation="vertical"
+    app:cardCornerRadius="@dimen/_10sdp"
     tools:ignore="MissingPrefix">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_weight="4"
-        android:gravity="center_horizontal"
-        android:layoutDirection="ltr"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layoutDirection="ltr"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_update" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_weight="5"
-        android:layoutDirection="ltr"
-        android:orientation="vertical"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
             android:gravity="center_horizontal"
             android:layoutDirection="ltr"
-            android:text="به روزرسانی اپلیکیشن"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/customUpdate_ShowMessage"
-            fontPath="fonts/IRANSansMobile(FaNum)_Light.ttf"
+            <ImageView
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_gravity="center_horizontal"
+                android:layoutDirection="ltr"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_update" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_8sdp"
             android:layoutDirection="ltr"
-            android:textColor="@android:color/tertiary_text_dark"
-            android:textSize="12sp" />
-    </LinearLayout>
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/_8sdp"
+            android:paddingRight="@dimen/_8sdp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_weight="2"
-        android:background="#00D10B"
-        android:layoutDirection="ltr"
-        android:orientation="horizontal">
+            <TextView
+                fontPath="fonts/IRANSansMobile(FaNum)_Bold.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layoutDirection="ltr"
+                android:text="@string/update_application"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13ssp" />
 
-        <Button
-            android:id="@+id/customUpdate_UpdateButton"
+            <TextView
+                android:id="@+id/customUpdate_ShowMessage"
+                fontPath="fonts/IRANSansMobile(FaNum)_Light.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:gravity="center_horizontal"
+                android:layoutDirection="ltr"
+                android:textColor="@color/grey_40"
+                android:textSize="@dimen/_10ssp" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/light_green_A700"
             android:layoutDirection="ltr"
-            android:text="به روزرسانی"
-            android:textColor="@android:color/white"
-            android:textSize="16sp" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/customUpdate_UpdateButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:layoutDirection="ltr"
+                android:text="@string/update"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_12ssp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.utils.HttpManager;
+import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 
 public class ResearchDeputyActivity extends MyActivity {
@@ -34,9 +34,9 @@ public class ResearchDeputyActivity extends MyActivity {
 
         init();
 
-        img_IndustryRelations.setColorFilter(HttpManager.getBlackWhiteFilter());
-        img_SeminarsAndConferences.setColorFilter(HttpManager.getBlackWhiteFilter());
-        img_InformationTechnologyCenter.setColorFilter(HttpManager.getBlackWhiteFilter());
+        img_IndustryRelations.setColorFilter(ManagerHelper.getBlackWhiteFilter());
+        img_SeminarsAndConferences.setColorFilter(ManagerHelper.getBlackWhiteFilter());
+        img_InformationTechnologyCenter.setColorFilter(ManagerHelper.getBlackWhiteFilter());
 
     }
 

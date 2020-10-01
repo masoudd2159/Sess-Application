@@ -1,6 +1,7 @@
 package ir.ac.sku.www.sessapplication.base;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -16,15 +17,18 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.DialogFragment;
 
-import java.util.Objects;
-
 import butterknife.ButterKnife;
 import ir.ac.sku.www.sessapplication.R;
+import ir.ac.sku.www.sessapplication.utils.SharedPreferencesUtils;
 
 public abstract class BaseDialogFragment extends AppCompatDialogFragment {
 
+    public SharedPreferencesUtils preferencesUtils;
     protected OnDialogItemClick mOnDialogItemClick;
-    private BaseActivity baseActivity;
+    public BaseActivity baseActivity;
+    public String TAG = getClass().getSimpleName();
+
+    public abstract int getLayoutResource();
 
     @Override public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -36,6 +40,7 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutResource(), container, false);
         ButterKnife.bind(this, view);
+        preferencesUtils = new SharedPreferencesUtils(view.getContext());
 
         if (getDialog() != null && getDialog().isShowing()) {
             dismiss();
@@ -66,8 +71,6 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
     public void setOnDialogItemClick(OnDialogItemClick onDialogItemClick) {
         mOnDialogItemClick = onDialogItemClick;
     }
-
-    public abstract int getLayoutResource();
 
     public interface OnDialogItemClick {
         void onDialogItemClick(DialogFragment dialogFragment, View view, Bundle data);

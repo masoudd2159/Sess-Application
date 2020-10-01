@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import ir.ac.sku.www.sessapplication.api.MyConfig;
-import ir.ac.sku.www.sessapplication.utils.HttpManager;
+import ir.ac.sku.www.sessapplication.api.ApplicationAPI;
+import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 import ir.ac.sku.www.sessapplication.utils.MyHandler;
 import ir.ac.sku.www.sessapplication.utils.WebService;
 
@@ -283,7 +283,7 @@ public class GetInfoForSend implements Parcelable {
         final Gson gson = new Gson();
 
         WebService webService = new WebService(context);
-        String myURL = MyConfig.MSG_GET_INFO_FOR_SEND + "?" + HttpManager.enCodeParameters(params);
+        String myURL = ApplicationAPI.MSG_GET_INFO_FOR_SEND + "?" + ManagerHelper.enCodeParameters(params);
         webService.request(myURL, Request.Method.GET, new MyHandler() {
             @Override
             public void onResponse(boolean ok, Object obj) {
