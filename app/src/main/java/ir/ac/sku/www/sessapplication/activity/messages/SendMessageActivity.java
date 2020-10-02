@@ -1,6 +1,5 @@
 package ir.ac.sku.www.sessapplication.activity.messages;
 
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,18 +31,17 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-import ir.ac.sku.www.sessapplication.api.ApplicationAPI;
-import ir.ac.sku.www.sessapplication.api.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.adapter.TargetsAdapter;
+import ir.ac.sku.www.sessapplication.api.ApplicationAPI;
+import ir.ac.sku.www.sessapplication.base.BaseActivity;
 import ir.ac.sku.www.sessapplication.model.GetInfoForSend;
 import ir.ac.sku.www.sessapplication.model.MSGSendMessage;
 import ir.ac.sku.www.sessapplication.utils.MyHandler;
-import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
-import ir.ac.sku.www.sessapplication.utils.MyActivity;
 import ir.ac.sku.www.sessapplication.utils.SignIn;
+import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 
-public class SendMessageActivity extends MyActivity {
+public class SendMessageActivity extends BaseActivity {
 
     private TextView date;
     private EditText title;
@@ -54,7 +52,6 @@ public class SendMessageActivity extends MyActivity {
 
     private RequestQueue queue;
     private Gson gson;
-    private SharedPreferences preferencesUserInformation;
     private MSGSendMessage message;
     private GetInfoForSend getInfoForSend;
     private TargetsAdapter adapter;
@@ -63,7 +60,6 @@ public class SendMessageActivity extends MyActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_send_message);
 
         TextView title = findViewById(R.id.sendMessageActivity_ToolbarTitle);
         Toolbar toolbar = (Toolbar) findViewById(R.id.sendMessageActivity_ToolBar);
@@ -78,12 +74,15 @@ public class SendMessageActivity extends MyActivity {
         getInfoForSend = getIntent().getParcelableExtra("GetInfoForSend");
 
         init();
-        preferencesUserInformation = getSharedPreferences(PreferenceName.PREFERENCE_USER_INFORMATION, MODE_PRIVATE);
         queue = Volley.newRequestQueue(SendMessageActivity.this);
         gson = new Gson();
         message = new MSGSendMessage();
 
         setItems();
+    }
+
+    @Override protected int getLayoutResource() {
+        return R.layout.activity_send_message;
     }
 
     private void init() {
@@ -178,7 +177,7 @@ public class SendMessageActivity extends MyActivity {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<String, String>();
-                    params.put("cookie", preferencesUserInformation.getString(PreferenceName.PREFERENCE_COOKIE, null));
+                    params.put("cookie", preferencesUtils.getCookie());
                     params.put("id", getIntent().getStringExtra("id"));
                     params.put("stNumber", getIntent().getStringExtra("studentNumber"));
                     params.put("subject", title.getText().toString().trim());

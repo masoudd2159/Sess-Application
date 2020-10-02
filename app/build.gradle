@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 /**
  * @developer Masoud Dabbaghi
@@ -91,6 +92,7 @@ dependencies {
     // Push Notification - Pushe
     implementation 'co.ronash.android:pushe-base:1.6.3'
     implementation 'org.apache.httpcomponents:httpcore:4.4.13'
+    implementation 'com.google.firebase:firebase-analytics:17.5.0'
 
     // Calligraphy
     implementation 'io.github.inflationx:calligraphy3:3.1.1'

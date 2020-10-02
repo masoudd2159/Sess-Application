@@ -2,9 +2,7 @@ package ir.ac.sku.www.sessapplication.adapter;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,19 +20,19 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.uncopt.android.widget.text.justify.JustifiedTextView;
 
-import ir.ac.sku.www.sessapplication.api.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.model.CompetitionsModel;
+import ir.ac.sku.www.sessapplication.utils.SharedPreferencesUtils;
 
 public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapter.MyViewHolder> {
-    private SharedPreferences preferencesUserInformation;
+    private SharedPreferencesUtils preferencesUtils;
     private CompetitionsModel competitions;
     private Activity activity;
 
     public CompetitionsAdapter(@NonNull Activity activity, CompetitionsModel competitionsModel) {
         this.competitions = (competitionsModel == null) ? new CompetitionsModel() : competitionsModel;
         this.activity = activity;
-        preferencesUserInformation = activity.getSharedPreferences(PreferenceName.PREFERENCE_USER_INFORMATION, Context.MODE_PRIVATE);
+        preferencesUtils = new SharedPreferencesUtils(activity);
     }
 
     @NonNull
@@ -89,7 +87,7 @@ public class CompetitionsAdapter extends RecyclerView.Adapter<CompetitionsAdapte
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            String myURL = competitions.getResult().get(getLayoutPosition()).getUrl() + "?cookie=" + preferencesUserInformation.getString(PreferenceName.PREFERENCE_COOKIE, "NULL");
+            String myURL = competitions.getResult().get(getLayoutPosition()).getUrl() + "?cookie=" + preferencesUtils.getCookie();
             intent.setData(Uri.parse(myURL));
             activity.startActivity(intent);
         }

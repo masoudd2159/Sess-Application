@@ -4,7 +4,6 @@ import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Base64;
@@ -47,7 +46,6 @@ import java.util.HashMap;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.api.ApplicationAPI;
 import ir.ac.sku.www.sessapplication.api.MyLog;
-import ir.ac.sku.www.sessapplication.api.PreferenceName;
 import ir.ac.sku.www.sessapplication.base.BaseActivity;
 import ir.ac.sku.www.sessapplication.model.LoginInformation;
 import ir.ac.sku.www.sessapplication.model.SendInformation;
@@ -72,9 +70,6 @@ public class LoginActivity extends BaseActivity {
     //Required libraries
     private RequestQueue queue;
     private Gson gson;
-
-    private SharedPreferences preferencesUserInformation;
-    private SharedPreferences.Editor editSharedPreferences;
 
 
     //my Class Model
@@ -103,10 +98,6 @@ public class LoginActivity extends BaseActivity {
 
         //use Gson Lib
         gson = new Gson();
-
-
-        preferencesUserInformation = getSharedPreferences(PreferenceName.PREFERENCE_USER_INFORMATION, MODE_PRIVATE);
-        editSharedPreferences = preferencesUserInformation.edit();
 
         progressDialog = new ProgressDialog(LoginActivity.this);
 
@@ -171,7 +162,7 @@ public class LoginActivity extends BaseActivity {
             public void onClick(View v) {
                 if (appInfo) {
                     Intent intent = new Intent(LoginActivity.this, BottomBarActivity.class);
-                    preferencesUserInformation.edit().clear().apply();
+                    preferencesUtils.clearSharedPreferences();
                     startActivity(intent);
 
                     CustomToastSuccess.success(LoginActivity.this, " خوش آمدید ", Toast.LENGTH_SHORT).show();
@@ -299,13 +290,12 @@ public class LoginActivity extends BaseActivity {
                         Log.i(MyLog.LOGIN_ACTIVITY, "Username : " + user.getText().toString().trim());
                         Log.i(MyLog.LOGIN_ACTIVITY, "Password : " + password.getText().toString().trim());
 
-                        editSharedPreferences.putString(PreferenceName.PREFERENCE_COOKIE, loginInformation.getCookie());
-                        editSharedPreferences.putString(PreferenceName.PREFERENCE_FIRST_NAME, sendInformation.getResult().getUserInformation().getName());
-                        editSharedPreferences.putString(PreferenceName.PREFERENCE_LAST_NAME, sendInformation.getResult().getUserInformation().getFamily());
-                        editSharedPreferences.putString(PreferenceName.PREFERENCE_MAJOR, sendInformation.getResult().getUserInformation().getMajor());
-                        editSharedPreferences.putString(PreferenceName.PREFERENCE_PASSWORD, password.getText().toString().trim());
-                        editSharedPreferences.putString(PreferenceName.PREFERENCE_USERNAME, user.getText().toString().trim());
-                        editSharedPreferences.apply();
+                        preferencesUtils.setCookie(loginInformation.getCookie());
+                        preferencesUtils.setFirstName(sendInformation.getResult().getUserInformation().getName());
+                        preferencesUtils.setLastName(sendInformation.getResult().getUserInformation().getFamily());
+                        preferencesUtils.setMajor(sendInformation.getResult().getUserInformation().getMajor());
+                        preferencesUtils.setPassword(password.getText().toString().trim());
+                        preferencesUtils.setUsername(user.getText().toString().trim());
 
                         getUserImage();
                         preferencesUtils.setStartKey(false);
@@ -351,10 +341,7 @@ public class LoginActivity extends BaseActivity {
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                         resource.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-                        byte[] b = byteArrayOutputStream.toByteArray();
-                        String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
-                        editSharedPreferences.putString(PreferenceName.PREFERENCE_IMAGE, encodedImage);
-                        editSharedPreferences.apply();
+                        preferencesUtils.setImage(Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT));
                     }
                 });
     }

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "98065927071",
+    "firebase_url": "https://sess-application.firebaseio.com",
+    "project_id": "sess-application",
+    "storage_bucket": "sess-application.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:98065927071:android:12e6baa91c4f81df190baa",
+        "android_client_info": {
+          "package_name": "ir.ac.sku.www.sessapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "98065927071-7jp3nfnbrl6fk09gaahbr8iak7j3tia9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ir.ac.sku.www.sessapplication",
+            "certificate_hash": "e0b8eb22778a193db463b279967982c71811add5"
+          }
+        },
+        {
+          "client_id": "98065927071-vgjjhgddcuegh35e1u3p5ae655s91mfb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0tFpFk8YtCwp6loBT-jEfKXmiYA5dnek"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "98065927071-vgjjhgddcuegh35e1u3p5ae655s91mfb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

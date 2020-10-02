@@ -3,7 +3,6 @@ package ir.ac.sku.www.sessapplication.activity.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -20,13 +19,12 @@ import android.widget.ProgressBar;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 
-import ir.ac.sku.www.sessapplication.api.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.activity.BottomBarActivity;
-import ir.ac.sku.www.sessapplication.utils.MyActivity;
+import ir.ac.sku.www.sessapplication.base.BaseActivity;
 import ir.ac.sku.www.sessapplication.utils.Tools;
 
-public class ActivityWebView extends MyActivity {
+public class ActivityWebView extends BaseActivity {
 
     private static final String EXTRA_OBJC = "key.EXTRA_OBJC";
     private static final String EXTRA_FROM_NOTIF = "key.EXTRA_FROM_NOTIF";
@@ -38,9 +36,6 @@ public class ActivityWebView extends MyActivity {
     private View lyt_parent;
     private ProgressBar progressBar;
     private Boolean from_notif;
-
-    private String username;
-    private String password;
 
     public static void navigate(Activity activity, String url, boolean from_notif) {
         Intent i = navigateBase(activity, url, from_notif);
@@ -57,17 +52,12 @@ public class ActivityWebView extends MyActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_web_view);
 
         lyt_parent = findViewById(R.id.lyt_parent);
 
         // get extra object
         url = getIntent().getStringExtra(EXTRA_OBJC);
         from_notif = getIntent().getBooleanExtra(EXTRA_FROM_NOTIF, false);
-
-        SharedPreferences preferencesUserInformation = getSharedPreferences(PreferenceName.PREFERENCE_USER_INFORMATION, MODE_PRIVATE);
-        username = preferencesUserInformation.getString(PreferenceName.PREFERENCE_USERNAME, "");
-        password = preferencesUserInformation.getString(PreferenceName.PREFERENCE_PASSWORD, "");
 
         initComponent();
         initToolbar();
@@ -93,6 +83,10 @@ public class ActivityWebView extends MyActivity {
         Tools.changeOverflowMenuIconColor(toolbar, getResources().getColor(R.color.colorPrimary));
         Tools.setSystemBarColor(this, R.color.grey_5);
         Tools.setSystemBarLight(this);
+    }
+
+    @Override protected int getLayoutResource() {
+        return R.layout.activity_web_view;
     }
 
     private void loadWebFromUrl() {
@@ -123,8 +117,8 @@ public class ActivityWebView extends MyActivity {
                 actionBar.setTitle(view.getTitle());
                 progressBar.setVisibility(View.INVISIBLE);
 
-                view.loadUrl("javascript:var edId = document.getElementById('edId').value = '" + username + "';" +
-                        " javascript:var edPass = document.getElementById('edPass').value = '" + password + "';" +
+                view.loadUrl("javascript:var edId = document.getElementById('edId').value = '" + preferencesUtils.getUsername() + "';" +
+                        " javascript:var edPass = document.getElementById('edPass').value = '" + preferencesUtils.getPassword() + "';" +
                         " javascript:Save();");
             }
         });

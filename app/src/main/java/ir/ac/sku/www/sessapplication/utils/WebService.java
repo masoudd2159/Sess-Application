@@ -23,7 +23,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ir.ac.sku.www.sessapplication.api.MyLog;
-import ir.ac.sku.www.sessapplication.api.PreferenceName;
 import ir.ac.sku.www.sessapplication.model.IsOk;
 import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 
@@ -31,7 +30,7 @@ public class WebService {
     private Context context;
     private RequestQueue queue;
     private Gson gson;
-    private SharedPreferences preferencesUserInformation;
+    private SharedPreferencesUtils preferencesUtils;
     private IsOk isOk;
 
 
@@ -42,7 +41,7 @@ public class WebService {
         this.context = context;
         Log.i(MyLog.WEB_SERVICE, "Context : " + String.valueOf(context));
 
-        preferencesUserInformation = context.getSharedPreferences(PreferenceName.PREFERENCE_USER_INFORMATION, Context.MODE_PRIVATE);
+        preferencesUtils = new SharedPreferencesUtils(context);
         queue = Volley.newRequestQueue(context);
         gson = new Gson();
         isOk = new IsOk();
@@ -56,7 +55,7 @@ public class WebService {
 
         Log.i(MyLog.WEB_SERVICE, "Handler : ‌" + String.valueOf(handler));
 
-        String myURL = url + "&cookie=" + preferencesUserInformation.getString(PreferenceName.PREFERENCE_COOKIE, "NULL");
+        String myURL = url + "&cookie=" + preferencesUtils.getCookie();
         Log.i(MyLog.WEB_SERVICE, "URL : " + myURL);
 
         StringRequest stringRequest = new StringRequest(method,

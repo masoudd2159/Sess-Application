@@ -31,6 +31,28 @@ public class MyApplication extends MultiDexApplication {
                                 .setFontAttrId(R.attr.fontPath)
                                 .build()))
                 .build());
+
+
+        // We recommend to start AppSpector from Application#onCreate method
+
+/*        // You can start all monitors
+        AppSpector
+                .build(this)
+                .withDefaultMonitors()
+
+                .run("android_MmQ1M2UyOTktNjAyOS00NWJjLWJmMjUtODgzYTg4MTQyYWVl");
+
+        // Or you can select monitors that you want to use
+        AppSpector
+                .build(this)
+                .addPerformanceMonitor()
+                .addHttpMonitor()
+                // If specific monitor is not added then this kind of data won't be tracked and available on the web
+                .addLogMonitor()
+                .addScreenshotMonitor()
+                .addSQLMonitor()
+
+                .run("android_MmQ1M2UyOTktNjAyOS00NWJjLWJmMjUtODgzYTg4MTQyYWVl");*/
     }
 
     public OkHttpClient getOkHttpClient() {

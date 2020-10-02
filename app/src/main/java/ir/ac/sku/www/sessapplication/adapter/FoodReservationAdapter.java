@@ -2,8 +2,6 @@ package ir.ac.sku.www.sessapplication.adapter;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
@@ -28,22 +26,24 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.api.ApplicationAPI;
 import ir.ac.sku.www.sessapplication.api.MyLog;
-import ir.ac.sku.www.sessapplication.api.PreferenceName;
-import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.model.SFXMealDetail;
 import ir.ac.sku.www.sessapplication.model.SFXWeeklyList;
 import ir.ac.sku.www.sessapplication.utils.CustomToastSuccess;
 import ir.ac.sku.www.sessapplication.utils.MyHandler;
-import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
+import ir.ac.sku.www.sessapplication.utils.SharedPreferencesUtils;
 import ir.ac.sku.www.sessapplication.utils.SignIn;
 import ir.ac.sku.www.sessapplication.utils.WebService;
+import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 
 @SuppressLint("Registered")
 public class FoodReservationAdapter {
@@ -106,7 +106,7 @@ public class FoodReservationAdapter {
     private Gson gson;
 
     //Preferences
-    private SharedPreferences preferencesUserInformation;
+    private SharedPreferencesUtils preferencesUtils;
 
     //My Java Model Class
     private SFXWeeklyList weeklyList;
@@ -125,7 +125,7 @@ public class FoodReservationAdapter {
         //use Lib
         gson = new Gson();
         queue = Volley.newRequestQueue(rootView.getContext());
-        preferencesUserInformation = rootView.getContext().getSharedPreferences(PreferenceName.PREFERENCE_USER_INFORMATION, Context.MODE_PRIVATE);
+        preferencesUtils = new SharedPreferencesUtils(rootView.getContext());
 
         //my Functions
         init();
@@ -895,7 +895,7 @@ public class FoodReservationAdapter {
                                     ManagerHelper.unsuccessfulOperation(rootView.getContext(), weeklyList.getDescription().getErrorText());
                                 } else if (Integer.parseInt(weeklyList.getDescription().getErrorCode()) < 0) {
                                     SignIn signIn = new SignIn(rootView.getContext());
-                                   // signIn.SignInDialog();
+                                    // signIn.SignInDialog();
                                 }
                             }
                         } catch (UnsupportedEncodingException e) {
@@ -919,7 +919,7 @@ public class FoodReservationAdapter {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("cookie", preferencesUserInformation.getString(PreferenceName.PREFERENCE_COOKIE, null));
+                params.put("cookie", preferencesUtils.getCookie());
                 params.put("meal", meal_code);
                 params.put("date", date_code);
                 params.put("restaurant", restaurant_code);
@@ -986,11 +986,10 @@ public class FoodReservationAdapter {
         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "Delete Food Run");
 
         Map<String, String> params = new HashMap<String, String>();
-        params.put("username", preferencesUserInformation.getString(PreferenceName.PREFERENCE_USERNAME, null));
+        params.put("username", preferencesUtils.getUsername());
         params.put("data", data);
         String URI = ApplicationAPI.SFX_DELETE_MEAL + "?" + ManagerHelper.enCodeParameters(params);
         weeklyList = new SFXWeeklyList();
-
 
 
         WebService webService = new WebService(rootView.getContext());

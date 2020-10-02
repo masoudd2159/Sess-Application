@@ -49,12 +49,12 @@ import java.util.Map;
 
 import ir.ac.sku.www.sessapplication.api.ApplicationAPI;
 import ir.ac.sku.www.sessapplication.api.MyLog;
-import ir.ac.sku.www.sessapplication.api.PreferenceName;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.adapter.FoodReservationAdapter;
 import ir.ac.sku.www.sessapplication.model.SFXIncreaseCreditDetail;
 import ir.ac.sku.www.sessapplication.model.SFXWeeklyList;
 import ir.ac.sku.www.sessapplication.utils.MyHandler;
+import ir.ac.sku.www.sessapplication.utils.SharedPreferencesUtils;
 import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 import ir.ac.sku.www.sessapplication.utils.WebService;
 
@@ -64,7 +64,7 @@ public class FoodReservationFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private Gson gson;
     private View rootView;
-    private SharedPreferences preferencesUserInformation;
+    private SharedPreferencesUtils preferencesUtils;
 
     //My Views
     private Button btn_IncreaseCredit;
@@ -112,7 +112,7 @@ public class FoodReservationFragment extends Fragment {
 
         //use Lib
         gson = new Gson();
-        preferencesUserInformation = rootView.getContext().getSharedPreferences(PreferenceName.PREFERENCE_USER_INFORMATION, Context.MODE_PRIVATE);
+        preferencesUtils = new SharedPreferencesUtils(rootView.getContext());
 
         //create Dialog
         dialog = new Dialog(rootView.getContext(), R.style.Theme_Dialog);
@@ -394,7 +394,7 @@ public class FoodReservationFragment extends Fragment {
     private void increaseAmount(String subject, String plan) {
         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "increaseAmount Start");
         Map<String, String> params = new HashMap<>();
-        params.put("cookie", preferencesUserInformation.getString(PreferenceName.PREFERENCE_COOKIE, null));
+        params.put("cookie", preferencesUtils.getCookie());
         params.put("subject", subject);
         params.put("plan", plan);
         String URIPayment = ApplicationAPI.SFX_INCREASE_CREDIT_AMOUNT + "?" + ManagerHelper.enCodeParameters(params);
