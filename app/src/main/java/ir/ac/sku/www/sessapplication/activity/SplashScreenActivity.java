@@ -95,8 +95,6 @@ public class SplashScreenActivity extends BaseActivity implements DialogFragment
     }
 
     private class SplashScreen extends AsyncTask<Void, Void, Void> {
-
-        private Intent intentLoginActivity;
         private Intent intentBottomBarActivity;
 
         @Override
@@ -114,7 +112,6 @@ public class SplashScreenActivity extends BaseActivity implements DialogFragment
         protected void onPreExecute() {
             super.onPreExecute();
             Log.i(MyLog.SESS + TAG, "on Pre Execute");
-            intentLoginActivity = new Intent(SplashScreenActivity.this, LoginActivity.class);
             intentBottomBarActivity = new Intent(SplashScreenActivity.this, BottomBarActivity.class);
         }
 
@@ -122,14 +119,7 @@ public class SplashScreenActivity extends BaseActivity implements DialogFragment
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Log.i(MyLog.SESS + TAG, "on Post Execute");
-            if (preferencesUtils.isStartKey()) {
-                Log.i(MyLog.SESS + TAG, "Start Activity : Login Activity");
-                intentLoginActivity.putExtra("isGuestLogin", true);
-                startActivity(intentLoginActivity);
-            } else {
-                Log.i(MyLog.SESS + TAG, "Start Activity : Bottom Bar Activity");
-                startActivity(intentBottomBarActivity);
-            }
+            startActivity(intentBottomBarActivity);
             finish();
         }
     }

@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import butterknife.BindView;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.base.BaseDialogFragment;
-import ir.ac.sku.www.sessapplication.model.SendInformation;
+import ir.ac.sku.www.sessapplication.model.information.SendInformation;
 
 public class DialogFragmentInstantMessage extends BaseDialogFragment {
 
@@ -69,9 +69,9 @@ public class DialogFragmentInstantMessage extends BaseDialogFragment {
         tv_Message.scrollTo(0, 0);
         tv_Message.setText(instantMessage.getInstantMessage().get(index).getText());
 
-        if (instantMessage.getInstantMessage().get(index).getAttachment()) {
+        if (instantMessage.getInstantMessage().get(index).isAttachment()) {
             tv_Subject.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_attachment_1, 0, R.drawable.ic_subject, 0);
-        } else if (!instantMessage.getInstantMessage().get(index).getAttachment()) {
+        } else if (!instantMessage.getInstantMessage().get(index).isAttachment()) {
             tv_Subject.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_subject, 0);
         }
     }

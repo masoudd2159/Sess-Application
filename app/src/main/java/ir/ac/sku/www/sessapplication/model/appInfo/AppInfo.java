@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
@@ -24,12 +26,12 @@ public class AppInfo {
 
     @SerializedName("ok")
     @Expose
-    private Boolean ok;
+    private boolean ok;
     @SerializedName("result")
     @Expose
     private Result result;
 
-    public static void fetchFromWeb(Context context, HashMap<String, String> params, MyHandler handler) {
+    public static void fetchFromWeb(@NonNull Context context, HashMap<String, String> params, MyHandler handler) {
         if (ManagerHelper.checkInternetServices(context)) {
             Observable<JsonObject> observable = ApiFactory.createProvideApiService(AppInfoService.class).getAppInfo();
             RxApiCallHelper.call(observable, new RxApiCallback<JsonObject>() {
@@ -37,7 +39,7 @@ public class AppInfo {
                 public void onSuccess(JsonObject jsonObject) {
                     Log.i(MyLog.SESS + AppInfo.class.getSimpleName(), "Object Successfully Receive");
                     AppInfo response = new Gson().fromJson(jsonObject, AppInfo.class);
-                    if (response.getOk()) {
+                    if (response.isOk()) {
                         handler.onResponse(true, response);
                     }
                 }
@@ -51,11 +53,11 @@ public class AppInfo {
         }
     }
 
-    public Boolean getOk() {
+    public boolean isOk() {
         return ok;
     }
 
-    public void setOk(Boolean ok) {
+    public void setOk(boolean ok) {
         this.ok = ok;
     }
 
@@ -70,19 +72,19 @@ public class AppInfo {
     public class Result {
         @SerializedName("androidMinimumVersion")
         @Expose
-        private Integer androidMinimumVersion;
+        private int androidMinimumVersion;
         @SerializedName("androidLatestVersion")
         @Expose
-        private Integer androidLatestVersion;
+        private int androidLatestVersion;
         @SerializedName("downloadAndroidUrl")
         @Expose
         private String downloadAndroidUrl;
         @SerializedName("iosMinimumVersion")
         @Expose
-        private Integer iosMinimumVersion;
+        private int iosMinimumVersion;
         @SerializedName("iosLatestVersion")
         @Expose
-        private Integer iosLatestVersion;
+        private int iosLatestVersion;
         @SerializedName("downloadIosUrl")
         @Expose
         private String downloadIosUrl;
@@ -103,21 +105,21 @@ public class AppInfo {
         private String contactSupportId;
         @SerializedName("guestLogin")
         @Expose
-        private Boolean guestLogin;
+        private boolean guestLogin;
 
-        public Integer getAndroidMinimumVersion() {
+        public int getAndroidMinimumVersion() {
             return androidMinimumVersion;
         }
 
-        public void setAndroidMinimumVersion(Integer androidMinimumVersion) {
+        public void setAndroidMinimumVersion(int androidMinimumVersion) {
             this.androidMinimumVersion = androidMinimumVersion;
         }
 
-        public Integer getAndroidLatestVersion() {
+        public int getAndroidLatestVersion() {
             return androidLatestVersion;
         }
 
-        public void setAndroidLatestVersion(Integer androidLatestVersion) {
+        public void setAndroidLatestVersion(int androidLatestVersion) {
             this.androidLatestVersion = androidLatestVersion;
         }
 
@@ -129,19 +131,19 @@ public class AppInfo {
             this.downloadAndroidUrl = downloadAndroidUrl;
         }
 
-        public Integer getIosMinimumVersion() {
+        public int getIosMinimumVersion() {
             return iosMinimumVersion;
         }
 
-        public void setIosMinimumVersion(Integer iosMinimumVersion) {
+        public void setIosMinimumVersion(int iosMinimumVersion) {
             this.iosMinimumVersion = iosMinimumVersion;
         }
 
-        public Integer getIosLatestVersion() {
+        public int getIosLatestVersion() {
             return iosLatestVersion;
         }
 
-        public void setIosLatestVersion(Integer iosLatestVersion) {
+        public void setIosLatestVersion(int iosLatestVersion) {
             this.iosLatestVersion = iosLatestVersion;
         }
 
@@ -193,11 +195,11 @@ public class AppInfo {
             this.contactSupportId = contactSupportId;
         }
 
-        public Boolean getGuestLogin() {
+        public boolean isGuestLogin() {
             return guestLogin;
         }
 
-        public void setGuestLogin(Boolean guestLogin) {
+        public void setGuestLogin(boolean guestLogin) {
             this.guestLogin = guestLogin;
         }
     }

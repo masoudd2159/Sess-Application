@@ -39,7 +39,7 @@ public class Tools {
             Glide
                     .with(ctx)
                     .load(drawable)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(img);
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,7 +51,7 @@ public class Tools {
             Glide
                     .with(ctx)
                     .load(url)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(img);
         } catch (Exception e) {
             e.printStackTrace();
@@ -63,7 +63,7 @@ public class Tools {
             Glide
                     .with(ctx)
                     .load(bitmap)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(img);
         } catch (Exception e) {
             e.printStackTrace();

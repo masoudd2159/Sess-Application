@@ -27,23 +27,22 @@ import ir.ac.sku.www.sessapplication.fragment.FoodReservationFragment;
 import ir.ac.sku.www.sessapplication.fragment.HomeFragment;
 import ir.ac.sku.www.sessapplication.fragment.MessagesFragment;
 import ir.ac.sku.www.sessapplication.fragment.ProcessesFragment;
-import ir.ac.sku.www.sessapplication.fragment.SignInDialogFragment;
-import ir.ac.sku.www.sessapplication.fragment.dialogfragment.DialogFragmentInstantMessage;
-import ir.ac.sku.www.sessapplication.model.SendInformation;
+import ir.ac.sku.www.sessapplication.fragment.dialogfragment.DialogFragmentSignIn;
+import ir.ac.sku.www.sessapplication.model.information.SendInformation;
 import ir.ac.sku.www.sessapplication.utils.CustomToastExit;
 import ir.ac.sku.www.sessapplication.utils.Tools;
 import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 
 public class BottomBarActivity
         extends BaseActivity
-        implements SignInDialogFragment.UserInterface, BottomNavigationView.OnNavigationItemSelectedListener {
+        implements DialogFragmentSignIn.UserInterface, BottomNavigationView.OnNavigationItemSelectedListener {
 
     //* Content View
     @BindView(R.id.Bottom_navigation_view) BottomNavigationView bottomBar;
 
     // ToolBar View
     @BindView(R.id.toolbar_image_profile) CircularImageView imageViewProfile;
-    @BindView(R.id.toolbar_full_name) TextView fullName;
+    @BindView(R.id.toolbar_full_name) TextView textViewFullName;
     @BindView(R.id.toolbar_dash) View dash;
 
     private boolean doubleBackToExitPressedOnce = false;
@@ -60,7 +59,6 @@ public class BottomBarActivity
         Pushe.initialize(this, true);
 
         updateUserInformation();
-        setUpInstantMessage();
 
         bottomBar.setOnNavigationItemSelectedListener(this);
 
@@ -70,15 +68,6 @@ public class BottomBarActivity
     @Override protected void onResume() {
         super.onResume();
         updateUserInformation();
-    }
-
-    private void setUpInstantMessage() {
-        SendInformation.Result instantMessage = (SendInformation.Result) getIntent().getParcelableExtra("DialogFragmentInstantMessage");
-        if (instantMessage != null && instantMessage.getInstantMessage().size() > 0) {
-            Log.i(MyLog.SESS + TAG, instantMessage.getUserInformation().getName() + " " + instantMessage.getUserInformation().getFamily());
-            Log.i(MyLog.SESS + TAG, "Instant Message : " + instantMessage.getInstantMessage().size());
-            new DialogFragmentInstantMessage(instantMessage).show(getSupportFragmentManager(), "DialogFragmentInstantMessage");
-        }
     }
 
     @Override
@@ -162,10 +151,21 @@ public class BottomBarActivity
         Log.i(MyLog.SESS + TAG, "Update User Information");
         if (userInformation.getName() == null && userInformation.getFamily() == null) {
             Tools.displayImageOriginal(this, imageViewProfile, R.drawable.ic_university);
-            fullName.setText(getResources().getString(R.string.shahrekord_university));
+            textViewFullName.setText(getResources().getString(R.string.shahrekord_university));
         } else {
             Tools.displayImageOriginal(this, imageViewProfile, ApplicationAPI.IMAGE + cookie);
-            fullName.setText(userInformation.getName() + " " + userInformation.getFamily());
+            String fullName = userInformation.getName() + " " + userInformation.getFamily();
+            switch (userInformation.getSex()) {
+                case "مرد":
+                    textViewFullName.setText("آقای " + fullName);
+                    break;
+                case "زن":
+                    textViewFullName.setText("خانم " + fullName);
+                    break;
+                default:
+                    textViewFullName.setText(fullName);
+                    break;
+            }
         }
     }
 
@@ -174,13 +174,21 @@ public class BottomBarActivity
         Log.i(MyLog.SESS + TAG, "Update User Information NO Argument");
         if (preferencesUtils.getFirstName() == null && preferencesUtils.getLastName() == null) {
             Tools.displayImageOriginal(this, imageViewProfile, R.drawable.ic_university);
-            fullName.setText(getResources().getString(R.string.shahrekord_university));
+            textViewFullName.setText(getResources().getString(R.string.shahrekord_university));
         } else {
-            fullName.setText(preferencesUtils.getFirstName() + " " + preferencesUtils.getLastName());
-            if (preferencesUtils.getImageBitmap() != null)
-                Tools.displayImageOriginal(this, imageViewProfile, preferencesUtils.getImageBitmap());
-            else
-                Tools.displayImageOriginal(this, imageViewProfile, ApplicationAPI.IMAGE + preferencesUtils.getCookie());
+            Tools.displayImageOriginal(this, imageViewProfile, preferencesUtils.getImageBitmap());
+            String fullName = preferencesUtils.getFirstName() + " " + preferencesUtils.getLastName();
+            switch (preferencesUtils.getSex()) {
+                case "مرد":
+                    textViewFullName.setText("آقای " + fullName);
+                    break;
+                case "زن":
+                    textViewFullName.setText("خانم " + fullName);
+                    break;
+                default:
+                    textViewFullName.setText(fullName);
+                    break;
+            }
         }
     }
 

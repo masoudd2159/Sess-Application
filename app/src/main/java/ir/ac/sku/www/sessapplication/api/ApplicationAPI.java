@@ -7,12 +7,11 @@ public static final String BASE_URL                   = "https://app.sku.ac.ir/a
 public static final String IMAGE                      = BASE_URL + "v1/user/image?cookie= ";
 
 public static final String APP_INFO                   = "appInfo";
-public static final String LOGIN_INFORMATION          = BASE_URL + "v1/user/login";
+public static final String INFORMATION                = "v1/user/login";
 public static final String MSG_GET_INFO_FOR_SEND      = BASE_URL + "v1/user/messages/sendMessage";
 public static final String MSG_MESSAGES               = BASE_URL + "v1/user/messages";
 public static final String MSG_SEND_MESSAGES          = BASE_URL + "v1/user/messages/sendMessage";
 public static final String PHONE_BOOK                 = BASE_URL + "v1/phoneBook";
-public static final String SEND_INFORMATION           = BASE_URL + "v1/user/login";
 public static final String SFX_BUY_MEAL               = BASE_URL + "v1/user/sfx/zheton";
 public static final String SFX_DELETE_MEAL            = BASE_URL + "v1/user/sfx/zheton";
 public static final String SFX_INCREASE_CREDIT        = BASE_URL + "v1/user/sfx/increaseCredit/detail";

@@ -1,7 +1,5 @@
 package ir.ac.sku.www.sessapplication.fragment;
 
-import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -16,23 +14,34 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import java.util.Objects;
 
-import ir.ac.sku.www.sessapplication.api.MyLog;
 import ir.ac.sku.www.sessapplication.R;
+import ir.ac.sku.www.sessapplication.api.MyLog;
+import ir.ac.sku.www.sessapplication.model.information.SendInformation;
 
 public class WelcomeDialogFragment extends DialogFragment {
 
     private View rootView;
     private String message;
 
-    public WelcomeDialogFragment(String toast) {
-        this.message = toast;
+    public WelcomeDialogFragment(SendInformation.Result.UserInformation userInformation) {
+        String fullName = userInformation.getName() + " " + userInformation.getFamily();
+        switch (userInformation.getSex()) {
+            case "مرد":
+                this.message = "خوش آمدید آقای " + fullName;
+                break;
+            case "زن":
+                this.message = "خوش آمدید خانم " + fullName;
+                break;
+            default:
+                this.message = "خوش آمدید " + fullName;
+                break;
+        }
     }
 
     @Nullable
@@ -42,8 +51,6 @@ public class WelcomeDialogFragment extends DialogFragment {
         if (getDialog() != null && getDialog().isShowing())
             dismiss();
         changeStatusBarColor();
-        //((ViewGroup) getDialog().getWindow().getDecorView()).getChildAt(0).startAnimation(AnimationUtils.loadAnimation(rootView.getContext(), R.anim.slidebottom));
-        //getDialog().getWindow().getAttributes().windowAnimations = R.style.FragmentDialogSlideAnim;
 
         getDialog().getWindow().setWindowAnimations(R.style.FragmentDialogAnimation);
 
@@ -60,29 +67,20 @@ public class WelcomeDialogFragment extends DialogFragment {
         ((TextView) rootView.findViewById(R.id.welcomeDialog_Message)).setText(message);
 
         final Handler handler = new Handler();
-        final Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                if (Objects.requireNonNull(getDialog()).isShowing()) {
-                    getDialog().dismiss();
-                }
+        final Runnable runnable = () -> {
+            if (Objects.requireNonNull(getDialog()).isShowing()) {
+                getDialog().dismiss();
             }
         };
 
-        getDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                handler.removeCallbacks(runnable);
-            }
-        });
+        getDialog().setOnDismissListener(dialog -> handler.removeCallbacks(runnable));
 
         handler.postDelayed(runnable, 1500);
         return rootView;
     }
 
-    @SuppressLint("LongLogTag")
     private void changeStatusBarColor() {
-        Log.i(MyLog.SPLASH_SCREEN_ACTIVITY, "Change Status Bar");
+        Log.i(MyLog.SESS + WelcomeDialogFragment.class.getSimpleName(), "Change Status Bar");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = Objects.requireNonNull(getDialog()).getWindow();
             if (window != null) {

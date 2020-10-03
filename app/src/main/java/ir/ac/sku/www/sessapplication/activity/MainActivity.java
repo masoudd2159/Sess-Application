@@ -9,10 +9,10 @@ import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.base.BaseActivity;
 import ir.ac.sku.www.sessapplication.fragment.FoodReservationFragment;
 import ir.ac.sku.www.sessapplication.fragment.ProcessesFragment;
-import ir.ac.sku.www.sessapplication.fragment.SignInDialogFragment;
-import ir.ac.sku.www.sessapplication.model.SendInformation;
+import ir.ac.sku.www.sessapplication.fragment.dialogfragment.DialogFragmentSignIn;
+import ir.ac.sku.www.sessapplication.model.information.SendInformation;
 
-public class MainActivity extends BaseActivity implements SignInDialogFragment.UserInterface {
+public class MainActivity extends BaseActivity implements DialogFragmentSignIn.UserInterface {
 
     private Bundle extras;
 

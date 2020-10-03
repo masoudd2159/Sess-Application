@@ -9,7 +9,6 @@ import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -17,7 +16,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
@@ -29,8 +27,10 @@ import java.util.Map;
 
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.api.MyLog;
-import ir.ac.sku.www.sessapplication.base.BaseDialogFragment;
 import ir.ac.sku.www.sessapplication.fragment.dialogfragment.DialogFragmentNoInternetAccess;
+import ir.ac.sku.www.sessapplication.model.information.SendInformation;
+import ir.ac.sku.www.sessapplication.utils.MyHandler;
+import ir.ac.sku.www.sessapplication.utils.SignIn;
 
 public class ManagerHelper {
 
@@ -151,5 +151,8 @@ public class ManagerHelper {
             noInternetAccess(context);
             return false;
         }
+    }
+
+    public void checkLogin(Context context, String errorText, String errorCode) {
     }
 }

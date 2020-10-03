@@ -20,15 +20,15 @@ import ir.ac.sku.www.sessapplication.activity.SplashScreenActivity;
 import ir.ac.sku.www.sessapplication.activity.messages.SendMessageActivity;
 import ir.ac.sku.www.sessapplication.api.ApplicationAPI;
 import ir.ac.sku.www.sessapplication.base.BaseActivity;
-import ir.ac.sku.www.sessapplication.fragment.SignInDialogFragment;
+import ir.ac.sku.www.sessapplication.fragment.dialogfragment.DialogFragmentSignIn;
 import ir.ac.sku.www.sessapplication.model.GetInfoForSend;
-import ir.ac.sku.www.sessapplication.model.SendInformation;
+import ir.ac.sku.www.sessapplication.model.information.SendInformation;
 import ir.ac.sku.www.sessapplication.utils.MyHandler;
 import ir.ac.sku.www.sessapplication.utils.Tools;
 
 public class AboutActivity
         extends BaseActivity
-        implements SignInDialogFragment.UserInterface {
+        implements DialogFragmentSignIn.UserInterface {
 
     @BindView(R.id.aboutActivity_ImageProfile) CircularImageView profile;
     @BindView(R.id.aboutActivity_Username) TextView username;
@@ -53,12 +53,20 @@ public class AboutActivity
             username.setText(getResources().getString(R.string.shahrekord_university));
             Tools.displayImageOriginal(this, profile, R.drawable.ic_university);
         } else {
-            username.setText(preferencesUtils.getFirstName() + " " + preferencesUtils.getLastName());
             majorUser.setText(preferencesUtils.getMajor());
-            if (preferencesUtils.getImageBitmap() != null)
-                Tools.displayImageOriginal(this, profile, preferencesUtils.getImageBitmap());
-            else
-                Tools.displayImageOriginal(this, profile, ApplicationAPI.IMAGE + preferencesUtils.getCookie());
+            Tools.displayImageOriginal(this, profile, preferencesUtils.getImageBitmap());
+            String fullName = preferencesUtils.getFirstName() + " " + preferencesUtils.getLastName();
+            switch (preferencesUtils.getSex()) {
+                case "مرد":
+                    username.setText("آقای " + fullName);
+                    break;
+                case "زن":
+                    username.setText("خانم " + fullName);
+                    break;
+                default:
+                    username.setText(fullName);
+                    break;
+            }
         }
     }
 
@@ -67,9 +75,20 @@ public class AboutActivity
         if (userInformation.getName() == null && userInformation.getFamily() == null) {
             username.setText(getResources().getString(R.string.shahrekord_university));
         } else {
-            username.setText(userInformation.getName() + " " + userInformation.getFamily());
             majorUser.setText(userInformation.getMajor());
             Tools.displayImageOriginal(this, profile, ApplicationAPI.IMAGE + cookie);
+            String fullName = userInformation.getName() + " " + userInformation.getFamily();
+            switch (userInformation.getSex()) {
+                case "مرد":
+                    username.setText("آقای " + fullName);
+                    break;
+                case "زن":
+                    username.setText("خانم " + fullName);
+                    break;
+                default:
+                    username.setText(fullName);
+                    break;
+            }
         }
     }
 
@@ -96,7 +115,12 @@ public class AboutActivity
                 intent.putExtra("GetInfoForSend", (Parcelable) (GetInfoForSend) obj);
                 intent.putExtra("id", "tapp");
                 intent.putExtra("studentNumber", "");
-                startActivity(intent);
+                try {
+                    Thread.sleep(1600);
+                    startActivity(intent);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
