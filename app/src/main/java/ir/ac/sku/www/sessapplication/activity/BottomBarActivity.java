@@ -31,8 +31,8 @@ import ir.ac.sku.www.sessapplication.fragment.SignInDialogFragment;
 import ir.ac.sku.www.sessapplication.fragment.dialogfragment.DialogFragmentInstantMessage;
 import ir.ac.sku.www.sessapplication.model.SendInformation;
 import ir.ac.sku.www.sessapplication.utils.CustomToastExit;
-import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 import ir.ac.sku.www.sessapplication.utils.Tools;
+import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 
 public class BottomBarActivity
         extends BaseActivity
@@ -65,6 +65,11 @@ public class BottomBarActivity
         bottomBar.setOnNavigationItemSelectedListener(this);
 
         if (savedInstanceState == null) bottomBar.setSelectedItemId(R.id.tab_Home);
+    }
+
+    @Override protected void onResume() {
+        super.onResume();
+        updateUserInformation();
     }
 
     private void setUpInstantMessage() {

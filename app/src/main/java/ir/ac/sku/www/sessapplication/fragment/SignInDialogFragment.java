@@ -212,9 +212,9 @@ public class SignInDialogFragment extends BaseDialogFragment {
     }
 
     @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        this.userInterface = (UserInterface) context;
+    public void onAttach(@NonNull Activity activity) {
+        super.onAttach(activity);
+        this.userInterface = (UserInterface) activity;
     }
 
     public interface UserInterface {

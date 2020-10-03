@@ -3,18 +3,18 @@
     "section": "تشکل های دانشگاه شهرکرد",
     "data": [
       {
-        "faName": "جامعه اسلامی",
+        "faName": "جامعه اسلامی دانشجویان دانشگاه شهرکرد",
         "enName": "",
-        "description": "",
+        "description": "ما تا آخر ایستاده ایم!",
         "establishedYear": "",
         "logo": "logo_jamee.jpg",
         "secretary": "",
-        "telegram": "",
-        "instagram": "",
+        "telegram": "https://t.me/jad_sku",
+        "instagram": "https://www.instagram.com/jad_sku/",
         "twitter": "",
-        "email": "",
-        "phone": "",
-        "website": "",
+        "email": "Sku.jameh@gmail.com",
+        "phone": "09220470657",
+        "website": "http://jad-sku.ir/",
         "admin": [
           {
             "name": "",
@@ -29,8 +29,8 @@
         "establishedYear": "",
         "logo": "logo_mostaghel.jpg",
         "secretary": "",
-        "telegram": "",
-        "instagram": "",
+        "telegram": "https://t.me/sku_mostaghel",
+        "instagram": "https://www.instagram.com/anjoman_mostaghel_sku/",
         "twitter": "",
         "email": "",
         "phone": "",
@@ -49,8 +49,48 @@
         "establishedYear": "",
         "logo": "logo_basij.jpg",
         "secretary": "",
-        "telegram": "",
-        "instagram": "",
+        "telegram": "https://t.me/bsjsku",
+        "instagram": "https://instagram.com/skubsj",
+        "twitter": "",
+        "email": "",
+        "phone": "",
+        "website": "",
+        "admin": [
+          {
+            "name": "",
+            "telegramId": ""
+          }
+        ]
+      },
+      {
+        "faName": "مجمع اسلامی دانشجویان آزاداندیش",
+        "enName": "",
+        "description": "",
+        "establishedYear": "",
+        "logo": "",
+        "secretary": "",
+        "telegram": "https://t.me/majmasku",
+        "instagram": "http://instagram.com/majmasku",
+        "twitter": "",
+        "email": "",
+        "phone": "",
+        "website": "",
+        "admin": [
+          {
+            "name": "",
+            "telegramId": ""
+          }
+        ]
+      },
+      {
+        "faName": "انجمن اسلامی دانشجویان دانشگاه شهرکرد",
+        "enName": "",
+        "description": "",
+        "establishedYear": "",
+        "logo": "",
+        "secretary": "",
+        "telegram": "https://t.me/anjoman_eslami_sku",
+        "instagram": "http://instagram.com/anjoman_eslamisku",
         "twitter": "",
         "email": "",
         "phone": "",

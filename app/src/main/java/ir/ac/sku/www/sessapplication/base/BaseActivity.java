@@ -8,6 +8,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -21,7 +22,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import co.ronash.pushe.Pushe;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.api.MyLog;
@@ -74,18 +74,18 @@ public abstract class BaseActivity
 
     @Override
     public void onNetworkConnectionChange(boolean isConnected) {
-        if (starter) {
+        if (starter && !isConnected) {
+            Log.i(MyLog.SESS + TAG, "Network NOT Connected");
             if (snackBarLayout != null)
                 ColoredSnackBar.error(Snackbar.make(snackBarLayout, getResources().getString(R.string.connection_fail), Snackbar.LENGTH_SHORT)).show();
             else
                 Toast.makeText(this, getResources().getString(R.string.connection_fail), Toast.LENGTH_SHORT).show();
-        } else {
-            starter = true;
-        }
+        } else starter = true;
     }
 
     private void initToolbar() {
         if (toolbar != null) {
+            Log.i(MyLog.SESS + TAG, "initial Toolbar");
             setSupportActionBar(toolbar);
 
             toolbar.setTitle("");
@@ -102,6 +102,13 @@ public abstract class BaseActivity
         }
     }
 
+    public void setTitleToolbar(String titleToolbar) {
+        if (title != null) {
+            Log.i(MyLog.SESS + TAG, "set Toolbar Title To " + titleToolbar);
+            title.setText(titleToolbar);
+        }
+    }
+
     protected abstract int getLayoutResource();
 
     public void changeStatusBarColor() {
@@ -111,5 +118,14 @@ public abstract class BaseActivity
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

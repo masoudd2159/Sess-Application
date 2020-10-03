@@ -34,6 +34,7 @@
     <string name="breakfast">صبحانه</string>
     <string name="condition">روز / وعده</string>
     <string name="reservation">رزرو</string>
+    <string name="student_deputy">معاونت دانشجویی</string>
     <string name="saturday">شنبه</string>
     <string name="sunday">یک شنبه</string>
     <string name="monday">دوشنبه</string>
@@ -104,5 +105,13 @@
     <string name="favnet">کلیه حقوق اپلیکیشن متعلق به شرکت فاونت می باشد.</string>
     <string name="update_application">به روزرسانی اپلیکیشن</string>
     <string name="update">به روزرسانی</string>
+    <string name="food_reservation">رزرو غذا</string>
+    <string name="dormitory_office">اداره خوابگاه ها</string>
+    <string name="nutrition_office">اداره تغذیه</string>
+    <string name="welfare_office">اداره رفاه دانشجویان</string>
+    <string name="clinic">درمانگاه دانشگاه</string>
+    <string name="counseling_center">مرکز مشاوره</string>
+    <string name="commission">کمیسیون موارد خاص</string>
+    <string name="physical_education">اداره تربیت بدنی</string>
 
 </resources>

@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|start"
                     android:layoutDirection="ltr"
-                    android:text="معاونت فرهنگی - اجتماعی"
+                    android:text="معاونت فرهنگی و اجتماعی"
                     android:textColor="@android:color/white"
                     android:textSize="24sp" />
 

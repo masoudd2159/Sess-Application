@@ -30,8 +30,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import ir.ac.sku.www.sessapplication.R;
-
-import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+import ir.ac.sku.www.sessapplication.activity.utils.ActivityWebView;
+import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 
 public class Tools {
     public static void displayImageOriginal(Context ctx, ImageView img, @DrawableRes int drawable) {
@@ -181,6 +181,14 @@ public class Tools {
             if (drawable == null) continue;
             drawable.mutate();
             drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+        }
+    }
+
+    public static void openWebViewActivity(Context context, String url) {
+        if (ManagerHelper.checkInternetServices(context)) {
+            Intent intent = new Intent(context, ActivityWebView.class);
+            intent.putExtra("key.EXTRA_OBJC", url);
+            context.startActivity(intent);
         }
     }
 }

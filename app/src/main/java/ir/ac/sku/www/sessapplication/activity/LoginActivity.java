@@ -43,6 +43,7 @@ import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
+import butterknife.BindView;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.api.ApplicationAPI;
 import ir.ac.sku.www.sessapplication.api.MyLog;
@@ -57,15 +58,17 @@ import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 
 public class LoginActivity extends BaseActivity {
 
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private EditText user;
-    private EditText password;
-    private LottieAnimationView gifImageViewEnter;
-    private Button enter;
-    private Button guest;
-    private ScrollView scrollView;
-    private View loginView;
+    @BindView(R.id.loginActivity_ButtonGuest) Button guest;
+    @BindView(R.id.loginActivity_Enter) Button enter;
+    @BindView(R.id.loginActivity_GifImageViewEnter) LottieAnimationView gifImageViewEnter;
+    @BindView(R.id.loginActivity_Password) EditText password;
+    @BindView(R.id.loginActivity_ScrollView) ScrollView scrollView;
+    @BindView(R.id.loginActivity_SwipeRefreshLayout) SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.loginActivity_Username) EditText user;
+    @BindView(R.id.loginActivity_View) View loginView;
+
     private ProgressDialog progressDialog;
+
 
     //Required libraries
     private RequestQueue queue;
@@ -103,7 +106,6 @@ public class LoginActivity extends BaseActivity {
 
         //my Functions
         changeStatusBarColor();
-        init();
 
         //animate Text View
         View.OnFocusChangeListener focusChangeListener = new View.OnFocusChangeListener() {
@@ -175,17 +177,6 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
-    @SuppressLint("LongLogTag")
-    private void init() {
-        swipeRefreshLayout = findViewById(R.id.loginActivity_SwipeRefreshLayout);
-        user = findViewById(R.id.loginActivity_Username);
-        password = findViewById(R.id.loginActivity_Password);
-        gifImageViewEnter = findViewById(R.id.loginActivity_GifImageViewEnter);
-        enter = findViewById(R.id.loginActivity_Enter);
-        scrollView = findViewById(R.id.loginActivity_ScrollView);
-        loginView = findViewById(R.id.loginActivity_View);
-        guest = findViewById(R.id.loginActivity_ButtonGuest);
-    }
 
     @SuppressLint("LongLogTag")
     private void getLoginInformation(final boolean where) {
@@ -197,40 +188,33 @@ public class LoginActivity extends BaseActivity {
 
 
         StringRequest request = new StringRequest(ApplicationAPI.LOGIN_INFORMATION,
-                new Response.Listener<String>() {
-                    @SuppressLint("NewApi")
-                    @Override
-                    public void onResponse(String response) {
-                        progressDialog.dismiss();
-                        Log.i(MyLog.LOGIN_ACTIVITY, "get JSON Cookie From Server");
-                        loginInformation = gson.fromJson(new String(response.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), LoginInformation.class);
+                response -> {
+                    progressDialog.dismiss();
+                    Log.i(MyLog.LOGIN_ACTIVITY, "get JSON Cookie From Server");
+                    loginInformation = gson.fromJson(new String(response.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), LoginInformation.class);
 
-                        if (loginInformation.isOk()) {
-                            Log.i(MyLog.LOGIN_ACTIVITY, "Cookie : " + loginInformation.getCookie());
+                    if (loginInformation.isOk()) {
+                        Log.i(MyLog.LOGIN_ACTIVITY, "Cookie : " + loginInformation.getCookie());
 
-                            if (ManagerHelper.isInternet(LoginActivity.this)) {
-                                Log.i(MyLog.LOGIN_ACTIVITY, "OFFLine");
-                                ManagerHelper.noInternetAccess(LoginActivity.this);
-                            } else {
-                                Log.i(MyLog.LOGIN_ACTIVITY, "OnLine");
-                                if (where) {
-                                    sendParamsPost();
-                                }
+                        if (ManagerHelper.isInternet(LoginActivity.this)) {
+                            Log.i(MyLog.LOGIN_ACTIVITY, "OFFLine");
+                            ManagerHelper.noInternetAccess(LoginActivity.this);
+                        } else {
+                            Log.i(MyLog.LOGIN_ACTIVITY, "OnLine");
+                            if (where) {
+                                sendParamsPost();
                             }
                         }
                     }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i(MyLog.LOGIN_ACTIVITY, "Login Information Volley Error : " + error.getMessage());
-                        new AlertDialog.Builder(LoginActivity.this)
-                                .setTitle("ERROR")
-                                .setMessage(error.getMessage())
-                                .setPositiveButton("Ok", null)
-                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                .show();
-                    }
+                error -> {
+                    Log.i(MyLog.LOGIN_ACTIVITY, "Login Information Volley Error : " + error.getMessage());
+                    new AlertDialog.Builder(LoginActivity.this)
+                            .setTitle("ERROR")
+                            .setMessage(error.getMessage())
+                            .setPositiveButton("Ok", null)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
                 });
         queue.add(request);
         Log.i(MyLog.LOGIN_ACTIVITY, "Request Cookie Possess Added To queue");

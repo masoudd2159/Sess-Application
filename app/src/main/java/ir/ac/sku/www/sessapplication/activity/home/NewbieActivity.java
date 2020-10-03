@@ -245,7 +245,7 @@ public class NewbieActivity extends MyActivity implements
             recyclerView.setLayoutManager(new LinearLayoutManager(NewbieActivity.this, LinearLayoutManager.VERTICAL, false));
             recyclerView.setHasFixedSize(true);
 
-            if (adapterPosition == 5) {
+            if (adapterPosition == 4) {
 
                 for (int i = 0; i < modelAnjoman.size(); i++) {
                     modelAnjoman.get(i).setSwiped(false);
@@ -256,7 +256,7 @@ public class NewbieActivity extends MyActivity implements
                 //set data and list adapter
                 recyclerView.setAdapter(new AssociationAdapter(this, modelAnjoman));
 
-            } else if (adapterPosition == 6) {
+            } else if (adapterPosition == 5) {
                 for (int i = 0; i < modelKanon.size(); i++) {
                     modelKanon.get(i).setSwiped(false);
                     modelKanon.get(i).setExpanded(false);
@@ -265,7 +265,7 @@ public class NewbieActivity extends MyActivity implements
 
                 //set data and list adapter
                 recyclerView.setAdapter(new AssociationAdapter(this, modelKanon));
-            } else if (adapterPosition == 7) {
+            } else if (adapterPosition == 6) {
                 for (int i = 0; i < modelTashakol.size(); i++) {
                     modelTashakol.get(i).setSwiped(false);
                     modelTashakol.get(i).setExpanded(false);

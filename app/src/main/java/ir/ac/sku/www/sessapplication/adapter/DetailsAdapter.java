@@ -16,6 +16,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.ac.sku.www.sessapplication.R;
+import ir.ac.sku.www.sessapplication.activity.home.ChannelActivity;
 import ir.ac.sku.www.sessapplication.activity.utils.ActivityWebView;
 import ir.ac.sku.www.sessapplication.activity.utils.ParsMapActivity;
 import ir.ac.sku.www.sessapplication.activity.utils.VideoActivity;
@@ -61,9 +62,13 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.MyViewHo
                 Intent intentMap = new Intent(context, ParsMapActivity.class);
                 context.startActivity(intentMap);
             } else if (detailsModels.get(getLayoutPosition()).getId() == 4) {
-                Intent intentVideo = new Intent(context, VideoActivity.class);
+                /*Intent intentVideo = new Intent(context, VideoActivity.class);
                 intentVideo.putExtra("mp4", detailsModels.get(getLayoutPosition()).getUrl());
                 intentVideo.putExtra("mp4Name", detailsModels.get(getLayoutPosition()).getTitle());
+                context.startActivity(intentVideo);*/
+
+                Intent intentVideo = new Intent(context, ChannelActivity.class);
+                intentVideo.putExtra("URL", detailsModels.get(getLayoutPosition()).getUrl());
                 context.startActivity(intentVideo);
             } else {
                 Intent intent = new Intent(context, ActivityWebView.class);

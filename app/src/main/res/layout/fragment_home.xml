@@ -263,7 +263,7 @@
                         android:paddingRight="5dp"
                         android:paddingBottom="15dp"
                         android:singleLine="true"
-                        android:text="معاونت فرهنگی - اجتماعی"
+                        android:text="معاونت فرهنگی و اجتماعی"
                         android:textColor="@color/black"
                         android:textSize="17sp" />
 
