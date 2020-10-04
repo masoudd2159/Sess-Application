@@ -63,7 +63,7 @@ public class Tools {
             Glide
                     .with(ctx)
                     .load(bitmap)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .into(img);
         } catch (Exception e) {
             e.printStackTrace();

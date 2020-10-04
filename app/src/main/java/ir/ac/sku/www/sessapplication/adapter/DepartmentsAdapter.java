@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.loopeer.shadow.ShadowView;
 
 import java.util.List;
 
@@ -57,6 +58,7 @@ public class DepartmentsAdapter extends RecyclerView.Adapter<DepartmentsAdapter.
         @BindView(R.id.customDepartmentView_LinearLayout_uni) RelativeLayout Layout_uni;
 
         @BindView(R.id.customDepartmentView_LayoutContent) RelativeLayout layoutContent;
+        @BindView(R.id.customDepartmentView_ShadowView) ShadowView shadowView;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -82,10 +84,12 @@ public class DepartmentsAdapter extends RecyclerView.Adapter<DepartmentsAdapter.
         }
 
         public void setBackground() {
+            shadowView.setBackgroundClr(Color.TRANSPARENT);
             layoutContent.setBackgroundResource(R.drawable.bg_department_selected);
         }
 
         public void resetBackground() {
+            shadowView.setBackgroundClr(Color.WHITE);
             layoutContent.setBackgroundColor(Color.TRANSPARENT);
         }
     }
