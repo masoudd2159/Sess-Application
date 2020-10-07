@@ -39,7 +39,7 @@ public class WebService {
         Log.i(MyLog.WEB_SERVICE, "Constructor");
 
         this.context = context;
-        Log.i(MyLog.WEB_SERVICE, "Context : " + String.valueOf(context));
+        Log.i(MyLog.WEB_SERVICE, "Context : " + context);
 
         preferencesUtils = new SharedPreferencesUtils(context);
         queue = Volley.newRequestQueue(context);
@@ -53,7 +53,7 @@ public class WebService {
 
         Log.i(MyLog.WEB_SERVICE, "Request");
 
-        Log.i(MyLog.WEB_SERVICE, "Handler : ‌" + String.valueOf(handler));
+        Log.i(MyLog.WEB_SERVICE, "Handler : ‌" + handler);
 
         String myURL = url + "&cookie=" + preferencesUtils.getCookie();
         Log.i(MyLog.WEB_SERVICE, "URL : " + myURL);
@@ -121,7 +121,7 @@ public class WebService {
     @SuppressLint("LongLogTag")
     public void requestPost(final String url, final int method, final HashMap<String, String> params, final MyHandler handler) {
         Log.i(MyLog.WEB_SERVICE, "Request Post");
-        Log.i(MyLog.WEB_SERVICE, "Handler : ‌" + String.valueOf(handler));
+        Log.i(MyLog.WEB_SERVICE, "Handler : ‌" + handler);
         Log.i(MyLog.WEB_SERVICE, "URL : " + url);
         Log.i(MyLog.WEB_SERVICE, "Params : " + params);
 

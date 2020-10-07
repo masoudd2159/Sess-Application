@@ -29,19 +29,18 @@
 
             <ImageView
                 android:id="@+id/customPhoneBook_ImageViewLink"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_alignParentEnd="true"
                 android:layoutDirection="ltr"
-                android:src="@drawable/ic_web" />
+                android:padding="3dp"
+                android:src="@drawable/ic_link" />
 
             <TextView
                 android:id="@+id/customPhoneBook_Name"
                 fontPath="fonts/IRANSansMobile(FaNum)_Bold.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="7dp"
-                android:layout_marginRight="7dp"
                 android:layout_toStartOf="@id/customPhoneBook_ImageViewLink"
                 android:gravity="center_vertical"
                 android:layoutDirection="ltr"

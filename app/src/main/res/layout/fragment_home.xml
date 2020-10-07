@@ -461,7 +461,7 @@
                         android:layoutDirection="ltr"
                         android:padding="15dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/ic_office" />
+                        android:src="@drawable/ic_financial" />
 
                     <TextView
                         fontPath="fonts/IRANSansMobile_Black.ttf"

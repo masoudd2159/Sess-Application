@@ -38,8 +38,8 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.MyViewHo
 
     @Override public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
         myViewHolder.persianTitle.setText(detailsModels.get(position).getTitle());
-        Log.i("Masoud", "i : " + String.valueOf(position));
-        Log.i("Masoud", "size : " + String.valueOf(detailsModels.size()));
+        Log.i("Masoud", "i : " + position);
+        Log.i("Masoud", "size : " + detailsModels.size());
     }
 
     @Override public int getItemCount() {

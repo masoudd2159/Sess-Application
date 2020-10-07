@@ -81,13 +81,13 @@ public class JournalsAdapter extends RecyclerView.Adapter<JournalsAdapter.MyView
 
             switch (journalsModel.getType()) {
                 case 1:
-                    typeImage.setImageResource(R.drawable.ic_pdf);
+                    typeImage.setImageResource(R.drawable.ic_ebook);
                     break;
                 case 2:
-                    typeImage.setImageResource(R.drawable.ic_mp3);
+                    typeImage.setImageResource(R.drawable.ic_music);
                     break;
                 case 3:
-                    typeImage.setImageResource(R.drawable.ic_mp4);
+                    typeImage.setImageResource(R.drawable.ic_video);
                     break;
             }
 

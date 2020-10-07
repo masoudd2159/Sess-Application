@@ -43,6 +43,7 @@ import com.android.volley.Request;
 import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -137,7 +138,7 @@ public class FoodReservationFragment extends Fragment {
             public void onGesturePerformed(GestureOverlayView overlay, android.gesture.Gesture gesture) {
                 ArrayList<GestureStroke> strokeList = gesture.getStrokes();
                 // prediction = lib.recognize(gesture);
-                float f[] = strokeList.get(0).points;
+                float[] f = strokeList.get(0).points;
 
                 if (f[0] < f[f.length - 2]) {
                     textViewPeriod.setText("");
@@ -256,11 +257,7 @@ public class FoodReservationFragment extends Fragment {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 if (ok) {
-                    try {
-                        sfxWeeklyList = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), SFXWeeklyList.class);
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
+                    sfxWeeklyList = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), SFXWeeklyList.class);
 
                     if (sfxWeeklyList.isOk()) {
                         Log.i(MyLog.FOOD_RESERVATION_FRAGMENT, "All Params True");
@@ -319,13 +316,9 @@ public class FoodReservationFragment extends Fragment {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 if (ok) {
-                    try {
-                        creditDetail = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), SFXIncreaseCreditDetail.class);
-                        if (creditDetail.getOk()) {
-                            showPicker();
-                        }
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
+                    creditDetail = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), SFXIncreaseCreditDetail.class);
+                    if (creditDetail.getOk()) {
+                        showPicker();
                     }
                 }
             }

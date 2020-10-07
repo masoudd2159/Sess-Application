@@ -8,6 +8,7 @@ import com.android.volley.Request;
 import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -223,14 +224,9 @@ public class MSGMessagesParcelable implements Parcelable {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 if (ok) {
-                    try {
-                        MSGMessagesParcelable messages = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), MSGMessagesParcelable.class);
-                        if (messages.getOk()) {
-                            handler.onResponse(true, messages);
-                        }
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                        handler.onResponse(false, null);
+                    MSGMessagesParcelable messages = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), MSGMessagesParcelable.class);
+                    if (messages.getOk()) {
+                        handler.onResponse(true, messages);
                     }
                 } else {
                     handler.onResponse(false, obj);

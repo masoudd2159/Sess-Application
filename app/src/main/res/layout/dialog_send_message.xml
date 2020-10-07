@@ -115,7 +115,6 @@
             android:layout_height="45dp"
             android:background="@android:color/transparent"
             android:layoutDirection="ltr"
-            android:onClick="onEnterClickListener"
             android:text="ساخت پیام"
             android:textColor="@android:color/white"
             android:textSize="16sp"

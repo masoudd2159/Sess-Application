@@ -50,7 +50,7 @@
                         android:layoutDirection="ltr"
                         android:padding="15dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/ic_restaurant" />
+                        android:src="@drawable/ic_nutrition" />
 
                     <TextView
                         fontPath="fonts/IRANSansMobile_Black.ttf"
@@ -94,7 +94,7 @@
                         android:layoutDirection="ltr"
                         android:padding="15dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/ic_nutrition" />
+                        android:src="@drawable/ic_restaurant" />
 
                     <TextView
                         fontPath="fonts/IRANSansMobile_Black.ttf"

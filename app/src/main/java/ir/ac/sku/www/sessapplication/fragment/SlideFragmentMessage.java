@@ -56,7 +56,7 @@ public class SlideFragmentMessage extends Fragment {
         Bundle arguments = getArguments();
         if (arguments != null) {
             MSGMessagesParcelable messages = arguments.getParcelable("MSGMessagesParcelable");
-            Log.i(MyLog.MESSAGE, "2- onCreate : " + String.valueOf(messages.getResult().getMessages().size()));
+            Log.i(MyLog.MESSAGE, "2- onCreate : " + messages.getResult().getMessages().size());
 
             recyclerView = rootView.findViewById(R.id.slideFragmentMessage_RecyclerView);
             showData(messages);

@@ -25,7 +25,7 @@ public class MessageSliderAdapter extends RecyclerView.Adapter<MessageSliderAdap
     @SuppressLint("LongLogTag")
     public MessageSliderAdapter(MSGMessagesParcelable.Result myResult) {
         this.results = (myResult == null) ? new MSGMessagesParcelable.Result() : myResult;
-        Log.i(MyLog.MESSAGE, "3- MessageSliderAdapter : " + String.valueOf(results.getMessages().size()));
+        Log.i(MyLog.MESSAGE, "3- MessageSliderAdapter : " + results.getMessages().size());
     }
 
     @NonNull

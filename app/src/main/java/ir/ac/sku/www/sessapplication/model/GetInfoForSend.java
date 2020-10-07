@@ -8,6 +8,7 @@ import com.android.volley.Request;
 import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -289,11 +290,7 @@ public class GetInfoForSend implements Parcelable {
             public void onResponse(boolean ok, Object obj) {
                 if (ok) {
                     GetInfoForSend getInfoForSend = null;
-                    try {
-                        getInfoForSend = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), GetInfoForSend.class);
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
+                    getInfoForSend = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), GetInfoForSend.class);
                     if (getInfoForSend.isOk()) {
                         handler.onResponse(true, getInfoForSend);
                     }

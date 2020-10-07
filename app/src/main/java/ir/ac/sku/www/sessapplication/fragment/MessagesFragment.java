@@ -149,7 +149,7 @@ public class MessagesFragment extends Fragment {
             public void onResponse(boolean ok, Object obj) {
                 if (ok) {
                     MSGMessagesParcelable messages = (MSGMessagesParcelable) obj;
-                    Log.i(MyLog.MESSAGE, "1- prepareData : " + String.valueOf(messages.getResult().getMessages().size()));
+                    Log.i(MyLog.MESSAGE, "1- prepareData : " + messages.getResult().getMessages().size());
 
                     prepareSlides(messages, position);
                 } else {
@@ -165,7 +165,7 @@ public class MessagesFragment extends Fragment {
         String[] title = getResources().getStringArray(R.array.messagePagerTitle);
 
         if (message != null) {
-            Log.i(MyLog.MESSAGE, "2- prepareSlides : " + String.valueOf(message.getResult().getMessages().size()));
+            Log.i(MyLog.MESSAGE, "2- prepareSlides : " + message.getResult().getMessages().size());
             slidePagerAdapter.addFragment(SlideFragmentMessage.newInstance(message), title[position]);
         }
 

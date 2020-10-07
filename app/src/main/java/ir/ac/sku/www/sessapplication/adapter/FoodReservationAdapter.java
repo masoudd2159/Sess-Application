@@ -28,6 +28,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -175,7 +176,7 @@ public class FoodReservationAdapter {
 
 //__________________________________________________________________________________________________
             //Saturday
-            Button buttons_Saturday[] = {saturdayBreakfast, saturdayLunch, saturdayDinner};
+            Button[] buttons_Saturday = {saturdayBreakfast, saturdayLunch, saturdayDinner};
             for (int i = 0; i < 3; i++) {
                 if (sfxWeeklyList.getResult().getDay0().get(i).getStatus().equals("invalid")) {
                     invalid(buttons_Saturday[i]);
@@ -196,7 +197,7 @@ public class FoodReservationAdapter {
             }
 //__________________________________________________________________________________________________
             //Sunday
-            Button buttons_Sunday[] = {sundayBreakfast, sundayLunch, sundayDinner};
+            Button[] buttons_Sunday = {sundayBreakfast, sundayLunch, sundayDinner};
             for (int i = 0; i < 3; i++) {
                 if (sfxWeeklyList.getResult().getDay1().get(i).getStatus().equals("invalid")) {
                     invalid(buttons_Sunday[i]);
@@ -217,7 +218,7 @@ public class FoodReservationAdapter {
             }
 //__________________________________________________________________________________________________
             //Monday
-            Button buttons_Monday[] = {monday_Breakfast, monday_Lunch, monday_Dinner};
+            Button[] buttons_Monday = {monday_Breakfast, monday_Lunch, monday_Dinner};
             for (int i = 0; i < 3; i++) {
                 if (sfxWeeklyList.getResult().getDay2().get(i).getStatus().equals("invalid")) {
                     invalid(buttons_Monday[i]);
@@ -238,7 +239,7 @@ public class FoodReservationAdapter {
             }
 //__________________________________________________________________________________________________
             //Tuesday
-            Button buttons_Tuesday[] = {tuesdayBreakfast, tuesdayLunch, tuesdayDinner};
+            Button[] buttons_Tuesday = {tuesdayBreakfast, tuesdayLunch, tuesdayDinner};
             for (int i = 0; i < 3; i++) {
                 if (sfxWeeklyList.getResult().getDay3().get(i).getStatus().equals("invalid")) {
                     invalid(buttons_Tuesday[i]);
@@ -259,7 +260,7 @@ public class FoodReservationAdapter {
             }
 //__________________________________________________________________________________________________
             //Wednesday
-            Button buttons_Wednesday[] = {wednesdayBreakfast, wednesdayLunch, wednesdayDinner};
+            Button[] buttons_Wednesday = {wednesdayBreakfast, wednesdayLunch, wednesdayDinner};
             for (int i = 0; i < 3; i++) {
                 if (sfxWeeklyList.getResult().getDay4().get(i).getStatus().equals("invalid")) {
                     invalid(buttons_Wednesday[i]);
@@ -280,7 +281,7 @@ public class FoodReservationAdapter {
             }
 //__________________________________________________________________________________________________
             //Thursday
-            Button buttons_Thursday[] = {thursdayBreakfast, thursdayLunch, thursdayDinner};
+            Button[] buttons_Thursday = {thursdayBreakfast, thursdayLunch, thursdayDinner};
             for (int i = 0; i < 3; i++) {
                 if (sfxWeeklyList.getResult().getDay5().get(i).getStatus().equals("invalid")) {
                     invalid(buttons_Thursday[i]);
@@ -301,7 +302,7 @@ public class FoodReservationAdapter {
             }
 //__________________________________________________________________________________________________
             //Friday
-            Button buttons_Friday[] = {fridayBreakfast, fridayLunch, fridayDinner};
+            Button[] buttons_Friday = {fridayBreakfast, fridayLunch, fridayDinner};
             for (int i = 0; i < 3; i++) {
                 if (sfxWeeklyList.getResult().getDay6().get(i).getStatus().equals("invalid")) {
                     invalid(buttons_Friday[i]);
@@ -346,7 +347,7 @@ public class FoodReservationAdapter {
         final String[] meals = {"صبحانه", "ناهار", "شام"};
 //__________________________________________________________________________________________________
         //Saturday
-        Button buttons_Saturday[] = {saturdayBreakfast, saturdayLunch, saturdayDinner};
+        Button[] buttons_Saturday = {saturdayBreakfast, saturdayLunch, saturdayDinner};
         for (int i = 0; i < 3; i++) {
             final int finalI = i;
             buttons_Saturday[i].setOnClickListener(new View.OnClickListener() {
@@ -380,7 +381,7 @@ public class FoodReservationAdapter {
         }
 //__________________________________________________________________________________________________
         //Sunday
-        Button buttons_Sunday[] = {sundayBreakfast, sundayLunch, sundayDinner};
+        Button[] buttons_Sunday = {sundayBreakfast, sundayLunch, sundayDinner};
         for (int i = 0; i < 3; i++) {
             final int finalI = i;
             buttons_Sunday[i].setOnClickListener(new View.OnClickListener() {
@@ -414,7 +415,7 @@ public class FoodReservationAdapter {
         }
 //__________________________________________________________________________________________________
         //Monday
-        Button buttons_Monday[] = {monday_Breakfast, monday_Lunch, monday_Dinner};
+        Button[] buttons_Monday = {monday_Breakfast, monday_Lunch, monday_Dinner};
         for (int i = 0; i < 3; i++) {
             final int finalI = i;
             buttons_Monday[i].setOnClickListener(new View.OnClickListener() {
@@ -448,7 +449,7 @@ public class FoodReservationAdapter {
         }
 //__________________________________________________________________________________________________
         //Tuesday
-        Button buttons_Tuesday[] = {tuesdayBreakfast, tuesdayLunch, tuesdayDinner};
+        Button[] buttons_Tuesday = {tuesdayBreakfast, tuesdayLunch, tuesdayDinner};
         for (int i = 0; i < 3; i++) {
             final int finalI = i;
             buttons_Tuesday[i].setOnClickListener(new View.OnClickListener() {
@@ -482,7 +483,7 @@ public class FoodReservationAdapter {
         }
 //__________________________________________________________________________________________________
         //Wednesday
-        Button buttons_Wednesday[] = {wednesdayBreakfast, wednesdayLunch, wednesdayDinner};
+        Button[] buttons_Wednesday = {wednesdayBreakfast, wednesdayLunch, wednesdayDinner};
         for (int i = 0; i < 3; i++) {
             final int finalI = i;
             buttons_Wednesday[i].setOnClickListener(new View.OnClickListener() {
@@ -516,7 +517,7 @@ public class FoodReservationAdapter {
         }
 //__________________________________________________________________________________________________
         //Thursday
-        Button buttons_Thursday[] = {thursdayBreakfast, thursdayLunch, thursdayDinner};
+        Button[] buttons_Thursday = {thursdayBreakfast, thursdayLunch, thursdayDinner};
         for (int i = 0; i < 3; i++) {
             final int finalI = i;
             buttons_Thursday[i].setOnClickListener(new View.OnClickListener() {
@@ -550,7 +551,7 @@ public class FoodReservationAdapter {
         }
 //__________________________________________________________________________________________________
         //Friday
-        Button buttons_Friday[] = {fridayBreakfast, fridayLunch, fridayDinner};
+        Button[] buttons_Friday = {fridayBreakfast, fridayLunch, fridayDinner};
         for (int i = 0; i < 3; i++) {
             final int finalI = i;
             buttons_Friday[i].setOnClickListener(new View.OnClickListener() {
@@ -789,11 +790,7 @@ public class FoodReservationAdapter {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 if (ok) {
-                    try {
-                        sfxMealDetail = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), SFXMealDetail.class);
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
+                    sfxMealDetail = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), SFXMealDetail.class);
                     if (sfxMealDetail.getOk()) {
                         if (sfxMealDetail.getResult().size() <= 0) {
                             Log.i(MyLog.FOOD_RESERVATION_ADAPTER, "No food found");
@@ -880,26 +877,22 @@ public class FoodReservationAdapter {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        try {
-                            weeklyList = gson.fromJson(new String(response.getBytes("ISO-8859-1"), "UTF-8"), SFXWeeklyList.class);
-                            if (weeklyList.isOk()) {
-                                sfxWeeklyList = weeklyList;
-                                Log.i(MyLog.FOOD_RESERVATION_ADAPTER, sfxWeeklyList.getResult().getMessage());
-                                new FoodReservationAdapter(rootView, R.layout.fragment_food_reservation, sfxWeeklyList);
-                                CustomToastSuccess.success(rootView.getContext(), "وعده غذایی خریداری شد", Toast.LENGTH_SHORT).show();
-                            } else if (!weeklyList.isOk()) {
-                                Log.i(MyLog.FOOD_RESERVATION_ADAPTER, weeklyList.getDescription().getErrorText());
-                                restaurantCode = null;
-                                foodCode = null;
-                                if (Integer.parseInt(weeklyList.getDescription().getErrorCode()) > 0) {
-                                    ManagerHelper.unsuccessfulOperation(rootView.getContext(), weeklyList.getDescription().getErrorText());
-                                } else if (Integer.parseInt(weeklyList.getDescription().getErrorCode()) < 0) {
-                                    SignIn signIn = new SignIn(rootView.getContext());
-                                    // signIn.SignInDialog();
-                                }
+                        weeklyList = gson.fromJson(new String(response.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), SFXWeeklyList.class);
+                        if (weeklyList.isOk()) {
+                            sfxWeeklyList = weeklyList;
+                            Log.i(MyLog.FOOD_RESERVATION_ADAPTER, sfxWeeklyList.getResult().getMessage());
+                            new FoodReservationAdapter(rootView, R.layout.fragment_food_reservation, sfxWeeklyList);
+                            CustomToastSuccess.success(rootView.getContext(), "وعده غذایی خریداری شد", Toast.LENGTH_SHORT).show();
+                        } else if (!weeklyList.isOk()) {
+                            Log.i(MyLog.FOOD_RESERVATION_ADAPTER, weeklyList.getDescription().getErrorText());
+                            restaurantCode = null;
+                            foodCode = null;
+                            if (Integer.parseInt(weeklyList.getDescription().getErrorCode()) > 0) {
+                                ManagerHelper.unsuccessfulOperation(rootView.getContext(), weeklyList.getDescription().getErrorText());
+                            } else if (Integer.parseInt(weeklyList.getDescription().getErrorCode()) < 0) {
+                                SignIn signIn = new SignIn(rootView.getContext());
+                                // signIn.SignInDialog();
                             }
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
                         }
                     }
                 },
@@ -998,11 +991,7 @@ public class FoodReservationAdapter {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 if (ok) {
-                    try {
-                        weeklyList = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), SFXWeeklyList.class);
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
+                    weeklyList = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), SFXWeeklyList.class);
                     if (weeklyList.isOk()) {
                         sfxWeeklyList = weeklyList;
                         Log.i(MyLog.FOOD_RESERVATION_ADAPTER, sfxWeeklyList.getResult().getMessage());

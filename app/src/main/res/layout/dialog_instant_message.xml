@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="300dp"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
     android:layoutDirection="ltr"
@@ -20,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layoutDirection="ltr"
+            android:padding="@dimen/_4sdp"
             android:src="@drawable/ic_instant_message" />
 
     </RelativeLayout>
@@ -37,39 +39,39 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:drawableEnd="@drawable/ic_sender"
             android:drawablePadding="8dp"
             android:gravity="right"
             android:layoutDirection="ltr"
             android:maxLines="1"
             android:padding="5dp"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            app:drawableEndCompat="@drawable/ic_sender" />
 
         <TextView
             android:id="@+id/instantMessage_Date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:drawableEnd="@drawable/ic_date"
             android:drawablePadding="8dp"
             android:gravity="right"
             android:layoutDirection="ltr"
             android:maxLines="1"
             android:padding="5dp"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            app:drawableEndCompat="@drawable/ic_date" />
 
         <TextView
             android:id="@+id/instantMessage_Subject"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:drawableEnd="@drawable/ic_subject"
             android:drawablePadding="8dp"
             android:gravity="right"
             android:layoutDirection="ltr"
             android:maxLines="1"
             android:padding="5dp"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            app:drawableEndCompat="@drawable/ic_subject" />
 
         <TextView
             android:id="@+id/instantMessage_Message"
@@ -94,7 +96,9 @@
         android:id="@+id/instantMessage_NextAndClose"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:background="#01AAD5"
+        android:gravity="center"
         android:layoutDirection="ltr"
         android:textColor="@android:color/white"
         android:textSize="20sp" />

@@ -6,6 +6,7 @@ import com.android.volley.Request;
 import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 
@@ -140,14 +141,9 @@ public class MSGMessages {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 if (ok) {
-                    try {
-                        MSGMessages messages = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), MSGMessages.class);
-                        if (messages.getOk()) {
-                            handler.onResponse(true, messages);
-                        }
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                        handler.onResponse(false, null);
+                    MSGMessages messages = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), MSGMessages.class);
+                    if (messages.getOk()) {
+                        handler.onResponse(true, messages);
                     }
                 }
             }

@@ -43,7 +43,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:layoutDirection="ltr"
-        android:src="@drawable/ic_action_add"
+        android:src="@drawable/ic_add"
         app:fabSize="normal"
         app:layout_anchor="@id/fragmentMessage_ViewPager"
         app:layout_anchorGravity="bottom|right|end"

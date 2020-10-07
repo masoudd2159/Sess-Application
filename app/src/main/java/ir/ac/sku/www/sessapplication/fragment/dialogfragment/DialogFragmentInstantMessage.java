@@ -17,11 +17,11 @@ import ir.ac.sku.www.sessapplication.model.information.SendInformation;
 
 public class DialogFragmentInstantMessage extends BaseDialogFragment {
 
-    @BindView(R.id.instantMessage_Sender) TextView tv_Sender;
-    @BindView(R.id.instantMessage_Date) TextView tv_Date;
-    @BindView(R.id.instantMessage_Subject) TextView tv_Subject;
-    @BindView(R.id.instantMessage_Message) TextView tv_Message;
-    @BindView(R.id.instantMessage_NextAndClose) Button btn_NextAndClose;
+    @BindView(R.id.instantMessage_Sender) TextView textViewSender;
+    @BindView(R.id.instantMessage_Date) TextView textViewDate;
+    @BindView(R.id.instantMessage_Subject) TextView textViewSubject;
+    @BindView(R.id.instantMessage_Message) TextView textViewMessage;
+    @BindView(R.id.instantMessage_NextAndClose) Button buttonNextAndClose;
 
     private SendInformation.Result instantMessage;
 
@@ -37,8 +37,8 @@ public class DialogFragmentInstantMessage extends BaseDialogFragment {
     @Override
     public void onViewCreated(@NonNull View rootView, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(rootView, savedInstanceState);
-        if (instantMessage.getInstantMessage().size() > 0) {
-            tv_Message.setMovementMethod(new ScrollingMovementMethod());
+        if (!instantMessage.getInstantMessage().isEmpty()) {
+            textViewMessage.setMovementMethod(new ScrollingMovementMethod());
             setInstantMessageInformation((instantMessage.getInstantMessage().size() - 1));
         } else {
             dismiss();
@@ -53,26 +53,26 @@ public class DialogFragmentInstantMessage extends BaseDialogFragment {
     private void setInstantMessageInformation(final int index) {
         adaptInstantMessageInformation(index);
         if (index == 0) {
-            btn_NextAndClose.setText("بستن");
-            btn_NextAndClose.setOnClickListener(v -> dismiss());
+            buttonNextAndClose.setText("بستن");
+            buttonNextAndClose.setOnClickListener(v -> dismiss());
         } else {
-            btn_NextAndClose.setText("بعدی");
-            btn_NextAndClose.setOnClickListener(v -> setInstantMessageInformation(index - 1));
+            buttonNextAndClose.setText("بعدی");
+            buttonNextAndClose.setOnClickListener(v -> setInstantMessageInformation(index - 1));
         }
     }
 
     private void adaptInstantMessageInformation(int index) {
-        tv_Sender.setText(instantMessage.getInstantMessage().get(index).getSender());
-        tv_Date.setText(instantMessage.getInstantMessage().get(index).getDate());
-        tv_Subject.setText(instantMessage.getInstantMessage().get(index).getSubject());
+        textViewSender.setText(instantMessage.getInstantMessage().get(index).getSender());
+        textViewDate.setText(instantMessage.getInstantMessage().get(index).getDate());
+        textViewSubject.setText(instantMessage.getInstantMessage().get(index).getSubject());
 
-        tv_Message.scrollTo(0, 0);
-        tv_Message.setText(instantMessage.getInstantMessage().get(index).getText());
+        textViewMessage.scrollTo(0, 0);
+        textViewMessage.setText(instantMessage.getInstantMessage().get(index).getText());
 
         if (instantMessage.getInstantMessage().get(index).isAttachment()) {
-            tv_Subject.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_attachment_1, 0, R.drawable.ic_subject, 0);
+            textViewSubject.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_attachment_1, 0, R.drawable.ic_subject, 0);
         } else if (!instantMessage.getInstantMessage().get(index).isAttachment()) {
-            tv_Subject.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_subject, 0);
+            textViewSubject.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_subject, 0);
         }
     }
 }

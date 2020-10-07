@@ -8,6 +8,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 
@@ -148,15 +149,9 @@ public class StudentRequests {
             @Override
             public void onResponse(boolean ok, Object obj) {
                 if (ok) {
-                    try {
-                        StudentRequests studentRequests = gson.fromJson(new String(obj.toString().getBytes("ISO-8859-1"), "UTF-8"), StudentRequests.class);
-                        if (studentRequests.getOk()) {
-                            handler.onResponse(true, studentRequests);
-                        }
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                        handler.onResponse(false, null);
-
+                    StudentRequests studentRequests = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), StudentRequests.class);
+                    if (studentRequests.getOk()) {
+                        handler.onResponse(true, studentRequests);
                     }
                 }
             }

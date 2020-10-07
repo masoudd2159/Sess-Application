@@ -83,7 +83,7 @@
                         android:layoutDirection="ltr"
                         android:padding="15dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/ic_absence" />
+                        android:src="@drawable/ic_attendant" />
 
                     <TextView
                         fontPath="fonts/IRANSansMobile_Black.ttf"
