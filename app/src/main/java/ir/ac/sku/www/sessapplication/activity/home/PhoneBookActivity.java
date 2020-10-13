@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.HashMap;
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.adapter.PhoneBookAdapter;
+import ir.ac.sku.www.sessapplication.adapters.PhoneBookAdapter;
 import ir.ac.sku.www.sessapplication.model.PhoneBookModel;
 import ir.ac.sku.www.sessapplication.utils.MyHandler;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;

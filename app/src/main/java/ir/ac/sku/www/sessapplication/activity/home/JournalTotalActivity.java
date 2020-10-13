@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.adapter.JournalTotalAdapter;
+import ir.ac.sku.www.sessapplication.adapters.JournalTotalAdapter;
 import ir.ac.sku.www.sessapplication.model.TotalJournalsModel;
 import ir.ac.sku.www.sessapplication.utils.MyHandler;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;

@@ -113,5 +113,12 @@
     <string name="counseling_center">مرکز مشاوره</string>
     <string name="commission">کمیسیون موارد خاص</string>
     <string name="physical_education">اداره تربیت بدنی</string>
+    <string name="search">جست و جو</string>
+    <string name="profile">نمایه من</string>
+    <string name="grouping">دسته بندی ها</string>
+    <string name="special_offer">پیشنهاد ویژه</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ad_categories">دسته بندی آگهی ها</string>
 
 </resources>

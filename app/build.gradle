@@ -57,7 +57,7 @@ dependencies {
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
@@ -79,6 +79,7 @@ dependencies {
 
     // Circle Indicator
     implementation 'me.relex:circleindicator:2.1.4'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
 
     // Circular ImageView
     implementation 'com.mikhaellopez:circularimageview:4.2.0'
@@ -122,13 +123,19 @@ dependencies {
 
     // RX
     implementation 'io.reactivex:rxandroid:1.2.1'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.19'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.20'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
     // Mapbox Maps SDK
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.2.1'
 
-    testImplementation 'junit:junit:4.13'
+    // Navigation Graph
+    implementation "androidx.navigation:navigation-fragment:2.3.0"
+    implementation "androidx.navigation:navigation-ui:2.3.0"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:2.3.0"
+    androidTestImplementation "androidx.navigation:navigation-testing:2.3.0"
+
+    testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 

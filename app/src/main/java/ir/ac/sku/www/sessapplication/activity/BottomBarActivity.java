@@ -6,12 +6,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -23,22 +22,19 @@ import ir.ac.sku.www.sessapplication.activity.about.AboutActivity;
 import ir.ac.sku.www.sessapplication.api.ApplicationAPI;
 import ir.ac.sku.www.sessapplication.api.MyLog;
 import ir.ac.sku.www.sessapplication.base.BaseActivity;
-import ir.ac.sku.www.sessapplication.fragment.FoodReservationFragment;
-import ir.ac.sku.www.sessapplication.fragment.HomeFragment;
-import ir.ac.sku.www.sessapplication.fragment.MessagesFragment;
-import ir.ac.sku.www.sessapplication.fragment.ProcessesFragment;
 import ir.ac.sku.www.sessapplication.fragment.dialogfragment.DialogFragmentSignIn;
 import ir.ac.sku.www.sessapplication.model.information.SendInformation;
 import ir.ac.sku.www.sessapplication.utils.CustomToastExit;
 import ir.ac.sku.www.sessapplication.utils.Tools;
-import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
+
+import static androidx.navigation.ui.NavigationUI.onNavDestinationSelected;
 
 public class BottomBarActivity
         extends BaseActivity
-        implements DialogFragmentSignIn.UserInterface, BottomNavigationView.OnNavigationItemSelectedListener {
+        implements DialogFragmentSignIn.UserInterface {
 
     //* Content View
-    @BindView(R.id.Bottom_navigation_view) BottomNavigationView bottomBar;
+    @BindView(R.id.Bottom_navigation_view) BottomNavigationView bottomNavigation;
 
     // ToolBar View
     @BindView(R.id.toolbar_image_profile) CircularImageView imageViewProfile;
@@ -60,67 +56,18 @@ public class BottomBarActivity
 
         updateUserInformation();
 
-        bottomBar.setOnNavigationItemSelectedListener(this);
-
-        if (savedInstanceState == null) bottomBar.setSelectedItemId(R.id.tab_Home);
+        bottomNavigation.setOnNavigationItemSelectedListener(item -> {
+            if (!item.isChecked()) {
+                onNavDestinationSelected(item, Navigation.findNavController(BottomBarActivity.this, R.id.layout_content));
+                return true;
+            }
+            return false;
+        });
     }
 
     @Override protected void onResume() {
         super.onResume();
         updateUserInformation();
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        if (ManagerHelper.isInternet(this)) {
-            Log.i(MyLog.SESS + TAG, "Device Offline");
-            ManagerHelper.noInternetAccess(this);
-        } else {
-            Log.i(MyLog.SESS + TAG, "Device Online");
-            switch (item.getItemId()) {
-
-                //Home
-                case R.id.tab_Home:
-                    Log.i(MyLog.SESS + TAG, "On Tab Select Item : Tab Home");
-                    getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.layout_content, new HomeFragment())
-                            .commit()
-                    ;
-                    return true;
-
-                //Food Reservation
-                case R.id.tab_FoodReservation:
-                    Log.i(MyLog.SESS + TAG, "On Tab Select Item : Tab Food Reservation");
-                    getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.layout_content, new FoodReservationFragment())
-                            .commit()
-                    ;
-                    return true;
-
-                //Processes
-                case R.id.tab_Processes:
-                    Log.i(MyLog.SESS + TAG, "On Tab Select Item : Tab Processes");
-                    getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.layout_content, new ProcessesFragment())
-                            .commit()
-                    ;
-                    return true;
-
-                //Messages
-                case R.id.tab_Messages:
-                    Log.i(MyLog.SESS + TAG, "On Tab Select Item : Tab Messages");
-                    getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.layout_content, new MessagesFragment())
-                            .commit()
-                    ;
-                    return true;
-            }
-        }
-        return false;
     }
 
     public void onClickItemMore(View view) {

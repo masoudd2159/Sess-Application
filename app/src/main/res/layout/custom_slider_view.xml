@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.loopeer.shadow.ShadowView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/customSliderView_ShadowView"
+    android:layout_width="@dimen/_240sdp"
+    android:layout_height="@dimen/_155sdp"
+    android:layout_gravity="center_horizontal"
+    android:background="@color/white"
+    android:layoutDirection="rtl"
+    android:padding="@dimen/_8sdp"
+    app:cornerRadius="@dimen/_16sdp"
+    app:shadowColor="@color/colorAccentShadow"
+    app:shadowMargin="@dimen/_8sdp"
+    app:shadowRadius="@dimen/_8sdp"
+    tools:ignore="MissingPrefix">
+
+    <RelativeLayout
+        android:id="@+id/customSliderView_RelativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        app:layout_gravity="center">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/customSliderView_ImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/ibg_messages"
+            app:layout_gravity="center"
+            app:riv_corner_radius="@dimen/_16sdp" />
+
+        <!--        <TextView
+                    android:id="@+id/customSliderView_Title"
+                    fontPath="fonts/IRANSansMobile_Black.ttf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="#80000000"
+                    android:layoutDirection="rtl"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="6dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="6dp"
+                    android:textColor="@color/yellow"
+                    android:textSize="22sp" />-->
+
+        <ImageView
+            android:id="@+id/customSliderView_ImageViewMore"
+            android:layout_width="@dimen/_14sdp"
+            android:layout_height="@dimen/_14sdp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/_8sdp"
+            android:src="@drawable/ic_information" />
+
+    </RelativeLayout>
+
+
+</com.loopeer.shadow.ShadowView>

@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import ir.ac.sku.www.sessapplication.api.MyLog;
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.adapter.MessageSliderAdapter;
+import ir.ac.sku.www.sessapplication.adapters.MessageSliderAdapter;
 import ir.ac.sku.www.sessapplication.model.MSGMessagesParcelable;
 
 public class SlideFragmentMessage extends Fragment {

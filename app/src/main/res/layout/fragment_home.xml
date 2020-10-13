@@ -332,6 +332,106 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layoutDirection="ltr"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/homeFragment_OfficeDeputy"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:layoutDirection="ltr"
+                app:cardCornerRadius="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layoutDirection="ltr"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_gravity="center"
+                        android:layoutDirection="ltr"
+                        android:padding="15dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_financial" />
+
+                    <TextView
+                        fontPath="fonts/IRANSansMobile_Black.ttf"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingBottom="15dp"
+                        android:singleLine="true"
+                        android:text="معاونت اداری مالی"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/homeFragment_Nahad"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:layoutDirection="ltr"
+                app:cardCornerRadius="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layoutDirection="ltr"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_gravity="center"
+                        android:layoutDirection="ltr"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_mosque" />
+
+                    <TextView
+                        fontPath="fonts/IRANSansMobile_Black.ttf"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:text="دفتر نهاد نمایندگی مقام معظم رهبری"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center"
@@ -438,11 +538,55 @@
             android:layoutDirection="ltr"
             android:orientation="horizontal">
 
+            <!-- <androidx.cardview.widget.CardView
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+                 android:layout_gravity="center"
+                 android:layout_margin="5dp"
+                 android:layout_weight="1"
+                 android:layoutDirection="ltr"
+                 app:cardCornerRadius="12dp">
+
+                 <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:layoutDirection="ltr"
+                     android:orientation="vertical">
+
+                     <ImageView
+                         android:layout_width="90dp"
+                         android:layout_height="90dp"
+                         android:layout_gravity="center"
+                         android:layoutDirection="ltr"
+                         android:padding="15dp"
+                         android:scaleType="fitXY"
+                         android:src="@drawable/ic_lost" />
+
+                     <TextView
+                         fontPath="fonts/IRANSansMobile_Black.ttf"
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:layout_gravity="center"
+                         android:ellipsize="end"
+                         android:gravity="center"
+                         android:layoutDirection="ltr"
+                         android:paddingLeft="5dp"
+                         android:paddingRight="5dp"
+                         android:paddingBottom="15dp"
+                         android:singleLine="true"
+                         android:text="اشیاء گمشده"
+                         android:textColor="@color/black"
+                         android:textSize="16sp" />
+
+
+                 </LinearLayout>
+
+             </androidx.cardview.widget.CardView>-->
+
             <androidx.cardview.widget.CardView
-                android:id="@+id/homeFragment_OfficeDeputy"
+                android:id="@+id/homeFragment_online_shop"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:layoutDirection="ltr"
@@ -461,7 +605,7 @@
                         android:layoutDirection="ltr"
                         android:padding="15dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/ic_financial" />
+                        android:src="@drawable/ic_online_shop" />
 
                     <TextView
                         fontPath="fonts/IRANSansMobile_Black.ttf"
@@ -475,54 +619,9 @@
                         android:paddingRight="5dp"
                         android:paddingBottom="15dp"
                         android:singleLine="true"
-                        android:text="معاونت اداری مالی"
+                        android:text="بازارچه الکترونیک چرتکه"
                         android:textColor="@color/black"
-                        android:textSize="15sp" />
-
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/homeFragment_Nahad"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:layoutDirection="ltr"
-                app:cardCornerRadius="12dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layoutDirection="ltr"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
-                        android:layout_gravity="center"
-                        android:layoutDirection="ltr"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
-                        android:paddingRight="10dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/ic_mosque" />
-
-                    <TextView
-                        fontPath="fonts/IRANSansMobile_Black.ttf"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:layoutDirection="ltr"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:text="دفتر نهاد نمایندگی مقام معظم رهبری"
-                        android:textColor="@color/black"
-                        android:textSize="15sp" />
+                        android:textSize="17sp" />
 
 
                 </LinearLayout>
@@ -676,104 +775,6 @@
             </androidx.cardview.widget.CardView>-->
 
         </LinearLayout>
-
-        <!-- <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="0dp"
-             android:layout_weight="1"
-             android:layoutDirection="ltr"
-             android:orientation="horizontal">
-
-             <androidx.cardview.widget.CardView
-                 android:layout_width="0dp"
-                 android:layout_height="wrap_content"
-                 android:layout_gravity="center"
-                 android:layout_margin="5dp"
-                 android:layout_weight="1"
-                 android:layoutDirection="ltr"
-                 app:cardCornerRadius="12dp">
-
-                 <LinearLayout
-                     android:layout_width="match_parent"
-                     android:layout_height="match_parent"
-                     android:layoutDirection="ltr"
-                     android:orientation="vertical">
-
-                     <ImageView
-                         android:layout_width="90dp"
-                         android:layout_height="90dp"
-                         android:layout_gravity="center"
-                         android:layoutDirection="ltr"
-                         android:padding="15dp"
-                         android:scaleType="fitXY"
-                         android:src="@drawable/ic_lost" />
-
-                     <TextView
-                         fontPath="fonts/IRANSansMobile_Black.ttf"
-                         android:layout_width="match_parent"
-                         android:layout_height="match_parent"
-                         android:layout_gravity="center"
-                         android:ellipsize="end"
-                         android:gravity="center"
-                         android:layoutDirection="ltr"
-                         android:paddingLeft="5dp"
-                         android:paddingRight="5dp"
-                         android:paddingBottom="15dp"
-                         android:singleLine="true"
-                         android:text="اشیاء گمشده"
-                         android:textColor="@color/black"
-                         android:textSize="16sp" />
-
-
-                 </LinearLayout>
-
-             </androidx.cardview.widget.CardView>
-
-             <androidx.cardview.widget.CardView
-                 android:layout_width="0dp"
-                 android:layout_height="wrap_content"
-                 android:layout_margin="5dp"
-                 android:layout_weight="1"
-                 android:layoutDirection="ltr"
-                 app:cardCornerRadius="12dp">
-
-                 <LinearLayout
-                     android:layout_width="match_parent"
-                     android:layout_height="match_parent"
-                     android:layoutDirection="ltr"
-                     android:orientation="vertical">
-
-                     <ImageView
-                         android:layout_width="90dp"
-                         android:layout_height="90dp"
-                         android:layout_gravity="center"
-                         android:layoutDirection="ltr"
-                         android:padding="15dp"
-                         android:scaleType="fitXY"
-                         android:src="@drawable/ic_store" />
-
-                     <TextView
-                         fontPath="fonts/IRANSansMobile_Black.ttf"
-                         android:layout_width="match_parent"
-                         android:layout_height="match_parent"
-                         android:layout_gravity="center"
-                         android:ellipsize="end"
-                         android:gravity="center"
-                         android:layoutDirection="ltr"
-                         android:paddingLeft="5dp"
-                         android:paddingRight="5dp"
-                         android:paddingBottom="15dp"
-                         android:singleLine="true"
-                         android:text="بازارچه الکترونیک"
-                         android:textColor="@color/black"
-                         android:textSize="17sp" />
-
-
-                 </LinearLayout>
-
-             </androidx.cardview.widget.CardView>
-
-         </LinearLayout>-->
 
 
     </LinearLayout>

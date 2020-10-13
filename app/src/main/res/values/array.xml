@@ -20,15 +20,15 @@
         <item>ic_assistance</item>
 
         <item>5</item>
-        <item>انجمن ها</item>
+        <item>انجمن های علمی دانشجویی</item>
         <item>ic_idea</item>
 
         <item>6</item>
-        <item>کانون ها</item>
+        <item>کانون های فرهنگی هنری</item>
         <item>ic_trust</item>
 
         <item>7</item>
-        <item>تشکل ها</item>
+        <item>تشکل های اسلامی</item>
         <item>ic_meeting</item>
 
         <item>8</item>
@@ -75,7 +75,7 @@
         <item>47</item>
         <item>1</item>
         <item>میثاق نامه دانشجویان</item>
-        <item>https://www.msrt.ir/fa/news/13538/%D9%85%D8%AA%D9%86-%D9%85%DB%8C%D8%AB%D8%A7%D9%82-%D9%86%D8%A7%D9%85%D9%87-%D8%AF%D8%A7%D9%86%D8%B4%DA%AF%D8%A7%D9%87%DB%8C%D8%A7%D9%86-%D8%A8%D8%A7-%D8%A2%D8%B1%D9%85%D8%A7%D9%86%D9%87%D8%A7%DB%8C-%D8%A7%D9%86%D9%82%D9%84%D8%A7%D8%A8-%D8%A7%D8%B3%D9%84%D8%A7%D9%85%DB%8C-</item>
+        <item>https://app.sku.ac.ir/Logo/niayesh.pdf</item>
 
         <item>49</item>
         <item>1</item>
@@ -227,11 +227,6 @@
         <item>کارمندان دانشگاه</item>
         <item>https://www.sku.ac.ir/Shahrekord-University-Employees</item>
 
-        <item>34</item>
-        <item>9</item>
-        <item>دانشجویان</item>
-        <item>https://www.sku.ac.ir/University-Students</item>
-
         <item>35</item>
         <item>10</item>
         <item>دفتر مقام معظم رهبری</item>
@@ -252,10 +247,10 @@
         <item>وزارت علوم , تحقیقات و فناوری</item>
         <item>https://www.msrt.ir/fa</item>
 
-        <item>48</item>
-        <item>10</item>
-        <item>زیارت آنلاین شهدای گمنام دانشگاه شهرکرد</item>
-        <item>https://www.msrt.ir/fa</item>
+        <!--        <item>48</item>
+                <item>10</item>
+                <item>زیارت آنلاین شهدای گمنام دانشگاه شهرکرد</item>
+                <item>https://www.msrt.ir/fa</item>-->
 
         <item>39</item>
         <item>10</item>
@@ -296,6 +291,39 @@
         <item>10</item>
         <item>درگاه دولت</item>
         <item>http://www.iran.ir/</item>
+    </string-array>
+
+    <string-array name="category">
+
+        <item>ic_museum</item>
+        <item>صنایع دستی و هنر های تجسمی</item>
+        <item>true</item>
+
+        <item>ic_repairing_service</item>
+        <item>کارآفرینی و خدمات</item>
+        <item>true</item>
+
+        <item>ic_open_book</item>
+        <item>فرهنگی هنری آموزشی</item>
+        <item>true</item>
+
+        <item>ic_kettle</item>
+        <item>لوازم خانگی</item>
+        <item>true</item>
+
+        <item>ic_tablet_and_laptop</item>
+        <item>لوازم الکتریکی</item>
+        <item>true</item>
+
+        <item>ic_supermarket</item>
+        <item>هایپر مارکت</item>
+        <item>true</item>
+
+        <item>ic_watch</item>
+        <item>وسایل شخصی</item>
+        <item>false</item>
+
+
     </string-array>
 
 </resources>

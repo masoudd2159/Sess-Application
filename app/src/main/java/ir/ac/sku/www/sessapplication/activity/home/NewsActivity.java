@@ -32,7 +32,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.adapter.NewsAdapter;
+import ir.ac.sku.www.sessapplication.adapters.NewsAdapter;
 import ir.ac.sku.www.sessapplication.model.NewsModel;
 import ir.ac.sku.www.sessapplication.utils.MyHandler;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;

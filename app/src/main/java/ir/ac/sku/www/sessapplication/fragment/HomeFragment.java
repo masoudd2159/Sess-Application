@@ -11,19 +11,20 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import ir.ac.sku.www.sessapplication.api.ApplicationAPI;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.activity.about.AboutActivity;
-import ir.ac.sku.www.sessapplication.activity.utils.ActivityWebView;
 import ir.ac.sku.www.sessapplication.activity.home.CulturalDeputyActivity;
-import ir.ac.sku.www.sessapplication.activity.home.NewsActivity;
-import ir.ac.sku.www.sessapplication.activity.home.PhoneBookActivity;
 import ir.ac.sku.www.sessapplication.activity.home.EducationalDeputyActivity;
 import ir.ac.sku.www.sessapplication.activity.home.LeaderActivity;
 import ir.ac.sku.www.sessapplication.activity.home.NewbieActivity;
+import ir.ac.sku.www.sessapplication.activity.home.NewsActivity;
 import ir.ac.sku.www.sessapplication.activity.home.OfficeDeputyActivity;
+import ir.ac.sku.www.sessapplication.activity.home.OnlineShopActivity;
+import ir.ac.sku.www.sessapplication.activity.home.PhoneBookActivity;
 import ir.ac.sku.www.sessapplication.activity.home.ResearchDeputyActivity;
 import ir.ac.sku.www.sessapplication.activity.home.StudentDeputyActivity;
+import ir.ac.sku.www.sessapplication.activity.utils.ActivityWebView;
+import ir.ac.sku.www.sessapplication.api.ApplicationAPI;
 import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 
 public class HomeFragment extends Fragment {
@@ -37,11 +38,9 @@ public class HomeFragment extends Fragment {
     private CardView news;
     private CardView support;
     private CardView newbie;
-    //private CardView television;
+    private CardView onlineShop;
     private CardView office;
     private CardView phoneBook;
-    private CardView lost;
-    private CardView market;
 
     private View rootView;
 
@@ -52,84 +51,37 @@ public class HomeFragment extends Fragment {
         this.rootView = view;
         init();
 
-        sess.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ManagerHelper.isInternet(rootView.getContext())) {
-                    ManagerHelper.noInternetAccess(rootView.getContext());
-                } else {
-                    Intent intent = new Intent(rootView.getContext(), ActivityWebView.class);
-                    intent.putExtra("key.EXTRA_OBJC", ApplicationAPI.SESS);
-                    rootView.getContext().startActivity(intent);
-                }
+        sess.setOnClickListener(v -> {
+            if (ManagerHelper.isInternet(rootView.getContext())) {
+                ManagerHelper.noInternetAccess(rootView.getContext());
+            } else {
+                Intent intent = new Intent(rootView.getContext(), ActivityWebView.class);
+                intent.putExtra("key.EXTRA_OBJC", ApplicationAPI.SESS);
+                rootView.getContext().startActivity(intent);
             }
         });
 
-        cultural.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(rootView.getContext(), CulturalDeputyActivity.class));
-            }
-        });
+        cultural.setOnClickListener(v -> startActivity(new Intent(rootView.getContext(), CulturalDeputyActivity.class)));
 
-        news.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(rootView.getContext(), NewsActivity.class));
-            }
-        });
+        news.setOnClickListener(v -> startActivity(new Intent(rootView.getContext(), NewsActivity.class)));
 
-        phoneBook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(rootView.getContext(), PhoneBookActivity.class));
-            }
-        });
+        phoneBook.setOnClickListener(v -> startActivity(new Intent(rootView.getContext(), PhoneBookActivity.class)));
 
-        educational.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(rootView.getContext(), EducationalDeputyActivity.class));
-            }
-        });
+        educational.setOnClickListener(v -> startActivity(new Intent(rootView.getContext(), EducationalDeputyActivity.class)));
 
-        student.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(rootView.getContext(), StudentDeputyActivity.class));
-            }
-        });
+        student.setOnClickListener(v -> startActivity(new Intent(rootView.getContext(), StudentDeputyActivity.class)));
 
-        research.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(rootView.getContext(), ResearchDeputyActivity.class));
-            }
-        });
+        research.setOnClickListener(v -> startActivity(new Intent(rootView.getContext(), ResearchDeputyActivity.class)));
 
-        office.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(rootView.getContext(), OfficeDeputyActivity.class));
-            }
-        });
-        support.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(rootView.getContext(), AboutActivity.class));
-            }
-        });
+        office.setOnClickListener(v -> startActivity(new Intent(rootView.getContext(), OfficeDeputyActivity.class)));
 
-        newbie.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(rootView.getContext(), NewbieActivity.class));
-            }
-        });
+        support.setOnClickListener(v -> startActivity(new Intent(rootView.getContext(), AboutActivity.class)));
 
-        nahad.setOnClickListener(v -> {
-            startActivity(new Intent(rootView.getContext(), LeaderActivity.class));
-        });
+        newbie.setOnClickListener(v -> startActivity(new Intent(rootView.getContext(), NewbieActivity.class)));
+
+        nahad.setOnClickListener(v -> startActivity(new Intent(rootView.getContext(), LeaderActivity.class)));
+
+        onlineShop.setOnClickListener(v -> startActivity(new Intent(rootView.getContext(), OnlineShopActivity.class)));
 
         return view;
     }
@@ -146,6 +98,6 @@ public class HomeFragment extends Fragment {
         support = rootView.findViewById(R.id.homeFragment_Support);
         newbie = rootView.findViewById(R.id.homeFragment_Newbie);
         nahad = rootView.findViewById(R.id.homeFragment_Nahad);
-        //television = rootView.findViewById(R.id.homeFragment_Television);
+        onlineShop = rootView.findViewById(R.id.homeFragment_online_shop);
     }
 }

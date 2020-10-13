@@ -26,10 +26,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
-import java.util.Objects;
-
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.adapter.AdminAdapter;
+import ir.ac.sku.www.sessapplication.adapters.AdminAdapter;
 import ir.ac.sku.www.sessapplication.model.AssociationModel;
 
 public class AssociationDialogFragment extends DialogFragment {
@@ -102,10 +100,10 @@ public class AssociationDialogFragment extends DialogFragment {
             description.setText(model.getDescription());
         }
 
-        if (!model.getSecretary().equals("")) {
+/*        if (!model.getSecretary().equals("")) {
             secretary.setText("دبیر " + model.getSecretary());
             secretary.setVisibility(View.VISIBLE);
-        }
+        }*/
 
         if (!model.getLogo().equals("")) {
             logo.setVisibility(View.VISIBLE);
@@ -203,8 +201,8 @@ public class AssociationDialogFragment extends DialogFragment {
 
     private void changeDialogSize() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
-        Objects.requireNonNull(getActivity()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        Objects.requireNonNull(Objects.requireNonNull(getDialog()).getWindow()).setLayout(
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        getDialog().getWindow().setLayout(
                 (int) (displayMetrics.widthPixels * 0.85),
                 ViewGroup.LayoutParams.WRAP_CONTENT);
     }

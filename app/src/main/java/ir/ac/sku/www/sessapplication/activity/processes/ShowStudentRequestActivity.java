@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.HashMap;
 
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.adapter.StudentRequestAdapter;
+import ir.ac.sku.www.sessapplication.adapters.StudentRequestAdapter;
 import ir.ac.sku.www.sessapplication.model.StudentRequestDetails;
 import ir.ac.sku.www.sessapplication.utils.MyHandler;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;

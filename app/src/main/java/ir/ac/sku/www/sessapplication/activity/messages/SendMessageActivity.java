@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.adapter.TargetsAdapter;
+import ir.ac.sku.www.sessapplication.adapters.TargetsAdapter;
 import ir.ac.sku.www.sessapplication.api.ApplicationAPI;
 import ir.ac.sku.www.sessapplication.base.BaseActivity;
 import ir.ac.sku.www.sessapplication.model.GetInfoForSend;

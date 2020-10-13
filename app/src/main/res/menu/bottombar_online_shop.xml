@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingPrefix">
+
+    <item
+        android:id="@+id/tab_offer"
+        android:enabled="true"
+        android:icon="@drawable/ic_home_tab"
+        android:title="@string/special_offer" />
+
+    <item
+        android:id="@+id/tab_grouping"
+        android:enabled="true"
+        android:icon="@drawable/ic_bullet_list"
+        android:title="@string/grouping" />
+
+    <item
+        android:id="@+id/tab_blank"
+        android:enabled="false"
+        android:title="" />
+
+    <item
+        android:id="@+id/tab_search"
+        android:enabled="true"
+        android:icon="@drawable/ic_search_tab"
+        android:title="@string/search" />
+
+    <item
+        android:id="@+id/tab_profile"
+        android:enabled="true"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/profile"/>
+
+</menu>

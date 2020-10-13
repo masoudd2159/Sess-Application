@@ -36,9 +36,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.adapter.AssociationAdapter;
-import ir.ac.sku.www.sessapplication.adapter.DepartmentsAdapter;
-import ir.ac.sku.www.sessapplication.adapter.DetailsAdapter;
+import ir.ac.sku.www.sessapplication.adapters.AssociationAdapter;
+import ir.ac.sku.www.sessapplication.adapters.DepartmentsAdapter;
+import ir.ac.sku.www.sessapplication.adapters.DetailsAdapter;
 import ir.ac.sku.www.sessapplication.model.AssociationModel;
 import ir.ac.sku.www.sessapplication.model.DepartmentsModel;
 import ir.ac.sku.www.sessapplication.model.DetailsModel;
@@ -67,7 +67,6 @@ public class NewbieActivity extends MyActivity implements
     // Handler to update UI timer, progress bar etc,.
     private Handler mHandler = new Handler();
 
-    //private SongsManager songManager;
     private MusicUtils utils;
 
     @Override
@@ -85,12 +84,9 @@ public class NewbieActivity extends MyActivity implements
 
         // Media Player
         mp = new MediaPlayer();
-        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                // Changing button image to play button
-                play.setImageResource(R.drawable.ic_play_arrow);
-            }
+        mp.setOnCompletionListener(mp -> {
+            // Changing button image to play button
+            play.setImageResource(R.drawable.ic_play_arrow);
         });
 
         try {
@@ -246,7 +242,6 @@ public class NewbieActivity extends MyActivity implements
             recyclerView.setHasFixedSize(true);
 
             if (adapterPosition == 4) {
-
                 for (int i = 0; i < modelAnjoman.size(); i++) {
                     modelAnjoman.get(i).setSwiped(false);
                     modelAnjoman.get(i).setExpanded(false);

@@ -9,7 +9,8 @@
     <!--Pink 700-->
     <color name="accent_700">#C2185B</color>
 
-    <color name="colorPrimaryShadow">#800086CA</color>
+    <color name="colorPrimaryShadow">#9F00A9FF</color>
+    <color name="colorAccentShadow">#80FFC6C6</color>
 
     <color name="blue_grey">#455A64</color>
     <color name="blue_grey2">#af3c5059</color>

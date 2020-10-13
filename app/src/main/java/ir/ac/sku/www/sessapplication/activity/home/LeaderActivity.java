@@ -16,7 +16,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import ir.ac.sku.www.sessapplication.R;
-import ir.ac.sku.www.sessapplication.adapter.LeaderAdapter;
+import ir.ac.sku.www.sessapplication.adapters.LeaderAdapter;
 import ir.ac.sku.www.sessapplication.base.BaseActivity;
 import ir.ac.sku.www.sessapplication.model.LeaderModel;
 import ir.ac.sku.www.sessapplication.utils.Tools;

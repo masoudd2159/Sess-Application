@@ -3,6 +3,26 @@
     "section": "کانون های دانشگاه شهرکرد",
     "data": [
       {
+        "faName": "هیئت چهارده معصوم",
+        "enName": "",
+        "description": "بَقِيَّتُ اللَّهِ خَيْرٌ لَّكُمْ إِن كُنتُم مُّؤْمِنِينَ ۚ وَمَا أَنَا عَلَيْكُم بِحَفِيظٍ",
+        "establishedYear": "1375",
+        "logo": "logo_sku_heiyat.jpg",
+        "secretary": "",
+        "telegram": "https://t.me/sku_heiyat_14",
+        "instagram": "http://instagram.com/sku_heiyat",
+        "twitter": "",
+        "email": "",
+        "phone": "03832421628",
+        "website": "https://eitaa.com/sku_heiyat_14",
+        "admin": [
+          {
+            "name": "ادمین کانال هیئت دانشجویی چهارده معصوم علیهم السلام",
+            "telegramId": "https://t.me/sku_heiyat_14_admin"
+          }
+        ]
+      },
+      {
         "faName": "کانون هنری",
         "enName": "",
         "description": "",
@@ -37,8 +57,8 @@
         "website": "",
         "admin": [
           {
-            "name": "آقای محمد",
-            "telegramId": "https://t.me/Moh_km96"
+            "name": "",
+            "telegramId": ""
           }
         ]
       },
@@ -197,8 +217,8 @@
         "website": "",
         "admin": [
           {
-            "name": "اقای رضا مرینژاد",
-            "telegramId": "@RezAmorinejad"
+            "name": "",
+            "telegramId": ""
           }
         ]
       },
@@ -254,26 +274,6 @@
         "twitter": "",
         "email": "",
         "phone": "+98 938 783 6364",
-        "website": "",
-        "admin": [
-          {
-            "name": "آقای سید علی نوری",
-            "telegramId": "@baran_skuu"
-          }
-        ]
-      },
-      {
-        "faName": "هیئت چهارده معصوم",
-        "enName": "",
-        "description": "",
-        "establishedYear": "",
-        "logo": "",
-        "secretary": "",
-        "telegram": "",
-        "instagram": "",
-        "twitter": "",
-        "email": "",
-        "phone": "03832421628",
         "website": "",
         "admin": [
           {
