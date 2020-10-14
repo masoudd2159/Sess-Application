@@ -295,9 +295,13 @@
 
     <string-array name="category">
 
-        <item>ic_museum</item>
+        <item>ic_craft</item>
         <item>صنایع دستی و هنر های تجسمی</item>
         <item>true</item>
+
+        <item>ic_flower_pot</item>
+        <item>گل و گیاه</item>
+        <item>false</item>
 
         <item>ic_repairing_service</item>
         <item>کارآفرینی و خدمات</item>

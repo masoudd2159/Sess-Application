@@ -28,7 +28,7 @@ import ir.ac.sku.www.sessapplication.utils.CustomToastExit;
 import ir.ac.sku.www.sessapplication.utils.Tools;
 
 import static androidx.navigation.ui.NavigationUI.onNavDestinationSelected;
-
+@SuppressLint("NonConstantResourceId")
 public class BottomBarActivity
         extends BaseActivity
         implements DialogFragmentSignIn.UserInterface {
