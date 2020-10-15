@@ -50,7 +50,7 @@
             android:layout_centerInParent="true"
             android:visibility="gone"
             app:srcCompat="@drawable/ic_arrow_left"
-            app:tint="@color/overlay_dark_30" />
+            app:tint="@color/grey_500" />
 
     </RelativeLayout>
 

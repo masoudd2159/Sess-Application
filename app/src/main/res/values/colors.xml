@@ -40,6 +40,7 @@
     <color name="brown">#795548</color>
     <color name="lite_grey">#E0E0E0</color>
     <color name="black">#313030</color>
+    <color name="black100">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="white_2">#4bffffff</color>
 
@@ -83,6 +84,18 @@
     <color name="grey_90">#263238</color>
     <color name="grey_95">#1a1a1a</color>
     <color name="grey_100_">#0d0d0d</color>
+
+    <color name="grey_50">#FAFAFA</color>
+    <color name="grey_100">#F5F5F5</color>
+    <color name="grey_200">#EEEEEE</color>
+    <color name="grey_300">#E0E0E0</color>
+    <color name="grey_400">#BDBDBD</color>
+    <color name="grey_500">#9E9E9E</color>
+    <color name="grey_600">#757575</color>
+    <color name="grey_700">#616161</color>
+    <color name="grey_800">#424242</color>
+    <color name="grey_900">#212121</color>
+    <color name="grey_1000">#1a1a1a</color>
 
 
     <!--Material color list from https://material.io/guidelines/style/color.html-->
@@ -352,17 +365,7 @@
     <color name="orange_A400">#FF9100</color>
     <color name="orange_A700">#FF6D00</color>
 
-    <color name="grey_50">#FAFAFA</color>
-    <color name="grey_100">#F5F5F5</color>
-    <color name="grey_200">#EEEEEE</color>
-    <color name="grey_300">#E0E0E0</color>
-    <color name="grey_400">#BDBDBD</color>
-    <color name="grey_500">#9E9E9E</color>
-    <color name="grey_600">#757575</color>
-    <color name="grey_700">#616161</color>
-    <color name="grey_800">#424242</color>
-    <color name="grey_900">#212121</color>
-    <color name="grey_1000">#1a1a1a</color>
+
 
 
     <!--for random color generator -->

@@ -9,11 +9,18 @@
 
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
-    </style>
 
-    <style name="AppTheme.NoActionBar" parent="AppTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+<!--    <style name="AppTheme.NoActionBar" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>-->
+
+    <style name="AppTheme.navigationBarColor" parent="AppTheme">
+        <item name="android:navigationBarColor">#2190BF</item>
     </style>
 
     <style name="AppTheme.TransNav" parent="AppTheme" />

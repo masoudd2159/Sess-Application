@@ -34,7 +34,7 @@
         <activity
             android:name=".activity.SplashScreenActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.navigationBarColor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,22 +43,15 @@
         </activity>
         <activity
             android:name=".activity.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activity.utils.ActivityWebView"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activity.utils.ParsMapActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.utils.ActivityWebView" />
+        <activity android:name=".activity.utils.ParsMapActivity" />
         <activity
             android:name=".activity.home.NewbieActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.BottomBarActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.home.OnlineShopActivity"
             android:screenOrientation="portrait"
@@ -66,83 +59,61 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activity.home.LeaderActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.about.AboutActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.messages.ShowMessageActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.messages.SendMessageActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.processes.ShowStudentRequestActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.home.JournalTotalActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.home.CulturalDeputyActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.home.PhoneBookActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.home.ResearchDeputyActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.home.StudentDeputyActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.home.EducationalDeputyActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.home.OfficeDeputyActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.home.TelevisionActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activity.utils.VideoActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.utils.VideoActivity" />
         <activity
             android:name=".activity.utils.ShowPDFActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.home.CompetitionsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.home.JournalsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.home.NewsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.utils.MusicActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activity.home.ChannelActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.home.ChannelActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

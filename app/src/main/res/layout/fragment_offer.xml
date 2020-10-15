@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layoutDirection="rtl"
+    android:layoutDirection="ltr"
     tools:context=".fragment.onlineshop.OfferFragment"
     tools:ignore="MissingPrefix">
 
@@ -31,9 +31,10 @@
                 fontPath="fonts/IRANSansMobile(FaNum)_Black.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center|start"
+                android:layout_gravity="center|right"
                 android:ellipsize="end"
                 android:singleLine="true"
+                android:layout_marginRight="@dimen/_16sdp"
                 android:text="@string/special_offer"
                 android:textColor="@color/grey_80"
                 android:textSize="@dimen/_14ssp" />
@@ -42,7 +43,7 @@
                 android:id="@+id/toolbar_search"
                 android:layout_width="22dp"
                 android:layout_height="22dp"
-                android:layout_gravity="center|end"
+                android:layout_gravity="center|left"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
                 android:src="@drawable/ic_search_tab" />

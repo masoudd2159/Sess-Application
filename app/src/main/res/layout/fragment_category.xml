@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layoutDirection="rtl"
+    android:layoutDirection="ltr"
     tools:context=".fragment.onlineshop.CategoryFragment"
     tools:ignore="MissingPrefix">
 
@@ -31,7 +31,8 @@
                 fontPath="fonts/IRANSansMobile(FaNum)_Black.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center|start"
+                android:layout_gravity="center|right"
+                android:layout_marginRight="@dimen/_16sdp"
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="@string/ad_categories"
