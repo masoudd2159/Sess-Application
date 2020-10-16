@@ -1,0 +1,12 @@
+
+b
+java:S1874{"GRemove this use of "SYSTEM_UI_FLAG_LIGHT_STATUS_BAR"; it is deprecated.(£°Ğ¶üÿÿÿÿ
+R	java:S110!"=This class has 10 parents which is greater than 5 authorized.(Í¨´
+<	java:S131,""Add a default case to this switch.(øå´¡ÿÿÿÿÿ
+V
+java:S1128"9Remove this unused import 'androidx.annotation.ColorInt'.(ÿ®ìÏ8óÚ…ØÒ.
+X
+java:S1874{"=Remove this use of "setSystemUiVisibility"; it is deprecated.(£°Ğ¶üÿÿÿÿ
+M
+java:S1128
+"7Remove this unused import 'android.view.WindowManager'.(Ü³‹Å

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/overlay_light_10"
     android:layoutDirection="ltr"
     tools:context=".fragment.onlineshop.OfferFragment"
     tools:ignore="MissingPrefix">
@@ -32,9 +33,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|right"
+                android:layout_marginRight="@dimen/_16sdp"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:layout_marginRight="@dimen/_16sdp"
                 android:text="@string/special_offer"
                 android:textColor="@color/grey_80"
                 android:textSize="@dimen/_14ssp" />
@@ -84,6 +85,7 @@
                 android:id="@+id/fragmentOffer_RecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/_35sdp"
                 android:nestedScrollingEnabled="false" />
 
         </LinearLayout>

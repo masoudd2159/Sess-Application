@@ -33,8 +33,8 @@ public class OfficeDeputyActivity extends MyActivity {
 
         init();
 
-        img_AbsenceOfEmployees.setColorFilter(ManagerHelper.getBlackWhiteFilter());
-        img_Automation.setColorFilter(ManagerHelper.getBlackWhiteFilter());
+     /*   img_AbsenceOfEmployees.setColorFilter(ManagerHelper.getBlackWhiteFilter());
+        img_Automation.setColorFilter(ManagerHelper.getBlackWhiteFilter());*/
 
     }
 

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layoutDirection="rtl"
+    tools:ignore="MissingPrefix">
+
+    <TextView
+        android:id="@+id/category_title"
+        fontPath="fonts/IRANSansMobile_Black.ttf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="@dimen/_8sdp"
+        android:layout_marginRight="@dimen/_8sdp"
+        android:gravity="right|center"
+        android:layoutDirection="rtl"
+        android:padding="@dimen/_8sdp"
+        android:textColor="@color/grey_900"
+        android:textSize="@dimen/_13ssp" />
+
+    <TextView
+        android:id="@+id/more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/category_title"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/_8sdp"
+        android:layout_marginRight="@dimen/_8sdp"
+        android:gravity="left|bottom"
+        android:layoutDirection="rtl"
+        android:padding="@dimen/_8sdp"
+        android:text="@string/more"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/_10ssp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/category_title"
+        android:layoutDirection="rtl" />
+
+</RelativeLayout>

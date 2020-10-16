@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.loopeer.shadow.ShadowView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/shadow_view"
+    android:layout_width="@dimen/_160sdp"
+    android:layout_height="@dimen/_220sdp"
+    android:background="@color/white"
+    android:padding="@dimen/_6sdp"
+    app:cornerRadius="@dimen/_10sdp"
+    app:shadowColor="@color/colorAccentShadow"
+    app:shadowMargin="@dimen/_4sdp"
+    app:shadowRadius="@dimen/_4sdp"
+    tools:ignore="MissingPrefix">
+
+    <RelativeLayout
+        android:id="@+id/layout_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="top"
+        android:orientation="vertical"
+        app:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_110sdp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/_4sdp"
+            android:scaleType="fitCenter" />
+
+        <TextView
+            android:id="@+id/title"
+            fontPath="fonts/IRANSansMobile(FaNum)_Bold.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginRight="@dimen/_8sdp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_11ssp" />
+
+        <TextView
+            android:id="@+id/description"
+            fontPath="fonts/IRANSansMobile(FaNum)_Light.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="right"
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginRight="@dimen/_8sdp"
+            android:ellipsize="end"
+            android:gravity="right"
+            android:maxLines="2"
+            android:textColor="@color/grey_500"
+            android:textSize="@dimen/_9ssp" />
+
+        <TextView
+            fontPath="fonts/IRANSansMobile(FaNum)_Bold.ttf"
+            android:id="@+id/price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="left"
+            android:layout_margin="@dimen/_6sdp"
+            android:ellipsize="end"
+            android:gravity="left"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_9ssp" />
+
+    </RelativeLayout>
+
+
+</com.loopeer.shadow.ShadowView>

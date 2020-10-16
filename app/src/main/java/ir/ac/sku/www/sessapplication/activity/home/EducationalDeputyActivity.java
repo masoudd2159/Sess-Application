@@ -40,9 +40,9 @@ public class EducationalDeputyActivity extends MyActivity {
 
         init();
 
-        img_Attendance.setColorFilter(ManagerHelper.getBlackWhiteFilter());
+        /*img_Attendance.setColorFilter(ManagerHelper.getBlackWhiteFilter());
         img_Professors.setColorFilter(ManagerHelper.getBlackWhiteFilter());
-        img_WeeklySchedule.setColorFilter(ManagerHelper.getBlackWhiteFilter());
+        img_WeeklySchedule.setColorFilter(ManagerHelper.getBlackWhiteFilter());*/
 
         processes.setOnClickListener(new View.OnClickListener() {
             @Override

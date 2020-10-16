@@ -48,6 +48,8 @@
             android:theme="@style/Widget.BottomNavigationView"
             app:backgroundTint="@android:color/transparent"
             app:elevation="0dp"
+            app:itemIconTint="@color/bnv_tab_item_foreground"
+            app:itemTextColor="@color/bnv_tab_item_foreground"
             app:labelVisibilityMode="selected"
             app:menu="@menu/bottombar_online_shop" />
 
@@ -58,6 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorAccent"
+        android:contentDescription="Add Fab"
         android:layoutDirection="rtl"
         android:tint="@android:color/white"
         app:fabSize="normal"
@@ -69,10 +72,10 @@
         android:layout_width="@dimen/_65sdp"
         android:layout_height="@dimen/_65sdp"
         android:layout_gravity="bottom|center"
+        android:layout_marginBottom="21dp"
         android:visibility="visible"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        android:layout_marginBottom="21dp"
         app:lottie_rawRes="@raw/loading_2" />
 
 

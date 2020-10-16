@@ -1,5 +1,6 @@
 package ir.ac.sku.www.sessapplication.activity.home;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
@@ -7,11 +8,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import androidx.annotation.ColorInt;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -25,22 +24,25 @@ import butterknife.BindView;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.api.MyLog;
 import ir.ac.sku.www.sessapplication.base.BaseActivity;
+import ir.ac.sku.www.sessapplication.fragment.onlineshop.AddAdsFragment;
 import ir.ac.sku.www.sessapplication.fragment.onlineshop.CategoryFragment;
 import ir.ac.sku.www.sessapplication.fragment.onlineshop.OfferFragment;
 import ir.ac.sku.www.sessapplication.fragment.onlineshop.ProfileFragment;
 import ir.ac.sku.www.sessapplication.fragment.onlineshop.SearchFragment;
 
+@SuppressLint("NonConstantResourceId")
 public class OnlineShopActivity extends BaseActivity {
     final Fragment fragment1 = new OfferFragment();
     final Fragment fragment2 = new CategoryFragment();
     final Fragment fragment3 = new SearchFragment();
     final Fragment fragment4 = new ProfileFragment();
+    final Fragment fragment5 = new AddAdsFragment();
     final FragmentManager fm = getSupportFragmentManager();
     @BindView(R.id.floatingActionButton) FloatingActionButton fabAdd;
     @BindView(R.id.bottomNavigationView) BottomNavigationView bottomNavigation;
     Fragment active = fragment1;
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = item -> {
+    private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = item -> {
         switch (item.getItemId()) {
             case R.id.tab_offer:
                 fm.beginTransaction().hide(active).show(fragment1).commit();
@@ -61,6 +63,8 @@ public class OnlineShopActivity extends BaseActivity {
                 fm.beginTransaction().hide(active).show(fragment4).commit();
                 active = fragment4;
                 return true;
+            default:
+                break;
         }
         return false;
     };
@@ -75,6 +79,11 @@ public class OnlineShopActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         fabAdd.setColorFilter(Color.WHITE);
+        fabAdd.setOnClickListener(view -> {
+            fm.beginTransaction().hide(active).show(fragment5).commit();
+            active = fragment5;
+            bottomNavigation.getMenu().findItem(R.id.tab_blank).setChecked(true);
+        });
         changeStatusBarColor();
 
 
@@ -121,7 +130,7 @@ public class OnlineShopActivity extends BaseActivity {
         Log.i(MyLog.SESS + TAG, "Change Status Bar");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);//  set status text dark
-            getWindow().setStatusBarColor(ContextCompat.getColor(OnlineShopActivity.this,R.color.white));// set status background white
+            getWindow().setStatusBarColor(ContextCompat.getColor(OnlineShopActivity.this, R.color.white));// set status background white
         }
     }
 }
