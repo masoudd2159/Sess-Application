@@ -1,0 +1,11 @@
+
+>
+java:S16046"(Make this anonymous inner class a lambda(íƒ¡Á
+q
+java:S1450"VRemove the "adapter" field and declare it as a local variable in the relevant methods.(©èÎ¬üÿÿÿÿ
+Q
+java:S1874"6Remove this use of "ProgressDialog"; it is deprecated.(·á…Çùÿÿÿÿ
+Q
+java:S1874+"6Remove this use of "ProgressDialog"; it is deprecated.(¤¿Û¬ÿÿÿÿÿ
+M
+java:S1874,"2Remove this use of "setMessage"; it is deprecated.(•ŽÐ¬ýÿÿÿÿ

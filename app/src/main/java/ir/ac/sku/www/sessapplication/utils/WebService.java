@@ -2,7 +2,6 @@ package ir.ac.sku.www.sessapplication.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;

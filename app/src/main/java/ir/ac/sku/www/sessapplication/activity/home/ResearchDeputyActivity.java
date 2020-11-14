@@ -34,9 +34,9 @@ public class ResearchDeputyActivity extends MyActivity {
 
         init();
 
-        /*img_IndustryRelations.setColorFilter(ManagerHelper.getBlackWhiteFilter());
+        img_IndustryRelations.setColorFilter(ManagerHelper.getBlackWhiteFilter());
         img_SeminarsAndConferences.setColorFilter(ManagerHelper.getBlackWhiteFilter());
-        img_InformationTechnologyCenter.setColorFilter(ManagerHelper.getBlackWhiteFilter());*/
+        img_InformationTechnologyCenter.setColorFilter(ManagerHelper.getBlackWhiteFilter());
 
     }
 

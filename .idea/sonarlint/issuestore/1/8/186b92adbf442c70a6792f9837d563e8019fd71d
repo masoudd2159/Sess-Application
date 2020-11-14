@@ -1,0 +1,26 @@
+
+
+java:S3252Ë"hUse static access with "com.google.android.material.snackbar.BaseTransientBottomBar" for "LENGTH_SHORT".(ÀÀ÷Œ
+Q
+java:S2209Æ"5Change this instance-reference to a static reference.(­°¦Äøÿÿÿÿ
+T
+java:S1117@"9Rename "title" which hides the field declared at line 47.(ªÿì¬şÿÿÿÿ
+q
+java:S14509"VRemove the "adapter" field and declare it as a local variable in the relevant methods.(õ¾”Àøÿÿÿÿ
+?
+java:S1604Ç"(Make this anonymous inner class a lambda(ñ“ï
+n
+java:S3776…"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(ïâÖüÿÿÿÿ
+F
+java:S5411•"*Use the primitive boolean expression here.(á¥üÿÿÿÿ
+?
+java:S1604š"(Make this anonymous inner class a lambda(æ­†ì
+G
+java:S2387/"1"title" is the name of a field in "BaseActivity".(‚³Ù
+F
+java:S5411‘"*Use the primitive boolean expression here.(ôÃÖÀùÿÿÿÿ
+>
+java:S1604¦"(Make this anonymous inner class a lambda(–§º
+?	java:S108")Either remove or fill this block of code.(•Â±¾
+u
+java:S2293´"YReplace the type specification in this constructor call with the diamond operator ("<>").(ô›Óíüÿÿÿÿ

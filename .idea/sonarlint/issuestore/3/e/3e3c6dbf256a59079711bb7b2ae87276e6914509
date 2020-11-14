@@ -1,0 +1,33 @@
+
+m
+java:S3776y"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(‘ı÷ûÿÿÿÿ
+F
+java:S5411‹"*Use the primitive boolean expression here.(ø•êşùÿÿÿÿ
+=
+java:S1604`"(Make this anonymous inner class a lambda(–§º
+>
+java:S1604O"(Make this anonymous inner class a lambda(æ­†ì
+D
+java:S1604˜"(Make this anonymous inner class a lambda(”îŸØùÿÿÿÿ
+?
+java:S1604”"(Make this anonymous inner class a lambda(æ­†ì
+>
+java:S1604¥"(Make this anonymous inner class a lambda(–§º
+U
+java:S24797":Remove the non-escaped \u200C character from this literal.(Áíá‚ıÿÿÿÿ
+E
+java:S5411F"*Use the primitive boolean expression here.(ø•êşùÿÿÿÿ
+Q	java:S125g"<This block of commented-out lines of code should be removed.(ç—­
+A
+java:S5411‰"*Use the primitive boolean expression here.(Ù‘ê
+‰
+java:S1319y"nThe type of the "params" object should be an interface such as "Map" rather than the implementation "HashMap".(‘ı÷ûÿÿÿÿ
+@
+java:S5411D"*Use the primitive boolean expression here.(Ù‘ê
+C
+java:S1604S"(Make this anonymous inner class a lambda(À¯øúÿÿÿÿ
+C
+java:S1604>"(Make this anonymous inner class a lambda(±æÿÚıÿÿÿÿ
+U
+java:S2479{":Remove the non-escaped \u200C character from this literal.(Áíá‚ıÿÿÿÿ
+R	java:S125«"<This block of commented-out lines of code should be removed.(ê‚òÕ

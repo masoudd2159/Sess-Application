@@ -7,15 +7,14 @@ import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 
 import ir.ac.sku.www.sessapplication.api.ApplicationAPI;
 import ir.ac.sku.www.sessapplication.utils.MyHandler;
-import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 import ir.ac.sku.www.sessapplication.utils.WebService;
+import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 
 public class StudentRequests {
 
@@ -27,6 +26,23 @@ public class StudentRequests {
     @Expose
     private Result result;
 
+    public static void fetchFromWeb(Context context, HashMap<String, String> params, final MyHandler handler) {
+        final Gson gson = new Gson();
+
+        WebService webService = new WebService(context);
+        String myURL = ApplicationAPI.STUDENT_REQUEST + "?" + ManagerHelper.enCodeParameters(params);
+        webService.request(myURL, Request.Method.GET, new MyHandler() {
+            @Override
+            public void onResponse(boolean ok, Object obj) {
+                if (ok) {
+                    StudentRequests studentRequests = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), StudentRequests.class);
+                    if (studentRequests.getOk()) {
+                        handler.onResponse(true, studentRequests);
+                    }
+                }
+            }
+        });
+    }
 
     public Boolean getOk() {
         return ok;
@@ -43,7 +59,6 @@ public class StudentRequests {
     public void setResult(Result result) {
         this.result = result;
     }
-
 
     public class Result {
 
@@ -137,25 +152,6 @@ public class StudentRequests {
             }
 
         }
-    }
-
-
-    public static void fetchFromWeb(Context context, HashMap<String, String> params, final MyHandler handler) {
-        final Gson gson = new Gson();
-
-        WebService webService = new WebService(context);
-        String myURL = ApplicationAPI.STUDENT_REQUEST + "?" + ManagerHelper.enCodeParameters(params);
-        webService.request(myURL, Request.Method.GET, new MyHandler() {
-            @Override
-            public void onResponse(boolean ok, Object obj) {
-                if (ok) {
-                    StudentRequests studentRequests = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), StudentRequests.class);
-                    if (studentRequests.getOk()) {
-                        handler.onResponse(true, studentRequests);
-                    }
-                }
-            }
-        });
     }
 }
 

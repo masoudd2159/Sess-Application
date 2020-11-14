@@ -1,0 +1,14 @@
+
+r
+java:S1104&"\Make preferencesUtils a static final constant or non-public and provide accessors if needed.(¨ÊÏô
+c	java:S116%"NRename this field "TAG" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(°’Ü³
+ƒ
+java:S3252P"hUse static access with "com.google.android.material.snackbar.BaseTransientBottomBar" for "LENGTH_SHORT".(ŠÄÒ›ûÿÿÿÿ
+S
+java:S1874u"=Remove this use of "setSystemUiVisibility"; it is deprecated.(ú••É
+e
+java:S1104%"OMake TAG a static final constant or non-public and provide accessors if needed.(°’Ü³
+^
+java:S1874u"HRemove this use of "SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN"; it is deprecated.(ú••É
+Z
+java:S1874u"DRemove this use of "SYSTEM_UI_FLAG_LAYOUT_STABLE"; it is deprecated.(ú••É

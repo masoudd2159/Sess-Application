@@ -1,0 +1,27 @@
+
+W
+java:S1874&"<Remove this use of "getActiveNetworkInfo"; it is deprecated.(çìÂÒúÿÿÿÿ
+g
+java:S2259”"P"NullPointerException" will be thrown when invoking method "noInternetAccess()".(ü•ÀŸ
+R
+java:S18740"<Remove this use of "getActiveNetworkInfo"; it is deprecated.(™€Çà
+C
+java:S1604k"(Make this anonymous inner class a lambda(Şğ¿¯ùÿÿÿÿ
+C
+java:S1604L"(Make this anonymous inner class a lambda(Şğ¿¯ùÿÿÿÿ
+U
+java:S1874&"3Remove this use of "NetworkInfo"; it is deprecated.(çìÂÒúÿÿÿÿ8¤´½§Ø.
+I
+java:S1874'"3Remove this use of "isConnected"; it is deprecated.(€‹Ö®
+W
+java:S1874."<Remove this use of "getActiveNetworkInfo"; it is deprecated.(Ñÿ×“şÿÿÿÿ
+R
+java:S1874/"<Remove this use of "getActiveNetworkInfo"; it is deprecated.(äÄ¯–
+I
+java:S1874/"3Remove this use of "isAvailable"; it is deprecated.(äÄ¯–
+I
+java:S18740"3Remove this use of "isConnected"; it is deprecated.(™€Çà
+A
+java:S1874g",Remove this use of "loop"; it is deprecated.(€ÒúM
+J
+java:S2864y"4Iterate over the "entrySet" instead of the "keySet".(«ñá¬

@@ -21,6 +21,7 @@ public class EducationalDeputyActivity extends MyActivity {
     ImageView img_Attendance;
     ImageView img_Professors;
     ImageView img_WeeklySchedule;
+    ImageView img_registration;
 
     private CardView processes;
 
@@ -40,9 +41,10 @@ public class EducationalDeputyActivity extends MyActivity {
 
         init();
 
-        /*img_Attendance.setColorFilter(ManagerHelper.getBlackWhiteFilter());
+        img_Attendance.setColorFilter(ManagerHelper.getBlackWhiteFilter());
         img_Professors.setColorFilter(ManagerHelper.getBlackWhiteFilter());
-        img_WeeklySchedule.setColorFilter(ManagerHelper.getBlackWhiteFilter());*/
+        img_WeeklySchedule.setColorFilter(ManagerHelper.getBlackWhiteFilter());
+        img_registration.setColorFilter(ManagerHelper.getBlackWhiteFilter());
 
         processes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +62,7 @@ public class EducationalDeputyActivity extends MyActivity {
         img_Attendance = findViewById(R.id.educationalDeputyActivity_Attendance_ImageView);
         img_Professors = findViewById(R.id.educationalDeputyActivity_Professors_ImageView);
         img_WeeklySchedule = findViewById(R.id.educationalDeputyActivity_WeeklySchedule_ImageView);
+        img_registration = findViewById(R.id.imageView_registration);
 
         processes = findViewById(R.id.educationalDeputyActivity_Processes);
     }

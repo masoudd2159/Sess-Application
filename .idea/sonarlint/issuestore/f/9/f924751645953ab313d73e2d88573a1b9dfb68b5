@@ -1,0 +1,22 @@
+
+N
+java:S1874Q"3Remove this use of "versionCode"; it is deprecated.(®Å¶áÿÿÿÿÿ
+e
+java:S1874w"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(Û¶…óøÿÿÿÿ
+K
+java:S1874x"5Remove this use of "onPostExecute"; it is deprecated.(¹ï•é
+\
+java:S2142i"FEither re-interrupt this method or rethrow the "InterruptedException".(ä ¹€
+B
+java:S18742",Remove this use of "loop"; it is deprecated.(Ú¯•ğ
+E
+java:S1874^"/Remove this use of "execute"; it is deprecated.(ÅÔÄû
+c	java:S100/"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğêğû
+I
+java:S1874q"4Remove this use of "onPreExecute"; it is deprecated.(”•P
+E
+java:S1874T"/Remove this use of "execute"; it is deprecated.(ÅÔÄû
+`
+java:S1874p"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ËĞƒ
+L
+java:S1874a"1Remove this use of "AsyncTask"; it is deprecated.(¶¬¯›üÿÿÿÿ

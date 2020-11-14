@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -34,8 +35,8 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.adapters.NewsAdapter;
 import ir.ac.sku.www.sessapplication.model.NewsModel;
-import ir.ac.sku.www.sessapplication.utils.MyHandler;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
+import ir.ac.sku.www.sessapplication.utils.MyHandler;
 
 public class NewsActivity extends MyActivity {
 
@@ -43,10 +44,10 @@ public class NewsActivity extends MyActivity {
     private ViewPager viewPager;
     private LinearLayout layoutDot;
     private RelativeLayout relativeLayout;
+    private LottieAnimationView loadingAnimationView;
 
     private RecyclerView recyclerView;
     private NewsAdapter adapter;
-    private ProgressDialog progressDialog;
     private AppBarLayout appBarLayout;
     private CollapsingToolbarLayout collapsingToolbar;
 
@@ -112,10 +113,7 @@ public class NewsActivity extends MyActivity {
 
         init();
 
-        progressDialog = new ProgressDialog(NewsActivity.this);
-        progressDialog.setMessage("لطفا منتظر بمانید!");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
+        loadingAnimationView.setVisibility(View.VISIBLE);
 
         getDataFromServer();
     }
@@ -136,13 +134,14 @@ public class NewsActivity extends MyActivity {
         viewPager = findViewById(R.id.newsActivity_ViewPager);
         layoutDot = findViewById(R.id.newsActivity_DotLayout);
         recyclerView = findViewById(R.id.newsActivity_RecyclerView);
+        loadingAnimationView = findViewById(R.id.newsActivity_AnimationView);
     }
 
     private void getDataFromServer() {
         NewsModel.fetchFromWeb(NewsActivity.this, null, new MyHandler() {
             @Override
             public void onResponse(boolean ok, Object obj) {
-                progressDialog.dismiss();
+                loadingAnimationView.setVisibility(View.INVISIBLE);
 
                 if (ok) {
                     NewsModel newsModel = new NewsModel();

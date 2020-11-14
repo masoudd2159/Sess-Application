@@ -1,0 +1,307 @@
+[
+  {
+    "section": "نمای درب ورودی دانشگاه",
+    "pictures": [
+      {
+        "image": "img_1.jpg",
+        "description": "نمای درب ورودی دانشگاه"
+      },
+      {
+        "image": "img_2.jpg",
+        "description": "نمای درب ورودی دانشگاه"
+      },
+      {
+        "image": "img_3.jpg",
+        "description": "نمای درب ورودی دانشگاه"
+      },
+      {
+        "image": "img_4.jpg",
+        "description": "نمای محوطه درب ورودی دانشگاه"
+      },
+      {
+        "image": "img_5.jpg",
+        "description": "نمای محوطه درب ورودی دانشگاه"
+      }
+    ]
+  },
+  {
+    "section": "نمای ساختمان ریاست دانشگاه شهرکرد",
+    "pictures": [
+      {
+        "image": "img_6.jpg",
+        "description": "ساختمان ریاست دانشگاه شهرکرد"
+      },
+      {
+        "image": "img_7.jpg",
+        "description": "ساختمان ریاست دانشگاه شهرکرد"
+      },
+      {
+        "image": "img_8.jpg",
+        "description": "ساختمان ریاست دانشگاه شهرکرد"
+      }
+    ]
+  },
+  {
+    "section": "نمای دانشکده فنی و مهندسی",
+    "pictures": [
+      {
+        "image": "img_9.jpg",
+        "description": "دانشکده فنی و مهندسی"
+      },
+      {
+        "image": "img_10.jpg",
+        "description": "دانشکده فنی و مهندسی"
+      },
+      {
+        "image": "img_11.jpg",
+        "description": "دانشکده فنی و مهندسی"
+      }
+    ]
+  },
+  {
+    "section": "نمای دانشکده علوم پایه",
+    "pictures": [
+      {
+        "image": "img_12.jpg",
+        "description": "دانشکده علوم پایه"
+      },
+      {
+        "image": "img_13.jpg",
+        "description": "دانشکده علوم پایه"
+      },
+      {
+        "image": "img_14.jpg",
+        "description": "دانشکده علوم پایه"
+      }
+    ]
+  },
+  {
+    "section": "نمای دانشکده ادبیات و علوم انسانی",
+    "pictures": [
+      {
+        "image": "img_15.jpg",
+        "description": "دانشکده ادبیات و علوم انسانی"
+      },
+      {
+        "image": "img_16.jpg",
+        "description": "دانشکده ادبیات و علوم انسانی"
+      },
+      {
+        "image": "img_17.jpg",
+        "description": "دانشکده ادبیات و علوم انسانی"
+      }
+    ]
+  },
+  {
+    "section": "نمای دانشکده کشاورزی",
+    "pictures": [
+      {
+        "image": "img_18.jpg",
+        "description": "دانشکده کشاورزی"
+      },
+      {
+        "image": "img_19.jpg",
+        "description": "دانشکده کشاورزی"
+      },
+      {
+        "image": "img_20.jpg",
+        "description": "دانشکده کشاورزی"
+      }
+    ]
+  },
+  {
+    "section": "نمای دانشکده منابع طبیعی",
+    "pictures": [
+      {
+        "image": "img_21.jpg",
+        "description": "دانشکده منابع طبیعی"
+      },
+      {
+        "image": "img_22.jpg",
+        "description": "دانشکده منابع طبیعی"
+      },
+      {
+        "image": "img_23.jpg",
+        "description": "دانشکده منابع طبیعی"
+      }
+    ]
+  },
+  {
+    "section": "نمای نهاد نمایندگی مقام معظم رهبری",
+    "pictures": [
+      {
+        "image": "img_24.jpg",
+        "description": "نهاد نمایندگی مقام معظم رهبری"
+      },
+      {
+        "image": "img_25.jpg",
+        "description": "نهاد نمایندگی مقام معظم رهبری"
+      },
+      {
+        "image": "img_26.jpg",
+        "description": "نهاد نمایندگی مقام معظم رهبری"
+      },
+      {
+        "image": "img_27.jpg",
+        "description": "نهاد نمایندگی مقام معظم رهبری"
+      }
+    ]
+  },
+  {
+    "section": "نمای مسجد دانشگاه",
+    "pictures": [
+      {
+        "image": "img_28.jpg",
+        "description": "مسجد دانشگاه"
+      },
+      {
+        "image": "img_29.jpg",
+        "description": "مسجد دانشگاه"
+      },
+      {
+        "image": "img_30.jpg",
+        "description": "مسجد دانشگاه"
+      },
+      {
+        "image": "img_31.jpg",
+        "description": "ایوان مسجد دانشگاه"
+      },
+      {
+        "image": "img_32.jpg",
+        "description": "درب مسجد دانشگاه"
+      },
+      {
+        "image": "img_33.jpg",
+        "description": "نمای دور مسجد دانشگاه"
+      }
+    ]
+  },
+  {
+    "section": "نمای آرامگاه شهدای گمنام دانشگاه",
+    "pictures": [
+      {
+        "image": "img_34.jpg",
+        "description": "آرامگاه شهدای گمنام دانشگاه"
+      },
+      {
+        "image": "img_35.jpg",
+        "description": "آرامگاه شهدای گمنام دانشگاه"
+      },
+      {
+        "image": "img_36.jpg",
+        "description": "آرامگاه شهدای گمنام دانشگاه"
+      },
+      {
+        "image": "img_37.jpg",
+        "description": "نمای داخل آرامگاه شهدای گمنام دانشگاه"
+      }
+    ]
+  },
+  {
+    "section": "نمای ساختمان آموزش",
+    "pictures": [
+      {
+        "image": "img_38.jpg",
+        "description": "ساختمان آموزش"
+      },
+      {
+        "image": "img_39.jpg",
+        "description": "ساختمان آموزش"
+      },
+      {
+        "image": "img_40.jpg",
+        "description": "ساختمان آموزش"
+      },
+      {
+        "image": "img_41.jpg",
+        "description": "ساختمان آموزش"
+      }
+    ]
+  },
+  {
+    "section": "نمای ساختمان مدیریت فناوری اطلاعات و ارتباطات",
+    "pictures": [
+      {
+        "image": "img_42.jpg",
+        "description": "ساختمان مدیریت فناوری اطلاعات و ارتباطات"
+      },
+      {
+        "image": "img_43.jpg",
+        "description": "ساختمان مدیریت فناوری اطلاعات و ارتباطات"
+      }
+    ]
+  },
+  {
+    "section": "نمای کتابخانه مرکزی",
+    "pictures": [
+      {
+        "image": "img_44.jpg",
+        "description": "کتابخانه مرکزی"
+      },
+      {
+        "image": "img_45.jpg",
+        "description": "کتابخانه مرکزی"
+      },
+      {
+        "image": "img_46.jpg",
+        "description": "کتابخانه مرکزی"
+      },
+      {
+        "image": "img_47.jpg",
+        "description": "نمای بیرونی کتابخانه مرکزی"
+      }
+    ]
+  },
+  {
+    "section": "نمای ساختمان ادبیات قدیم",
+    "pictures": [
+      {
+        "image": "img_48.jpg",
+        "description": "ساختمان ادبیات قدیم"
+      },
+      {
+        "image": "img_49.jpg",
+        "description": "ساختمان ادبیات قدیم"
+      }
+    ]
+  },
+  {
+    "section": "نمای ساختمان ابن سینا",
+    "pictures": [
+      {
+        "image": "img_50.jpg",
+        "description": "ساختمان ابن سینا"
+      },
+      {
+        "image": "img_51.jpg",
+        "description": "ساختمان ابن سینا"
+      }
+    ]
+  },
+  {
+    "section": "نمای سلف برادران دانشگاه",
+    "pictures": [
+      {
+        "image": "img_52.jpg",
+        "description": "سلف برادران دانشگاه"
+      },
+      {
+        "image": "img_53.jpg",
+        "description": "سلف آزاد برادران دانشگاه"
+      }
+    ]
+  },
+  {
+    "section": "نمای اداره پست دانشگاه",
+    "pictures": [
+      {
+        "image": "img_54.jpg",
+        "description": "اداره پست دانشگاه"
+      },
+      {
+        "image": "img_55.jpg",
+        "description": "اداره پست دانشگاه"
+      }
+    ]
+  }
+]

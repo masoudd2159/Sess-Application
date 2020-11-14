@@ -1,5 +1,6 @@
 package ir.ac.sku.www.sessapplication.fragment.dialogfragment;
 
+import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +19,7 @@ import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.api.MyLog;
 import ir.ac.sku.www.sessapplication.base.BaseDialogFragment;
 
+@SuppressLint("NonConstantResourceId")
 public class DialogFragmentNoInternetAccess extends BaseDialogFragment {
 
     @BindView(R.id.disconnect_WiFi) Button wifi;

@@ -1,5 +1,6 @@
 package ir.ac.sku.www.sessapplication.fragment.dialogfragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
@@ -15,15 +16,15 @@ import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.base.BaseDialogFragment;
 import ir.ac.sku.www.sessapplication.model.information.SendInformation;
 
+@SuppressLint("NonConstantResourceId")
 public class DialogFragmentInstantMessage extends BaseDialogFragment {
 
+    private final SendInformation.Result instantMessage;
     @BindView(R.id.instantMessage_Sender) TextView textViewSender;
     @BindView(R.id.instantMessage_Date) TextView textViewDate;
     @BindView(R.id.instantMessage_Subject) TextView textViewSubject;
     @BindView(R.id.instantMessage_Message) TextView textViewMessage;
     @BindView(R.id.instantMessage_NextAndClose) Button buttonNextAndClose;
-
-    private SendInformation.Result instantMessage;
 
     public DialogFragmentInstantMessage(SendInformation.Result instantMessage) {
         this.instantMessage = instantMessage;

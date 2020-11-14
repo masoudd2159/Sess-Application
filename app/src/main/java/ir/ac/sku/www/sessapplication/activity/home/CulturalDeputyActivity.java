@@ -4,19 +4,24 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
 import ir.ac.sku.www.sessapplication.R;
+import ir.ac.sku.www.sessapplication.activity.home.gallery.AlbumsActivity;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
+import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 
 public class CulturalDeputyActivity extends MyActivity {
 
     private CardView journals;
     private CardView competitions;
     private CardView newbie;
+    private CardView gallery;
+    private ImageView camping;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +44,17 @@ public class CulturalDeputyActivity extends MyActivity {
 
         newbie.setOnClickListener(v -> startActivity(new Intent(CulturalDeputyActivity.this, NewbieActivity.class)));
 
+        gallery.setOnClickListener(v -> startActivity(new Intent(CulturalDeputyActivity.this, AlbumsActivity.class)));
+
+        camping.setColorFilter(ManagerHelper.getBlackWhiteFilter());
     }
 
     private void init() {
         journals = findViewById(R.id.CulturalDeputyActivity_journals);
         competitions = findViewById(R.id.CulturalDeputyActivity_Competitions);
         newbie = findViewById(R.id.CulturalDeputyActivity_Newbie);
+        gallery = findViewById(R.id.CulturalDeputyActivity_gallery);
+        camping = findViewById(R.id.imageView_camping);
     }
 
     @Override

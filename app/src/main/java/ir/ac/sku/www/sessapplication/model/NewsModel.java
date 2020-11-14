@@ -6,20 +6,38 @@ import android.content.Context;
 import com.android.volley.Request;
 import com.google.gson.Gson;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 
 import ir.ac.sku.www.sessapplication.api.ApplicationAPI;
 import ir.ac.sku.www.sessapplication.utils.MyHandler;
-import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 import ir.ac.sku.www.sessapplication.utils.WebService;
+import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 
 public class NewsModel {
 
     private Boolean ok;
     private Result result;
+
+    public static void fetchFromWeb(Context context, HashMap<String, String> params, final MyHandler handler) {
+        final Gson gson = new Gson();
+
+        WebService webService = new WebService(context);
+        String myURL = ApplicationAPI.STUDENT_NEWS + "?" + ManagerHelper.enCodeParameters(params);
+        webService.request(myURL, Request.Method.GET, new MyHandler() {
+            @Override
+            public void onResponse(boolean ok, Object obj) {
+                if (ok) {
+                    @SuppressLint({"NewApi", "LocalSuppress"}) NewsModel newsModel = null;
+                    newsModel = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), NewsModel.class);
+                    if (newsModel.getOk()) {
+                        handler.onResponse(true, newsModel);
+                    }
+                }
+            }
+        });
+    }
 
     public Boolean getOk() {
         return ok;
@@ -153,24 +171,5 @@ public class NewsModel {
                 this.image = image;
             }
         }
-    }
-
-    public static void fetchFromWeb(Context context, HashMap<String, String> params, final MyHandler handler) {
-        final Gson gson = new Gson();
-
-        WebService webService = new WebService(context);
-        String myURL = ApplicationAPI.STUDENT_NEWS + "?" + ManagerHelper.enCodeParameters(params);
-        webService.request(myURL, Request.Method.GET, new MyHandler() {
-            @Override
-            public void onResponse(boolean ok, Object obj) {
-                if (ok) {
-                    @SuppressLint({"NewApi", "LocalSuppress"}) NewsModel newsModel = null;
-                    newsModel = gson.fromJson(new String(obj.toString().getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), NewsModel.class);
-                    if (newsModel.getOk()) {
-                        handler.onResponse(true, newsModel);
-                    }
-                }
-            }
-        });
     }
 }

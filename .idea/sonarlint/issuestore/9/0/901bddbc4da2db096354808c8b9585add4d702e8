@@ -1,0 +1,22 @@
+
+T
+java:S1128"7Remove this unused import 'android.app.ProgressDialog'.(¶ÍÔÓ8ÎÅœÖÓ.
+D
+java:S1604ß"(Make this anonymous inner class a lambda(÷¼¬âùÿÿÿÿ
+v
+java:S14504"`Remove the "collapsingToolbar" field and declare it as a local variable in the relevant methods.(¶Áòñ
+M
+java:S1068."2Remove this unused "relativeLayout" private field.(œôŞõüÿÿÿÿ
+v
+java:S14503"[Remove the "appBarLayout" field and declare it as a local variable in the relevant methods.(ßßŒ„øÿÿÿÿ
+g
+java:S1301Ç"KReplace this "switch" statement by "if" statements to increase readability.(øå´¡ÿÿÿÿÿ
+>
+java:S1604"(Make this anonymous inner class a lambda(Ãíû(
+J
+java:S1874M"/Remove this use of "Handler"; it is deprecated.(–êàìÿÿÿÿÿ
+G
+java:S1874¾"0Remove this use of "fromHtml"; it is deprecated.(ÎâÁ
+=	java:S131Ç""Add a default case to this switch.(øå´¡ÿÿÿÿÿ
+q
+java:S14502"VRemove the "adapter" field and declare it as a local variable in the relevant methods.(¡ÃØ¦ÿÿÿÿÿ

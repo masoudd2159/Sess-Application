@@ -38,7 +38,7 @@ public class HomeFragment extends Fragment {
     private CardView news;
     private CardView support;
     private CardView newbie;
-    private CardView onlineShop;
+   // private CardView onlineShop;
     private CardView office;
     private CardView phoneBook;
 
@@ -81,7 +81,7 @@ public class HomeFragment extends Fragment {
 
         nahad.setOnClickListener(v -> startActivity(new Intent(rootView.getContext(), LeaderActivity.class)));
 
-        onlineShop.setOnClickListener(v -> startActivity(new Intent(rootView.getContext(), OnlineShopActivity.class)));
+      //  onlineShop.setOnClickListener(v -> startActivity(new Intent(rootView.getContext(), OnlineShopActivity.class)));
 
         return view;
     }
@@ -98,6 +98,6 @@ public class HomeFragment extends Fragment {
         support = rootView.findViewById(R.id.homeFragment_Support);
         newbie = rootView.findViewById(R.id.homeFragment_Newbie);
         nahad = rootView.findViewById(R.id.homeFragment_Nahad);
-        onlineShop = rootView.findViewById(R.id.homeFragment_online_shop);
+       // onlineShop = rootView.findViewById(R.id.homeFragment_online_shop);
     }
 }

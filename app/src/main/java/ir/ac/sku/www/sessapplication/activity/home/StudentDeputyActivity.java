@@ -1,5 +1,6 @@
 package ir.ac.sku.www.sessapplication.activity.home;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -12,6 +13,7 @@ import ir.ac.sku.www.sessapplication.base.BaseActivity;
 import ir.ac.sku.www.sessapplication.utils.Tools;
 import ir.ac.sku.www.sessapplication.utils.helper.ManagerHelper;
 
+@SuppressLint("NonConstantResourceId")
 public class StudentDeputyActivity extends BaseActivity {
 
     @BindView(R.id.studentDeputyActivity_Clinic) CardView cardViewClinic;

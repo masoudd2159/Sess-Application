@@ -22,11 +22,12 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:targetApi="n">
+        <activity android:name=".activity.home.gallery.GalleryActivity"></activity>
+        <activity android:name=".activity.home.gallery.AlbumsActivity" />
 
         <meta-data
             android:name="co.ronash.pushe.token"
             android:value="PUSHE_624655216451" />
-
         <meta-data
             android:name="firebase_performance_logcat_enabled"
             android:value="true" />
@@ -138,7 +139,6 @@
                 <action android:name="android.media.AUDIO_BECOMING_NOISY" />
             </intent-filter>
         </service>
-
     </application>
 
 </manifest>

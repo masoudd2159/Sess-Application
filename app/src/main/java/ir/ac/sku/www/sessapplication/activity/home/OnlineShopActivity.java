@@ -89,6 +89,7 @@ public class OnlineShopActivity extends BaseActivity {
 
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        fm.beginTransaction().add(R.id.layout_content, fragment5, "5").hide(fragment4).commit();
         fm.beginTransaction().add(R.id.layout_content, fragment4, "4").hide(fragment4).commit();
         fm.beginTransaction().add(R.id.layout_content, fragment3, "3").hide(fragment3).commit();
         fm.beginTransaction().add(R.id.layout_content, fragment2, "2").hide(fragment2).commit();

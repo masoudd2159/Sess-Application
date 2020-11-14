@@ -1,0 +1,13 @@
+
+L
+java:S1874,"6Remove this use of "ProgressDialog"; it is deprecated.(Ì»Çº
+R
+java:S1117'"<Rename "rootView" which hides the field declared at line 32.(ìí¼Ð
+Q
+java:S1874!"6Remove this use of "ProgressDialog"; it is deprecated.(·á…Çùÿÿÿÿ
+=
+java:S1604/"(Make this anonymous inner class a lambda(¢£ò!
+>
+java:S1604?"(Make this anonymous inner class a lambda(—’ïï
+M
+java:S1874-"2Remove this use of "setMessage"; it is deprecated.(•ŽÐ¬ýÿÿÿÿ

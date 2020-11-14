@@ -17,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.activity.home.ChannelActivity;
+import ir.ac.sku.www.sessapplication.activity.home.gallery.AlbumsActivity;
 import ir.ac.sku.www.sessapplication.activity.utils.ActivityWebView;
 import ir.ac.sku.www.sessapplication.activity.utils.ParsMapActivity;
 import ir.ac.sku.www.sessapplication.activity.utils.ShowPDFActivity;
@@ -65,8 +66,14 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.MyViewHo
                 Intent intentVideo = new Intent(context, ChannelActivity.class);
                 intentVideo.putExtra("URL", detailsModels.get(getLayoutPosition()).getUrl());
                 context.startActivity(intentVideo);
-            }
-            else if (detailsModels.get(getLayoutPosition()).getId() == 47) {
+            } else if (detailsModels.get(getLayoutPosition()).getId() == 5) {
+                Intent intentAlbum = new Intent(context, AlbumsActivity.class);
+                context.startActivity(intentAlbum);
+            } else if (detailsModels.get(getLayoutPosition()).getId() == 49) {
+                Intent intentVideoBus = new Intent(context, ChannelActivity.class);
+                intentVideoBus.putExtra("URL", detailsModels.get(getLayoutPosition()).getUrl());
+                context.startActivity(intentVideoBus);
+            } else if (detailsModels.get(getLayoutPosition()).getId() == 47) {
                 Intent intentPDF = new Intent(context, ShowPDFActivity.class);
                 intentPDF.putExtra("pdf", detailsModels.get(getLayoutPosition()).getUrl());
                 intentPDF.putExtra("PDFName", "میثاق نامه دانشجویان");

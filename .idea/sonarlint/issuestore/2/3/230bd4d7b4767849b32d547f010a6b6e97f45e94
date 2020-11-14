@@ -1,0 +1,16 @@
+
+f	java:S117x"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨Çğ·
+O
+java:S1874Ì"9Remove this use of "getDefaultDisplay"; it is deprecated.(Ìºâ
+H
+java:S1874Ì"2Remove this use of "getMetrics"; it is deprecated.(Ìºâ
+C
+java:S1068)"-Remove this unused "secretary" private field.(·Áäò
+l	java:S117‰"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ı²ê¤ùÿÿÿÿ
+l	java:S117’"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ë÷ıøÿÿÿÿ
+f	java:S117›"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ºøóL
+V	java:S125g"<This block of commented-out lines of code should be removed.(ğûÿÿÿÿ
+g	java:S117¤"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ò²¥ÿ
+n
+java:S1450)"XRemove the "secretary" field and declare it as a local variable in the relevant methods.(·Áäò
+g	java:S117€"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÅÉé†

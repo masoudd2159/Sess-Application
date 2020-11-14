@@ -78,6 +78,7 @@ public class SendMessageActivity extends BaseActivity {
         gson = new Gson();
         message = new MSGSendMessage();
 
+
         setItems();
     }
 

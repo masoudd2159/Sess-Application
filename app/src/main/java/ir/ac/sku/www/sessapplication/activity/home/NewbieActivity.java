@@ -1,5 +1,6 @@
 package ir.ac.sku.www.sessapplication.activity.home;
 
+import android.annotation.SuppressLint;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Typeface;
 import android.media.AudioManager;
@@ -46,6 +47,7 @@ import ir.ac.sku.www.sessapplication.utils.MusicUtils;
 import ir.ac.sku.www.sessapplication.utils.MyActivity;
 import me.relex.circleindicator.CircleIndicator2;
 
+@SuppressLint("NonConstantResourceId")
 public class NewbieActivity extends MyActivity implements
         DiscreteScrollView.OnItemChangedListener<DepartmentsAdapter.MyViewHolder>,
         DiscreteScrollView.ScrollStateChangeListener<DepartmentsAdapter.MyViewHolder> {
@@ -68,6 +70,18 @@ public class NewbieActivity extends MyActivity implements
     private Handler mHandler = new Handler();
 
     private MusicUtils utils;
+    /**
+     * Background Runnable thread
+     */
+    private Runnable mUpdateTimeTask = new Runnable() {
+        public void run() {
+            updateTimerAndSeekbar();
+            // Running this thread after 10 milliseconds
+            if (mp.isPlaying()) {
+                mHandler.postDelayed(this, 100);
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -202,19 +216,6 @@ public class NewbieActivity extends MyActivity implements
             }
         }
     }
-
-    /**
-     * Background Runnable thread
-     */
-    private Runnable mUpdateTimeTask = new Runnable() {
-        public void run() {
-            updateTimerAndSeekbar();
-            // Running this thread after 10 milliseconds
-            if (mp.isPlaying()) {
-                mHandler.postDelayed(this, 100);
-            }
-        }
-    };
 
     private void updateTimerAndSeekbar() {
         long totalDuration = mp.getDuration();

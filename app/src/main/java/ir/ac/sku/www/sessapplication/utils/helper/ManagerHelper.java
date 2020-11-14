@@ -28,9 +28,6 @@ import java.util.Map;
 import ir.ac.sku.www.sessapplication.R;
 import ir.ac.sku.www.sessapplication.api.MyLog;
 import ir.ac.sku.www.sessapplication.fragment.dialogfragment.DialogFragmentNoInternetAccess;
-import ir.ac.sku.www.sessapplication.model.information.SendInformation;
-import ir.ac.sku.www.sessapplication.utils.MyHandler;
-import ir.ac.sku.www.sessapplication.utils.SignIn;
 
 public class ManagerHelper {
 
@@ -144,7 +141,7 @@ public class ManagerHelper {
         return new ColorMatrixColorFilter(matrix);
     }
 
-    public static boolean checkInternetServices(Context context) {
+    public static boolean checkInternetServices(Context context){
         if (isInternetAvailable(context)) {
             return true;
         } else {
